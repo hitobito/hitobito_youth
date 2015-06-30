@@ -1,7 +1,7 @@
-=== Hitobito Hitobito Youth
+=== Hitobito Youth
 
 This hitobito wagon defines the organization hierarchy with groups and roles
-of Hitobito youth.
+of Youth.
 
 
 === Organization Hierarchy

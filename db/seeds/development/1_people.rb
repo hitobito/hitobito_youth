@@ -2,7 +2,7 @@
 
 require Rails.root.join('db', 'seeds', 'support', 'person_seeder')
 
-class HitobitoYouthPersonSeeder < PersonSeeder
+class YouthPersonSeeder < PersonSeeder
 
   def amount(role_type)
     # TODO: define how many instances each role type should have
@@ -26,7 +26,7 @@ puzzlers.each do |puz|
   devs[puz] = "#{puz.split.last.downcase}@puzzle.ch"
 end
 
-seeder = HitobitoYouthPersonSeeder.new
+seeder = YouthPersonSeeder.new
 
 seeder.seed_all_roles
 

@@ -1,5 +1,5 @@
 
-# Settings relevant for the hitobito_hitobito_youth wagon
+# Settings relevant for the hitobito_youth wagon
 # Overrides settings from the main application
 application:
   languages:
@@ -10,4 +10,4 @@ application:
 # not the customers.
 # Initially, a password reset token may be mailed from the application
 # to this address to set a password.
-root_email: hitobito-hitobito-youth@puzzle.ch
+root_email: hitobito-youth@puzzle.ch

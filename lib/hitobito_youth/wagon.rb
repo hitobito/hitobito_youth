@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module HitobitoHitobitoYouth
+module HitobitoYouth
   class Wagon < Rails::Engine
     include Wagons::Wagon
 
@@ -16,16 +16,16 @@ module HitobitoHitobitoYouth
     config.to_prepare do
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
-      Group.send        :include, HitobitoYouth::Group
+      Group.send        :include, Youth::Group
       # rubocop:enable SingleSpaceBeforeFirstArg
     end
 
-    initializer 'hitobito_youth.add_settings' do |_app|
+    initializer 'youth.add_settings' do |_app|
       Settings.add_source!(File.join(paths['config'].existent, 'settings.yml'))
       Settings.reload!
     end
 
-    initializer 'hitobito_youth.add_inflections' do |_app|
+    initializer 'youth.add_inflections' do |_app|
       ActiveSupport::Inflector.inflections do |inflect|
         # inflect.irregular 'census', 'censuses'
       end

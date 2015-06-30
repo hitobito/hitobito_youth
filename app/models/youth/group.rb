@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module HitobitoYouth::Group
+module Youth::Group
   extend ActiveSupport::Concern
 
   included do

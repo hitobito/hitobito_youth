@@ -15,6 +15,6 @@ load 'rspec/rails/tasks/rspec.rake'
 
 require 'ci/reporter/rake/rspec' unless Rails.env.production?
 
-HitobitoHitobitoYouth::Wagon.load_tasks
+HitobitoYouth::Wagon.load_tasks
 
 task 'test:prepare' => 'db:test:prepare'

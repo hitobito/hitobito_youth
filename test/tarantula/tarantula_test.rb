@@ -35,11 +35,11 @@ class TarantulaTest < ActionDispatch::IntegrationTest
   
   private
   
-  def configure_urls_with_hitobito_hitobito_youth(t, person)
-    configure_urls_without_hitobito_hitobito_youth(t, person)
+  def configure_urls_with_hitobito_youth(t, person)
+    configure_urls_without_hitobito_youth(t, person)
 
     # Wagon specific urls configuration here
   end
-  alias_method_chain :configure_urls, :hitobito_hitobito_youth
+  alias_method_chain :configure_urls, :hitobito_youth
 
 end
