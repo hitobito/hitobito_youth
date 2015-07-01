@@ -9,7 +9,7 @@ module Youth::Export::Csv::People
     end
 
     def gender
-      {'m': 1, 'f': 2}[entry.gender]
+      {'m' => 1, 'f' => 2}[entry.gender]
     end
 
     def ahv_number
