@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Youth::Export::Csv::People
   class ParticipationNdbjsRow < Export::Csv::People::PersonRow
 

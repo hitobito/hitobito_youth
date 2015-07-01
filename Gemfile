@@ -1,3 +1,4 @@
+# encoding: utf-8
 load File.expand_path('../app_root.rb', __FILE__)
 
 source 'https://rubygems.org'
