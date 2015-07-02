@@ -1,7 +1,10 @@
+# encoding: utf-8
+
 class AddCourseRelatedFields < ActiveRecord::Migration
   def up
     add_if_missing(:events, :signature, :boolean)
     add_if_missing(:events, :signature_confirmation, :boolean)
+    add_if_missing(:events, :training_days, :decimal, precision: 12, scale: 1)
 
     add_if_missing(:event_kinds, :bsv_id, :string)
 
@@ -14,6 +17,7 @@ class AddCourseRelatedFields < ActiveRecord::Migration
   def down
     remove_if_present(:events, :signature)
     remove_if_present(:events, :signature_confirmation)
+    remove_if_present(:events, :training_days)
 
     remove_if_present(:event_kinds, :bsv_id)
 
