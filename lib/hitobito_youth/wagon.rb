@@ -17,6 +17,9 @@ module HitobitoYouth
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
       Group.send        :include, Youth::Group
+      Event::Course.used_attributes += [:training_days,
+                                        :signature,
+                                        :signature_confirmation]
       # rubocop:enable SingleSpaceBeforeFirstArg
     end
 

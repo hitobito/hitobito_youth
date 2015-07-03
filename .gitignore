@@ -16,3 +16,5 @@ spec/coverage
 spec/reports
 brakeman-output.tabs
 rubocop-results.xml
+config/environment.rb
+.envrc

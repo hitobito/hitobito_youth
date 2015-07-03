@@ -17,3 +17,10 @@ de:
       group/root/member:
         one: Mitglied
         description: Mitglieder sind alle anderen.
+
+
+    attributes:
+      event:
+        training_days: Ausbildungstage
+        signature: Unterschrift erforderlich
+        signature_confirmation: Zweitunterschrift erforderlich
