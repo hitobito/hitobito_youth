@@ -25,7 +25,7 @@ module HitobitoYouth
       Event::Course.used_attributes += [:training_days,
                                         :signature,
                                         :signature_confirmation]
-      # rubocop:enable SingleSpaceBeforeFirstArg
+      Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver, :j_s_label]
     end
 
     initializer 'youth.add_settings' do |_app|
