@@ -24,3 +24,7 @@ de:
         training_days: Ausbildungstage
         signature: Unterschrift erforderlich
         signature_confirmation: Zweitunterschrift erforderlich
+
+      event/kind:
+        kurs_id_fiver: Kurs-ID-FiVer
+        vereinbarungs_id_fiver: Vereinbarungs-ID-FiVer
