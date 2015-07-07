@@ -4,4 +4,4 @@
 -#  https://github.com/hitobito/hitobito_youth.
 
 - entry.used?(:training_days) do
-  = labeled_attr(entry, :training_days)
+  = labeled_attr(entry, :training_days) if entry.training_days.present?
