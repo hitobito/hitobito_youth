@@ -10,7 +10,7 @@ module Youth::Export::Csv::People
   class ParticipationsNdbjs < Export::Csv::Base
 
     self.model_class = ::Event::Participation
-    self.row_class = Export::Csv::People::ParticipationNdbjsRow
+    self.row_class = Youth::Export::Csv::People::ParticipationNdbjsRow
 
     def build_attribute_labels
       #{ j_s_number: 'NDS_PERSONEN_NR',
