@@ -3,15 +3,3 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-# Settings relevant for the hitobito_youth wagon
-# Overrides settings from the main application
-application:
-  languages:
-    de: Deutsch
-
-# The person with this email has root access to everything
-# This person should only be used by the operators of the application,
-# not the customers.
-# Initially, a password reset token may be mailed from the application
-# to this address to set a password.
-root_email: hitobito-youth@puzzle.ch

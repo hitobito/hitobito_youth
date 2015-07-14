@@ -10,13 +10,13 @@ Gem::Specification.new do |s|
   # rubocop:disable SingleSpaceBeforeFirstArg
   s.name        = 'hitobito_youth'
   s.version     = HitobitoYouth::VERSION
-  s.authors     = ['Your name']
-  s.email       = ['Your email']
-  # s.homepage    = 'TODO'
-  s.summary     = 'Youth'
-  s.description = 'Wagon description'
+  s.authors     = ['Pascal Simon']
+  s.email       = ['simon@puzzle.ch']
+  s.homepage    = 'https://github.com/hitobito/hitobito_youth'
+  s.summary     = 'Hitobito Youth Wagon'
+  s.description = 'Provides fields required for J+S and BSV as well as corresponding reports.'
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['Rakefile']
-  s.test_files = Dir['test/**/*']
+  s.test_files = Dir['spec/**/*']
   # rubocop:enable SingleSpaceBeforeFirstArg
 end

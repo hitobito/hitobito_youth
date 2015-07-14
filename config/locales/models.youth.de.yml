@@ -7,28 +7,9 @@ de:
   activerecord:
     models:
 
-      ### GROUPS
-
-      group/root:
-        one: Hauptgruppe
-        other: Hauptgruppen
-
-
-      ### ROLES
-
-      group/root/leader:
-        one: Leitung
-        description: Leitungspersonen verwalten die Applikation.
-      group/root/member:
-        one: Mitglied
-        description: Mitglieder sind alle anderen.
-
-
     attributes:
       event:
         training_days: Ausbildungstage
-        signature: Unterschrift erforderlich
-        signature_confirmation: Zweitunterschrift erforderlich
 
       event/kind:
         kurs_id_fiver: Kurs-ID-FiVer
