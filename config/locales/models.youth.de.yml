@@ -5,7 +5,6 @@
 
 de:
   activerecord:
-    models:
 
     attributes:
       event:
