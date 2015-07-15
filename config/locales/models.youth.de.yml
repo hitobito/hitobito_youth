@@ -13,3 +13,9 @@ de:
       event/kind:
         kurs_id_fiver: Kurs-ID-FiVer
         vereinbarungs_id_fiver: Vereinbarungs-ID-FiVer
+
+      person:
+        canton: Wohnkanton (Abk.)
+        ahv_number: AHV-Nummer
+        j_s_number: J+S-Nummer
+        nationality: Nationalität

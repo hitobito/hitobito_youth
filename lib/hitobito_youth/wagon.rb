@@ -23,6 +23,7 @@ module HitobitoYouth
       # extend application classes here
       Event::Course.used_attributes += [:training_days]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
+      PeopleController.permitted_attrs += [:nationality, :ahv_number, :j_s_number]
     end
 
     initializer 'youth.add_settings' do |_app|
