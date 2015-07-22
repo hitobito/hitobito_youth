@@ -21,9 +21,10 @@ module HitobitoYouth
     config.to_prepare do
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
+      Person.send :include, Youth::Person
       Event::Course.used_attributes += [:training_days]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
-      PeopleController.permitted_attrs += [:nationality, :ahv_number, :j_s_number]
+      PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number]
     end
 
     initializer 'youth.add_settings' do |_app|

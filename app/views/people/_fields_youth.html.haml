@@ -5,6 +5,8 @@
 
 = field_set_tag do
   = f.labeled_input_fields(:ahv_number, :j_s_number)
-  = f.labeled_input_field :nationality,
-                          placeholder: t('.nationality.placeholder'),
-                          data: { provide: :typeahead, source: existing_person_nationalities }
+  = f.labeled_collection_select(:nationality_j_s,
+                                Person::NATIONALITIES_J_S,
+                                :to_s, :to_s,
+                                { include_blank: true },
+                                { class: 'span6' })
