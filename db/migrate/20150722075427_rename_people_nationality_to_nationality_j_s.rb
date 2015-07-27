@@ -7,6 +7,10 @@
 
 class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration
   def change
-    rename_column(:people, :nationality, :nationality_j_s)
+    if defined?(HitobitoJubla)
+      add_column :people, :nationality_j_s, :string
+    else
+      rename_column :people, :nationality, :nationality_j_s
+    end
   end
 end
