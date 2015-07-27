@@ -2,3 +2,13 @@
 host = https://www.transifex.com
 type = YML
 
+[hitobito_youth.models-youth]
+file_filter = config/locales/models.youth.<lang>.yml
+source_file = config/locales/models.youth.de.yml
+source_lang = de
+
+[hitobito_youth.views-youth]
+file_filter = config/locales/views.youth.<lang>.yml
+source_file = config/locales/views.youth.de.yml
+source_lang = de
+
