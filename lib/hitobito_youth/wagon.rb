@@ -47,10 +47,13 @@ module HitobitoYouth
       EventsController.permitted_attrs += [:tentative_applications]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 
+      Event::ParticipationsController.send :include, Youth::Event::ParticipationsController
+
       # helper
       FilterNavigation::People.send :include, Youth::FilterNavigation::People
       Sheet::Group.send :include, Youth::Sheet::Group
       Sheet::Event.send :include, Youth::Sheet::Event
+      Dropdown::PeopleExport.send :include, Youth::Dropdown::PeopleExport
     end
 
     initializer 'youth.add_settings' do |_app|

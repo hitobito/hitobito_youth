@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Export::Csv::People
+module Export::Csv::People
   class ParticipationNdbjsRow < Export::Csv::People::PersonRow
 
     attr_reader :participation
@@ -19,18 +19,23 @@ module Youth::Export::Csv::People
       { 'm' => 1, 'f' => 2 }[entry.gender]
     end
 
-    def ahv_number
-      '?'
+    def birthday
+      # date format defined by ndbjs
+      entry.birthday && entry.birthday.strftime('%d.%m.%Y')
     end
 
     def canton
-      '?'
+      entry.location && entry.location.canton
     end
 
     def country
-      if entry.swiss?
-        'CH'
-      end
+      { 'CH' => 'CH',
+        'DE' => 'D',
+        'FL' => 'FL',
+        'FR' => 'F',
+        'IT' => 'I',
+        'AT' => 'A'
+      }[entry.country]
     end
 
     def phone_private
@@ -49,13 +54,8 @@ module Youth::Export::Csv::People
       phone_number('Fax')
     end
 
-    def nationality
-      '?'
-    end
-
     def first_language
-      lang = entry.correspondence_language
-      lang.first.capitalize if lang.present?
+      'D'
     end
 
     def second_language
@@ -80,6 +80,10 @@ module Youth::Export::Csv::People
 
     def attachments
       1
+    end
+
+    def class_group
+      nil
     end
 
     private

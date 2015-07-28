@@ -52,17 +52,6 @@ top_leader:
   primary_group: top_group
   contact_data_visible: true
 
-bottom_leader:
-  first_name: Bottom
-  last_name: Leader
-  email: bottom_leader@example.com
-  encrypted_password: $2a$04$NOZgQ.icGMwuv6Ww8DvyjuHxjuj98iKQCwtALCo5CBDGo8bgWzfty #foobar
-  address: Greatstreet 345
-  zip_code: 3456
-  town: Greattown
-  country: Switzerland
-  primary_group: bottom_layer_one
-
 bottom_member:
   first_name: Bottom
   last_name: Member
@@ -78,4 +67,3 @@ root:
   company_name: 'Puzzle ITC'
   company: true
   email: <%= Settings.root_email %>
-
