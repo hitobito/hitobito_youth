@@ -39,9 +39,9 @@
 #
 
 #  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
-#  hitobito and licensed under the Affero General Public License version 3
+#  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito.
+#  https://github.com/hitobito/hitobito_youth.
 top_leader:
   first_name: Top
   last_name: Leader
@@ -51,6 +51,17 @@ top_leader:
   additional_information: bla bla
   primary_group: top_group
   contact_data_visible: true
+
+bottom_leader:
+  first_name: Bottom
+  last_name: Leader
+  email: bottom_leader@example.com
+  encrypted_password: $2a$04$NOZgQ.icGMwuv6Ww8DvyjuHxjuj98iKQCwtALCo5CBDGo8bgWzfty #foobar
+  address: Greatstreet 345
+  zip_code: 3456
+  town: Greattown
+  country: Switzerland
+  primary_group: bottom_layer_one
 
 bottom_member:
   first_name: Bottom

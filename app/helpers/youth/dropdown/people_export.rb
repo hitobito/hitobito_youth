@@ -19,8 +19,9 @@ module Youth
         if @details && params[:controller] == 'event/participations'
           csv_path = params.merge(format: :csv)
           csv_item = @items.first
-          csv_item.sub_items << ::Dropdown::Item.new(translate(:ndbjs), csv_path.merge(ndbjs: true))
-          csv_item.sub_items << ::Dropdown::Item.new(translate(:sportdb), csv_path.merge(sportdb: true))
+          csv_item.sub_items <<
+            ::Dropdown::Item.new(translate(:ndbjs), csv_path.merge(ndbjs: true)) <<
+            ::Dropdown::Item.new(translate(:sportdb), csv_path.merge(sportdb: true))
         end
       end
 

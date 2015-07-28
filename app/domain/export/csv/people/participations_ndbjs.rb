@@ -14,14 +14,14 @@ module Export::Csv::People
 
     # rubocop:disable Metrics/MethodLength
     def build_attribute_labels
-      { j_s_number: 'NDS_PERSONEN_NR', 
-        gender: 'GESCHLECHT', 
+      { j_s_number: 'NDS_PERSONEN_NR',
+        gender: 'GESCHLECHT',
         last_name: 'NAME',
-        first_name: 'VORNAME', 
-        birthday: 'GEBURTSDATUM', 
+        first_name: 'VORNAME',
+        birthday: 'GEBURTSDATUM',
         ahv_number: 'AHV_NUMMER',
-        address: 'STRASSE', 
-        zip_code: 'PLZ', 
+        address: 'STRASSE',
+        zip_code: 'PLZ',
         town: 'ORT',
         canton: 'KANTON',
         country: 'LAND',

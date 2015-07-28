@@ -28,7 +28,7 @@ class Group::EducationsController < ApplicationController
   end
 
   def filter_entries
-    filter = Person::ListFilter.new(group, current_user, params[:kind], params[:role_type_ids])
+    filter = Person::RoleFilter.new(group, current_user, params)
     entries = filter.filter_entries.order_by_name
     @multiple_groups = filter.multiple_groups
     @all_count = filter.all_count if html_request?

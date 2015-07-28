@@ -8,7 +8,7 @@
 class Event::TentativesController < ApplicationController
 
   helper_method :group, :entry, :model_class, :entry
-  before_filter :load_group_and_event
+  before_action :load_group_and_event
 
   decorates :event, :group
 
