@@ -56,6 +56,8 @@ module Youth::Event::Participation
 
   # custom join event belongs_to kind is not defined in core
   def delete_tentatives
+    return if person.nil? || event.nil?
+
     Event::Participation.
       tentative.
       joins('INNER JOIN events ON events.id = event_participations.event_id').
