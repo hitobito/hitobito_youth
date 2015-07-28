@@ -10,7 +10,7 @@ module GroupEducationsHelper
   def joined_qualification_kind_labels(person)
     person.qualifications.
       select(&:reactivateable?).
-      sort_by(&:finish_at).
+      sort_by(&:start_at).
       reverse.
       uniq(&:qualification_kind).
       collect do |q|
