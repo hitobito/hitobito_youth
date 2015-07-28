@@ -16,7 +16,7 @@ module Youth::Export::Csv::People
     end
 
     def gender
-      {'m' => 1, 'f' => 2}[entry.gender]
+      { 'm' => 1, 'f' => 2 }[entry.gender]
     end
 
     def ahv_number
@@ -83,6 +83,7 @@ module Youth::Export::Csv::People
     end
 
     private
+
     def phone_number(label)
       entry.phone_numbers.find_by(label: label).try(:number)
     end

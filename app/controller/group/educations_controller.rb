@@ -36,4 +36,3 @@ class Group::EducationsController < ApplicationController
   end
 
 end
-

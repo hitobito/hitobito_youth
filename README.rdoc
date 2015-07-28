@@ -1,10 +1,9 @@
 === Hitobito Youth
 
-This hitobito wagon defines the organization hierarchy with groups and roles
-of Youth.
+This hitobito wagon provides common features for youth organisations. This includes
 
+* Different states for course participations (canceled, rejected, attended, absent).
+* Possibility for tentative course applications.
+* An overview of the qualifications and upcoming courses for group members.
+* CSV Exports of course participants for NDBJS and SportDB.
 
-=== Organization Hierarchy
-
-
-(Output of rake app:hitobito:roles)

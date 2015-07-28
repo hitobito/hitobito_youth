@@ -16,7 +16,7 @@ module HitobitoYouth
     config.autoload_paths += %W( #{config.root}/app/abilities
                                  #{config.root}/app/domain
                                  #{config.root}/app/jobs
-                               )
+                             )
 
     config.to_prepare do
       # rubocop:disable SingleSpaceBeforeFirstArg
@@ -59,7 +59,7 @@ module HitobitoYouth
     end
 
     initializer 'youth.add_inflections' do |_app|
-      ActiveSupport::Inflector.inflections do |inflect|
+      ActiveSupport::Inflector.inflections do |_inflect|
         # inflect.irregular 'census', 'censuses'
       end
     end
