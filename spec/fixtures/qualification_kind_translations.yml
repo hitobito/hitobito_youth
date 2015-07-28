@@ -1,0 +1,37 @@
+sl_de:
+  qualification_kind_id: <%= ActiveRecord::FixtureSet.identify(:sl) %>
+  locale: de
+  label: Super Lead
+  description: Bla
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+sl_leader_de:
+  qualification_kind_id: <%= ActiveRecord::FixtureSet.identify(:sl_leader) %>
+  locale: de
+  label: Super Lead (for Leaders)
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+
+gl_de:
+  qualification_kind_id: <%= ActiveRecord::FixtureSet.identify(:gl) %>
+  locale: de
+  label: Group Lead
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+gl_leader_de:
+  qualification_kind_id: <%= ActiveRecord::FixtureSet.identify(:gl_leader) %>
+  locale: de
+  label: Group Lead (for Leaders)
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+
+old_de:
+  qualification_kind_id: <%= ActiveRecord::FixtureSet.identify(:old) %>
+  locale: de
+  label: Old Qualification
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>

@@ -1,0 +1,32 @@
+#  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
+#  hitobito and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito.
+# == Schema Information
+#
+# Table name: roles
+#
+#  id         :integer          not null, primary key
+#  person_id  :integer          not null
+#  group_id   :integer          not null
+#  type       :string(255)      not null
+#  label      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  deleted_at :datetime
+#
+
+top_leader:
+  person: top_leader
+  group: top_group
+  type: Group::TopGroup::Leader
+
+bottom_leader:
+  person: bottom_leader
+  group: bottom_layer_one
+  type: Group::BottomLayer::Leader
+
+bottom_member:
+  person: bottom_member
+  group: bottom_layer_one
+  type: Group::BottomLayer::Member

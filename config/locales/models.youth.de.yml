@@ -10,9 +10,23 @@ de:
       event:
         training_days: Ausbildungstage
 
+      event/course:
+        tentative_applications: Provisorische Anmeldungen
+
       event/kind:
         kurs_id_fiver: Kurs-ID-FiVer
         vereinbarungs_id_fiver: Vereinbarungs-ID-FiVer
+
+      event/participation:
+        canceled_at: Abmeldedatum
+        states:
+          tentative: Provisorisch
+          applied: Angemeldet
+          assigned: Zugeteilt
+          rejected: Abgelehnt
+          canceled: Abgemeldet
+          attended: Teilgenommen
+          absent: Nicht erschienen
 
       person:
         canton: Wohnkanton (Abk.)

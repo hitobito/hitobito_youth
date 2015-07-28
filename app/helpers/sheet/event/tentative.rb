@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration
-  def change
-    if defined?(HitobitoJubla) && column_exists?(:people, :nationality)
-      add_column :people, :nationality_j_s, :string
-    else
-      rename_column :people, :nationality, :nationality_j_s
+module Sheet
+  class Event
+    class Tentative < Sheet::Base
+      self.parent_sheet = Sheet::Event
     end
   end
 end

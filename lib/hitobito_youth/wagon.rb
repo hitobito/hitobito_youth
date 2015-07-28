@@ -21,10 +21,36 @@ module HitobitoYouth
     config.to_prepare do
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
+
+      # models
       Person.send :include, Youth::Person
-      Event::Course.used_attributes += [:training_days]
-      Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
+      Event::Course.send :include, Youth::Event::Course
+      Event::Participation.send :include, Youth::Event::Participation
+      Event::Role.send :include, Youth::Event::Role
+
+      # domain
+      Event::ParticipationFilter.send :include, Youth::Event::ParticipationFilter
+      Event::ParticipantAssigner.send :include, Youth::Event::ParticipantAssigner
+
+      # ability
+      GroupAbility.send :include, Youth::GroupAbility
+      EventAbility.send :include, Youth::EventAbility
+      Event::ParticipationAbility.send :include, Youth::Event::ParticipationAbility
+
+      # controller
+      Event::ParticipationDecorator.send :include, Youth::Event::ParticipationDecorator
+      PeopleFiltersController.send :include, Youth::PeopleFiltersController
+      Event::ParticipationsController.send :include, Youth::Event::ParticipationsController
+      Event::RolesController.send :include, Youth::Event::RolesController
+
       PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number]
+      EventsController.permitted_attrs += [:tentative_applications]
+      Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
+
+      # helper
+      FilterNavigation::People.send :include, Youth::FilterNavigation::People
+      Sheet::Group.send :include, Youth::Sheet::Group
+      Sheet::Event.send :include, Youth::Sheet::Event
     end
 
     initializer 'youth.add_settings' do |_app|

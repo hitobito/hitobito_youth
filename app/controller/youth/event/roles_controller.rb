@@ -5,12 +5,19 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration
-  def change
-    if defined?(HitobitoJubla) && column_exists?(:people, :nationality)
-      add_column :people, :nationality_j_s, :string
-    else
-      rename_column :people, :nationality, :nationality_j_s
-    end
+module Youth::Event::RolesController
+  extend ActiveSupport::Concern
+
+  included do
+    alias_method_chain :build_entry, :state
   end
+
+  private
+
+  def build_entry_with_state
+    role = build_entry_without_state
+    role.participation.state ||= 'assigned'
+    role
+  end
+
 end

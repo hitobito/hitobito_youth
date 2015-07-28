@@ -5,12 +5,19 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration
-  def change
-    if defined?(HitobitoJubla) && column_exists?(:people, :nationality)
-      add_column :people, :nationality_j_s, :string
+module Youth::PeopleFiltersController
+  extend ActiveSupport::Concern
+
+  included do
+    alias_method_chain :people_list_path, :education
+  end
+
+  def people_list_path_with_education
+    if params[:education]
+      :educations_path
     else
-      rename_column :people, :nationality, :nationality_j_s
+      people_list_path_without_education
     end
   end
+
 end

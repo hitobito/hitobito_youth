@@ -1,0 +1,9 @@
+-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+-#  hitobito_youth and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_youth.
+
+- if entry.supports_applications?
+  - if entry.tentative_application_possible? && can?(:create_tentative, entry.participations.new)
+    = action_button ti('.create_tentative_application'), new_group_event_tentative_path(@group, entry), :check
+

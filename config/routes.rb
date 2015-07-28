@@ -12,6 +12,28 @@ Rails.application.routes.draw do
   language_scope do
     # Define wagon routes here
 
+    resources :groups do
+      member do
+        scope module: 'group' do
+          resources :educations, only: :index
+        end
+      end
+
+      resources :events, only: [] do # do not redefine events actions, only add new ones
+        scope module: 'event' do
+          resources :tentatives, only: [:index, :new, :create] do
+            get :query, on: :collection
+          end
+
+          resources :participations, only: [] do
+            member do
+              post :cancel
+              get :reject
+            end
+          end
+        end
+      end
+    end
   end
 
 end
