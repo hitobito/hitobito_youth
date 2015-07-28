@@ -8,14 +8,21 @@
 module GroupEducationsHelper
 
   def joined_qualification_kind_labels(person)
-    person.qualifications.map do |qualification|
-      qualification.qualification_kind.label
-    end.join(', ')
+    person.qualifications.
+      select(&:reactivateable?).
+      sort_by(&:finish_at).
+      reverse.
+      uniq(&:qualification_kind).
+      collect do |q|
+        label = q.qualification_kind.label
+        q.active? ? label : content_tag(:span, label, class: 'muted')
+      end.
+      join(', ')
   end
 
   def joined_event_participations(person)
     person.event_participations.
-      select  { |p| p.course? && p.event.dates.last.start_at >= Date.today }.
+      select  { |p| p.course? && p.event.dates.sort_by(&:start_at).last.start_at >= Date.today }.
       collect { |p| format_open_participation_event(p) }.
       join(', ')
   end
