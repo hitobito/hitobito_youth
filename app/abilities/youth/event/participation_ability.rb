@@ -10,10 +10,11 @@ module Youth::Event::ParticipationAbility
 
   included do
     on(Event::Participation) do
-      permission(:any).may(:cancel).for_participations_full_events
-      permission(:group_full).may(:cancel, :reject).in_same_group
-      permission(:layer_full).may(:cancel, :reject).in_same_layer
-      permission(:layer_and_below_full).may(:cancel, :reject).in_same_layer
+      permission(:any).may(:cancel, :absent, :assign, :attend).for_participations_full_events
+      permission(:group_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_group
+      permission(:layer_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_layer
+      permission(:layer_and_below_full).may(:cancel, :reject, :absent, :assign, :attend).
+        in_same_layer
 
       permission(:group_full).may(:create_tentative).person_in_same_group
       permission(:layer_full).may(:create_tentative).person_in_same_layer

@@ -9,35 +9,44 @@ module Youth::Event::ParticipationsController
   extend ActiveSupport::Concern
 
   included do
-    define_model_callbacks :cancel, :reject
+    define_model_callbacks :cancel, :reject, :attend, :absent, :assign
 
     alias_method_chain :build_application, :state
     alias_method_chain :exporter, :ndbjs
   end
 
-
   def cancel
     entry.canceled_at = params[:event_participation][:canceled_at]
-    entry.state = 'canceled'
-    if with_callbacks(:cancel) { entry.save }
-      flash[:notice] ||= t('event.participations.canceled_notice', participant: entry.person)
-    else
-      flash[:alert] ||= entry.errors.full_messages
-    end
-    redirect_to group_event_participation_path(group, event, entry)
+    change_state('canceled', 'cancel')
   end
 
   def reject
-    entry.state = 'rejected'
-    if with_callbacks(:reject) { entry.save }
-      flash[:notice] ||= t('event.participations.rejected_notice', participant: entry.person)
+    change_state('rejected', 'reject')
+  end
+
+  def absent
+    change_state('absent', 'absent')
+  end
+
+  def attend
+    change_state('attended', 'attend')
+  end
+
+  def assign
+    change_state('assigned', 'assign')
+  end
+
+  private
+
+  def change_state(state, callback_name)
+    entry.state = state
+    if with_callbacks(callback_name) { entry.save }
+      flash[:notice] ||= t("event.participations.#{state}_notice", participant: entry.person, state: state)
     else
       flash[:alert] ||= entry.errors.full_messages
     end
     redirect_to group_event_participation_path(group, event, entry)
   end
-
-  private
 
   def build_application_with_state(participation)
     build_application_without_state(participation)

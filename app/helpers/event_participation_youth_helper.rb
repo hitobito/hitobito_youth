@@ -18,7 +18,22 @@ module EventParticipationYouthHelper
   end
 
   def show_event_participation_reject_button?
-    (entry.assigned? || entry.applied?) && can?(:reject, entry)
+    entry.applied? && can?(:reject, entry)
   end
 
+  def show_event_participation_absent_button?
+    (entry.assigned? || entry.attended?) && can?(:absent, entry)
+  end
+
+  def show_event_participation_attended_button?
+    (entry.absent? && entry.event.completed?) && can?(:attend, entry)
+  end
+
+  def show_event_participation_assigned_button?
+    (entry.absent? && !entry.event.completed?) && can?(:assign, entry)
+  end
+
+  def format_event_participation_state(entry)
+    I18n.t("activerecord.attributes.event/participation.states.#{entry.state}")
+  end
 end

@@ -27,8 +27,11 @@ Rails.application.routes.draw do
 
           resources :participations, only: [] do
             member do
-              post :cancel
-              get :reject
+              put :cancel
+              put :reject
+              put :assign
+              put :absent
+              put :attend
             end
           end
         end

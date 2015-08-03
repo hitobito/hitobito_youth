@@ -19,6 +19,7 @@ de:
 
       event/participation:
         canceled_at: Abmeldedatum
+        state: Status
         states:
           tentative: Provisorisch
           applied: Angemeldet

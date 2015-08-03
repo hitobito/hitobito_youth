@@ -48,51 +48,81 @@ describe Event::ParticipationsController do
 
   end
 
-  context 'POST cancel' do
 
+  context 'state changes' do
     let(:participation) { Fabricate(:youth_participation, event: course) }
 
-    it 'cancels participation' do
-      post :cancel,
-           group_id: group.id,
-           event_id: course.id,
-           id: participation.id,
-           event_participation: { canceled_at: Date.today }
-      expect(flash[:notice]).to be_present
-      participation.reload
-      expect(participation.canceled_at).to eq Date.today
-      expect(participation.state).to eq 'canceled'
-      expect(participation.active).to eq false
+    context 'PUT cancel' do
+
+      it 'cancels participation' do
+        put :cancel,
+             group_id: group.id,
+             event_id: course.id,
+             id: participation.id,
+             event_participation: { canceled_at: Date.today }
+        expect(flash[:notice]).to be_present
+        participation.reload
+        expect(participation.canceled_at).to eq Date.today
+        expect(participation.state).to eq 'canceled'
+        expect(participation.active).to eq false
+      end
+
+      it 'requires canceled_at date' do
+        put :cancel,
+             group_id: group.id,
+             event_id: course.id,
+             id: participation.id,
+             event_participation: { canceled_at: ' ' }
+        expect(flash[:alert]).to be_present
+        participation.reload
+        expect(participation.canceled_at).to eq nil
+      end
     end
 
-    it 'requires canceled_at date' do
-      post :cancel,
-           group_id: group.id,
-           event_id: course.id,
-           id: participation.id,
-           event_participation: { canceled_at: ' ' }
-      expect(flash[:alert]).to be_present
-      participation.reload
-      expect(participation.canceled_at).to eq nil
+    context 'PUT reject' do
+      render_views
+      let(:dom) { Capybara::Node::Simple.new(response.body) }
+
+      it 'rejects participation' do
+        put :reject,
+          group_id: group.id,
+          event_id: course.id,
+          id: participation.id
+        participation.reload
+        expect(participation.state).to eq 'rejected'
+        expect(participation.active).to eq false
+      end
     end
-  end
 
-  context 'POST reject' do
-    render_views
-
-    let(:participation) { Fabricate(:youth_participation, event: course) }
-    let(:dom) { Capybara::Node::Simple.new(response.body) }
-
-    it 'rejects participation' do
-      post :reject,
+    it 'PUT attend sets participation state to attended' do
+      put :attend,
         group_id: group.id,
         event_id: course.id,
         id: participation.id
       participation.reload
-      expect(participation.state).to eq 'rejected'
-      expect(participation.active).to eq false
+      expect(participation.active).to be true
+      expect(participation.state).to eq 'attended'
     end
 
+    it 'PUT absent sets participation state to abset' do
+      put :absent,
+        group_id: group.id,
+        event_id: course.id,
+        id: participation.id
+      participation.reload
+      expect(participation.active).to be false
+      expect(participation.state).to eq 'absent'
+    end
+
+    it 'PUT assign sets participation state to abset' do
+      put :assign,
+        group_id: group.id,
+        event_id: course.id,
+        id: participation.id
+      participation.reload
+      expect(participation.active).to be true
+      expect(participation.state).to eq 'assigned'
+    end
   end
 
   context 'csv export' do
