@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -58,6 +58,17 @@ describe Event::Course do
       expect(event.organizers).to include(@one_leader, @one_guide,
                                           @two_leader, @two_guide)
     end
+  end
+
+  it 'updates assigned participations to attended when course completes' do
+    first, second = subject.participations.active.joins(:roles).
+      where(event_roles: { type: Event::Course::Role::Participant.name.to_sym }).to_a
+
+    first.update!(state: 'assigned')
+    event.update!(state: 'completed')
+
+    expect(first.reload.state).to eq 'attended'
+    expect(second.reload.state).to eq 'applied'
   end
 
 end
