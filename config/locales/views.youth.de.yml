@@ -46,7 +46,7 @@ de:
 
   filter_navigation/event/participations:
     predefined_filters:
-      revoked: Abgemeldete
+      revoked: Abwesende
 
   groups:
     tabs:

@@ -42,6 +42,7 @@ module Youth::Event::Participation
     before_validation :delete_tentatives, if: :course?, unless: :tentative?, on: :create
     before_validation :set_active_based_on_state, if: :course?
     before_validation :clear_canceled_at, unless: :canceled?
+    after_save :update_participant_count, if: :state_changed?
   end
 
   def course?

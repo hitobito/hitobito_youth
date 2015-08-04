@@ -9,9 +9,6 @@ module Youth::Event::Course
   extend ActiveSupport::Concern
 
   included do
-    class_attribute :tentative_states
-    self.tentative_states = [:all]
-
     self.used_attributes += [:training_days, :tentative_applications]
 
     # states are used for workflow
@@ -19,6 +16,7 @@ module Youth::Event::Course
     self.possible_states = %w(created confirmed application_open application_closed
                               assignment_closed canceled completed closed)
 
+    class_attribute :tentative_states
     self.tentative_states = %w(created confirmed)
 
     # Define methods to query if a course is in the given state.
@@ -36,7 +34,6 @@ module Youth::Event::Course
     ### CALLBACKS
 
     before_save :update_attended_participants_state, if: -> { state_changed?(to: 'closed') }
-
     before_save :update_assigned_participants_state, if: -> { changed_state_from_closed? }
 
     alias_method_chain :applicants_scope, :tentative
@@ -97,7 +94,8 @@ module Youth::Event::Course
   module ClassMethods
     def application_possible
       where(state: 'application_open').
-      where('events.application_opening_at IS NULL OR events.application_opening_at <= ?', ::Date.today)
+      where('events.application_opening_at IS NULL OR events.application_opening_at <= ?',
+            ::Date.today)
     end
   end
 end

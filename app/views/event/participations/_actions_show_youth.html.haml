@@ -15,7 +15,8 @@
   - if show_event_participation_reject_button?
     = action_button(t('.reject_button'),
                     reject_group_event_participation_path,
-                    :'thumbs-down')
+                    :'thumbs-down',
+                    method: :put)
 
   - if show_event_participation_absent_button?
     = action_button(t('.absent_button'),
