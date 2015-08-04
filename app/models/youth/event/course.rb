@@ -35,7 +35,9 @@ module Youth::Event::Course
 
     ### CALLBACKS
 
-    before_save :update_attended_participants_state, if: -> { state_changed?(to: 'completed') }
+    before_save :update_attended_participants_state, if: -> { state_changed?(to: 'closed') }
+
+    before_save :update_assigned_participants_state, if: -> { changed_state_from_closed? }
 
     alias_method_chain :applicants_scope, :tentative
   end
@@ -71,8 +73,16 @@ module Youth::Event::Course
 
   private
 
+  def changed_state_from_closed?
+    changed_attributes['state'] == 'closed'
+  end
+
   def update_attended_participants_state
     participants_scope.where(state: 'assigned').update_all(state: 'attended')
+  end
+
+  def update_assigned_participants_state
+    participants_scope.where(state: 'attended').update_all(state: 'assigned')
   end
 
   def applicants_scope_with_tentative
