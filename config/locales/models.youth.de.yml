@@ -12,6 +12,15 @@ de:
 
       event/course:
         tentative_applications: Provisorische Anmeldungen
+        states:
+          created: Erstellt
+          confirmed: Bestätigt
+          application_open: Offen zur Anmeldung
+          application_closed: Anmeldung abgeschlossen
+          assignment_closed: Zuteilung abgeschlossen
+          canceled: Abgesagt
+          completed: Qualifikationen erfasst
+          closed: Abgeschlossen
 
       event/kind:
         kurs_id_fiver: Kurs-ID-FiVer

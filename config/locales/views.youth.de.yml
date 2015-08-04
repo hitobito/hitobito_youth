@@ -44,6 +44,13 @@ de:
     application_fields_youth:
       tentative_applications: Gruppenleiter können Personen provisorisch anmelden
 
+  export/csv/events/list:
+    male_count: Anzahl Teilnehmende Männer
+    female_count: Anzahl Teilnehmende Frauen
+    absent_count: Anzahl Nicht erschienene
+    canceled_count: Anzahl Abgemeldete
+    rejected_count: Anzahl Abgelehnte
+
   filter_navigation/event/participations:
     predefined_filters:
       revoked: Abwesende
