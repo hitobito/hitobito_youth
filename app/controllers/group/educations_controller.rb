@@ -28,11 +28,19 @@ class Group::EducationsController < ApplicationController
   end
 
   def filter_entries
-    filter = Person::RoleFilter.new(group, current_user, params)
+    filter = list_filter
     entries = filter.filter_entries.order_by_name
     @multiple_groups = filter.multiple_groups
     @all_count = filter.all_count if html_request?
     entries
+  end
+
+  def list_filter
+    if params[:filter] == 'qualification'
+      Person::QualificationFilter.new(group, current_user, params)
+    else
+      Person::RoleFilter.new(group, current_user, params)
+    end
   end
 
 end

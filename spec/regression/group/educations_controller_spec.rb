@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Group::EducationsController do
+describe Group::EducationsController, type: :controller do
 
   render_views
 
@@ -50,6 +50,27 @@ describe Group::EducationsController do
     create_qualification(start_at: Date.today - 3.days, finish_at: Date.yesterday)
     get :index, id: groups(:top_layer).id, kind: :layer, role_type_ids: Group::TopGroup::Leader.id
     expect(response.body).to have_content 'Super Lead'
+  end
+
+  it 'filters qualifications positive' do
+    create_qualification(start_at: Date.yesterday)
+    get :index,
+        id: groups(:top_layer).id,
+        kind: :layer,
+        qualification_kind_id: qualification_kinds(:sl).id,
+        filter: 'qualification'
+    expect(response.body).to have_content 'Super Lead'
+  end
+
+  it 'filters qualifications negative' do
+    create_qualification(start_at: Date.yesterday)
+    get :index,
+        id: groups(:top_layer).id,
+        kind: :layer,
+        qualification_kind_id:
+        qualification_kinds(:gl).id,
+        filter: 'qualification'
+    expect(response.body).not_to have_content 'Super Lead'
   end
 
   it 'raises AccessDenied if not permitted' do

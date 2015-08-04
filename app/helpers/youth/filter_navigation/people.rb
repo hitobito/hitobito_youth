@@ -12,6 +12,7 @@ module Youth::FilterNavigation::People
     alias_method_chain :path, :education
     alias_method_chain :new_group_people_filter_path, :education
     alias_method_chain :delete_group_people_filter_path, :education
+    alias_method_chain :qualification_group_people_filter_path, :education
   end
 
   private
@@ -25,22 +26,23 @@ module Youth::FilterNavigation::People
   end
 
   def new_group_people_filter_path_with_education
-    if education?
-      template.new_group_people_filter_path(
-        group.id,
-        education: true,
-        people_filter: { role_type_ids: role_type_ids })
-    else
-      new_group_people_filter_path_without_education
-    end
+    template.new_group_people_filter_path(
+      group.id,
+      education: education?,
+      people_filter: { role_type_ids: role_type_ids })
   end
 
   def delete_group_people_filter_path_with_education(filter)
-    if education?
-      template.group_people_filter_path(group, filter, education: true)
-    else
-      delete_group_people_filter_path_without_education(filter)
-    end
+    template.group_people_filter_path(group, filter, education: education?)
+  end
+
+  def qualification_group_people_filter_path_with_education
+    template.qualification_group_people_filters_path(
+      group.id,
+      qualification_kind_id: qualification_kind_ids,
+      kind: deep,
+      validity: validity,
+      education: education?)
   end
 
   def education?

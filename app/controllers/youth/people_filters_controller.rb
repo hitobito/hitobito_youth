@@ -12,11 +12,11 @@ module Youth::PeopleFiltersController
     alias_method_chain :people_list_path, :education
   end
 
-  def people_list_path_with_education
+  def people_list_path_with_education(options = {})
     if params[:education]
-      :educations_path
+      educations_path(group, options)
     else
-      people_list_path_without_education
+      people_list_path_without_education(options)
     end
   end
 
