@@ -26,11 +26,11 @@ module EventParticipationYouthHelper
   end
 
   def show_event_participation_attended_button?
-    (entry.absent? && entry.event.completed?) && can?(:attend, entry)
+    (entry.absent? && entry.event.closed?) && can?(:attend, entry)
   end
 
   def show_event_participation_assigned_button?
-    (entry.absent? && !entry.event.completed?) && can?(:assign, entry)
+    (entry.absent? && !entry.event.closed?) && can?(:assign, entry)
   end
 
   def format_event_participation_state(entry)
