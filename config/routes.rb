@@ -37,6 +37,9 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    get 'bsv_export_courses' => 'event/lists#bsv_export_courses'
+
   end
 
 end
