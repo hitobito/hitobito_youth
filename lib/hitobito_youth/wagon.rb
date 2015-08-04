@@ -50,6 +50,7 @@ module HitobitoYouth
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 
       Event::ParticipationsController.send :include, Youth::Event::ParticipationsController
+      Event::ListsController.send :include, Youth::Event::ListsController
 
       # helper
       FilterNavigation::People.send :include, Youth::FilterNavigation::People

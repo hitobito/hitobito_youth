@@ -24,7 +24,14 @@ module Youth::EventAbility
         in_same_layer_or_below
 
       general(:list_tentatives).if_tentative_applications?
+
     end
+
+    on(Event::Course) do
+      # TODO fix ability
+      class_side(:bsv_export_courses).everybody
+    end
+
   end
 
   def if_tentative_applications?
