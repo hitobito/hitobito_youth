@@ -60,14 +60,30 @@ describe Event::Course do
     end
   end
 
-  it 'updates assigned participations to attended when course completes' do
+  it 'updates assigned participations to attended when course closed' do
     first, second = subject.participations.active.joins(:roles).
       where(event_roles: { type: Event::Course::Role::Participant.name.to_sym }).to_a
 
     first.update!(state: 'assigned')
-    event.update!(state: 'completed')
+    event.update!(state: 'closed')
 
     expect(first.reload.state).to eq 'attended'
+    expect(second.reload.state).to eq 'applied'
+  end
+
+  it 'updates attended participations to assigned when course state changes from closed' do
+    first, second = subject.participations.active.joins(:roles).
+      where(event_roles: { type: Event::Course::Role::Participant.name.to_sym }).to_a
+
+    first.update!(state: 'assigned')
+    event.update!(state: 'closed')
+
+    expect(first.reload.state).to eq 'attended'
+    expect(second.reload.state).to eq 'applied'
+
+    event.update!(state: 'application_open')
+
+    expect(first.reload.state).to eq 'assigned'
     expect(second.reload.state).to eq 'applied'
   end
 
