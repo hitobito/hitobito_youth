@@ -25,7 +25,7 @@ module Export::Csv::People
     end
 
     def canton
-      entry.location && entry.location.canton
+      entry.canton
     end
 
     def country
@@ -63,7 +63,7 @@ module Export::Csv::People
     end
 
     def profession
-      3
+      3 # andere
     end
 
     def organisation
@@ -75,11 +75,11 @@ module Export::Csv::People
     end
 
     def activity
-      1
+      1 # mit kindern / jugendlichen j+s
     end
 
     def attachments
-      1
+      1 # keine
     end
 
     def class_group

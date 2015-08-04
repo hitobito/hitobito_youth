@@ -41,7 +41,7 @@ module Youth::Event::ParticipationsController
   def change_state(state, callback_name)
     entry.state = state
     if with_callbacks(callback_name) { entry.save }
-      flash[:notice] ||= t("event.participations.#{state}_notice", participant: entry.person, state: state)
+      flash[:notice] ||= t("event.participations.#{state}_notice", participant: entry.person)
     else
       flash[:alert] ||= entry.errors.full_messages
     end

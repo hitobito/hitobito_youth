@@ -30,7 +30,7 @@ de:
           absent: Nicht erschienen
 
       person:
-        canton: Wohnkanton (Abk.)
+        canton: Wohnkanton
         ahv_number: AHV-Nummer
         j_s_number: J+S-Nummer
         nationality_j_s: Nationalität gemäss J+S
