@@ -13,7 +13,7 @@ module Youth::PeopleFiltersController
   end
 
   def people_list_path_with_education(options = {})
-    if params[:education]
+    if params[:education] == 'true'
       educations_path(group, options)
     else
       people_list_path_without_education(options)
