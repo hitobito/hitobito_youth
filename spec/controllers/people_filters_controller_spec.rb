@@ -17,7 +17,7 @@ describe PeopleFiltersController do
     let(:dom) { Capybara::Node::Simple.new(response.body) }
 
     it 'sets education value to true if education param present' do
-      get :new, group_id: group.id, education: true
+      get :new, group_id: group.id, education: 'true'
       expect(dom).to have_selector('input[name="education"]')
       expect(dom.find('input[name="education"]').value).to eq 'true'
     end
@@ -28,15 +28,19 @@ describe PeopleFiltersController do
     end
   end
 
-
   context 'POST#create' do
     it 'with education redirects to education' do
-      post :create, group_id: group.id, education: true, people_filter: { name: 'test' }
+      post :create, group_id: group.id, education: 'true', people_filter: { name: 'test' }
       is_expected.to redirect_to educations_path(group)
     end
 
     it 'without education redirects to group_people' do
       post :create, group_id: group.id, people_filter: { name: 'test' }
+      is_expected.to redirect_to group_people_path(group)
+    end
+
+    it 'with education false redirects to group_people' do
+      post :create, group_id: group.id, people_filter: { name: 'test' }, education: 'false'
       is_expected.to redirect_to group_people_path(group)
     end
   end
@@ -49,8 +53,13 @@ describe PeopleFiltersController do
       is_expected.to redirect_to group_people_path(group)
     end
 
+    it 'with education = false redirects to group_people' do
+      delete :destroy, group_id: group.id, id: filter.id, education: 'false'
+      is_expected.to redirect_to group_people_path(group)
+    end
+
     it 'with education redirects to education' do
-      delete :destroy, group_id: group.id, id: filter.id, education: true
+      delete :destroy, group_id: group.id, id: filter.id, education: 'true'
       is_expected.to redirect_to educations_path(group)
     end
   end
