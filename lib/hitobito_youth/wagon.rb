@@ -57,6 +57,9 @@ module HitobitoYouth
       Sheet::Group.send :include, Youth::Sheet::Group
       Sheet::Event.send :include, Youth::Sheet::Event
       Dropdown::PeopleExport.send :include, Youth::Dropdown::PeopleExport
+
+      # serializer
+      PersonSerializer.send :include, Youth::PersonSerializer
     end
 
     initializer 'youth.add_settings' do |_app|

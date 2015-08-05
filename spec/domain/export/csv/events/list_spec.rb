@@ -6,6 +6,7 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 require 'spec_helper'
+
 describe Export::Csv::Events::List do
 
   let(:courses) { double('courses', map: [], first: nil) }
