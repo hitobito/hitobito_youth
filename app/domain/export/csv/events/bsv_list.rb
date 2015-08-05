@@ -11,11 +11,7 @@ module Export::Csv::Events
     self.model_class = ::Event::Course
     self.row_class = Export::Csv::Events::BsvRow
 
-    alias_method :attributes, :bsv_attributes
-
-    private
-
-    def bsv_attributes
+    def attributes
       [ :vereinbarungs_id_fiver,
         :kurs_id_fiver,
         :number,
