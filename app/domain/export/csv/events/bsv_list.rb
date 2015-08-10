@@ -15,8 +15,13 @@ module Export::Csv::Events
       [ :vereinbarungs_id_fiver,
         :kurs_id_fiver,
         :number,
-        :oldest_event_date
-        # add more attributes
+        :oldest_event_date,
+        :location,
+        :training_days,
+        :participant_count,
+        :leader_count,
+        :canton_count,
+        :languages_count
       ]
     end
 
