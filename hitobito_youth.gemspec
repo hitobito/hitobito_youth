@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
   s.description = 'Provides fields required for J+S and BSV as well as corresponding reports.'
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['Rakefile']
-  s.test_files = Dir['spec/**/*']
+  #s.test_files = Dir['spec/**/*']
   # rubocop:enable SingleSpaceBeforeFirstArg
 end
