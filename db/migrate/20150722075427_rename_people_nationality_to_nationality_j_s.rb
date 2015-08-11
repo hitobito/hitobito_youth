@@ -14,5 +14,7 @@ class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration
     end
 
     change_column :people, :nationality_j_s, :string, limit: 5
+
+    Person.reset_column_information
   end
 end
