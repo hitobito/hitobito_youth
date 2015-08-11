@@ -12,6 +12,8 @@ class AddFiverColumnsToEventKinds < ActiveRecord::Migration
     else
       add_column :event_kinds, :kurs_id_fiver, :string
     end
+
+    Event::Kind.reset_column_information
   end
 
   add_column :event_kinds, :vereinbarungs_id_fiver, :string
