@@ -11,6 +11,12 @@ module Export::Csv::Events
     self.model_class = ::Event::Course
     self.row_class = Export::Csv::Events::BsvRow
 
+    class << self
+      def export(*args)
+        super.gsub(/\n/,"\r\n") # use CRLF instead of LF as specified by BSV
+      end
+    end
+
     def attributes
       [ :vereinbarungs_id_fiver,
         :kurs_id_fiver,
@@ -23,6 +29,12 @@ module Export::Csv::Events
         :canton_count,
         :languages_count
       ]
+    end
+
+    def to_csv(generator)
+      list.each do |entry|
+        generator << values(entry)
+      end
     end
 
   end

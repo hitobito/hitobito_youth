@@ -1,0 +1,20 @@
+= form_tag list_courses_bsv_export_path do
+  = t('event.lists.courses.bsv_export_event_kinds_hint')
+  = labeled(t('event.lists.courses.bsv_export_event_kinds')) do
+    = select_tag :event_kinds, 
+      options_from_collection_for_select(Event::Kind.all, :id, :to_s), 
+      multiple: true,
+      class: 'span3'
+
+  = labeled(t('event.lists.courses.bsv_export_date_from')) do
+    = content_tag(:div, class: 'input-prepend') do
+      = content_tag(:span, icon(:calendar), class: 'add-on') 
+      = text_field_tag(:date_from, nil, class: 'span2 date')
+
+  = labeled(t('event.lists.courses.bsv_export_date_to')) do
+    = content_tag(:div, class: 'input-prepend') do
+      = content_tag(:span, icon(:calendar), class: 'add-on')
+      = text_field_tag(:date_to, nil, class: 'span2 date')
+
+  = submit_tag 'Export', class: 'btn'
+  = cancel_link '#'
