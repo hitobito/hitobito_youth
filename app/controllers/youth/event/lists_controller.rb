@@ -56,9 +56,9 @@ module Youth::Event::ListsController
   end
 
   def dates_from_to
-    @date_from, @date_to = params[:date_from], params[:date_to]
-    date_from = Date.parse(date_from) if date_from.present?
-    date_to = Date.parse(date_to) if date_to.present?
+    date_from, date_to = params[:date_from], params[:date_to]
+    @date_from = Date.parse(date_from) if date_from.present?
+    @date_to = Date.parse(date_to) if date_to.present?
   end
 
 end

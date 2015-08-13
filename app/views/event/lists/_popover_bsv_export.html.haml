@@ -1,5 +1,5 @@
-= form_tag list_courses_bsv_export_path do
-  = t('event.lists.courses.bsv_export_event_kinds_hint')
+= form_tag list_courses_bsv_export_path, {class: 'form-horizontal'} do
+  %p.muted= t('event.lists.courses.bsv_export_event_kinds_hint')
   = labeled(t('event.lists.courses.bsv_export_event_kinds')) do
     = select_tag :event_kinds, 
       options_from_collection_for_select(Event::Kind.all, :id, :to_s), 

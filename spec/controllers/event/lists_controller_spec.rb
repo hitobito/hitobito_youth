@@ -26,29 +26,38 @@ describe Event::ListsController do
       expect(flash[:alert]).to eq 'Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.'
     end
 
-    #it 'exports all courses with kind fk within date range' do
-      #Fabricate(:course, kind: event_kinds(:slk))
-      #create_course('123', '01.01.2015', '03.01.2015')
-      #create_course('124', '11.11.2015', '12.12.2015')
+    it 'exports all courses with kind fk and date from' do
+      create_course('123', '03.01.2015', '09.01.2015')
+      create_course('124', '11.11.2015', '12.11.2015')
 
-      #get :bsv_export, event_kinds: [event_kinds(:fk).id], date_from: '09.09.2015'
-      #expect(response).to be_success
-      #expect(rows.size).to eq(1)
-      #expect(rows.first).to match(/^fiver42;/)
-    #end
+      get :bsv_export, event_kinds: [event_kinds(:fk).id], date_from: '09.09.2015'
+      expect(response).to be_success
+      expect(rows.size).to eq(1)
+      expect(rows.first).to match(/^fiver42;;124;11.11.2015;/)
+    end
 
-    #it 'exports all courses within date range' do
-      #create_course('123', '01.01.2015', '03.01.2015')
-      #create_course('124', '11.12.2015', '12.12.2015')
-      #create_course('125', '06.06.2015', nil)
-      #create_course('126', '06.06.2015', '08.06.2015', 'created')
+    it 'exports all courses with kind fk and date to' do
+      create_course('123', '03.01.2015', '09.01.2015')
+      create_course('124', '11.11.2015', '12.11.2015')
 
-      #get :bsv_export, date_from: '01.02.2015', date_to: '21.12.2015'
-      #expect(response).to be_success
-      #expect(rows.size).to eq(2)
-      #expect(rows.first).to match(/^fiver42;;124;11.11.2015;/)
-      #expect(rows.second).to match(/^fiver42;;125;06.06.2015;/)
-    #end
+      get :bsv_export, event_kinds: [event_kinds(:fk).id], date_to: '09.09.2015'
+      expect(response).to be_success
+      expect(rows.size).to eq(1)
+      expect(rows.first).to match(/^fiver42;;123;03.01.2015;/)
+    end
+
+    it 'exports all courses within date range and state closed' do
+      create_course('123', '01.01.2015', '03.01.2015')
+      create_course('124', '11.11.2015', '12.12.2015')
+      create_course('125', '06.06.2015', nil)
+      create_course('126', '06.06.2015', '08.06.2015', 'created')
+
+      get :bsv_export, date_from: '01.02.2015', date_to: '21.12.2015'
+      expect(response).to be_success
+      expect(rows.size).to eq(2)
+      expect(rows.first).to match(/^fiver42;;124;11.11.2015;/)
+      expect(rows.second).to match(/^fiver42;;125;06.06.2015;/)
+    end
 
   end
 
@@ -57,9 +66,8 @@ end
 def create_course(number, date_from, date_to, state = 'closed')
   course = Fabricate(:course, kind: event_kinds(:fk), number: number, state: state)
   course.dates.destroy_all
-  event_date = Fabricate(:event_date,
-                          event: course,
-                          start_at: Date.parse(date_from))
-  event_date.update!(finish_at: Date.parse(date_to)) if date_to
+  date_from = Date.parse(date_from) if date_from
+  date_to = Date.parse(date_to) if date_to
+  course.dates.create!(start_at: date_from, finish_at: date_to)
   event_kinds(:fk).update!(vereinbarungs_id_fiver: 'fiver42')
 end

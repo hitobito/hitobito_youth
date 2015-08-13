@@ -78,7 +78,7 @@ module Export::Csv::Events
 
     def leader_roles
       [ 'Event::Role::Leader',
-        'Event::Role::Cook' # equipe ?
+        'Event::Role::Cook'
       ]
     end
 
