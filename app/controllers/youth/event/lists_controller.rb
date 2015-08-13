@@ -16,7 +16,7 @@ module Youth::Event::ListsController
   def bsv_export
     authorize!(:bsv_export, Event::Course) # replace with ability
     if date_from || date_to
-      if date_from_newer_than_date_to?
+      if date_to_newer_than_date_from?
         flash[:alert] = translate('courses.bsv_export_date_from_never_than_date_to') 
         redirect_to list_courses_path
       else
