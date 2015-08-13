@@ -16,7 +16,7 @@ module Youth::Event::ListsController
   def bsv_export
     authorize!(:bsv_export, Event::Course) # replace with ability
     if date_from || date_to
-      if (date_from && date_to) && (date_from > date_to)
+      if date_from_newer_than_date_to?
         flash[:alert] = translate('courses.bsv_export_date_from_never_than_date_to') 
         redirect_to list_courses_path
       else
@@ -30,6 +30,10 @@ module Youth::Event::ListsController
   end
 
   private
+
+  def date_to_newer_than_date_from?
+    (date_from && date_to) && (date_from > date_to)
+  end
 
   def courses_for_bsv_export
     courses = Event::Course.joins(:dates)
@@ -50,7 +54,10 @@ module Youth::Event::ListsController
 
   def date_range_condition(courses, date, operator)
     if date
-      courses = courses.where("(event_dates.finish_at IS NULL AND event_dates.start_at #{operator} ?) OR (event_dates.finish_at #{operator} ?)", date, date)
+      courses = courses.where("(event_dates.finish_at IS NULL" \
+                              " AND event_dates.start_at #{operator} ?)" \
+                              "OR (event_dates.finish_at #{operator} ?)",
+                              date, date)
     end
     courses
   end
