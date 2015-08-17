@@ -1,20 +1,29 @@
-= form_tag list_courses_bsv_export_path, {class: 'form-horizontal'} do
-  %p.muted= t('event.lists.courses.bsv_export_event_kinds_hint')
-  = labeled(t('event.lists.courses.bsv_export_event_kinds')) do
-    = select_tag :event_kinds, 
-      options_from_collection_for_select(Event::Kind.all, :id, :to_s), 
-      multiple: true,
-      class: 'span3'
+= standard_form(:bsv_export,
+                url: :list_courses_bsv_export,
+                method: :get,
+                stacked: true,
+                builder: PlainObjectFormBuilder) do |f|
 
-  = labeled(t('event.lists.courses.bsv_export_date_from')) do
-    = content_tag(:div, class: 'input-prepend') do
-      = content_tag(:span, icon(:calendar), class: 'add-on') 
-      = text_field_tag(:date_from, nil, class: 'span2 date')
 
-  = labeled(t('event.lists.courses.bsv_export_date_to')) do
-    = content_tag(:div, class: 'input-prepend') do
-      = content_tag(:span, icon(:calendar), class: 'add-on')
-      = text_field_tag(:date_to, nil, class: 'span2 date')
+  / have to pass year and and group_id for filtering to work
+  = hidden_field_tag(:year, year)
+  = hidden_field_tag(:group_id, group_id)
 
-  = submit_tag 'Export', class: 'btn'
-  = cancel_link '#'
+  = f.has_many_field(:event_kinds, list: Event::Kind.includes(:translations).all)
+
+  %p.muted= t('.event_kinds_hint')
+
+  = f.labeled(t('.date_from')) do
+    = f.date_field(:date_from, value: f(Date.new(year, 1, 1)))
+
+  = f.labeled(t('.date_to')) do
+    = f.date_field(:date_to, value: f(Date.new(year, 12, 31)))
+
+  %p.muted= t('.export_only_includes_courses_of_states')
+  = save_form_buttons(f, t('event.lists.bsv_export_button'), :list_courses)
+
+:coffee
+  $('body').on('click', '.popover :submit', (e) ->
+    # without timeout, firefox does not issue request
+    setTimeout ( -> $('a[data-toggle=popover]').popover('hide') ), 100
+  )

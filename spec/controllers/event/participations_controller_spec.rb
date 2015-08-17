@@ -170,7 +170,6 @@ describe Event::ParticipationsController do
   private
 
   def ndbjs_person
-    Location.create!(zip_code: 4000, name: 'Basel', canton: 'BS')
     person = Fabricate(:person,
                        email: 'foo@e.com',
                        first_name: 'Peter',

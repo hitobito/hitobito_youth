@@ -38,32 +38,32 @@ describe Export::Csv::People::ParticipationNdbjsRow do
   it { expect(row.fetch(:activity)).to eq 1 }
   it { expect(row.fetch(:attachments)).to eq 1 }
 
-end
+  private
 
-private
-def ndbjs_person
-  Location.create!(zip_code: 4000, name: 'Basel', canton: 'BS')
-  person = Fabricate(:person, 
-                     email: 'foo@example.com',
-                     first_name: 'Peter',
-                     last_name: 'Muster',
-                     birthday: '11.06.1980',
-                     gender: 'm',
-                     j_s_number: '1695579',
-                     ahv_number: '789.80.267.213',
-                     address: 'Hauptstrasse 33',
-                     zip_code: '4000',
-                     town: 'Basel',
-                     country: 'AT',
-                     nationality_j_s: 'FL'
-                    )
-  create_contactables(person)
-  person
-end
+  def ndbjs_person
+    person = Fabricate(:person,
+                       email: 'foo@example.com',
+                       first_name: 'Peter',
+                       last_name: 'Muster',
+                       birthday: '11.06.1980',
+                       gender: 'm',
+                       j_s_number: '1695579',
+                       ahv_number: '789.80.267.213',
+                       address: 'Hauptstrasse 33',
+                       zip_code: '4000',
+                       town: 'Basel',
+                       country: 'AT',
+                       nationality_j_s: 'FL'
+                      )
+    create_contactables(person)
+    person
+  end
 
-def create_contactables(person)
-  Fabricate(:phone_number, contactable: person, label: 'Privat', number: '11 12 13')
-  Fabricate(:phone_number, contactable: person, label: 'Arbeit', number: '42 42 42')
-  Fabricate(:phone_number, contactable: person, label: 'Mobil', number: '99 99 99')
-  Fabricate(:phone_number, contactable: person, label: 'Fax', number: '33 33 33')
+  def create_contactables(person)
+    Fabricate(:phone_number, contactable: person, label: 'Privat', number: '11 12 13')
+    Fabricate(:phone_number, contactable: person, label: 'Arbeit', number: '42 42 42')
+    Fabricate(:phone_number, contactable: person, label: 'Mobil', number: '99 99 99')
+    Fabricate(:phone_number, contactable: person, label: 'Fax', number: '33 33 33')
+  end
+
 end

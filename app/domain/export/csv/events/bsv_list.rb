@@ -17,21 +17,22 @@ module Export::Csv::Events
       end
     end
 
-    def attributes
-      [ :vereinbarungs_id_fiver,
-        :kurs_id_fiver,
-        :number,
-        :oldest_event_date,
-        :location,
-        :training_days,
-        :participant_count,
-        :leader_count,
-        :canton_count,
-        :languages_count
-      ]
+    def attribute_labels
+      { vereinbarungs_id_fiver: 'Vereinbarung-ID-FiVer',
+        kurs_id_fiver: 'Kurs-ID-FiVer',
+        number: 'Kursnummer',
+        first_event_date: 'Datum',
+        location: 'Kursort',
+        training_days: 'Ausbildungstage',
+        participant_count: 'Teilnehmende (17-30)',
+        leader_count: 'Kursleitende',
+        canton_count: 'Wohnkantone der TN',
+        language_count: 'Sprachen' }
     end
 
     def to_csv(generator)
+      generator << labels
+
       list.each do |entry|
         generator << values(entry)
       end
