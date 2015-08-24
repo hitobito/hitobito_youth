@@ -40,7 +40,7 @@ module Bsv
 
     def participant_count
       participants_aged_17_to_30.
-        select { |person| ch_resident?(person) }.count
+        count { |person| ch_resident?(person) }
     end
 
     def leader_count
