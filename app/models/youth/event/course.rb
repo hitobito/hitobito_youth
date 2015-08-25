@@ -83,7 +83,12 @@ module Youth::Event::Course
   end
 
   def applicants_scope_with_tentative
-    applicants_scope_without_tentative.countable_applicants
+    # required for migrations
+    if Event::Participation.column_names.include?('state')
+      applicants_scope_without_tentative.countable_applicants
+    else
+      applicants_scope_without_tentative
+    end
   end
 
   def organizing_role_types

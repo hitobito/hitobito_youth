@@ -20,6 +20,9 @@ class AddEventParticipationStates < ActiveRecord::Migration
 
     Event::Participation.reset_column_information
     Event.reset_column_information # to make new column appear
+
+    # Recalculate the counts of all events
+    Event::Course.find_each { |e| e.refresh_participant_counts! }
   end
 
   def down
