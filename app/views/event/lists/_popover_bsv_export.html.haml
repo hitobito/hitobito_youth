@@ -1,17 +1,19 @@
+%p= t('.export_info')
+
 = standard_form(:bsv_export,
                 url: :list_courses_bsv_export,
                 method: :get,
                 stacked: true,
                 builder: PlainObjectFormBuilder) do |f|
 
-
   / have to pass year and and group_id for filtering to work
   = hidden_field_tag(:year, year)
   = hidden_field_tag(:group_id, group_id)
 
-  = f.has_many_field(:event_kinds, list: Event::Kind.includes(:translations).all)
-
-  %p.muted= t('.event_kinds_hint')
+  = f.labeled(t('.event_kinds'), help: 'f00') do
+    = f.has_many_field(:event_kinds, list: Event::Kind.includes(:translations).without_deleted)
+    = f.help_block do
+      %span.muted= t('.event_kinds_hint')
 
   = f.labeled(t('.date_from')) do
     = f.date_field(:date_from, value: f(Date.new(year, 1, 1)))
@@ -19,11 +21,10 @@
   = f.labeled(t('.date_to')) do
     = f.date_field(:date_to, value: f(Date.new(year, 12, 31)))
 
-  %p.muted= t('.export_only_includes_courses_of_states')
   = save_form_buttons(f, t('event.lists.bsv_export_button'), :list_courses)
 
 :coffee
   $('body').on('click', '.popover :submit', (e) ->
     # without timeout, firefox does not issue request
-    setTimeout ( -> $('a[data-toggle=popover]').popover('hide') ), 100
+    setTimeout(( -> $('a[data-toggle=popover]').popover('hide') ), 100)
   )

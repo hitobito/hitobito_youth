@@ -9,7 +9,8 @@ module Export::Csv::Events
   class BsvRow < Export::Csv::Row
 
     delegate :training_days, :vereinbarungs_id_fiver, :participant_count,
-      :leader_count, :canton_count, :language_count, to: :info
+             :leader_count, :canton_count, :language_count,
+             to: :info
 
     def kurs_id_fiver
       info.kurs_id_fiver.to_s.truncate(100) if info.kurs_id_fiver

@@ -13,7 +13,8 @@ de:
     lists:
       bsv_export_button: BSV Export
       popover_bsv_export:
-        export_only_includes_courses_of_states: Es werden nur Kurse mit Kursstatus 'Abgeschlossen' exportiert.
+        export_info: Exportiert eine Kursliste für das BSV. Es werden nur Kurse mit Kursstatus 'Abgeschlossen' exportiert.
+        event_kinds: Kursarten
         event_kinds_hint: Mit <Ctrl> + Klick können mehrere Kursarten ausgewählt werden.
         date_from: Abschlussdatum von
         date_to: Abschlussdatum bis
@@ -77,5 +78,5 @@ de:
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
-      bsv_export_date_from_never_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
+      bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
 

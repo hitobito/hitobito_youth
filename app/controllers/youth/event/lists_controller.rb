@@ -9,21 +9,19 @@ module Youth::Event::ListsController
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :date_from, :date_to
-    before_filter :dates_from_to, only: [:bsv_export]
-
     class_attribute :bsv_course_states
     self.bsv_course_states = [:closed]
   end
 
   def bsv_export
     authorize!(:export_list, Event::Course)
+    dates_from_to
     set_group_vars
 
-    if [date_from, date_to].all?(&:blank?)
+    if [@date_from, @date_to].all?(&:blank?)
       set_flash_and_redirect(:bsv_export_params_missing)
     elsif date_to_newer_than_date_from?
-      set_flash_and_redirect(:bsv_export_date_from_never_than_date_to)
+      set_flash_and_redirect(:bsv_export_date_from_newer_than_date_to)
     else
       send_data(Export::Csv::Events::BsvList.export(courses_for_bsv_export),
                 type: :csv, filename: 'bsv_export.csv')
@@ -38,7 +36,7 @@ module Youth::Event::ListsController
   end
 
   def date_to_newer_than_date_from?
-    (date_from && date_to) && (date_from > date_to)
+    (@date_from && @date_to) && (@date_from > @date_to)
   end
 
   def courses_for_bsv_export
@@ -53,8 +51,8 @@ module Youth::Event::ListsController
                             ' WHERE event_dates.event_id = events.id' \
                             ' ORDER BY start_at DESC LIMIT 1)')
 
-    courses = date_range_condition(courses, date_from, '>=')
-    courses = date_range_condition(courses, date_to, '<=')
+    courses = date_range_condition(courses, @date_from, '>=')
+    courses = date_range_condition(courses, @date_to, '<=')
 
     if model_params.fetch(:event_kinds, []).reject(&:blank?).present?
       courses = courses.where(kind: model_params[:event_kinds])
@@ -64,13 +62,12 @@ module Youth::Event::ListsController
   end
 
   def date_range_condition(courses, date, operator)
-    if date
-      courses = courses.where("(event_dates.finish_at IS NULL" \
-                              " AND event_dates.start_at #{operator} ?)" \
-                              " OR (event_dates.finish_at #{operator} ?)",
-                              date, date)
-    end
-    courses
+    return courses unless date
+
+    courses.where("(event_dates.finish_at IS NULL" \
+                  " AND event_dates.start_at #{operator} ?)" \
+                  " OR (event_dates.finish_at #{operator} ?)",
+                  date, date)
   end
 
   def dates_from_to

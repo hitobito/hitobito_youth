@@ -30,13 +30,5 @@ module Export::Csv::Events
         language_count: 'Sprachen' }
     end
 
-    def to_csv(generator)
-      generator << labels
-
-      list.each do |entry|
-        generator << values(entry)
-      end
-    end
-
   end
 end
