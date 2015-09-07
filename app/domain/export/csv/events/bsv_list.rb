@@ -13,7 +13,7 @@ module Export::Csv::Events
 
     class << self
       def export(*args)
-        super.gsub(/\n/,"\r\n") # use CRLF instead of LF as specified by BSV
+        super.gsub(/\n/, "\r\n") # use CRLF instead of LF as specified by BSV
       end
     end
 

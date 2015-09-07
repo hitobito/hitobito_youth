@@ -64,14 +64,15 @@ module Youth::Event::ListsController
   def date_range_condition(courses, date, operator)
     return courses unless date
 
-    courses.where("(event_dates.finish_at IS NULL" \
+    courses.where('(event_dates.finish_at IS NULL' \
                   " AND event_dates.start_at #{operator} ?)" \
                   " OR (event_dates.finish_at #{operator} ?)",
                   date, date)
   end
 
   def dates_from_to
-    date_from, date_to = model_params[:date_from], model_params[:date_to]
+    date_from = model_params[:date_from]
+    date_to = model_params[:date_to]
     @date_from = Date.parse(date_from) if date_from.present?
     @date_to = Date.parse(date_to) if date_to.present?
   end

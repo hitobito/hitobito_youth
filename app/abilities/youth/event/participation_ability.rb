@@ -12,11 +12,15 @@ module Youth::Event::ParticipationAbility
     on(Event::Participation) do
       permission(:any).may(:cancel, :absent, :assign, :attend).for_participations_full_events
       permission(:group_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_group
+      permission(:group_and_below_full).
+        may(:cancel, :reject, :absent, :assign, :attend).
+        in_same_group_or_below
       permission(:layer_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_layer
       permission(:layer_and_below_full).may(:cancel, :reject, :absent, :assign, :attend).
         in_same_layer
 
       permission(:group_full).may(:create_tentative).person_in_same_group
+      permission(:group_and_below_full).may(:create_tentative).person_in_same_group_or_below
       permission(:layer_full).may(:create_tentative).person_in_same_layer
       permission(:layer_and_below_full).may(:create_tentative).person_in_same_layer_or_visible_below
       general(:create_tentative).event_tentative_and_person_in_tentative_group
@@ -25,6 +29,11 @@ module Youth::Event::ParticipationAbility
 
   def person_in_same_group
     person.nil? || permission_in_groups?(person.groups.collect(&:id))
+  end
+
+  def person_in_same_group_or_below
+    person.nil? ||
+    permission_in_groups?(person.groups.collect(&:local_hierarchy).flatten.collect(&:id).uniq)
   end
 
   def person_in_same_layer

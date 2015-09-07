@@ -16,6 +16,9 @@ module Youth::EventAbility
       permission(:group_full).
         may(:index_revoked_participations, :list_tentatives).
         in_same_group
+      permission(:group_and_below_full).
+        may(:index_revoked_participations, :list_tentatives).
+        in_same_group_or_below
       permission(:layer_full).
         may(:index_revoked_participations, :list_tentatives).
         in_same_layer

@@ -21,8 +21,9 @@ module GroupEducationsHelper
   end
 
   def joined_event_participations(person)
+    today = Time.zone.today
     person.event_participations.
-      select  { |p| p.course? && p.event.dates.sort_by(&:start_at).last.start_at >= Date.today }.
+      select  { |p| p.course? && p.event.dates.sort_by(&:start_at).last.start_at >= today }.
       collect { |p| format_open_participation_event(p) }.
       join(', ')
   end

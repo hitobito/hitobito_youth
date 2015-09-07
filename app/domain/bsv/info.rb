@@ -25,9 +25,7 @@ module Bsv
       course.kind.kurs_id_fiver
     end
 
-    def location
-      course.location
-    end
+    delegate :location, to: :course
 
     def first_event_date
       course.dates.order(:start_at).first.start_at.to_date
@@ -72,7 +70,7 @@ module Bsv
     end
 
     def participations_for(role_types)
-      participations.select { |p| contains_any?(role_types, p.roles.collect(&:class))  }
+      participations.select { |p| contains_any?(role_types, p.roles.collect(&:class)) }
     end
 
     def cantons

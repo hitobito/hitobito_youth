@@ -24,9 +24,7 @@ module Export::Csv::People
       entry.birthday && entry.birthday.strftime('%d.%m.%Y')
     end
 
-    def canton
-      entry.canton
-    end
+    delegate :canton, to: :entry
 
     def country
       { 'CH' => 'CH',

@@ -42,7 +42,7 @@ module Youth::Event::Course
   # may participants apply now?
   def application_possible?
     application_open? &&
-    (!application_opening_at || application_opening_at <= ::Date.today)
+    (!application_opening_at || application_opening_at <= ::Time.zone.today)
   end
 
   def qualification_possible?
@@ -100,7 +100,7 @@ module Youth::Event::Course
     def application_possible
       where(state: 'application_open').
       where('events.application_opening_at IS NULL OR events.application_opening_at <= ?',
-            ::Date.today)
+            ::Time.zone.today)
     end
   end
 end
