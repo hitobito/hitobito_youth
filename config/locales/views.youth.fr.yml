@@ -1,0 +1,65 @@
+fr:
+  people:
+    fields_youth:
+      nationality:
+        placeholder: p.ex. CH
+  event:
+    lists:
+      bsv_export_button: Export OFAS
+      popover_bsv_export:
+        export_info: Exporter une liste des cours pour OFAS. Seulement les cours finalisé sont exportés.
+        event_kinds: Types de cours
+        event_kinds_hint: On peut sélectionner plusieurs catégorie de cours en cliquant dessus tout en maintenant la touche <Ctrl> enfoncée
+        date_from: Date de finalisation du
+        date_to: Date de finalisation au
+    participations:
+      canceled_notice: "%{participant} était désannoncé."
+      rejected_notice: "%{participant} était refusé."
+      assigned_notice: "%{participant} était placé."
+      attended_notice: "%{participant} était marqueé en tant que participant."
+      absent_notice: "%{participant} était marqueé en tant que absent."
+      actions_show_youth:
+        cancel_button: Désinscription
+        cancel_title: désinscrire participant
+        reject_button: Refusé
+        absent_button: absent
+        attended_button: Participé
+        assigned_button: Placé
+    tentatives:
+      created: Inscription provisoire étatit crée pour %{participant}.
+      index:
+        tentatives_count: Provisoire
+        total_info_html: "<strong>%{count}</strong> inscriptions provisoires au total."
+        layer: Niveau
+      new:
+        title: inscrirer provisoirement
+  events:
+    actions_show_youth:
+      create_tentative_application: inscrirer provisoirement
+    tabs:
+      tentatives: Inscriptions provisoires
+    application_fields_youth:
+      tentative_applications: Le responsable de troupe peut inscrire provisoirement des personnes.
+  export/csv/events/list:
+    male_count: Nombre de participants masculins
+    female_count: Nombre de participantes féminines
+    absent_count: Nombre d'absents
+    canceled_count: Nombre de participants désannoncés
+    rejected_count: Nombre de participants refusés
+  filter_navigation/event/participations:
+    predefined_filters:
+      revoked: Absents
+  groups:
+    tabs:
+      education: Formation
+  group:
+    educations:
+      index:
+        tentative_participation: Inscription provisoire
+  dropdown/people_export:
+    ndbjs: BDNJS
+    sportdb: SportDB
+  event/lists:
+    courses:
+      bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.
+      bsv_export_date_from_newer_than_date_to: Date de finalisation au doit être ultérieur à la date de finalisation du.

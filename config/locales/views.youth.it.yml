@@ -1,0 +1,64 @@
+it:
+  people:
+    fields_youth:
+      nationality:
+        placeholder: per es. CH
+  event:
+    lists:
+      bsv_export_button: Esportazione UFAS
+      popover_bsv_export:
+        event_kinds: Tipi di corsi
+        event_kinds_hint: Tenendo premuto <Ctrl> e cliccando possono essere selezionati più tipi di corsi.
+        date_from: Data di scadenza da
+        date_to: 'Data di scadenza fino '
+    participations:
+      canceled_notice: "%{participant} è stato disiscritto."
+      rejected_notice: "%{participant} è stato rifiutato."
+      assigned_notice: "%{participant} è stato assegnato."
+      attended_notice: "%{participant} è stato registrato come \"ha partecipato\"."
+      absent_notice: "%{participant} è stato registrato come \"non apparso\"."
+      actions_show_youth:
+        cancel_button: Disiscrivere
+        cancel_title: Disiscrivere il partecipante
+        reject_button: Rifiutare
+        absent_button: Non apparso
+        attended_button: Partecipato
+        assigned_button: Assegnato
+    tentatives:
+      created: L'iscrizione provvisioria per %{participant} è stata creata.
+      index:
+        tentatives_count: Provvisiorio
+        total_info_html: "In totale <strong>%{count}</strong> iscrizioni provvisorie."
+        layer: Livello
+      new:
+        title: Iscrivere provvisoriamente
+  events:
+    actions_show_youth:
+      create_tentative_application: Iscrivere provvisoriamente
+    tabs:
+      tentatives: Iscrizioni provvisorie
+    application_fields_youth:
+      tentative_applications: I capi gruppo possono iscrivere delle persone provvisoriamente.
+  export/csv/events/list:
+    male_count: Numero di partecipanti maschi
+    female_count: Numero di partecipanti femmine
+    absent_count: Numero di non comparsi
+    canceled_count: Numero di disiscritti
+    rejected_count: Numero di riufiutati
+  filter_navigation/event/participations:
+    predefined_filters:
+      revoked: Assenti
+  groups:
+    tabs:
+      education: Formazione
+  group:
+    educations:
+      index:
+        tentative_participation: Iscrizione provvisoria
+  dropdown/people_export:
+    ndbjs: NDBJS
+    sportdb: Sport DB
+  event/lists:
+    courses:
+      bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
+      bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".

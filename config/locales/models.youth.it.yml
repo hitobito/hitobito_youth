@@ -1,0 +1,35 @@
+it:
+  activerecord:
+    attributes:
+      event:
+        training_days: Giorni di formazione
+      event/course:
+        tentative_applications: Iscrizione provvisoria
+        states:
+          created: Creato
+          confirmed: Confermato
+          application_open: Aprire per l'iscrizione
+          application_closed: Iscrizione conclusa
+          assignment_closed: Assegnazione conclusa
+          canceled: Disdetto
+          completed: Qualifiche registrate
+          closed: Concluso
+      event/kind:
+        kurs_id_fiver: Corso ID FiVer
+        vereinbarungs_id_fiver: Accordo ID FiVer
+      event/participation:
+        canceled_at: Data della disiscrizione
+        state: Stato
+        states:
+          tentative: Provvisorio
+          applied: Iscritto
+          assigned: Assegnato
+          rejected: Rifiutato
+          canceled: Disiscritto
+          attended: Partecipato
+          absent: non apparso
+      person:
+        canton: Cantone di domicilio
+        ahv_number: Numero AVS
+        j_s_number: Numero G+S
+        nationality_j_s: Nazionalità secondo G+S
