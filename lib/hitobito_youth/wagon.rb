@@ -57,6 +57,7 @@ module HitobitoYouth
       Sheet::Group.send :include, Youth::Sheet::Group
       Sheet::Event.send :include, Youth::Sheet::Event
       Dropdown::PeopleExport.send :include, Youth::Dropdown::PeopleExport
+      Dropdown::Event::ParticipantAdd.send :include, Youth::Dropdown::Event::ParticipantAdd
 
       # serializer
       PersonSerializer.send :include, Youth::PersonSerializer

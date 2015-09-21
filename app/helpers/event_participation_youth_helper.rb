@@ -7,12 +7,6 @@
 
 module EventParticipationYouthHelper
 
-  def participates_in?(event)
-    event.participations.
-      where(person: current_user).
-      where.not(state: 'tentative').exists?
-  end
-
   def show_event_participation_cancel_button?
     (entry.assigned? || entry.applied?) && can?(:cancel, entry)
   end
