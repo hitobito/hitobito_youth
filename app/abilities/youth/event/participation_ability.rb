@@ -26,7 +26,7 @@ module Youth::Event::ParticipationAbility
   end
 
   def person_in_same_layer
-    person.nil? || permission_in_layers?(person.groups.collect(&:layer_group_id))
+    person.nil? || permission_in_layers?(person.layer_group_ids)
   end
 
   def person_in_same_layer_or_visible_below
@@ -51,7 +51,7 @@ module Youth::Event::ParticipationAbility
   end
 
   def visible_below
-    permission_in_layers?(participation.person.above_groups_where_visible_from.collect(&:id))
+    permission_in_layers?(person.above_groups_where_visible_from.collect(&:id))
   end
 
   def tentative_group_ids
