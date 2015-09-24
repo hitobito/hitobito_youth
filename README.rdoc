@@ -2,7 +2,7 @@
 
 Dieser hitobito Wagon enthält gemeinsame Features für (Schweizer) Jugendverbände:
 
-* Verschiedene Status für Kursteilnahmen (abgemeldet, abgelehnt, besucht, nicht erschienen)
+* Verschiedene Status für Kursteilnahmen (abgemeldet, abgelehnt, besucht, nicht erschienen).
 * Möglichkeit, Teilnehmende provisorisch für Kurse anzumelden, um die Nachfrage in Erfahrung zu bringen.
 * Eine Ausbildungsübersicht pro Ebene mit den Qualifikationen und den zukünftigen Kursen der Mitglieder.
 * CSV Exporte von Kursteilnehmenden für NDBJS und die SportDB.
