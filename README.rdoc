@@ -1,9 +1,8 @@
 === Hitobito Youth
 
-This hitobito wagon provides common features for youth organisations. This includes
+Dieser hitobito Wagon enthält gemeinsame Features für (Schweizer) Jugendverbände:
 
-* Different states for course participations (canceled, rejected, attended, absent).
-* Possibility for tentative course applications.
-* An overview of the qualifications and upcoming courses for group members.
-* CSV Exports of course participants for NDBJS and SportDB.
-
+* Verschiedene Status für Kursteilnahmen (abgemeldet, abgelehnt, besucht, nicht erschienen)
+* Möglichkeit, Teilnehmende provisorisch für Kurse anzumelden, um die Nachfrage in Erfahrung zu bringen.
+* Eine Ausbildungsübersicht mit den Qualifikationen und den zukünftigen Kursen der Mitglieder.
+* CSV Exporte von Kursteilnehmenden für NDBJS und die SportDB.

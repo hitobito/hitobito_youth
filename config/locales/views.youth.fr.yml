@@ -7,7 +7,7 @@ fr:
     lists:
       bsv_export_button: Export OFAS
       popover_bsv_export:
-        export_info: Exporter une liste des cours pour OFAS. Seulement les cours finalisé sont exportés.
+        export_info: Exportez une liste brève pour l’OFAS. Seuls les cours dont le statut est 'Terminé' doivent être exportés.
         event_kinds: Types de cours
         event_kinds_hint: On peut sélectionner plusieurs catégorie de cours en cliquant dessus tout en maintenant la touche <Ctrl> enfoncée
         date_from: Date de finalisation du
