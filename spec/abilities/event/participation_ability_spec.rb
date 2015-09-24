@@ -15,9 +15,13 @@ describe Event::ParticipationAbility do
   end
 
   let(:participation) { @participation }
+  let(:user) { role.person }
+  let(:writables) { Person.accessible_by(PersonLayerWritables.new(user)) }
+
+  subject { Ability.new(user) }
 
   context 'participation without person' do
-    subject { Ability.new(Fabricate(Group::BottomLayer::Leader.name.to_sym, group: groups(:bottom_layer_one)).person) }
+    let(:role) { Fabricate(Group::BottomLayer::Leader.name.to_sym, group: groups(:bottom_layer_one)) }
 
     it 'may create_tentative for event higher up in organisation' do
       is_expected.to be_able_to(:create_tentative, build(groups: [:top_layer]))
@@ -39,76 +43,90 @@ describe Event::ParticipationAbility do
   context 'participation with person' do
 
     context 'layer_and_below_full' do
-      subject { Ability.new(Fabricate(Group::BottomLayer::Leader.name, group: groups(:bottom_layer_one)).person) }
+      let(:role) { Fabricate(Group::BottomLayer::Leader.name, group: groups(:bottom_layer_one)) }
 
       it 'may not create_tentative for person in upper layer' do
-        is_expected.not_to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: people(:top_leader)))
+        person = people(:top_leader)
+        is_expected.not_to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: person))
+        expect(writables).not_to include(person)
       end
 
       it 'may create_tentative for person in his group' do
         person = Fabricate(Group::BottomLayer::Member.name, group: groups(:bottom_layer_one)).person
         is_expected.to be_able_to(:create_tentative, build(groups: [:top_layer], person: person))
+        expect(writables).to include(person)
       end
 
-      it 'may not create_tentative for person in different group on same layer' do
+      it 'may not create_tentative for person in different layer' do
         person = Fabricate(Group::BottomLayer::Member.name, group: groups(:bottom_layer_two)).person
         is_expected.not_to be_able_to(:create_tentative, build(groups: [:top_layer], person: person))
+        expect(writables).not_to include(person)
       end
 
       it 'may create_tentative for person in layer below' do
         person = Fabricate(Group::BottomGroup::Leader.name, group: groups(:bottom_group_one_one)).person
         is_expected.to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: person))
+        expect(writables).to include(person)
       end
     end
 
     context 'layer_full' do
       context 'in top layer' do
-        subject { Ability.new(Fabricate(Group::TopGroup::LocalGuide.name, group: groups(:top_group)).person) }
+        let(:role) { Fabricate(Group::TopGroup::LocalGuide.name, group: groups(:top_group)) }
 
         it 'may create_tentative for person in same layer' do
-          is_expected.to be_able_to(:create_tentative, build(groups: [:top_layer], person: people(:top_leader)))
+          person = people(:top_leader)
+          is_expected.to be_able_to(:create_tentative, build(groups: [:top_layer], person: person))
+          expect(writables).to include(person)
         end
 
         it 'may create_tentative for person in his group' do
           person = Fabricate(Group::TopGroup::Member.name, group: groups(:top_group)).person
           is_expected.to be_able_to(:create_tentative, build(groups: [:top_layer], person: person))
+          expect(writables).to include(person)
         end
 
         it 'may not create_tentative for person in layer below' do
           person = Fabricate(Group::BottomGroup::Leader.name, group: groups(:bottom_group_one_one)).person
           is_expected.not_to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: person))
+          expect(writables).not_to include(person)
         end
       end
 
       context 'in bottom layer' do
-        subject { Ability.new(Fabricate(Group::BottomLayer::LocalGuide.name, group: groups(:bottom_layer_one)).person) }
+        let(:role) { Fabricate(Group::BottomLayer::LocalGuide.name, group: groups(:bottom_layer_one)) }
 
         it 'may not create_tentative for person in upper layer' do
-          is_expected.not_to be_able_to(:create_tentative, build(groups: [:top_layer], person: people(:top_leader)))
+          person = people(:top_leader)
+          is_expected.not_to be_able_to(:create_tentative, build(groups: [:top_layer], person: person))
+          expect(writables).not_to include(person)
         end
 
         it 'may create_tentative for person in his group' do
           person = Fabricate(Group::BottomLayer::Member.name, group: groups(:bottom_layer_one)).person
           is_expected.to be_able_to(:create_tentative, build(groups: [:top_layer], person: person))
+          expect(writables).to include(person)
         end
 
         it 'may create_tentative for person in group below' do
           person = Fabricate(Group::BottomGroup::Leader.name, group: groups(:bottom_group_one_one)).person
           is_expected.to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: person))
+          expect(writables).to include(person)
         end
       end
     end
 
     context 'group_full' do
-      subject { Ability.new(Fabricate(Group::BottomGroup::Leader.name, group: groups(:bottom_group_one_one)).person) }
+      let(:role) { Fabricate(Group::BottomGroup::Leader.name, group: groups(:bottom_group_one_one)) }
 
       it 'may not create_tentative for person in upper layer' do
         is_expected.not_to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: people(:top_leader)))
       end
 
-      it 'may create_tentative for person in his group' do
+      it 'may not create_tentative for person in his group' do
         person = Fabricate(Group::BottomGroup::Member.name, group: groups(:bottom_group_one_one)).person
-        is_expected.to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: person))
+        expect(writables).not_to include(person)
+        is_expected.not_to be_able_to(:create_tentative, build(groups: [:bottom_layer_one], person: person))
       end
     end
   end

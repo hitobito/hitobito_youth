@@ -19,36 +19,25 @@ module Youth::Event::ParticipationAbility
       permission(:layer_and_below_full).may(:cancel, :reject, :absent, :assign, :attend).
         in_same_layer
 
-      permission(:group_full).may(:create_tentative).person_in_same_group
-      permission(:group_and_below_full).may(:create_tentative).person_in_same_group_or_below
       permission(:layer_full).may(:create_tentative).person_in_same_layer
       permission(:layer_and_below_full).may(:create_tentative).person_in_same_layer_or_visible_below
       general(:create_tentative).event_tentative_and_person_in_tentative_group
     end
   end
 
-  def person_in_same_group
-    person.nil? || permission_in_groups?(person.groups.collect(&:id))
-  end
-
-  def person_in_same_group_or_below
-    person.nil? ||
-    permission_in_groups?(person.groups.collect(&:local_hierarchy).flatten.collect(&:id).uniq)
-  end
-
   def person_in_same_layer
-    person.nil? || permission_in_layers?(person.groups.collect(&:layer_group_id))
+    person.nil? || permission_in_layers?(person.layer_group_ids)
   end
 
   def person_in_same_layer_or_visible_below
-    person.nil? || person_in_same_layer || visible_below
+    person_in_same_layer || visible_below
   end
 
   def event_tentative_and_person_in_tentative_group
     return false unless event.tentative_application_possible?
 
     groups = tentative_group_ids
-    permission_in_groups?(groups) || permission_in_layers?(groups)
+    permission_in_layers?(groups)
   end
 
   private
@@ -62,12 +51,11 @@ module Youth::Event::ParticipationAbility
   end
 
   def visible_below
-    permission_in_layers?(participation.person.above_groups_where_visible_from.collect(&:id))
+    permission_in_layers?(person.above_groups_where_visible_from.collect(&:id))
   end
 
   def tentative_group_ids
     event.groups.flat_map { |g| g.self_and_descendants.pluck(:id) + g.hierarchy.pluck(:id) }
   end
-
 
 end
