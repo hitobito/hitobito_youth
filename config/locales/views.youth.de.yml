@@ -26,7 +26,7 @@ de:
       absent_notice: "%{participant} wurde als nicht erschienen markiert."
 
       popover_cancel:
-          cancel_info:
+          cancel_info: ''
       actions_show_youth:
         cancel_button: Abmelden
         cancel_title: Teilnehmer abmelden
