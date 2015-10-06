@@ -11,7 +11,7 @@ describe Event::ParticipationDecorator, :draper_with_helpers do
 
   let(:person) { Fabricate(:person, first_name: 'John', last_name: 'Doe', nickname: nil) }
   let(:state) { 'applied' }
-  let(:participation) { Event::Participation.new(state: state, person: person) }
+  let(:participation) { Event::Participation.new(state: state, person: person, event: Fabricate(:course)) }
   let(:decorator) { Event::ParticipationDecorator.new(participation) }
 
   describe '#state_translated' do

@@ -24,6 +24,7 @@ module HitobitoYouth
 
       # models
       Person.send :include, Youth::Person
+      Event.send :include, Youth::Event
       Event::Course.send :include, Youth::Event::Course
       Event::Participation.send :include, Youth::Event::Participation
       Event::Role.send :include, Youth::Event::Role
@@ -43,7 +44,6 @@ module HitobitoYouth
       Event::ParticipationDecorator.send :include, Youth::Event::ParticipationDecorator
       PeopleFiltersController.send :include, Youth::PeopleFiltersController
       Event::ParticipationsController.send :include, Youth::Event::ParticipationsController
-      Event::RolesController.send :include, Youth::Event::RolesController
 
       PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number]
       EventsController.permitted_attrs += [:tentative_applications]

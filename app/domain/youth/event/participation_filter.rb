@@ -19,7 +19,7 @@ module Youth::Event::ParticipationFilter
   def predefined_filters_with_revoked
     @predefined_filters ||=
       predefined_filters_without_revoked.dup.tap do |predefined|
-        if event.supports_applications? &&
+        if event.revoked_participation_states.present? &&
            Ability.new(user).can?(:index_revoked_participations, event)
           predefined << 'revoked'
         end
@@ -33,7 +33,7 @@ module Youth::Event::ParticipationFilter
       event.participations.
             joins(:roles).
             where('event_roles.type' => event.participant_types.collect(&:sti_name)).
-            where('event_participations.state' => Youth::Event::Participation::REVOKED_STATES).
+            where('event_participations.state' => event.revoked_participation_states).
             includes(load_entries_includes).
             uniq
     else

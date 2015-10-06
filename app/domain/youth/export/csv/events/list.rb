@@ -23,7 +23,7 @@ module Youth::Export::Csv::Events::List
              where(event_participations: { active: true }).
              group('events.id', 'people.gender'))
       @state_counts = participant_counts(
-        list.where(event_participations: { state: Event::Participation::REVOKED_STATES }).
+        list.where(event_participations: { state: model_class.revoked_participation_states }).
              group('events.id', 'event_participations.state'))
     end
 

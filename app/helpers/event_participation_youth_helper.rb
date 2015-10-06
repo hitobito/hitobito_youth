@@ -8,26 +8,32 @@
 module EventParticipationYouthHelper
 
   def show_event_participation_cancel_button?
-    (entry.assigned? || entry.applied?) && can?(:cancel, entry)
+    course_participation_state_transition_allowed?(:cancel, :assigned, :applied)
   end
 
   def show_event_participation_reject_button?
-    entry.applied? && can?(:reject, entry)
+    course_participation_state_transition_allowed?(:reject, :applied)
   end
 
   def show_event_participation_absent_button?
-    (entry.assigned? || entry.attended?) && can?(:absent, entry)
+    course_participation_state_transition_allowed?(:absent, :assigned, :attended)
   end
 
   def show_event_participation_attended_button?
-    (entry.absent? && entry.event.closed?) && can?(:attend, entry)
+    course_participation_state_transition_allowed?(:attend, :absent) && entry.event.closed?
   end
 
   def show_event_participation_assigned_button?
-    (entry.absent? && !entry.event.closed?) && can?(:assign, entry)
+    course_participation_state_transition_allowed?(:assign, :absent) && !entry.event.closed?
   end
 
   def format_event_participation_state(entry)
-    I18n.t("activerecord.attributes.event/participation.states.#{entry.state}")
+    entry.state_translated
+  end
+
+  private
+
+  def course_participation_state_transition_allowed?(to_state, *from_states)
+    from_states.collect(&:to_s).include?(entry.state) && can?(to_state, entry)
   end
 end

@@ -13,8 +13,8 @@ module Youth::Event::ParticipationDecorator
   end
 
   def state_translated(state = model.state)
-    if possible_states.present? && state
-      h.t("activerecord.attributes.event/participation.states.#{state}")
+    if states? && state
+      h.t("activerecord.attributes.#{event.klass.name.underscore}.participation_states.#{state}")
     else
       state
     end
@@ -22,7 +22,7 @@ module Youth::Event::ParticipationDecorator
 
   def to_s_with_state(*args)
     s = to_s_without_state(*args)
-    s << " (#{state_translated})" if %w(rejected canceled absent).include?(model.state)
+    s << " (#{state_translated})" if event.revoked_participation_states.include?(model.state)
     s
   end
 

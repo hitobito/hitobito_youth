@@ -13,7 +13,7 @@ module Youth::Event::Role
   end
 
   def set_participation_active_with_tentative
-    unless participation.tentative?
+    if participation.state != 'tentative'
       set_participation_active_without_tentative
     end
   end

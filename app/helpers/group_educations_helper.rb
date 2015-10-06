@@ -23,14 +23,19 @@ module GroupEducationsHelper
   def joined_event_participations(person)
     today = Time.zone.today
     person.event_participations.
-      select  { |p| p.course? && p.event.dates.sort_by(&:start_at).last.start_at >= today }.
-      collect { |p| format_open_participation_event(p) }.
+      select do |p|
+        p.event.supports_applications? &&
+          p.event.dates.sort_by(&:start_at).last.start_at >= today
+      end.
+      collect do |p|
+        format_open_participation_event(p)
+      end.
       join(', ')
   end
 
   def format_open_participation_event(participation)
     event = participation.event
-    if participation.tentative?
+    if participation.state == 'tentative'
       link_to(event.name,
               [event.groups.first, event],
               style: 'padding-right: 0.3em') +

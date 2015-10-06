@@ -17,7 +17,7 @@ class Event::TentativesController < ApplicationController
 
     @counts = @event.
       participations.
-      tentative.
+      where(state: 'tentative').
       joins(person: :primary_group).
       joins('LEFT OUTER JOIN groups layer_groups on groups.layer_group_id = layer_groups.id').
       group('layer_groups.id', 'layer_groups.name').

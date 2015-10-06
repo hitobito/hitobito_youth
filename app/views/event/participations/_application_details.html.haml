@@ -1,5 +1,5 @@
 = render_attrs(entry, :created_at)
-- if @event.supports_applications? && entry.canceled?
+- if entry.state == 'canceled'
   = render_attrs(entry, :canceled_at)
-- if @event.supports_applications?
+- if entry.states?
   = render_attrs(entry, :state)

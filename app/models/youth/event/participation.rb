@@ -9,50 +9,32 @@ module Youth::Event::Participation
   extend ActiveSupport::Concern
 
   included do
-    class_attribute :possible_states
-
-    # states are used for workflow
-    # translations in config/locales
-    self.possible_states = %w(tentative applied assigned rejected canceled attended absent)
-
-    ACTIVE_STATES = %w(assigned attended)
-    REVOKED_STATES = %w(rejected canceled absent)
-
-    # Define methods to query if a participation is in the given state.
-    # eg participation.canceled?
-    possible_states.each do |state|
-      define_method "#{state}?" do
-        self.state == state
-      end
-    end
-
-    ### SCOPES
-
-    scope :tentative, -> { where(state: 'tentative') }
-    scope :countable_applicants, -> { where(state: %w(applied assigned attended absent)) }
-
     ### VALIDATIONS
 
-    validates :state, inclusion: possible_states, if: :course?
-    validates :canceled_at, presence: true, if: :canceled?
+    validates :state,
+              inclusion: { in: ->(p) { p.event.possible_participation_states } },
+              if: :states?
+    validates :canceled_at, presence: true, if: ->(p) { p.state == 'canceled' }
 
     ### CALLBACKS
 
-    before_validation :set_default_state, if: :course?
-    before_validation :delete_tentatives, if: :course?, unless: :tentative?, on: :create
-    before_validation :set_active_based_on_state, if: :course?
-    before_validation :clear_canceled_at, unless: :canceled?
+    before_validation :set_default_state, if: :states?
+    before_validation :delete_tentatives,
+                      if: ->(p) { p.event.is_a?(Event::Course) && p.state != 'tentative' },
+                      on: :create
+    before_validation :set_active_based_on_state, if: :states?
+    before_validation :clear_canceled_at, unless: ->(p) { p.state == 'canceled' }
     after_save :update_participant_count, if: :state_changed?
   end
 
-  def course?
-    event.supports_applications?
+  def states?
+    event.possible_participation_states.present?
   end
 
   private
 
   def set_default_state
-    self.state ||= application.present? ? 'applied' : 'assigned'
+    self.state ||= event.default_participation_state(self)
   end
 
   # custom join event belongs_to kind is not defined in core
@@ -60,15 +42,16 @@ module Youth::Event::Participation
     return if person.nil? || event.nil?
 
     Event::Participation.
-      tentative.
       joins('INNER JOIN events ON events.id = event_participations.event_id').
       joins('INNER JOIN event_kinds ON event_kinds.id = events.kind_id').
-      where(events: { kind_id: event.kind_id }, person_id: person.id).
+      where(state: 'tentative',
+            person_id: person.id,
+            events: { kind_id: event.kind_id }).
       destroy_all
   end
 
   def set_active_based_on_state
-    self.active = ACTIVE_STATES.include?(state)
+    self.active = event.active_participation_states.include?(state)
     true
   end
 

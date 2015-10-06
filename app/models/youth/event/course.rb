@@ -19,6 +19,27 @@ module Youth::Event::Course
     class_attribute :tentative_states
     self.tentative_states = %w(created confirmed)
 
+    self.possible_participation_states =
+      %w(tentative applied assigned rejected canceled attended absent)
+
+    self.active_participation_states = %w(assigned attended)
+
+    self.revoked_participation_states = %w(rejected canceled absent)
+
+    self.countable_participation_states = %w(applied assigned attended absent)
+
+
+    ### VALIDATIONS
+
+    validates :state, inclusion: possible_states
+
+
+    ### CALLBACKS
+
+    before_save :update_attended_participants_state, if: -> { state_changed?(to: 'closed') }
+    before_save :update_assigned_participants_state, if: -> { changed_state_from_closed? }
+
+
     # Define methods to query if a course is in the given state.
     # eg course.canceled?
     possible_states.each do |state|
@@ -26,17 +47,6 @@ module Youth::Event::Course
         self.state == state
       end
     end
-
-    ### VALIDATIONS
-
-    validates :state, inclusion: possible_states
-
-    ### CALLBACKS
-
-    before_save :update_attended_participants_state, if: -> { state_changed?(to: 'closed') }
-    before_save :update_assigned_participants_state, if: -> { changed_state_from_closed? }
-
-    alias_method_chain :applicants_scope, :tentative
   end
 
   # may participants apply now?
@@ -68,6 +78,10 @@ module Youth::Event::Course
                      group_id: groups.collect(&:id) })
   end
 
+  def default_participation_state(participation)
+    participation.application.present? ? 'applied' : 'assigned'
+  end
+
   private
 
   def changed_state_from_closed?
@@ -80,15 +94,6 @@ module Youth::Event::Course
 
   def update_assigned_participants_state
     participants_scope.where(state: 'attended').update_all(state: 'assigned')
-  end
-
-  def applicants_scope_with_tentative
-    # required for migrations
-    if Event::Participation.column_names.include?('state')
-      applicants_scope_without_tentative.countable_applicants
-    else
-      applicants_scope_without_tentative
-    end
   end
 
   def organizing_role_types

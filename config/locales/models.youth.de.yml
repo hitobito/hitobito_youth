@@ -21,6 +21,14 @@ de:
           canceled: Abgesagt
           completed: Qualifikationen erfasst
           closed: Abgeschlossen
+        participation_states:
+          tentative: Provisorisch
+          applied: Angemeldet
+          assigned: Zugeteilt
+          rejected: Abgelehnt
+          canceled: Abgemeldet
+          attended: Teilgenommen
+          absent: Nicht erschienen
 
       event/kind:
         kurs_id_fiver: Kurs-ID-FiVer
@@ -29,14 +37,6 @@ de:
       event/participation:
         canceled_at: Abmeldedatum
         state: Status
-        states:
-          tentative: Provisorisch
-          applied: Angemeldet
-          assigned: Zugeteilt
-          rejected: Abgelehnt
-          canceled: Abgemeldet
-          attended: Teilgenommen
-          absent: Nicht erschienen
 
       person:
         canton: Wohnkanton
