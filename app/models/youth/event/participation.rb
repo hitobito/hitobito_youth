@@ -14,7 +14,9 @@ module Youth::Event::Participation
     validates :state,
               inclusion: { in: ->(p) { p.event.possible_participation_states } },
               if: :states?
-    validates :canceled_at, presence: true, if: ->(p) { p.state == 'canceled' }
+    validates :canceled_at,
+              presence: true,
+              if: ->(p) { p.event.is_a?(Event::Course) && p.state == 'canceled' }
 
     ### CALLBACKS
 
