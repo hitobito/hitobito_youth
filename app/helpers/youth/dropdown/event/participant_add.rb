@@ -14,15 +14,29 @@ module Youth
         included do
           class << self
             alias_method_chain :user_participates_in?, :tentative
+            alias_method_chain :for_user, :cancel
           end
         end
 
         module ClassMethods
-          def user_participates_in_with_tentative?(user, event)
+          def for_user_with_cancel(template, group, event, user)
+            participation = user_participation(event, user).first
+            if participation && participation.state == 'canceled'
+              new(template, group, event, I18n.t('event_decorator.canceled'), 'remove-circle').
+                disabled_button
+            else
+              for_user_without_cancel(template, group, event, user)
+            end
+          end
+
+          def user_participation(event, user)
             event.participations.
               where(person_id: user.id).
-              where.not(state: 'tentative').
-              exists?
+              where.not(state: 'tentative')
+          end
+
+          def user_participates_in_with_tentative?(user, event)
+            user_participation(event, user).exists?
           end
         end
       end

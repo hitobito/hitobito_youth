@@ -44,6 +44,9 @@ de:
       new:
         title: Provisorisch Anmelden
 
+  event_decorator:
+    canceled: Abgemeldet
+
   events:
     actions_show_youth:
       create_tentative_application: Provisorisch Anmelden
