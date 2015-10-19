@@ -53,7 +53,7 @@ de:
     tabs:
       tentatives: Provisorische Anmeldungen
     application_fields_youth:
-      tentative_applications: Gruppenleiter können Personen provisorisch anmelden
+      tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
 
   export/csv/events/list:
     male_count: Anzahl Teilnehmende Männer
