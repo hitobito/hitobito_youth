@@ -181,7 +181,7 @@ describe Event::ParticipationsController do
                        address: 'Str',
                        zip_code: '4000',
                        town: 'Basel',
-                       country: 'AT',
+                       country: 'CH',
                        nationality_j_s: 'FL'
                       )
     create_contactables(person)
@@ -240,11 +240,11 @@ describe Event::ParticipationsController do
   end
 
   def person_sportdb_csv_row
-    %w(123 1 Muster Peter 11.06.1980 Str 4000 Basel A FL D).join(';')
+    %w(123 1 Muster Peter 11.06.1980 Str 4000 Basel CH FL D).join(';')
   end
 
   def person_ndbjs_csv_row
-    (%w(123 1 Muster Peter 11.06.1980 789 Str 4000 Basel BS A 11 42 99 33 foo@e.com FL D) +
+    (%w(123 1 Muster Peter 11.06.1980 789 Str 4000 Basel BS CH 11 42 99 33 foo@e.com FL D) +
       ['', '3', '', '', '1', '1']).join(';')
   end
 
