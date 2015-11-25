@@ -30,6 +30,9 @@ describe Event::RolesController do
       role = assigns(:role)
       expect(role).to be_persisted
       expect(role.participation.state).to eq 'assigned'
+      expect(course.reload.applicant_count).to eq 1
+      expect(course.teamer_count).to eq 2
+      expect(course.participant_count).to eq 1
     end
 
   end

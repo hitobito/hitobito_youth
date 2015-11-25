@@ -36,6 +36,10 @@ describe Event::ParticipationsController do
            event_id: course.id,
            event_participation: { person_id: people(:top_leader).id }
       expect(participation.state).to eq 'applied'
+
+      expect(course.reload.applicant_count).to eq 1
+      expect(course.teamer_count).to eq 0
+      expect(course.participant_count).to eq 0
     end
 
     it 'sets participation state to assigned when created by organisator' do
@@ -44,6 +48,10 @@ describe Event::ParticipationsController do
            event_id: course.id,
            event_participation: { person_id: people(:bottom_member).id }
       expect(participation.state).to eq 'assigned'
+
+      expect(course.reload.applicant_count).to eq 1
+      expect(course.teamer_count).to eq 0
+      expect(course.participant_count).to eq 1
     end
 
   end
@@ -65,6 +73,10 @@ describe Event::ParticipationsController do
         expect(participation.canceled_at).to eq Date.today
         expect(participation.state).to eq 'canceled'
         expect(participation.active).to eq false
+
+        expect(course.reload.applicant_count).to eq 0
+        expect(course.teamer_count).to eq 0
+        expect(course.participant_count).to eq 0
       end
 
       it 'requires canceled_at date' do

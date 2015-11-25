@@ -26,7 +26,7 @@ module Youth::Event::Participation
                       on: :create
     before_validation :set_active_based_on_state, if: :states?
     before_validation :clear_canceled_at, unless: ->(p) { p.state == 'canceled' }
-    after_save :update_participant_count, if: :state_changed?
+    after_update :update_participant_count, if: :state_changed?
   end
 
   def states?
