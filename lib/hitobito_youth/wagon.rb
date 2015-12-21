@@ -34,6 +34,7 @@ module HitobitoYouth
       Event::ParticipantAssigner.send :include, Youth::Event::ParticipantAssigner
       Export::Csv::Events::List.send  :include, Youth::Export::Csv::Events::List
       Export::Csv::Events::Row.send :include, Youth::Export::Csv::Events::Row
+      Person::AddRequest::Approver::Event.send :include, Youth::Person::AddRequest::Approver::Event
 
       # ability
       GroupAbility.send :include, Youth::GroupAbility

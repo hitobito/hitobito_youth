@@ -61,8 +61,8 @@ describe Event::Course do
   end
 
   it 'updates assigned participations to attended when course closed' do
-    first, second = subject.participations.active.joins(:roles).
-      where(event_roles: { type: Event::Course::Role::Participant.name.to_sym }).to_a
+    first, second = subject.participations.joins(:roles).
+      where(event_roles: { type: Event::Course::Role::Participant.sti_name }).to_a
 
     first.update!(state: 'assigned')
     event.update!(state: 'closed')
@@ -72,8 +72,8 @@ describe Event::Course do
   end
 
   it 'updates attended participations to assigned when course state changes from closed' do
-    first, second = subject.participations.active.joins(:roles).
-      where(event_roles: { type: Event::Course::Role::Participant.name.to_sym }).to_a
+    first, second = subject.participations.joins(:roles).
+      where(event_roles: { type: Event::Course::Role::Participant.sti_name }).to_a
 
     first.update!(state: 'assigned')
     event.update!(state: 'closed')

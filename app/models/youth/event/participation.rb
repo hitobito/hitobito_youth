@@ -27,10 +27,16 @@ module Youth::Event::Participation
     before_validation :set_active_based_on_state, if: :states?
     before_validation :clear_canceled_at, unless: ->(p) { p.state == 'canceled' }
     after_update :update_participant_count, if: :state_changed?
+
+    alias_method_chain :applying_participant?, :tentative
   end
 
   def states?
     event.possible_participation_states.present?
+  end
+
+  def applying_participant_with_tentative?
+    applying_participant_without_tentative? && state != 'tentative'
   end
 
   private

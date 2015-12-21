@@ -11,7 +11,7 @@ module Youth::Event::ParticipationsController
   included do
     define_model_callbacks :cancel, :reject, :attend, :absent, :assign
 
-    alias_method_chain :build_application, :state
+    alias_method_chain :set_active, :state
     alias_method_chain :exporter, :ndbjs
   end
 
@@ -48,13 +48,13 @@ module Youth::Event::ParticipationsController
     redirect_to group_event_participation_path(group, event, entry)
   end
 
-  def build_application_with_state(participation)
-    build_application_without_state(participation)
-    participation.state = new_record_for_someone_else?(participation) ? 'assigned' : 'applied'
+  def set_active_with_state
+    set_active_without_state
+    entry.state = new_record_for_someone_else? ? 'assigned' : 'applied'
   end
 
-  def new_record_for_someone_else?(participation)
-    participation.new_record? && participation.person != current_user
+  def new_record_for_someone_else?
+    entry.new_record? && entry.person != current_user
   end
 
   def exporter_with_ndbjs
