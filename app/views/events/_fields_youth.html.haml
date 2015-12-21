@@ -4,4 +4,5 @@
 -#  https://github.com/hitobito/hitobito_youth.
 
 - entry.used?(:training_days) do
-  = f.labeled_input_field(:training_days, maxlength: 10)
+  = field_set_tag do
+    = f.labeled_input_field(:training_days, maxlength: 10)
