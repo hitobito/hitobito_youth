@@ -46,7 +46,7 @@ class Event::TentativesController < ApplicationController
 
     if params.key?(:q) && params[:q].size >= 3
       people = Person.accessible_by(PersonLayerWritables.new(current_user)).
-        where(search_condition(*PeopleController::QUERY_FIELDS)).
+        where(search_condition(*Person::QueryController.search_columns)).
         order_by_name.
         limit(10).
         decorate
