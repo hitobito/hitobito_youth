@@ -78,8 +78,8 @@ module Youth::Event::Course
                      group_id: groups.collect(&:id) })
   end
 
-  def default_participation_state(participation)
-    participation.application.present? ? 'applied' : 'assigned'
+  def default_participation_state(participation, for_someone_else = false)
+    participation.application.blank? || for_someone_else ? 'assigned' : 'applied'
   end
 
   private

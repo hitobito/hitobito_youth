@@ -50,7 +50,7 @@ module Youth::Event::ParticipationsController
 
   def set_active_with_state
     set_active_without_state
-    entry.state = new_record_for_someone_else? ? 'assigned' : 'applied'
+    entry.state = event.default_participation_state(entry, new_record_for_someone_else?)
   end
 
   def new_record_for_someone_else?
