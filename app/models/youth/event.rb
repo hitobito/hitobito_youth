@@ -29,7 +29,7 @@ module Youth::Event
     alias_method_chain :applicants_scope, :states
   end
 
-  def default_participation_state(_participation)
+  def default_participation_state(_participation, for_someone_else)
     possible_participation_states.first
   end
 
