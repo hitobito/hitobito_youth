@@ -33,6 +33,8 @@ fr:
         layer: Niveau
       new:
         title: inscrirer provisoirement
+  event_decorator:
+    canceled: Désannoncé
   events:
     actions_show_youth:
       create_tentative_application: inscrirer provisoirement
@@ -58,7 +60,7 @@ fr:
         tentative_participation: Inscription provisoire
   dropdown/people_export:
     ndbjs: BDNJS
-    sportdb: SportDB
+    sportdb: SPORTdb
   event/lists:
     courses:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.

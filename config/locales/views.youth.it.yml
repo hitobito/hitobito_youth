@@ -7,7 +7,7 @@ it:
     lists:
       bsv_export_button: Esportazione UFAS
       popover_bsv_export:
-        export_info: 'Esportate una lista dei corsi per  l’UFAS. Dovranno essere esportati solamente corsi  con lo status „concluso“.  '
+        export_info: 'Esportate una lista dei corsi per  l’UFAS. Dovranno essere esportati solamente corsi con lo stato "concluso".  '
         event_kinds: Tipi di corsi
         event_kinds_hint: Tenendo premuto <Ctrl> e cliccando possono essere selezionati più tipi di corsi.
         date_from: Data di scadenza da
@@ -33,6 +33,8 @@ it:
         layer: Livello
       new:
         title: Iscrivere provvisoriamente
+  event_decorator:
+    canceled: Disiscritto
   events:
     actions_show_youth:
       create_tentative_application: Iscrivere provvisoriamente

@@ -14,20 +14,20 @@ it:
           canceled: Disdetto
           completed: Qualifiche registrate
           closed: Concluso
-      event/kind:
-        kurs_id_fiver: Corso ID FiVer
-        vereinbarungs_id_fiver: Accordo ID FiVer
-      event/participation:
-        canceled_at: Data della disiscrizione
-        state: Stato
-        states:
+        participation_states:
           tentative: Provvisorio
           applied: Iscritto
           assigned: Assegnato
           rejected: Rifiutato
           canceled: Disiscritto
           attended: Partecipato
-          absent: non apparso
+          absent: Non apparso
+      event/kind:
+        kurs_id_fiver: Corso ID FiVer
+        vereinbarungs_id_fiver: Accordo ID FiVer
+      event/participation:
+        canceled_at: Data della disiscrizione
+        state: Stato
       person:
         canton: Cantone di domicilio
         ahv_number: Numero AVS

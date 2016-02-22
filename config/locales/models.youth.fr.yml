@@ -14,20 +14,20 @@ fr:
           canceled: Annulé
           completed: Qualification saisie
           closed: Clôturé
-      event/kind:
-        kurs_id_fiver: L’ID de cours-FiVer
-        vereinbarungs_id_fiver: L’ID d’accord-FiVer
-      event/participation:
-        canceled_at: Date de radiation
-        state: Statut
-        states:
+        participation_states:
           tentative: Provisoire
           applied: Inscrit
           assigned: Placé
           rejected: Refusé
           canceled: Désannoncé
           attended: Participé
-          absent: pas présent
+          absent: Pas présent
+      event/kind:
+        kurs_id_fiver: L’ID de cours-FiVer
+        vereinbarungs_id_fiver: L’ID d’accord-FiVer
+      event/participation:
+        canceled_at: Date de radiation
+        state: Statut
       person:
         canton: Canton de domicile
         ahv_number: Numéro AVS
