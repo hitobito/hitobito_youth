@@ -75,7 +75,9 @@ module Bsv
 
     def cantons
       participants_aged_17_to_30.
-        collect(&:canton).compact.uniq
+        collect do |p|
+          p.canton.downcase
+        end.compact.uniq
     end
 
     def leaders
