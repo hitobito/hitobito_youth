@@ -236,7 +236,7 @@ describe Event::ParticipationsController do
   end
 
   def sportdb_csv_header
-    %w( NDS_PERSONEN_NR
+    %w( NDBJS_PERS_NR
         GESCHLECHT
         NAME
         VORNAME

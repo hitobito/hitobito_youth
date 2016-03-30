@@ -13,7 +13,7 @@ module Export::Csv::People
     self.row_class = ::Export::Csv::People::ParticipationNdbjsRow
 
     def build_attribute_labels
-      { j_s_number: 'NDS_PERSONEN_NR',
+      { j_s_number: 'NDBJS_PERS_NR',
         gender: 'GESCHLECHT',
         last_name: 'NAME',
         first_name: 'VORNAME',
