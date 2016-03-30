@@ -74,10 +74,7 @@ module Bsv
     end
 
     def cantons
-      participants_aged_17_to_30.
-        collect do |p|
-          p.canton.downcase
-        end.compact.uniq
+      participants_aged_17_to_30.collect { |p| p.canton.try(:downcase) }.compact.uniq
     end
 
     def leaders
