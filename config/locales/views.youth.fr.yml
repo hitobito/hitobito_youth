@@ -41,7 +41,7 @@ fr:
     tabs:
       tentatives: Inscriptions provisoires
     application_fields_youth:
-      tentative_applications: Le responsable de troupe peut inscrire provisoirement des personnes.
+      tentative_applications: Le responsable de groupe peut inscrire provisoirement des personnes.
   export/csv/events/list:
     male_count: Nombre de participants masculins
     female_count: Nombre de participantes féminines
