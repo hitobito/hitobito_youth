@@ -14,7 +14,8 @@ module GroupEducationsHelper
       reverse.
       uniq(&:qualification_kind).
       collect do |q|
-        q.active? ? q : content_tag(:span, label, class: 'muted')
+        label = q.qualification_kind.label        
+        q.active? ? label + " " + format_attr(q, :finish_at) : content_tag(:span, label, class: 'muted')
       end.
       join('<br/>')
   end
