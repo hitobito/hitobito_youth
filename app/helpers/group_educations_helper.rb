@@ -14,10 +14,9 @@ module GroupEducationsHelper
       reverse.
       uniq(&:qualification_kind).
       collect do |q|
-        label = q.qualification_kind.label
-        q.active? ? label : content_tag(:span, label, class: 'muted')
+        q.active? ? q : content_tag(:span, label, class: 'muted')
       end.
-      join(', ')
+      join('<br/>')
   end
 
   def joined_event_participations(person)
