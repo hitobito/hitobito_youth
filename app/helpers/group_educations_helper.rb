@@ -13,8 +13,9 @@ module GroupEducationsHelper
       sort_by(&:start_at).
       reverse.
       uniq(&:qualification_kind).
-      collect do |q|     
-        format_qualification_label(q)
+      collect do |q|
+        label = q.qualification_kind.label + " " + format_attr(q, :finish_at)
+        q.active? ? format_qualification_label(label, q) : content_tag(:span, label, class: 'muted')
       end.
       join('<br/>')
   end
@@ -44,16 +45,11 @@ module GroupEducationsHelper
     end
   end
 
-  def format_qualification_label(q)
-    label = q.qualification_kind.label 
-    if q.active?
-      if q.finish_at.year == Time.now.year
-        content_tag(:span, label + " " + format_attr(q, :finish_at), class: 'text-warning')
-      else
-        label + " " + format_attr(q, :finish_at)
-      end
+  def format_qualification_label(label, q)
+    if q.finish_at
+      content_tag(:span, label, class: 'text-warning') if q.finish_at.year == Time.now.year
     else
-      content_tag(:span, label, class: 'muted')
+      label
     end
   end
 
