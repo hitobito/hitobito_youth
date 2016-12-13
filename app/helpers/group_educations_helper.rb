@@ -46,8 +46,8 @@ module GroupEducationsHelper
   end
 
   def format_qualification_label(label, q)
-    if q.finish_at
-      content_tag(:span, label, class: 'text-warning') if q.finish_at.year == Time.now.year
+    if q.finish_at && (q.finish_at.year == Time.now.year)
+      content_tag(:span, label, class: 'text-warning')
     else
       label
     end
