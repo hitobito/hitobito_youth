@@ -13,27 +13,43 @@ describe 'GroupEducationsHelper' do
   include GroupEducationsHelper
   include LayoutHelper
   include UtilityHelper
-  subject { format_qualification_label(label, qualification) }
+  include QualificationsHelper
+
+  subject { joined_qualification_kind_labels(user) }
 
   let(:user) { people(:top_leader) }
-  let(:qualification) { Fabricate(:qualification, person: user) }
-  let(:label) { qualification.qualification_kind.label + " " + format_attr(qualification, :finish_at) }
+  let(:qualification_kind) { QualificationKind.create!(label: 'chief', validity: 2, reactivateable: 2) }
+  let(:qualification) { Fabricate(:qualification, person: user, qualification_kind: qualification_kind) }
 
   context '#format_qualification_label' do
     
     it 'has no finish_at' do
-      qualification.update(finish_at: nil)
-      is_expected.to eq(label)
+      qualification_kind.update!(validity: nil, reactivateable: nil)
+      qualification
+      is_expected.to eq("<span>chief</span>")
     end
 
     it 'has finish_at in future' do
-      qualification.update(start_at: DateTime.now - 1.year)
-      is_expected.to eq(label)
+      qualification.update!(start_at: Time.zone.now )
+      is_expected.to eq("<span>chief bis 31.12.#{qualification.finish_at.year}</span>")
     end
 
     it 'has finish_at in the same year' do
-      qualification.update(start_at: DateTime.now - 2.year)
-      expect(format_qualification_label(label, qualification)).to eq(content_tag(:span, label, class: 'text-warning'))
+      qualification.update!(start_at: Time.zone.now - 2.years)
+      is_expected.to eq("<span class=\"text-warning\">chief bis 31.12.#{qualification.finish_at.year}</span>")
     end
+
+    it 'has finish_at in the past' do
+      qualification.qualification_kind.update!(reactivateable: 2)
+      qualification.update!(start_at: Time.zone.now - 3.years)
+      is_expected.to eq("<span class=\"muted\">chief bis 31.12.#{qualification.finish_at.year}</span>")
+    end
+
+    it 'has finish_at in the far past' do
+      qualification.qualification_kind.update!(reactivateable: 2)
+      qualification.update!(start_at: Time.zone.now - 5.years)
+      is_expected.to eq('')
+    end
+
   end
 end
