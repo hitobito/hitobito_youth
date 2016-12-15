@@ -14,10 +14,10 @@ module GroupEducationsHelper
       reverse.
       uniq(&:qualification_kind).
       collect do |q|
-        label = q.qualification_kind.label
-        q.active? ? label : content_tag(:span, label, class: 'muted')
+        label = q.qualification_kind.label + " " + format_attr(q, :finish_at)
+        q.active? ? format_qualification_label(label, q) : content_tag(:span, label, class: 'muted')
       end.
-      join(', ')
+      join('<br/>')
   end
 
   def joined_event_participations(person)
@@ -42,6 +42,14 @@ module GroupEducationsHelper
              badge('?', 'warning', t('.tentative_participation'))
     else
       link_to(event.name, [event.groups.first, event])
+    end
+  end
+
+  def format_qualification_label(label, q)
+    if q.finish_at && (q.finish_at.year == Time.now.year)
+      content_tag(:span, label, class: 'text-warning')
+    else
+      label
     end
   end
 
