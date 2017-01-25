@@ -9,3 +9,4 @@ AllCops:
     - tmp/**/*
     - spec/**/*
     - test/**/*
+    - vendor/bundle/**/*
