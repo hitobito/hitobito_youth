@@ -22,6 +22,7 @@ module Youth::Event::ParticipationAbility
       permission(:layer_full).may(:create_tentative).person_in_same_layer
       permission(:layer_and_below_full).may(:create_tentative).person_in_same_layer_or_visible_below
       general(:create_tentative).event_tentative_and_person_in_tentative_group
+      general(:cancel, :reject, :absent, :assign, :attend).if_application
     end
   end
 
@@ -38,6 +39,10 @@ module Youth::Event::ParticipationAbility
 
     groups = tentative_group_ids
     permission_in_layers?(groups)
+  end
+
+  def if_application
+    event.supports_applications && participation.application_id?
   end
 
   private
