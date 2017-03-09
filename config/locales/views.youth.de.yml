@@ -81,5 +81,6 @@ de:
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
+      bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
       bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
 

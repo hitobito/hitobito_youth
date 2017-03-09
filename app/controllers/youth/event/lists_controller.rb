@@ -15,10 +15,11 @@ module Youth::Event::ListsController
 
   def bsv_export
     authorize!(:export_list, Event::Course)
-    dates_from_to
     set_group_vars
 
-    if [@date_from, @date_to].all?(&:blank?)
+    if !dates_from_to
+      set_flash_and_redirect(:bsv_export_date_invalid)
+    elsif [@date_from, @date_to].all?(&:blank?)
       set_flash_and_redirect(:bsv_export_params_missing)
     elsif date_to_newer_than_date_from?
       set_flash_and_redirect(:bsv_export_date_from_newer_than_date_to)
@@ -73,8 +74,13 @@ module Youth::Event::ListsController
   def dates_from_to
     date_from = model_params[:date_from]
     date_to = model_params[:date_to]
-    @date_from = Date.parse(date_from) if date_from.present?
-    @date_to = Date.parse(date_to) if date_to.present?
+    begin
+      @date_from = Date.parse(date_from) if date_from.present?
+      @date_to = Date.parse(date_to) if date_to.present?
+    rescue ArgumentError
+      return false
+    end
+    true
   end
 
   def model_params

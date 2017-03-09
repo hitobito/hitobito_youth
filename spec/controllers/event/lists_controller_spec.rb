@@ -27,6 +27,12 @@ describe Event::ListsController do
       expect(flash[:alert]).to eq 'Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.'
     end
 
+    it 'shows error if date_from is invalid' do
+      get :bsv_export, bsv_export: { date_from: '31.06.2015', date_to: '10.10.2015' }
+      is_expected.to redirect_to(list_courses_path)
+      expect(flash[:alert]).to eq 'Ungültiges Abschlussdatum (von/bis).'
+    end
+
     it 'exports all courses with kind fk and date from' do
       create_course('123', '03.01.2015', '09.01.2015')
       create_course('124', '11.11.2015', '12.11.2015')
