@@ -18,8 +18,8 @@ describe PeopleFiltersController do
 
     it 'sets education value to true if education param present' do
       get :new, group_id: group.id, education: 'true'
-      expect(dom).to have_selector('input[name="education"]')
-      expect(dom.find('input[name="education"]').value).to eq 'true'
+      expect(dom).to have_selector('input[name="education"]', visible: false)
+      expect(dom.find('input[name="education"]', visible: false).value).to eq 'true'
     end
 
     it 'sets education value to nil if education param missing' do
