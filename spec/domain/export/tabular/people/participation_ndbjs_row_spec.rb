@@ -7,12 +7,12 @@
 
 require 'spec_helper'
 
-describe Export::Csv::People::ParticipationNdbjsRow do
+describe Export::Tabular::People::ParticipationNdbjsRow do
 
   let(:person) { ndbjs_person }
   let(:participation) { Fabricate(:event_participation, person: person, event: events(:top_course)) }
 
-  let(:row) { Export::Csv::People::ParticipationNdbjsRow.new(participation) }
+  let(:row) { Export::Tabular::People::ParticipationNdbjsRow.new(participation) }
   subject { row }
 
   it { expect(row.fetch(:j_s_number)).to eq '1695579' }

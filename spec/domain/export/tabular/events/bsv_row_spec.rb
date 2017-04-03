@@ -7,11 +7,11 @@
 
 require 'spec_helper'
 
-describe Export::Csv::Events::BsvRow do
+describe Export::Tabular::Events::BsvRow do
 
   let(:course) { fabricate_course }
 
-  let(:row) { Export::Csv::Events::BsvRow.new(course) }
+  let(:row) { Export::Tabular::Events::BsvRow.new(course) }
   subject { row }
 
   it { expect(row.fetch(:vereinbarungs_id_fiver)).to eq '4242' }

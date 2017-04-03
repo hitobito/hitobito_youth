@@ -55,7 +55,7 @@ de:
     application_fields_youth:
       tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
 
-  export/csv/events/list:
+  export/tabular/events/list:
     male_count: Anzahl Teilnehmende Männer
     female_count: Anzahl Teilnehmende Frauen
     absent_count: Anzahl Nicht erschienene

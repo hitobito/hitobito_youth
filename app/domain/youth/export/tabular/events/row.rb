@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Export::Csv::Events::Row
+module Youth::Export::Tabular::Events::Row
   extend ActiveSupport::Concern
 
   included do
@@ -14,8 +14,8 @@ module Youth::Export::Csv::Events::Row
     alias_method_chain :initialize, :counts
   end
 
-  def initialize_with_counts(entry, gender_counts, state_counts)
-    initialize_without_counts(entry)
+  def initialize_with_counts(entry, format, gender_counts, state_counts)
+    initialize_without_counts(entry, format)
     @gender_counts = gender_counts
     @state_counts = state_counts
   end

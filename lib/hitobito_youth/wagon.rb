@@ -32,8 +32,8 @@ module HitobitoYouth
       # domain
       Event::ParticipationFilter.send :include, Youth::Event::ParticipationFilter
       Event::ParticipantAssigner.send :include, Youth::Event::ParticipantAssigner
-      Export::Csv::Events::List.send  :include, Youth::Export::Csv::Events::List
-      Export::Csv::Events::Row.send :include, Youth::Export::Csv::Events::Row
+      Export::Tabular::Events::List.send  :include, Youth::Export::Tabular::Events::List
+      Export::Tabular::Events::Row.send :include, Youth::Export::Tabular::Events::Row
       Person::AddRequest::Approver::Event.send :include, Youth::Person::AddRequest::Approver::Event
 
       # ability

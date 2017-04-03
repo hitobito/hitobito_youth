@@ -1,15 +1,15 @@
 # encoding: utf-8
 
 #  Copyright (c) 2012-2014, Pfadibewegung Schweiz. This file is part of
-#  hitobito_pbs and licensed under the Affero General Public License version 3
+#  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_pbs.
+#  https://github.com/hitobito/hitobito_youth.
 
-module Export::Csv::Events
-  class BsvList < Export::Csv::Base
+module Export::Tabular::Events
+  class BsvList < Export::Tabular::Base
 
     self.model_class = ::Event::Course
-    self.row_class = Export::Csv::Events::BsvRow
+    self.row_class = Export::Tabular::Events::BsvRow
 
     class << self
       def export(*args)

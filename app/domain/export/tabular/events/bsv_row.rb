@@ -1,12 +1,12 @@
 # encoding: utf-8
 
 #  Copyright (c) 2012-2014, Pfadibewegung Schweiz. This file is part of
-#  hitobito_pbs and licensed under the Affero General Public License version 3
+#  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_pbs.
+#  https://github.com/hitobito/hitobito_youth.
 
-module Export::Csv::Events
-  class BsvRow < Export::Csv::Row
+module Export::Tabular::Events
+  class BsvRow < Export::Tabular::Row
 
     delegate :training_days, :vereinbarungs_id_fiver, :participant_count,
              :leader_count, :canton_count, :language_count,

@@ -1,33 +1,32 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2017, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Export::Csv::Events::List
+module Youth::Export::Tabular::Events::List
   extend ActiveSupport::Concern
 
   included do
-    alias_method_chain :to_csv, :counts
+    alias_method_chain :data_rows, :counts
     alias_method_chain :row_for, :counts
     alias_method_chain :add_additional_labels, :training_days
     alias_method_chain :add_count_labels, :state
   end
 
-
-  def to_csv_with_counts(generator)
+  def data_rows_with_counts(format = nil, &block)
     if model_class.supports_applications?
-      @gender_counts = participant_counts(
+      @gender_counts ||= participant_counts(
         list.joins(participations: :person).
              where(event_participations: { active: true }).
              group('events.id', 'people.gender'))
-      @state_counts = participant_counts(
+      @state_counts ||= participant_counts(
         list.where(event_participations: { state: model_class.revoked_participation_states }).
              group('events.id', 'event_participations.state'))
     end
 
-    to_csv_without_counts(generator)
+    data_rows_without_counts(format, &block)
   end
 
   private
@@ -48,8 +47,8 @@ module Youth::Export::Csv::Events::List
     end
   end
 
-  def row_for_with_counts(entry)
-    row_class.new(entry, @gender_counts, @state_counts)
+  def row_for_with_counts(entry, format)
+    row_class.new(entry, format, @gender_counts, @state_counts)
   end
 
   def participant_counts(scope)

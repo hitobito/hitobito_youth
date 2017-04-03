@@ -1,18 +1,18 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2017, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Export::Csv::People
-  class ParticipationNdbjsRow < Export::Csv::People::PersonRow
+module Export::Tabular::People
+  class ParticipationNdbjsRow < Export::Tabular::People::PersonRow
 
     attr_reader :participation
 
-    def initialize(participation)
+    def initialize(participation, format = nil)
       @participation = participation
-      super(participation.person)
+      super(participation.person, format)
     end
 
     def gender
