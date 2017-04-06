@@ -74,7 +74,7 @@ class Event::TentativesController < ApplicationController
     participation = @event.participations.new(state: 'tentative',
                                               person_id: params[:event_participation][:person_id])
 
-    role = participation.roles.build(type: @event.class.participant_types.first.sti_name)
+    role = participation.roles.build(type: @event.participant_types.first.sti_name)
     role.participation = participation
 
     @participation = participation
