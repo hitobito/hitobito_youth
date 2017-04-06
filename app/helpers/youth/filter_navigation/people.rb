@@ -42,7 +42,8 @@ module Youth::FilterNavigation::People
       qualification_kind_id: qualification_kind_ids,
       kind: deep,
       validity: validity,
-      education: education?)
+      education: education?,
+      match: match)
   end
 
   def education?
