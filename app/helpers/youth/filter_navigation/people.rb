@@ -43,7 +43,11 @@ module Youth::FilterNavigation::People
       kind: deep,
       validity: validity,
       education: education?,
-      match: match)
+      match: match,
+      start_at_year_from: @params[:start_at_year_from],
+      start_at_year_until: @params[:start_at_year_until],
+      finish_at_year_from: @params[:finish_at_year_from],
+      finish_at_year_until: @params[:finish_at_year_until])
   end
 
   def education?
