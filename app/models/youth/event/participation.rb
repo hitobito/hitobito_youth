@@ -29,6 +29,12 @@ module Youth::Event::Participation
     after_update :update_participant_count, if: :state_changed?
 
     alias_method_chain :applying_participant?, :tentative
+
+    class << self
+      def pending
+        where(active: false).where.not(state: 'canceled')
+      end
+    end
   end
 
   def states?

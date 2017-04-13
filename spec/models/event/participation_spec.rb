@@ -98,4 +98,20 @@ describe Event::Participation do
     end
   end
 
+  context 'canceled participations' do
+    before do
+      @participation = Fabricate(:youth_participation, event: course, active: false)
+      @participation.roles.create!(type: Event::Course::Role::Participant.name)
+    end
+
+    def cancel_participation
+      @participation.update!(state: 'canceled', canceled_at: Time.zone.today)
+    end
+
+    it 'are not listed in the upcoming-list' do
+      described_class.pending.count.should == 1
+      expect { cancel_participation }.to change { described_class.pending.count }.by(-1)
+    end
+  end
+
 end
