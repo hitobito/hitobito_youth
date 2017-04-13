@@ -21,7 +21,10 @@ describe Event::Participation do
     end
 
     it 'sets default state with application' do
-      p = Event::Participation.new(event: event, person: person, state: nil, application: Event::Application.new(priority_1: event))
+      p = Event::Participation.new(event: event,
+                                   person: person,
+                                   state: nil,
+                                   application: Event::Application.new(priority_1: event))
       expect(p).to be_valid
       expect(p.state).to eq 'applied'
     end
@@ -33,7 +36,10 @@ describe Event::Participation do
 
     %w(tentative applied assigned rejected canceled attended absent).each do |state|
       it "allows \"#{state}\" state" do
-        p = Event::Participation.new(event: event, person: person, state: state, canceled_at: Date.today)
+        p = Event::Participation.new(event: event,
+                                     person: person,
+                                     state: state,
+                                     canceled_at: Time.zone.today)
         expect(p).to be_valid
       end
     end
@@ -44,14 +50,14 @@ describe Event::Participation do
 
     before { participation.update!(state: 'tentative', active: false) }
 
-    it "applying for that course deletes tentative participation" do
+    it 'applying for that course deletes tentative participation' do
       expect do
         Fabricate(:youth_participation, event: course, person: participation.person)
       end.not_to change { Event::Participation.count }
       expect { participation.reload }.to raise_error ActiveRecord::RecordNotFound
     end
 
-    it "applying for that course kind deletes tentative participation" do
+    it 'applying for that course kind deletes tentative participation' do
       other_course = Fabricate(:youth_course, groups: [groups(:bottom_layer_two)])
       expect do
         Fabricate(:youth_participation, event: other_course, person: participation.person)
@@ -59,30 +65,33 @@ describe Event::Participation do
       expect { participation.reload }.to raise_error ActiveRecord::RecordNotFound
     end
 
-    it "applying for different course kind does not delete tentative participation" do
-      other_course = Fabricate(:youth_course, kind: event_kinds(:glk), groups: [groups(:bottom_layer_two)])
+    it 'applying for different course kind does not delete tentative participation' do
+      other_course = Fabricate(:youth_course,
+                               kind: event_kinds(:glk),
+                               groups: [groups(:bottom_layer_two)])
       expect do
         Fabricate(:youth_participation, event: other_course, person: participation.person)
       end.to change { Event::Participation.count }.by(1)
       expect { participation.reload }.not_to raise_error
     end
 
-    it "applying with invalid state does not delete tentative participation" do
+    it 'applying with invalid state does not delete tentative participation' do
       expect do
-        other = Event::Participation.create(event: course, person: participation.person, state: 'invalid')
+        other = Event::Participation.create(event: course,
+                                            person: participation.person,
+                                            state: 'invalid')
         expect(other.errors.full_messages).to be_present
       end.not_to change { Event::Participation.count }
       expect { participation.reload }.not_to raise_error
     end
   end
 
-
   context 'verifying participatable counts' do
     before { course.refresh_participant_counts! } # to create existing participatiots
 
     def create_participant(state)
-      participation = Fabricate(:youth_participation, event: course, state: state, canceled_at: Date.today)
-      participation.roles.create!(type: Event::Course::Role::Participant.name)
+      p = Fabricate(:youth_participation, event: course, state: state, canceled_at: Time.zone.today)
+      p.roles.create!(type: Event::Course::Role::Participant.name)
     end
 
     %w(tentative canceled rejected).each do |state|
