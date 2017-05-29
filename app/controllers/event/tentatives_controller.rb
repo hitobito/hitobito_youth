@@ -15,14 +15,7 @@ class Event::TentativesController < ApplicationController
   def index
     authorize!(:list_tentatives, @event)
 
-    @counts = @event.
-      participations.
-      where(state: 'tentative').
-      joins(person: :primary_group).
-      joins('LEFT OUTER JOIN groups layer_groups on groups.layer_group_id = layer_groups.id').
-      group('layer_groups.id', 'layer_groups.name').
-      order('layer_groups.lft').
-      count
+    @counts = count_tentative_participations(@event)
   end
 
   def new
@@ -45,11 +38,11 @@ class Event::TentativesController < ApplicationController
     people = []
 
     if params.key?(:q) && params[:q].size >= 3
-      people = Person.accessible_by(PersonLayerWritables.new(current_user)).
-        where(search_condition(*Person::QueryController.search_columns)).
-        order_by_name.
-        limit(10).
-        decorate
+      people = Person.accessible_by(PersonLayerWritables.new(current_user))
+                     .where(search_condition(*Person::QueryController.search_columns))
+                     .order_by_name
+                     .limit(10)
+                     .decorate
     end
 
     render json: people.collect(&:as_typeahead)
@@ -88,6 +81,17 @@ class Event::TentativesController < ApplicationController
 
       ["(#{clause})"] + terms.collect { |t| [t] * columns.size }.flatten
     end
+  end
+
+  def count_tentative_participations(event)
+    event.
+      participations.
+      where(state: 'tentative').
+      joins(person: :primary_group).
+      joins('LEFT OUTER JOIN groups layer_groups on groups.layer_group_id = layer_groups.id').
+      group('layer_groups.id', 'layer_groups.name').
+      order('layer_groups.lft').
+      count
   end
 
 end
