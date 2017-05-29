@@ -3,6 +3,8 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_youth.
 
+- content_for(:toolbar, dropdown_people_export(!:details, !:emails, !:labels))
+
 %p= t('.total_info_html', count: @counts.values.sum)
 
 = table(@counts, class: 'table table-striped') do |t|

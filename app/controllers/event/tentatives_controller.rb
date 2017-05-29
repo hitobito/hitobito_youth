@@ -7,7 +7,10 @@
 
 class Event::TentativesController < ApplicationController
 
+  include Concerns::RenderPeopleExports
+
   helper_method :group, :entry, :model_class, :entry
+  helper_method :tentative_participants
   before_action :load_group_and_event
 
   decorates :event, :group
@@ -15,7 +18,11 @@ class Event::TentativesController < ApplicationController
   def index
     authorize!(:list_tentatives, @event)
 
-    @counts = count_tentative_participations(@event)
+    respond_to do |format|
+      format.html { @counts = count_tentative_participations(@event) }
+      format.csv  { render_tabular(:csv, tentative_participants) }
+      format.xlsx { render_tabular(:xlsx, tentative_participants) }
+    end
   end
 
   def new
@@ -49,6 +56,10 @@ class Event::TentativesController < ApplicationController
   end
 
   private
+
+  def tentative_participants
+    @entries ||= @event.participations.where(state: 'tentative')
+  end
 
   def load_group_and_event
     @group = Group.find(params[:group_id])

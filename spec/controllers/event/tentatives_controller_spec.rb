@@ -47,6 +47,23 @@ describe Event::TentativesController do
         get :index, group_id: course.groups.first.id, event_id: course.id
       end.to raise_error CanCan::AccessDenied
     end
+
+    it 'allows to export tenative participations' do
+      create_participation(Group::BottomLayer::Member, groups(:bottom_layer_one), 'tentative')
+      create_participation(Group::BottomGroup::Member, groups(:bottom_group_one_one), 'tentative')
+      create_participation(Group::BottomGroup::Member, groups(:bottom_group_one_two), 'tentative')
+      create_participation(Group::BottomGroup::Member, groups(:bottom_group_one_two), 'assigned')
+
+      create_participation(Group::BottomLayer::LocalGuide, groups(:bottom_layer_two), 'tentative')
+
+      [:csv, :xlsx].each do |format|
+        expect do
+          get :index, group_id: course.groups.first.id, event_id: course.id, format: format.to_s
+
+          expect(assigns(:entries)).to have(4).items
+        end.to_not raise_error
+      end
+    end
   end
 
   context 'POST#create' do
