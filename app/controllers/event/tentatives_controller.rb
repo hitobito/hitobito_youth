@@ -105,4 +105,8 @@ class Event::TentativesController < ApplicationController
       count
   end
 
+  def render_tabular(format, entries)
+    send_data(Export::Tabular::People::ParticipationsAddress.export(format, entries), type: format)
+  end
+
 end
