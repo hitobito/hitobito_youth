@@ -118,7 +118,7 @@ describe Event::Participation do
     end
 
     it 'are not listed in the upcoming-list' do
-      described_class.pending.count.should == 1
+      expect(described_class.pending.count).to eq(1)
       expect { cancel_participation }.to change { described_class.pending.count }.by(-1)
     end
   end

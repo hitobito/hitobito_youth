@@ -29,7 +29,7 @@ module Youth::FilterNavigation::People
         group.id,
         education: education?,
         range: filter.range,
-        filters: filter.chain.to_hash
+        filters: filter.chain.to_params
     )
   end
 
