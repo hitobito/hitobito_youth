@@ -27,6 +27,7 @@ module HitobitoYouth
       Event.send :include, Youth::Event
       Event::Course.send :include, Youth::Event::Course
       Event::Participation.send :include, Youth::Event::Participation
+      Event::ParticipationContactData.send :include, Youth::Event::ParticipationContactData
       Event::Role.send :include, Youth::Event::Role
 
       # domain
