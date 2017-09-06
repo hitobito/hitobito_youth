@@ -42,10 +42,10 @@ it:
       tentatives: Iscrizioni provvisorie
     application_fields_youth:
       tentative_applications: I capi gruppo possono iscrivere delle persone provvisoriamente.
-  export/csv/events/list:
+  export/tabular/events/list:
     male_count: Numero di partecipanti maschi
     female_count: Numero di partecipanti femmine
-    absent_count: Numero di non comparsi
+    absent_count: Numero di non apparsi
     canceled_count: Numero di disiscritti
     rejected_count: Numero di riufiutati
   filter_navigation/event/participations:
@@ -64,4 +64,5 @@ it:
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
+      bsv_export_date_invalid: Data di scadenza non valido (da/a)
       bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".

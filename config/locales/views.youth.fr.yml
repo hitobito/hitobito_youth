@@ -42,9 +42,9 @@ fr:
       tentatives: Inscriptions provisoires
     application_fields_youth:
       tentative_applications: Le responsable de groupe peut inscrire provisoirement des personnes.
-  export/csv/events/list:
-    male_count: Nombre de participants masculins
-    female_count: Nombre de participantes féminines
+  export/tabular/events/list:
+    male_count: Nombre de participants hommes
+    female_count: Nombre de participantes femmes
     absent_count: Nombre d'absents
     canceled_count: Nombre de participants désannoncés
     rejected_count: Nombre de participants refusés
@@ -64,4 +64,5 @@ fr:
   event/lists:
     courses:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.
+      bsv_export_date_invalid: Date de finalisation incorrecte (début/fin)
       bsv_export_date_from_newer_than_date_to: Date de finalisation au doit être ultérieur à la date de finalisation du.
