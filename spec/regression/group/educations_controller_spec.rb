@@ -23,7 +23,7 @@ describe Group::EducationsController, type: :controller do
   end
 
   it 'does list leader participations' do
-    get :index, id: groups(:top_layer).id, kind: :layer, role_type_ids: Group::TopGroup::Leader.id
+    get :index, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } }
     expect(response.body).to have_content 'Top Leader'
     expect(response.body).to have_content 'Top Course'
   end
@@ -36,19 +36,19 @@ describe Group::EducationsController, type: :controller do
 
   it 'does not list completed events' do
     events(:top_course).dates.last.update!(start_at: Date.today - 1.month)
-    get :index, id: groups(:top_layer).id, kind: :layer, role_type_ids: Group::TopGroup::Leader.id
+    get :index, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } }
     expect(response.body).not_to have_content 'Top Course'
   end
 
   it 'lists qualifications' do
     create_qualification(start_at: Date.yesterday)
-    get :index, id: groups(:top_layer).id, kind: :layer, role_type_ids: Group::TopGroup::Leader.id
+    get :index, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } }
     expect(response.body).to have_content 'Super Lead'
   end
 
   it 'lists qualifications event when expired' do
     create_qualification(start_at: Date.today - 3.days, finish_at: Date.yesterday)
-    get :index, id: groups(:top_layer).id, kind: :layer, role_type_ids: Group::TopGroup::Leader.id
+    get :index, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } }
     expect(response.body).to have_content 'Super Lead'
   end
 
@@ -56,9 +56,8 @@ describe Group::EducationsController, type: :controller do
     create_qualification(start_at: Date.yesterday)
     get :index,
         id: groups(:top_layer).id,
-        kind: :layer,
-        qualification_kind_id: qualification_kinds(:sl).id,
-        filter: 'qualification'
+        range: :layer,
+        filters: { qualification: { qualification_kind_ids: qualification_kinds(:sl).id } }
     expect(response.body).to have_content 'Super Lead'
   end
 
@@ -66,17 +65,15 @@ describe Group::EducationsController, type: :controller do
     create_qualification(start_at: Date.yesterday)
     get :index,
         id: groups(:top_layer).id,
-        kind: :layer,
-        qualification_kind_id:
-        qualification_kinds(:gl).id,
-        filter: 'qualification'
+        range: :layer,
+        filters: { qualification: { qualification_kind_ids: qualification_kinds(:gl).id } }
     expect(response.body).not_to have_content 'Super Lead'
   end
 
   it 'raises AccessDenied if not permitted' do
     sign_in(people(:bottom_leader))
     expect do
-      get :index, id: groups(:top_layer).id, kind: :layer, role_type_ids: Group::TopGroup::Leader.id
+      get :index, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } }
     end.to raise_error CanCan::AccessDenied
   end
 

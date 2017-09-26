@@ -28,18 +28,17 @@ class Group::EducationsController < ApplicationController
   end
 
   def filter_entries
-    filter = list_filter
-    entries = filter.filter_entries.order_by_name
-    @multiple_groups = filter.multiple_groups
-    @all_count = filter.all_count if html_request?
+    @person_filter = Person::Filter::List.new(group, current_user, list_filter_args)
+    entries = @person_filter.entries.order_by_name
     entries
   end
 
-  def list_filter
-    if params[:filter] == 'qualification'
-      Person::QualificationFilter.new(group, current_user, params)
+  def list_filter_args
+    if params[:filter_id]
+      filter = PeopleFilter.for_group(group).find(params[:filter_id])
+      { name: filter.name, range: filter.range, filters: filter.filter_chain.to_hash }
     else
-      Person::RoleFilter.new(group, current_user, params)
+      params
     end
   end
 
