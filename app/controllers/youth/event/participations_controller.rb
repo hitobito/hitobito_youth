@@ -12,7 +12,6 @@ module Youth::Event::ParticipationsController
     define_model_callbacks :cancel, :reject, :attend, :absent, :assign
 
     alias_method_chain :set_active, :state
-    alias_method_chain :tabular_exporter, :ndbjs
   end
 
   def cancel
@@ -56,16 +55,5 @@ module Youth::Event::ParticipationsController
   def new_record_for_someone_else?
     entry.new_record? && entry.person != current_user
   end
-
-  def tabular_exporter_with_ndbjs
-    if params[:ndbjs] && can?(:show_details, entries.first)
-      Export::Tabular::People::ParticipationsNdbjs
-    elsif params[:sportdb] && can?(:show_details, entries.first)
-      Export::Tabular::People::ParticipationsSportdb
-    else
-      tabular_exporter_without_ndbjs
-    end
-  end
-
 
 end

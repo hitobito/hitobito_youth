@@ -54,6 +54,10 @@ module HitobitoYouth
       Event::ParticipationsController.send :include, Youth::Event::ParticipationsController
       Event::ListsController.send :include, Youth::Event::ListsController
 
+      # job
+      Export::EventParticipationsExportJob.
+        send :include, Youth::Export::EventParticipationsExportJob
+
       # helper
       FilterNavigation::People.send :include, Youth::FilterNavigation::People
       Sheet::Group.send :include, Youth::Sheet::Group
