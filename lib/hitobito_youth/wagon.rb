@@ -53,6 +53,7 @@ module HitobitoYouth
 
       Event::ParticipationsController.send :include, Youth::Event::ParticipationsController
       Event::ListsController.send :include, Youth::Event::ListsController
+      Event::RolesController.send :include, Youth::Event::RolesController
 
       # job
       Export::EventParticipationsExportJob.

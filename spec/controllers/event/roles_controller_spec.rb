@@ -35,6 +35,29 @@ describe Event::RolesController do
       expect(course.participant_count).to eq 1
     end
 
+
+    it 'sets event_participation state to applied if tentative participation exists' do
+      Fabricate(:event_participation, 
+                event: course, 
+                person: people(:bottom_leader), 
+                active: false, 
+                state: 'tentative')
+
+      expect do
+        post :create,
+             group_id: group.id,
+             event_id: course.id,
+             event_role: {
+               type: Event::Role::Cook.sti_name,
+               person_id: people(:bottom_leader).id
+             }
+      end.not_to change(Event::Participation, :count)
+
+      role = assigns(:role)
+      expect(role).to be_persisted
+      expect(role.participation.state).to eq 'assigned'
+    end
+
   end
 
 end
