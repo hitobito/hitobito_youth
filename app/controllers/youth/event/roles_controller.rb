@@ -9,20 +9,20 @@ module Youth::Event::RolesController
   extend ActiveSupport::Concern
 
   included do
-    alias_method_chain :create, :tentative
+    def create
+      assign_attributes
+      with_person_add_request do
+        set_participation_active
+        new_participation = entry.participation.new_record?
+        created = with_callbacks(:create, :save) { save_entry }
+        respond_with(entry,
+                     success: created,
+                     location: after_create_url(new_participation, created))
+      end
+    end
   end
 
   private
-
-  def create_with_tentative
-    assign_attributes
-    with_person_add_request do
-      set_participation_active
-      new_participation = entry.participation.new_record?
-      created = with_callbacks(:create, :save) { save_entry }
-      respond_with(entry, success: created, location: after_create_url(new_participation, created))
-    end
-  end
 
   def set_participation_active
     participation = entry.participation
