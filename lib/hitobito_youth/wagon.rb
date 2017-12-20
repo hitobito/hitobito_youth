@@ -13,13 +13,13 @@ module HitobitoYouth
     app_requirement '>= 0'
 
     # Add a load path for this specific wagon
-    config.autoload_paths += %W( #{config.root}/app/abilities
-                                 #{config.root}/app/domain
-                                 #{config.root}/app/jobs
-                             )
+    config.autoload_paths += %W(
+      #{config.root}/app/abilities
+      #{config.root}/app/domain
+      #{config.root}/app/jobs
+    )
 
     config.to_prepare do
-      # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
 
       # models
@@ -33,7 +33,7 @@ module HitobitoYouth
       # domain
       Event::ParticipationFilter.send :include, Youth::Event::ParticipationFilter
       Event::ParticipantAssigner.send :include, Youth::Event::ParticipantAssigner
-      Export::Tabular::Events::List.send  :include, Youth::Export::Tabular::Events::List
+      Export::Tabular::Events::List.send :include, Youth::Export::Tabular::Events::List
       Export::Tabular::Events::Row.send :include, Youth::Export::Tabular::Events::Row
       Person::AddRequest::Approver::Event.send :include, Youth::Person::AddRequest::Approver::Event
 
