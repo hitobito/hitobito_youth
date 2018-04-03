@@ -65,7 +65,6 @@ describe 'Dropdown::PeopleExport' do
                                  group_id: groups(:top_group).id,
                                  event_id: events(:top_course).id
                                 },
-                               details,
-                               true)
+                                { details: details })
   end
 end
