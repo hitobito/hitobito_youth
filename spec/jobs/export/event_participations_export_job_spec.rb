@@ -1,4 +1,3 @@
-
 # encoding: utf-8
 
 #  Copyright (c) 2017, Jungwacht Blauring Schweiz. This file is part of
@@ -13,7 +12,7 @@ describe Export::EventParticipationsExportJob do
   subject { Export::EventParticipationsExportJob.new(format,
                                                      user.id,
                                                      event_participation_filter,
-                                                     params) }
+                                                     params.merge(filename: 'event_participation_export')) }
 
   let(:user)          { people(:top_leader) }
   let(:other_user)    { people(:bottom_member) }
@@ -23,6 +22,7 @@ describe Export::EventParticipationsExportJob do
   let(:event_role)    { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
   let(:participation) { Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true) }
   let(:event_participation_filter) { Event::ParticipationFilter.new(course, user, params) }
+  let(:filepath)      { AsyncDownloadFile::DIRECTORY.join('event_participation_export') }
 
   before do
     SeedFu.quiet = true
@@ -34,14 +34,10 @@ describe Export::EventParticipationsExportJob do
     let(:format) { :csv }
     let(:params) { { filter: 'all' } }
 
-    it 'and sends it via mail' do
-      expect do
-        subject.perform
-      end.to change { ActionMailer::Base.deliveries.size }.by 1
+    it 'and saves it' do
+      subject.perform
 
-      expect(last_email.subject).to eq('Export der Event-Teilnehmer')
-
-      lines = last_email.attachments.first.body.to_s.split("\n")
+      lines = File.readlines("#{filepath}.#{format}")
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/^Vorname;Nachname/)
       expect(lines[0].split(';').count).to match(18)
@@ -52,14 +48,10 @@ describe Export::EventParticipationsExportJob do
     let(:format) { :csv }
     let(:params) { { filter: 'all', ndbjs: true } }
 
-    it 'and sends it via mail' do
-      expect do
-        subject.perform
-      end.to change { ActionMailer::Base.deliveries.size }.by 1
+    it 'and saves it' do
+      subject.perform
 
-      expect(last_email.subject).to eq('Export der Event-Teilnehmer')
-
-      lines = last_email.attachments.first.body.to_s.split("\n")
+      lines = File.readlines("#{filepath}.#{format}")
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/#{ndbjs_csv_header}/)
       expect(lines[3]).to match(/#{person_ndbjs_csv_row}/)
@@ -71,14 +63,10 @@ describe Export::EventParticipationsExportJob do
     let(:format) { :csv }
     let(:params) { { filter: 'all', sportdb: true } }
 
-    it 'and sends it via mail' do
-      expect do
-        subject.perform
-      end.to change { ActionMailer::Base.deliveries.size }.by 1
+    it 'and saves it' do
+      subject.perform
 
-      expect(last_email.subject).to eq('Export der Event-Teilnehmer')
-
-      lines = last_email.attachments.first.body.to_s.split("\n")
+      lines = File.readlines("#{filepath}.#{format}")
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/#{sportdb_csv_header}/)
       expect(lines[3]).to match(/#{person_sportdb_csv_row}/)
