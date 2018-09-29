@@ -15,17 +15,13 @@ module Youth::Export::EventParticipationsExportJob
   private
 
   def exporter_with_ndbjs
-    if @controller_params[:ndbjs] && user_ability.can?(:show_details, entries.first)
+    if @options[:ndbjs] && ability.can?(:show_details, entries.first)
       Export::Tabular::People::ParticipationsNdbjs
-    elsif @controller_params[:sportdb] && user_ability.can?(:show_details, entries.first)
+    elsif @options[:sportdb] && ability.can?(:show_details, entries.first)
       Export::Tabular::People::ParticipationsSportdb
     else
       exporter_without_ndbjs
     end
-  end
-
-  def user_ability
-    @user_ability ||= Ability.new(user)
   end
 
 end
