@@ -74,6 +74,9 @@ de:
     educations:
       index:
         tentative_participation: Provisorische Anmeldung
+        valid: Gültig
+        valid_until_end_of_year: Gültig bis Ende Jahr
+        can_be_reactivated: Weggefallen, kann reaktiviert werden
   dropdown/people_export:
     ndbjs: NDBJS
     sportdb: SPORTdb

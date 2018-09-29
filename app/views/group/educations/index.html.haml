@@ -7,7 +7,17 @@
 
 - content_for(:filter, FilterNavigation::People.new(self, @group, @person_filter).to_s)
 
+
 #main
+  %p
+    .legend.is-inline
+      .legend-title= t('.legende')
+      .legend-list
+        .legend-item= t('.valid')
+        .legend-item.text-warning= t('.valid_until_end_of_year')
+        .legend-item.muted= t('.can_be_reactivated')
+
+
   .pagination-bar
     = paginate @people
 
