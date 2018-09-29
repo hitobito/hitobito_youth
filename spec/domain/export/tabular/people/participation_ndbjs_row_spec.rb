@@ -38,6 +38,27 @@ describe Export::Tabular::People::ParticipationNdbjsRow do
   it { expect(row.fetch(:activity)).to eq 1 }
   it { expect(row.fetch(:attachments)).to eq 1 }
 
+  describe 'j_s_number format' do
+    before do
+      person.j_s_number = '169-55-79'
+    end
+
+    it { expect(row.fetch(:j_s_number)).to eq '1695579' }
+  end
+
+  describe 'default nationality_j_s and country' do
+    before do
+      person.country = nil
+      person.nationality_j_s = nil
+    end
+
+    it do
+      expect(row.fetch(:country)).to eq 'CH'
+      expect(row.fetch(:nationality_j_s)).to eq 'CH'
+    end
+  end
+
+
   private
 
   def ndbjs_person
