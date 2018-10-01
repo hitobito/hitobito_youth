@@ -15,6 +15,10 @@ module Export::Tabular::People
       super(participation.person, format)
     end
 
+    def j_s_number
+      entry.j_s_number.try(:gsub, /\D/, '')
+    end
+
     def gender
       { 'm' => 1, 'w' => 2 }[entry.gender]
     end
@@ -35,7 +39,11 @@ module Export::Tabular::People
         'FR' => 'F',
         'IT' => 'I',
         'AT' => 'A'
-      }[entry.country]
+    }.fetch(entry.country, 'CH')
+    end
+
+    def nationality_j_s
+      entry.nationality_j_s || 'CH'
     end
 
     def phone_private
