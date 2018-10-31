@@ -9,6 +9,7 @@
   / have to pass year and and group_id for filtering to work
   = hidden_field_tag(:year, year)
   = hidden_field_tag(:group_id, group_id)
+  = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
   = f.labeled(t('.event_kinds'), help: 'f00') do
     = f.has_many_field(:event_kinds, list: Event::Kind.includes(:translations).without_deleted)

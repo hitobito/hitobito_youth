@@ -24,12 +24,16 @@ module Youth::Event::ListsController
     elsif date_to_newer_than_date_from?
       set_flash_and_redirect(:bsv_export_date_from_newer_than_date_to)
     else
-      send_data(Export::Tabular::Events::BsvList.csv(courses_for_bsv_export),
-                type: :csv, filename: 'bsv_export.csv')
+      render_bsv_export(courses_for_bsv_export)
     end
   end
 
   private
+
+  def render_bsv_export(courses_for_bsv_export)
+    send_data(Export::Tabular::Events::BsvList.csv(courses_for_bsv_export),
+              type: :csv, filename: 'bsv_export.csv')
+  end
 
   def set_flash_and_redirect(key)
     flash[:alert] = translate("courses.#{key}")
