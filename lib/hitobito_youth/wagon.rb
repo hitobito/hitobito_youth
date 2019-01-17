@@ -30,6 +30,8 @@ module HitobitoYouth
       Event::ParticipationContactData.send :include, Youth::Event::ParticipationContactData
       Event::Role.send :include, Youth::Event::Role
 
+      TableDisplay::People.register_permission(Person, :show_full, :ahv_number, :j_s_number, :nationality_j_s)
+
       # domain
       Event::ParticipationFilter.send :include, Youth::Event::ParticipationFilter
       Event::ParticipantAssigner.send :include, Youth::Event::ParticipantAssigner
