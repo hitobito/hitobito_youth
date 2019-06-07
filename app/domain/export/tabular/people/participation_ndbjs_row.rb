@@ -33,13 +33,14 @@ module Export::Tabular::People
     end
 
     def country
-      { 'CH' => 'CH',
+      {
+        'CH' => 'CH',
         'DE' => 'D',
         'FL' => 'FL',
         'FR' => 'F',
         'IT' => 'I',
         'AT' => 'A'
-    }.fetch(entry.country, 'CH')
+      }.fetch(entry.country, 'CH')
     end
 
     def nationality_j_s

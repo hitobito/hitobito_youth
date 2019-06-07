@@ -10,8 +10,9 @@ class Export::Tabular::People::ParticipationsSportdb < Export::Tabular::Base
   self.model_class = ::Event::Participation
   self.row_class = ::Export::Tabular::People::ParticipationNdbjsRow
 
-  def build_attribute_labels
-    { j_s_number: 'NDBJS_PERS_NR',
+  def build_attribute_labels # rubocop:disable Metrics/MethodLength
+    {
+      j_s_number: 'NDBJS_PERS_NR',
       gender: 'GESCHLECHT',
       last_name: 'NAME',
       first_name: 'VORNAME',
