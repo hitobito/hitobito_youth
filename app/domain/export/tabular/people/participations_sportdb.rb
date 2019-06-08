@@ -16,6 +16,7 @@ class Export::Tabular::People::ParticipationsSportdb < Export::Tabular::Base
       last_name: 'NAME',
       first_name: 'VORNAME',
       birthday: 'GEB_DATUM',
+      ahv_number: 'AHV_NR',
       address: 'STRASSE',
       zip_code: 'PLZ',
       town: 'ORT',
