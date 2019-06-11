@@ -12,8 +12,8 @@ describe Export::Tabular::People::ParticipationsSportdb do
   let(:person) { sportdb_person }
   let(:participation) { Fabricate(:event_participation, person: person, event: events(:top_course)) }
 
-  let(:row) { Export::Tabular::People::ParticipationsSportdb.new(participation) }
-  subject { row }
+  let(:list) { Export::Tabular::People::ParticipationsSportdb.new([participation]) }
+  let(:row) { list.data_rows.first }
 
   it 'has all required cells in correct order' do
     expect(row[0]).to eq '1695579'
