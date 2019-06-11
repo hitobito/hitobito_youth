@@ -44,7 +44,7 @@ module Export::Tabular::People
     end
 
     def nationality_j_s
-      entry.nationality_j_s || 'CH'
+      entry.nationality_j_s.presence || 'CH'
     end
 
     def phone_private
