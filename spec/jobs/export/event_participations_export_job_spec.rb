@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-#  Copyright (c) 2017, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2017-2019, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -70,7 +68,7 @@ describe Export::EventParticipationsExportJob do
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/#{sportdb_csv_header}/)
       expect(lines[3]).to match(/#{person_sportdb_csv_row}/)
-      expect(lines[0].split(';').count).to match(12)
+      expect(lines[0].split(';').count).to match(13)
     end
   end
 
@@ -136,6 +134,7 @@ describe Export::EventParticipationsExportJob do
         NAME
         VORNAME
         GEB_DATUM
+        AHV_NR
         STRASSE
         PLZ
         ORT
@@ -152,6 +151,6 @@ describe Export::EventParticipationsExportJob do
   end
 
   def person_sportdb_csv_row
-    %w(123 1 Muster Peter 11.06.1980 Str 4000 Basel CH FL D).join(';')
+    %w(123 1 Muster Peter 11.06.1980 789 Str 4000 Basel CH FL D).join(';')
   end
 end
