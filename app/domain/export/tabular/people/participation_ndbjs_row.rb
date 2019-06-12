@@ -16,7 +16,7 @@ module Export::Tabular::People
     end
 
     def j_s_number
-      entry.j_s_number.try(:gsub, /\D/, '')
+      entry.j_s_number.to_s.try(:gsub, /\D/, '')
     end
 
     def gender
