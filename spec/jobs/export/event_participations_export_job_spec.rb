@@ -38,7 +38,7 @@ describe Export::EventParticipationsExportJob do
       lines = File.readlines("#{filepath}.#{format}")
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/^Vorname;Nachname/)
-      expect(lines[0].split(';').count).to match(18)
+      expect(lines[0].split(';').count).to match(19)
     end
   end
 
