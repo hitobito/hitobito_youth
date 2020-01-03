@@ -11,4 +11,4 @@
                 method: :put) do |f|
 
   = f.labeled_input_field(:canceled_at, value: f(Date.today))
-  = save_form_buttons(f, t('event.participations.actions_show_youth.cancel_button'), '#')
+  = form_buttons(f, submit_label: t('event.participations.actions_show_youth.cancel_button'), cancel_url: '#')

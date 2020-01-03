@@ -18,5 +18,5 @@
     = f.string_field(:person, placeholder: I18n.t('global.search.placeholder_person'),
                               data: { provide: 'entity', id_field: "#{f.object_name}_person_id", url: query_group_event_tentatives_path })
 
-  = save_form_buttons(f, nil, group_event_path(@group, @event))
+  = form_buttons(f, submit_label: nil, cancel_url: group_event_path(@group, @event))
 
