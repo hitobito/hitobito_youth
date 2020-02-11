@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration
+class RenamePeopleNationalityToNationalityJS < ActiveRecord::Migration[4.2]
   def change
     if (defined?(HitobitoJubla) || defined?(HitobitoCevi)) && column_exists?(:people, :nationality)
       add_column :people, :nationality_j_s, :string
