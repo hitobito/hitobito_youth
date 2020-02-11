@@ -32,7 +32,7 @@ describe Event::TentativesController do
 
       create_participation(Group::BottomLayer::LocalGuide, groups(:bottom_layer_two), 'tentative')
 
-      get :index, group_id: course.groups.first.id, event_id: course.id
+      get :index, params: { group_id: course.groups.first.id, event_id: course.id }
 
       expect(assigns(:counts)).to have(2).items
       expect(fetch_count(:bottom_layer_one)).to eq 3
@@ -44,7 +44,7 @@ describe Event::TentativesController do
       sign_in(people(:bottom_leader))
       course = Fabricate(:youth_course, groups: [groups(:top_layer)], tentative_applications: true)
       expect do
-        get :index, group_id: course.groups.first.id, event_id: course.id
+        get :index, params: { group_id: course.groups.first.id, event_id: course.id }
       end.to raise_error CanCan::AccessDenied
     end
 
@@ -58,7 +58,7 @@ describe Event::TentativesController do
 
       [:csv, :xlsx].each do |format|
         expect do
-          get :index, group_id: course.groups.first.id, event_id: course.id, format: format.to_s
+          get :index, params: { group_id: course.groups.first.id, event_id: course.id }, format: format.to_s
 
           expect(assigns(:entries)).to have(4).items
         end.to_not raise_error
@@ -73,9 +73,11 @@ describe Event::TentativesController do
       course.update!(tentative_applications: false)
       expect do
         post :create,
-             group_id: group.id,
-             event_id: course.id,
-             event_participation: { person_id: people(:bottom_leader).id }
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               event_participation: { person_id: people(:bottom_leader).id }
+             }
       end.to raise_error CanCan::AccessDenied
     end
 
@@ -83,18 +85,22 @@ describe Event::TentativesController do
       participant = Fabricate(Group::BottomGroup::Member.name, group: groups(:bottom_group_one_one)).person
       expect do
         post :create,
-             group_id: group.id,
-             event_id: course.id,
-             event_participation: { person_id: participant.id }
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               event_participation: { person_id: participant.id }
+             }
       end.to raise_error CanCan::AccessDenied
     end
 
     it 'sets participation state to tentative' do
       expect do
         post :create,
-             group_id: group.id,
-             event_id: course.id,
-             event_participation: { person_id: people(:bottom_leader).id }
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               event_participation: { person_id: people(:bottom_leader).id }
+             }
       end.not_to change { Delayed::Job.count }
 
       expect(participation.state).to eq 'tentative'
@@ -112,7 +118,7 @@ describe Event::TentativesController do
     it "returns people as typeahead" do
       sign_in(people(:bottom_leader))
 
-      get :query, group_id: group.id, event_id: course.id, q: 'Bottom', format: :js
+      get :query, params: { group_id: group.id, event_id: course.id, q: 'Bottom' }, format: :js
       expect(json).to have(2).item
       expect(json.first['label']).to eq 'Bottom Leader, Greattown'
       expect(json.second['label']).to eq 'Bottom Member, Greattown'
@@ -122,7 +128,7 @@ describe Event::TentativesController do
       p = Fabricate(Group::BottomGroup::Member.name, group: groups(:bottom_group_one_one)).person
       sign_in(people(:top_leader))
 
-      get :query, group_id: group.id, event_id: course.id, q: p.first_name, format: :js
+      get :query, params: { group_id: group.id, event_id: course.id, q: p.first_name }, format: :js
       expect(json).to be_empty
     end
   end
