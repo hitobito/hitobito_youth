@@ -35,7 +35,7 @@ module Youth::Event::ParticipationFilter
             where('event_roles.type' => event.participant_types.collect(&:sti_name)).
             where('event_participations.state' => event.revoked_participation_states).
             includes(load_entries_includes).
-            uniq
+            distinct
     else
       apply_filter_scope_without_revoked(records, kind)
     end
