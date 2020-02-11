@@ -23,13 +23,13 @@ describe Event::ParticipationsController do
                 state: 'applied',
                 person: people(:bottom_member),
                 active: true)
-      get :index, group_id: group.id, event_id: course.id
+      get :index, params: { group_id: group.id, event_id: course.id }
       expect(assigns(:participations)).to be_empty
     end
 
     it 'exports csv files' do
       expect do
-        get :index, group_id: group, event_id: course.id, format: :csv
+        get :index, params: { group_id: group, event_id: course.id }, format: :csv
         expect(flash[:notice]).to match(/Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen./)
       end.to change(Delayed::Job, :count).by(1)
     end
@@ -39,9 +39,11 @@ describe Event::ParticipationsController do
 
     it 'sets participation state to applied' do
       post :create,
-           group_id: group.id,
-           event_id: course.id,
-           event_participation: { person_id: people(:top_leader).id }
+           params: {
+             group_id: group.id,
+             event_id: course.id,
+             event_participation: { person_id: people(:top_leader).id }
+           }
       expect(participation.state).to eq 'applied'
 
       expect(course.reload.applicant_count).to eq 1
@@ -51,9 +53,11 @@ describe Event::ParticipationsController do
 
     it 'sets participation state to assigned when created by organisator' do
       post :create,
-           group_id: group.id,
-           event_id: course.id,
-           event_participation: { person_id: people(:bottom_member).id }
+           params: {
+             group_id: group.id,
+             event_id: course.id,
+             event_participation: { person_id: people(:bottom_member).id }
+           }
       expect(participation.state).to eq 'assigned'
 
       expect(course.reload.applicant_count).to eq 1
@@ -71,10 +75,12 @@ describe Event::ParticipationsController do
 
       it 'cancels participation' do
         put :cancel,
-             group_id: group.id,
-             event_id: course.id,
-             id: participation.id,
-             event_participation: { canceled_at: Date.today }
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               id: participation.id,
+               event_participation: { canceled_at: Date.today }
+             }
         expect(flash[:notice]).to be_present
         participation.reload
         expect(participation.canceled_at).to eq Date.today
@@ -88,10 +94,12 @@ describe Event::ParticipationsController do
 
       it 'requires canceled_at date' do
         put :cancel,
-             group_id: group.id,
-             event_id: course.id,
-             id: participation.id,
-             event_participation: { canceled_at: ' ' }
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               id: participation.id,
+               event_participation: { canceled_at: ' ' }
+             }
         expect(flash[:alert]).to be_present
         participation.reload
         expect(participation.canceled_at).to eq nil
@@ -104,9 +112,11 @@ describe Event::ParticipationsController do
 
       it 'rejects participation' do
         put :reject,
-          group_id: group.id,
-          event_id: course.id,
-          id: participation.id
+          params: {
+            group_id: group.id,
+            event_id: course.id,
+            id: participation.id
+          }
         participation.reload
         expect(participation.state).to eq 'rejected'
         expect(participation.active).to eq false
@@ -115,9 +125,11 @@ describe Event::ParticipationsController do
 
     it 'PUT attend sets participation state to attended' do
       put :attend,
-        group_id: group.id,
-        event_id: course.id,
-        id: participation.id
+        params: {
+          group_id: group.id,
+          event_id: course.id,
+          id: participation.id
+        }
       participation.reload
       expect(participation.active).to be true
       expect(participation.state).to eq 'attended'
@@ -125,9 +137,11 @@ describe Event::ParticipationsController do
 
     it 'PUT absent sets participation state to abset' do
       put :absent,
-        group_id: group.id,
-        event_id: course.id,
-        id: participation.id
+        params: {
+          group_id: group.id,
+          event_id: course.id,
+          id: participation.id
+        }
       participation.reload
       expect(participation.active).to be false
       expect(participation.state).to eq 'absent'
@@ -135,9 +149,11 @@ describe Event::ParticipationsController do
 
     it 'PUT assign sets participation state to abset' do
       put :assign,
-        group_id: group.id,
-        event_id: course.id,
-        id: participation.id
+        params: {
+          group_id: group.id,
+          event_id: course.id,
+          id: participation.id
+        }
       participation.reload
       expect(participation.active).to be true
       expect(participation.state).to eq 'assigned'

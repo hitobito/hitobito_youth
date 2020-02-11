@@ -17,30 +17,30 @@ describe PeopleFiltersController do
     let(:dom) { Capybara::Node::Simple.new(response.body) }
 
     it 'sets education value to true if education param present' do
-      get :new, group_id: group.id, education: 'true'
+      get :new, params: { group_id: group.id, education: 'true' }
       expect(dom).to have_selector('input[name="education"]', visible: false)
       expect(dom.find('input[name="education"]', visible: false).value).to eq 'true'
     end
 
     it 'sets education value to nil if education param missing' do
-      get :new, group_id: group.id
+      get :new, params: { group_id: group.id }
       expect(dom).not_to have_selector('input[name="education"]')
     end
   end
 
   context 'POST#create' do
     it 'with education redirects to education' do
-      post :create, group_id: group.id, education: 'true', people_filter: { name: 'test' }
+      post :create, params: { group_id: group.id, education: 'true', people_filter: { name: 'test' } }
       is_expected.to redirect_to educations_path(group)
     end
 
     it 'without education redirects to group_people' do
-      post :create, group_id: group.id, people_filter: { name: 'test' }
+      post :create, params: { group_id: group.id, people_filter: { name: 'test' } }
       is_expected.to redirect_to group_people_path(group)
     end
 
     it 'with education false redirects to group_people' do
-      post :create, group_id: group.id, people_filter: { name: 'test' }, education: 'false'
+      post :create, params: { group_id: group.id, people_filter: { name: 'test' }, education: 'false' }
       is_expected.to redirect_to group_people_path(group)
     end
   end
@@ -49,17 +49,17 @@ describe PeopleFiltersController do
     let!(:filter) { PeopleFilter.create!(name: 'test', group: group) }
 
     it 'without education redirects to group_people' do
-      delete :destroy, group_id: group.id, id: filter.id
+      delete :destroy, params: { group_id: group.id, id: filter.id }
       is_expected.to redirect_to group_people_path(group)
     end
 
     it 'with education = false redirects to group_people' do
-      delete :destroy, group_id: group.id, id: filter.id, education: 'false'
+      delete :destroy, params: { group_id: group.id, id: filter.id, education: 'false' }
       is_expected.to redirect_to group_people_path(group)
     end
 
     it 'with education redirects to education' do
-      delete :destroy, group_id: group.id, id: filter.id, education: 'true'
+      delete :destroy, params: { group_id: group.id, id: filter.id, education: 'true' }
       is_expected.to redirect_to educations_path(group)
     end
   end
