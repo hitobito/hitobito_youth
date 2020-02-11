@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class AddCourseRelatedFields < ActiveRecord::Migration
+class AddCourseRelatedFields < ActiveRecord::Migration[4.2]
   def up
     add_if_missing(:events, :training_days, :decimal, precision: 12, scale: 1)
 
