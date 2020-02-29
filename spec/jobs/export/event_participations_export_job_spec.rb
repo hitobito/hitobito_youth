@@ -82,7 +82,7 @@ describe Export::EventParticipationsExportJob do
                        birthday: '11.06.1980',
                        gender: 'm',
                        j_s_number: '123',
-                       ahv_number: '789',
+                       ahv_number: '756.1234.5678.97',
                        address: 'Str',
                        zip_code: '4000',
                        town: 'Basel',
@@ -146,11 +146,11 @@ describe Export::EventParticipationsExportJob do
   end
 
   def person_ndbjs_csv_row
-    (%w(123 1 Muster Peter 11.06.1980 789 Str 4000 Basel BS CH 11 42 99 33 foo@e.com FL D) +
+    (%w(123 1 Muster Peter 11.06.1980 756.1234.5678.97 Str 4000 Basel BS CH 11 42 99 33 foo@e.com FL D) +
       ['', '3', '', '', '1', '1']).join(';')
   end
 
   def person_sportdb_csv_row
-    %w(123 1 Muster Peter 11.06.1980 789 Str 4000 Basel CH FL D).join(';')
+    %w(123 1 Muster Peter 11.06.1980 756.1234.5678.97 Str 4000 Basel CH FL D).join(';')
   end
 end
