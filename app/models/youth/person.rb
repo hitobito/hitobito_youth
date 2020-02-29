@@ -8,7 +8,7 @@
 module Youth::Person
   extend ActiveSupport::Concern
 
-  NATIONALITIES_J_S = %w(CH FL DIV)
+  NATIONALITIES_J_S = %w(CH FL DIV).freeze
 
   included do
     validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
