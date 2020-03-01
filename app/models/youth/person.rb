@@ -15,15 +15,15 @@ module Youth::Person
 
   included do
     validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
-    validates :ahv_number,
-              format: { with: /\A\d{3}\.\d{4}\.\d{4}\.\d{2}\z/,
-                        message: :must_be_valid_social_security_number,
-                        allow_blank: true }
-    validate :ahv_number_validate_checksum
+    validate :validate_ahv_number
   end
 
-  def ahv_number_validate_checksum
-    unless ahv_number.nil? || checksum_validate(ahv_number).valid?
+
+  AHV_NUMBER_REGEX = /\A\d{3}\.\d{4}\.\d{4}\.\d{2}\z/
+
+  def validate_ahv_number
+    if ahv_number.nil?
+    elsif !checksum_validate(ahv_number).valid? || ahv_number !~ AHV_NUMBER_REGEX
       errors.add(:ahv_number, :must_be_valid_social_security_number)
     end
   end

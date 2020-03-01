@@ -31,7 +31,7 @@ describe Person do
     it 'fails for malformatted ahv number' do
       person = Person.new
       person.ahv_number = 'malformed ahv'
-      expect(person).to have(2).error_on(:ahv_number)
+      expect(person).to have(1).error_on(:ahv_number)
     end
 
     it 'succeeds for ahv number with correct format' do
