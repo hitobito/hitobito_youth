@@ -22,7 +22,7 @@ module Youth
           def for_user_with_cancel(template, group, event, user)
             participation = user_participation(event, user).first
             if participation && participation.state == 'canceled'
-              new(template, group, event, I18n.t('event_decorator.canceled'), 'remove-circle').
+              new(template, group, event, I18n.t('event_decorator.canceled'), 'times-circle').
                 disabled_button
             else
               for_user_without_cancel(template, group, event, user)
