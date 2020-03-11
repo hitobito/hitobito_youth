@@ -22,8 +22,8 @@ module Youth::Person
   AHV_NUMBER_REGEX = /\A\d{3}\.\d{4}\.\d{4}\.\d{2}\z/
 
   def validate_ahv_number
-    if ahv_number.nil?
-    elsif !checksum_validate(ahv_number).valid? || ahv_number !~ AHV_NUMBER_REGEX
+    return unless ahv_number.present?
+    if !checksum_validate(ahv_number).valid? || ahv_number !~ AHV_NUMBER_REGEX
       errors.add(:ahv_number, :must_be_valid_social_security_number)
     end
   end
