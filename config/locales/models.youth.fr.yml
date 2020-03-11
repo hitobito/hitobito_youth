@@ -33,3 +33,6 @@ fr:
         ahv_number: Numéro AVS
         j_s_number: Numéro J+S
         nationality_j_s: Nationalité selon J+S
+    errors:
+      messages:
+        must_be_valid_social_security_number: doit être un numéro AVS (756.1234.5678.97) valide

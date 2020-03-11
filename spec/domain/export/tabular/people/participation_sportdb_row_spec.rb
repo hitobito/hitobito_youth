@@ -21,7 +21,7 @@ describe Export::Tabular::People::ParticipationsSportdb do
     expect(row[2]).to eq 'Muster'
     expect(row[3]).to eq 'Peter'
     expect(row[4]).to eq '11.06.1980'
-    expect(row[5]).to eq '789.80.267.213'
+    expect(row[5]).to eq '756.1234.5678.97'
     expect(row[6]).to eq 'Hauptstrasse 33'
     expect(row[7]).to eq '4000'
     expect(row[8]).to eq 'Basel'
@@ -41,7 +41,7 @@ describe Export::Tabular::People::ParticipationsSportdb do
                 birthday: '11.06.1980',
                 gender: 'm',
                 j_s_number: '1695579',
-                ahv_number: '789.80.267.213',
+                ahv_number: '756.1234.5678.97',
                 address: 'Hauptstrasse 33',
                 zip_code: '4000',
                 town: 'Basel',

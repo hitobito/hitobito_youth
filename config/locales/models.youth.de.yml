@@ -43,3 +43,6 @@ de:
         ahv_number: AHV-Nummer
         j_s_number: J+S-Nummer
         nationality_j_s: Nationalität gemäss J+S
+    errors:
+      messages:
+        must_be_valid_social_security_number: muss eine gültige AHV-Nummer (756.1234.5678.97) sein

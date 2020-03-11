@@ -7,7 +7,6 @@ require 'hitobito_youth/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  # rubocop:disable SingleSpaceBeforeFirstArg
   s.name        = 'hitobito_youth'
   s.version     = HitobitoYouth::VERSION
   s.authors     = ['Pascal Simon']
@@ -19,4 +18,5 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*'] + ['Rakefile']
   # s.test_files = Dir['spec/**/*']
   # rubocop:enable SingleSpaceBeforeFirstArg
+  s.add_dependency('social_security_number', '~> 0.1.12')
 end

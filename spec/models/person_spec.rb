@@ -27,4 +27,27 @@ describe Person do
     end
   end
 
+  describe '#ahv_number' do
+    it 'fails for malformatted ahv number' do
+      person = Person.new
+      person.ahv_number = 'malformed ahv'
+      expect(person).to have(1).error_on(:ahv_number)
+    end
+
+    it 'succeeds for ahv number with correct format' do
+      person = Person.new(last_name: 'dummy',
+                          nationality_j_s: 'CH',
+                          ahv_number: '756.1234.5678.97')
+      expect(person).to be_valid
+    end
+
+    it 'fails for ahv number with wrong checksum' do
+      person = Person.new(last_name: 'dummy',
+                          nationality_j_s: 'CH',
+                          ahv_number: '756.1234.5678.98')
+      expect(person).to have(1).error_on(:ahv_number)
+    end
+
+  end
+
 end

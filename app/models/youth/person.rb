@@ -8,9 +8,28 @@
 module Youth::Person
   extend ActiveSupport::Concern
 
-  NATIONALITIES_J_S = %w(CH FL DIV)
+  require_dependency 'social_security_number'
+  include ::SocialSecurityNumber
+
+  NATIONALITIES_J_S = %w(CH FL DIV).freeze
 
   included do
     validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
+    validate :validate_ahv_number
   end
+
+
+  AHV_NUMBER_REGEX = /\A\d{3}\.\d{4}\.\d{4}\.\d{2}\z/
+
+  def validate_ahv_number
+    if ahv_number.nil?
+    elsif !checksum_validate(ahv_number).valid? || ahv_number !~ AHV_NUMBER_REGEX
+      errors.add(:ahv_number, :must_be_valid_social_security_number)
+    end
+  end
+
+  def checksum_validate(ahv_number)
+    SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: 'ch')
+  end
+
 end
