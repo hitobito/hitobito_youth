@@ -94,10 +94,10 @@ describe Export::EventParticipationsExportJob do
   end
 
   def create_contactables(person)
-    Fabricate(:phone_number, contactable: person, label: 'Privat', number: '11')
-    Fabricate(:phone_number, contactable: person, label: 'Arbeit', number: '42')
-    Fabricate(:phone_number, contactable: person, label: 'Mobil', number: '99')
-    Fabricate(:phone_number, contactable: person, label: 'Fax', number: '33')
+    Fabricate(:phone_number, contactable: person, label: 'Privat', number: '+41 31 123 45 11')
+    Fabricate(:phone_number, contactable: person, label: 'Arbeit', number: '+41 32 123 45 42')
+    Fabricate(:phone_number, contactable: person, label: 'Mobil', number: '+41 77 123 45 99')
+    Fabricate(:phone_number, contactable: person, label: 'Fax', number: '+41 31 123 45 33')
   end
 
   def ndbjs_csv_header
@@ -146,7 +146,9 @@ describe Export::EventParticipationsExportJob do
   end
 
   def person_ndbjs_csv_row
-    (%w(123 1 Muster Peter 11.06.1980 756.1234.5678.97 Str 4000 Basel BS CH 11 42 99 33 foo@e.com FL D) +
+    (%w(123 1 Muster Peter 11.06.1980 756.1234.5678.97 Str 4000 Basel BS CH) +
+      ['\+41 31 123 45 11', '\+41 32 123 45 42', '\+41 77 123 45 99', '\+41\ 31\ 123\ 45\ 33'] +
+      %w(foo@e.com FL D) +
       ['', '3', '', '', '1', '1']).join(';')
   end
 
