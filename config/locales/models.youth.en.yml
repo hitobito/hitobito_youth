@@ -1,1 +1,5 @@
-en: {}
+en:
+  activerecord:
+    errors:
+      messages:
+        must_be_valid_social_security_number: must be a valid AHV number (756.1234.5678.97)

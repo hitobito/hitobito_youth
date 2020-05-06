@@ -35,4 +35,4 @@ it:
         nationality_j_s: Nazionalità secondo G+S
     errors:
       messages:
-        must_be_valid_social_security_number: deve essere un numero AVS valevole (756.1234.5678.97)
+        must_be_valid_social_security_number: deve essere un numero AVS valido (756.1234.5678.97)
