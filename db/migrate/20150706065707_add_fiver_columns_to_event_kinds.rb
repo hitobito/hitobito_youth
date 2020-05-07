@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class AddFiverColumnsToEventKinds < ActiveRecord::Migration
+class AddFiverColumnsToEventKinds < ActiveRecord::Migration[4.2]
   def up
     if column_exists?(:event_kinds, :bsv_id)
       rename_column :event_kinds, :bsv_id, :kurs_id_fiver

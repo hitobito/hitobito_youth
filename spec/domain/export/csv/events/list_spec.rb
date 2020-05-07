@@ -29,7 +29,7 @@ describe Export::Tabular::Events::List do
 
   context 'with participant counts' do
     # create a realistic base query to test count queries.
-    let(:courses) { Event::Course.in_year(2012).where(id: [course1, course2, course3]).uniq }
+    let(:courses) { Event::Course.in_year(2012).where(id: [course1, course2, course3]).distinct }
     let(:course1) do
       c = Fabricate(:course, groups: [groups(:top_group)], motto: 'All for one', cost: 1000,
                 application_opening_at: '01.01.2000', application_closing_at: '01.02.2000',

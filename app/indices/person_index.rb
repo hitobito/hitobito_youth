@@ -5,6 +5,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pbs.
 
+
+module PersonIndex; end
+
 ThinkingSphinx::Index.define_partial :person do
   indexes j_s_number, ahv_number
 end

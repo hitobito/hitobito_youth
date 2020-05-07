@@ -7,7 +7,7 @@
 
 class Event::TentativesController < ApplicationController
 
-  include Concerns::RenderPeopleExports
+  include RenderPeopleExports
 
   helper_method :group, :entry, :model_class, :entry
   helper_method :tentative_participants

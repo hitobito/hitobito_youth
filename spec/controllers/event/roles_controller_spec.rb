@@ -19,11 +19,13 @@ describe Event::RolesController do
     it 'creates helper in state assigned' do
       expect do
         post :create,
-             group_id: group.id,
-             event_id: course.id,
-             event_role: {
-               type: Event::Role::Cook.sti_name,
-               person_id: people(:bottom_leader).id
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               event_role: {
+                 type: Event::Role::Cook.sti_name,
+                 person_id: people(:bottom_leader).id
+               }
              }
       end.to change { Event::Participation.count }.by(1)
 
@@ -45,11 +47,13 @@ describe Event::RolesController do
 
       expect do
         post :create,
-             group_id: group.id,
-             event_id: course.id,
-             event_role: {
-               type: Event::Role::Cook.sti_name,
-               person_id: people(:bottom_leader).id
+             params: {
+               group_id: group.id,
+               event_id: course.id,
+               event_role: {
+                 type: Event::Role::Cook.sti_name,
+                 person_id: people(:bottom_leader).id
+               }
              }
       end.not_to change(Event::Participation, :count)
 

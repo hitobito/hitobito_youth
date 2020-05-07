@@ -58,6 +58,9 @@ it:
     educations:
       index:
         tentative_participation: Iscrizione provvisoria
+        valid: Valido
+        valid_until_end_of_year: Valido fino alla fine dell'anno
+        can_be_reactivated: Omesso, può essere riattivato
   dropdown/people_export:
     ndbjs: NDBJS
     sportdb: Sport DB

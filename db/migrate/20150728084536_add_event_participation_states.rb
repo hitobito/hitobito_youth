@@ -1,4 +1,4 @@
-class AddEventParticipationStates < ActiveRecord::Migration
+class AddEventParticipationStates < ActiveRecord::Migration[4.2]
   def up
     unless column_exists?(:events, :tentative_applications)
       add_column(:events, :tentative_applications, :boolean, null: false, default: false)

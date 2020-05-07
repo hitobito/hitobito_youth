@@ -55,11 +55,10 @@ module Youth::Event::Participation
   def delete_tentatives
     return if person.nil? || event.nil?
 
-    Event::Participation.
+    person.event_participations.
       joins('INNER JOIN events ON events.id = event_participations.event_id').
       joins('INNER JOIN event_kinds ON event_kinds.id = events.kind_id').
       where(state: 'tentative',
-            person_id: person.id,
             events: { kind_id: event.kind_id }).
       destroy_all
   end

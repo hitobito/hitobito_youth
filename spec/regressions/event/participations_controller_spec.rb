@@ -27,24 +27,24 @@ describe Event::ParticipationsController, type: :controller  do
 
       it 'is not visible when participation canceled' do
         participation.update!(state: 'canceled', canceled_at: Date.today)
-        get :show, group_id: group.id, event_id: course.id, id: participation.id
+        get :show, params: { group_id: group.id, event_id: course.id, id: participation.id }
         expect(dom.find('#content')).not_to have_content 'Abmelden'
       end
 
       it 'is not visible whem participation rejected' do
         participation.update!(state: 'rejected')
-        get :show, group_id: group.id, event_id: course.id, id: participation.id
+        get :show, params: { group_id: group.id, event_id: course.id, id: participation.id }
         expect(dom.find('#content')).not_to have_content 'Abmelden'
       end
 
       it 'is visible when participation applied' do
-        get :show, group_id: group.id, event_id: course.id, id: participation.id
+        get :show, params: { group_id: group.id, event_id: course.id, id: participation.id }
         expect(dom.find('#content')).to have_content 'Abmelden'
       end
 
       it 'is visible when participation assigned' do
         participation.update!(state: 'assigned')
-        get :show, group_id: group.id, event_id: course.id, id: participation.id
+        get :show, params: { group_id: group.id, event_id: course.id, id: participation.id }
         expect(dom.find('#content')).to have_content 'Abmelden'
       end
     end
@@ -53,7 +53,7 @@ describe Event::ParticipationsController, type: :controller  do
       before { sign_in(user) }
 
       it 'rejects participation and show mailto link in flash' do
-        get :reject, group_id: group.id, event_id: course.id, id: participation.id
+        get :reject, params: { group_id: group.id, event_id: course.id, id: participation.id }
         is_expected.to redirect_to group_event_participation_path(group, course, participation)
         expect(flash[:notice]).to match(/wurde abgelehnt/)
         # TODO check for mail_to links with email addresses

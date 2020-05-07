@@ -26,8 +26,7 @@ describe Event::ParticipationContactDatasController, type: :controller do
 
       course.update!({ hidden_contact_attrs: ['ahv_number'] })
 
-      get :edit, group_id: course.groups.first.id, event_id: course.id,
-            event_role: { type: 'Event::Course::Role::Participant' }
+      get :edit, params: { group_id: course.groups.first.id, event_id: course.id, event_role: { type: 'Event::Course::Role::Participant' } }
 
       expect(dom).to have_selector('input#event_participation_contact_data_j_s_number')
       expect(dom).to have_selector('select#event_participation_contact_data_nationality_j_s')
@@ -38,8 +37,7 @@ describe Event::ParticipationContactDatasController, type: :controller do
 
     it 'shows all contact fields by default' do
 
-      get :edit, group_id: course.groups.first.id, event_id: course.id,
-            event_role: { type: 'Event::Course::Role::Participant' }
+      get :edit, params: { group_id: course.groups.first.id, event_id: course.id, event_role: { type: 'Event::Course::Role::Participant' } }
 
       expect(dom).to have_selector('input#event_participation_contact_data_j_s_number')
       expect(dom).to have_selector('input#event_participation_contact_data_ahv_number')
@@ -61,9 +59,7 @@ describe Event::ParticipationContactDatasController, type: :controller do
                               email: 'hans@youth.com', nickname: 'dude',
                               j_s_number: '' }
 
-      post :update, group_id: group.id, event_id: course.id,
-             event_participation_contact_data: contact_data_params,
-             event_role: { type: 'Event::Course::Role::Participant' }
+      post :update, params: { group_id: group.id, event_id: course.id, event_participation_contact_data: contact_data_params, event_role: { type: 'Event::Course::Role::Participant' } }
 
       is_expected.to render_template(:edit)
 
@@ -77,9 +73,7 @@ describe Event::ParticipationContactDatasController, type: :controller do
                               email: 'hans@youth.com', nickname: 'dude',
                               j_s_number: '4242' }
 
-      post :update, group_id: group.id, event_id: course.id,
-             event_participation_contact_data: contact_data_params,
-             event_role: { type: 'Event::Course::Role::Participant' }
+      post :update, params: { group_id: group.id, event_id: course.id, event_participation_contact_data: contact_data_params, event_role: { type: 'Event::Course::Role::Participant' } }
 
       is_expected.to redirect_to new_group_event_participation_path(group,
                                                                     course,
