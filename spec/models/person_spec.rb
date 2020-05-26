@@ -48,6 +48,15 @@ describe Person do
       expect(person).to have(1).error_on(:ahv_number)
     end
 
+    it 'can still change password even if stored ahv number is invalid' do
+      person = Person.new(ahv_number: 'malformed', first_name: 'Jack')
+      person.save(validate: false)
+
+      expect do
+        person.password = 'mynewsuperstrongpassword'
+      end.to change(person, :valid?).from(false).to(true)
+    end
+
   end
 
 end
