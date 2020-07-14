@@ -8,7 +8,7 @@
 module PeopleYouthHelper
 
   def existing_person_nationalities
-    Person.where('nationality IS NOT NULL').pluck(:nationality).uniq
+    Person.distinct.where('nationality IS NOT NULL').pluck(:nationality)
   end
 
 end
