@@ -49,7 +49,6 @@ module HitobitoYouth
       Event::ParticipationAbility.send :include, Youth::Event::ParticipationAbility
 
       # decorator
-      EventDecorator.send :include, Youth::EventDecorator
       Event::ParticipationDecorator.send :include, Youth::Event::ParticipationDecorator
 
       # controller
