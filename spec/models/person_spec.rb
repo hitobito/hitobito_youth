@@ -32,6 +32,7 @@ describe Person do
       person = Person.new
       person.ahv_number = 'malformed ahv'
       expect(person).to have(1).error_on(:ahv_number)
+      expect(person.errors.messages[:ahv_number].first).to match(/gültigen Format/)
     end
 
     it 'succeeds for ahv number with correct format' do
@@ -46,6 +47,7 @@ describe Person do
                           nationality_j_s: 'CH',
                           ahv_number: '756.1234.5678.98')
       expect(person).to have(1).error_on(:ahv_number)
+      expect(person.errors.messages[:ahv_number].first).to match(/gültige Prüfziffer/)
     end
 
     it 'can still change password even if stored ahv number is invalid' do

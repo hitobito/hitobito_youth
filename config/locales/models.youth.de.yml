@@ -45,4 +45,5 @@ de:
         nationality_j_s: Nationalität gemäss J+S
     errors:
       messages:
-        must_be_valid_social_security_number: muss eine gültige AHV-Nummer (756.1234.5678.97) sein
+        must_be_social_security_number_with_correct_format: muss im gültigen Format sein (756.1234.5678.97).
+        must_be_social_security_number_with_correct_checksum: muss eine gültige Prüfziffer haben.

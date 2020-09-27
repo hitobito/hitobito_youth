@@ -2,4 +2,5 @@ en:
   activerecord:
     errors:
       messages:
-        must_be_valid_social_security_number: must be a valid AHV number (756.1234.5678.97)
+        must_be_social_security_number_with_correct_format: must be in valid format (756.1234.5678.97).
+        must_be_social_security_number_with_correct_checksum: must have a valid checksum.

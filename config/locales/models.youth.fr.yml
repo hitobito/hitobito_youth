@@ -35,4 +35,5 @@ fr:
         nationality_j_s: Nationalité selon J+S
     errors:
       messages:
-        must_be_valid_social_security_number: doit être un numéro AVS valide (756.1234.5678.97)
+        must_be_social_security_number_with_correct_format: doit être dans un format valide (756.1234.5678.97).
+        must_be_social_security_number_with_correct_checksum: doit avoir une chiffre de côntrole valide.
