@@ -78,7 +78,7 @@ de:
         valid_until_end_of_year: Gültig bis Ende Jahr
         can_be_reactivated: Weggefallen, kann reaktiviert werden
   dropdown/people_export:
-    ndbjs: NDBJS
+    ndbjs: NDS
     sportdb: SPORTdb
 
   event/lists:
