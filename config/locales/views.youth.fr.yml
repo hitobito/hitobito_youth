@@ -57,6 +57,7 @@ fr:
   group:
     educations:
       index:
+        legende: Légende
         tentative_participation: Inscription provisoire
         valid: Valable
         valid_until_end_of_year: Valable jusqu'à la fin de l'année

@@ -57,6 +57,7 @@ it:
   group:
     educations:
       index:
+        legende: Leggenda
         tentative_participation: Iscrizione provvisoria
         valid: Valido
         valid_until_end_of_year: Valido fino alla fine dell'anno

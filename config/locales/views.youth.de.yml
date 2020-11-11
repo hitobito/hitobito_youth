@@ -73,6 +73,7 @@ de:
   group:
     educations:
       index:
+        legende: Legende
         tentative_participation: Provisorische Anmeldung
         valid: Gültig
         valid_until_end_of_year: Gültig bis Ende Jahr
