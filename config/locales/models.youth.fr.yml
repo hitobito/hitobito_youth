@@ -26,6 +26,7 @@ fr:
         kurs_id_fiver: L’ID de cours-FiVer
         vereinbarungs_id_fiver: L’ID d’accord-FiVer
       event/participation:
+        additional_information: Commentaires (généralités, informations en lien avec la santé, allergies, etc.)
         canceled_at: Date de radiation
         state: Statut
       person:
