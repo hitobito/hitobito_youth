@@ -35,6 +35,7 @@ de:
         vereinbarungs_id_fiver: Vereinbarungs-ID-FiVer
 
       event/participation:
+        additional_information: Bemerkungen (Allgemeines, Gesundheitsinformationen, Allergien, usw.)
         canceled_at: Abmeldedatum
         state: Status
 

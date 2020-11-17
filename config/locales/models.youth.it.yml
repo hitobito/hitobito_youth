@@ -26,6 +26,7 @@ it:
         kurs_id_fiver: Corso ID FiVer
         vereinbarungs_id_fiver: Accordo ID FiVer
       event/participation:
+        additional_information: Osservazioni (generali, informazioni sullo stato di salute, allergie, ecc.)
         canceled_at: Data della disiscrizione
         state: Stato
       person:
