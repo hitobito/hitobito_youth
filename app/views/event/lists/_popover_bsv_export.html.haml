@@ -24,8 +24,10 @@
 
   = form_buttons(f, submit_label: t('event.lists.bsv_export_button'), cancel_url: :list_courses)
 
-:coffee
-  $('body').on('click', '.popover :submit', (e) ->
-    # without timeout, firefox does not issue request
-    setTimeout(( -> $('a[data-toggle=popover]').popover('hide') ), 100)
-  )
+:javascript
+  (function() {
+  $('body').on('click', '.popover :submit', function(e) {
+    return setTimeout((function() {
+      return $('a[data-toggle=popover]').popover('hide');
+    }), 100);
+  });
