@@ -5,6 +5,6 @@ Dieser hitobito Wagon enthält gemeinsame Features für (Schweizer) Jugendverbä
 * Verschiedene Status für Kursteilnahmen (abgemeldet, abgelehnt, besucht, nicht erschienen).
 * Möglichkeit, Teilnehmende provisorisch für Kurse anzumelden, um die Nachfrage in Erfahrung zu bringen.
 * Eine Ausbildungsübersicht pro Ebene mit den Qualifikationen und den zukünftigen Kursen der Mitglieder.
-* CSV Exporte von Kursteilnehmenden für NDBJS und die SportDB.
+* CSV Exporte von Kursteilnehmenden für NDS und die SportDB.
 * Zusätzliche Felder 'AHV Nummer', 'J+S Nummer' und 'Nationalität nach J+S' auf der Person.
 * Zusätzliche Felder 'Ausbildungstage' auf dem Kurs und 'Kurs ID FiVer' und 'Vereinbarungs ID FiVer' auf der Kursart.
