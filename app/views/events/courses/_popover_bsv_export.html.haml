@@ -1,4 +1,4 @@
-%p= t('.export_info')
+%p= t('event.lists.popover_bsv_export.export_info')
 
 = standard_form(:bsv_export,
                 url: :list_courses_bsv_export,
@@ -11,15 +11,15 @@
   = hidden_field_tag(:group_id, group_id)
   = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
-  = f.labeled(t('.event_kinds'), help: 'f00') do
+  = f.labeled(t('event.lists.popover_bsv_export.event_kinds'), help: 'f00') do
     = f.has_many_field(:event_kinds, list: Event::Kind.includes(:translations).without_deleted)
     = f.help_block do
-      %span.muted= t('.event_kinds_hint')
+      %span.muted= t('event.lists.popover_bsv_export.event_kinds_hint')
 
-  = f.labeled(t('.date_from')) do
+  = f.labeled(t('event.lists.popover_bsv_export.date_from')) do
     = f.date_field(:date_from, value: f(Date.new(year, 1, 1)))
 
-  = f.labeled(t('.date_to')) do
+  = f.labeled(t('event.lists.popover_bsv_export.date_to')) do
     = f.date_field(:date_to, value: f(Date.new(year, 12, 31)))
 
   = form_buttons(f, submit_label: t('event.lists.bsv_export_button'), cancel_url: :list_courses)
