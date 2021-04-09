@@ -26,8 +26,9 @@
 
 :javascript
   (function() {
-  $('body').on('click', '.popover :submit', function(e) {
-    return setTimeout((function() {
-      return $('a[data-toggle=popover]').popover('hide');
-    }), 100);
+    $('body').on('click', '.popover :submit', function(e) {
+      return setTimeout((function() {
+        return $('a[data-toggle=popover]').popover('hide');
+      }), 100);
+    });
   });
