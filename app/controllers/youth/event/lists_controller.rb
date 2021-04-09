@@ -1,12 +1,13 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2021, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::Event::ListsController
   extend ActiveSupport::Concern
+  include Events::CourseListing
 
   included do
     class_attribute :bsv_course_states
@@ -17,15 +18,9 @@ module Youth::Event::ListsController
     authorize!(:export_list, Event::Course)
     set_group_vars
 
-    if !dates_from_to
-      set_flash_and_redirect(:bsv_export_date_invalid)
-    elsif [@date_from, @date_to].all?(&:blank?)
-      set_flash_and_redirect(:bsv_export_params_missing)
-    elsif date_to_newer_than_date_from?
-      set_flash_and_redirect(:bsv_export_date_from_newer_than_date_to)
-    else
-      render_bsv_export(courses_for_bsv_export)
-    end
+    redirecting = flash_on_errors_and_redirect
+
+    render_bsv_export(courses_for_bsv_export) unless redirecting
   end
 
   private
@@ -35,7 +30,19 @@ module Youth::Event::ListsController
               type: :csv, filename: 'bsv_export.csv')
   end
 
-  def set_flash_and_redirect(key)
+  def flash_on_errors_and_redirect
+    if !dates_from_to
+      flash_and_redirect(:bsv_export_date_invalid)
+    elsif [@date_from, @date_to].all?(&:blank?)
+      flash_and_redirect(:bsv_export_params_missing)
+    elsif date_to_newer_than_date_from?
+      flash_and_redirect(:bsv_export_date_from_newer_than_date_to)
+    end
+
+    flash[:alert].present?
+  end
+
+  def flash_and_redirect(key)
     flash[:alert] = translate("courses.#{key}")
     redirect_to list_courses_path
   end
@@ -45,16 +52,11 @@ module Youth::Event::ListsController
   end
 
   def courses_for_bsv_export
-    courses = Event::Course.
-      joins(:dates).
-      includes(participations: [:roles, person: :location])
+    courses = Event::Course.joins(:dates).includes(participations: [:roles, person: :location])
 
     courses = limited_courses_scope(courses)
-    courses = courses.where(state: bsv_course_states)
-    courses = courses.where('event_dates.start_at = ' \
-                            '(SELECT start_at FROM event_dates' \
-                            ' WHERE event_dates.event_id = events.id' \
-                            ' ORDER BY start_at DESC LIMIT 1)')
+              .where(state: bsv_course_states)
+              .where(first_event_date_start)
 
     courses = date_range_condition(courses, @date_from, '>=')
     courses = date_range_condition(courses, @date_to, '<=')
@@ -64,6 +66,18 @@ module Youth::Event::ListsController
     end
 
     courses.order('event_dates.start_at')
+  end
+
+  def first_event_date_start
+    <<-SQL.lines.map(&:strip).join(' ')
+      event_dates.start_at = (
+        SELECT start_at
+        FROM event_dates
+        WHERE event_dates.event_id = events.id
+        ORDER BY start_at DESC
+        LIMIT 1
+      )
+    SQL
   end
 
   def date_range_condition(courses, date, operator)
