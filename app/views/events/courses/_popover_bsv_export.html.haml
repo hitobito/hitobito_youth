@@ -6,8 +6,7 @@
                 stacked: true,
                 builder: PlainObjectFormBuilder) do |f|
 
-  / have to pass year and and group_id for filtering to work
-  = hidden_field_tag(:year, year)
+  / have to pass group_id for filtering to work
   = hidden_field_tag(:group_id, group_id)
   = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
@@ -17,10 +16,10 @@
       %span.muted= t('event.lists.popover_bsv_export.event_kinds_hint')
 
   = f.labeled(t('event.lists.popover_bsv_export.date_from')) do
-    = f.date_field(:date_from, value: f(Date.new(year, 1, 1)))
+    = f.date_field(:date_from, value: f(Date.today.beginning_of_year))
 
   = f.labeled(t('event.lists.popover_bsv_export.date_to')) do
-    = f.date_field(:date_to, value: f(Date.new(year, 12, 31)))
+    = f.date_field(:date_to, value: f(Date.today.end_of_year))
 
   = form_buttons(f, submit_label: t('event.lists.bsv_export_button'), cancel_url: :list_courses)
 
