@@ -68,6 +68,18 @@ module Youth::Event::ListsController
     courses.order('event_dates.start_at')
   end
 
+  def limited_courses_scope(scope)
+    if can?(:list_all, Event::Course)
+      group_id.positive? ? scope.with_group_id(group_id) : scope
+    else
+      scope.in_hierarchy(current_user)
+    end
+  end
+
+  def kind_used?
+    Event::Course.attr_used?(:kind_id)
+  end
+
   def first_event_date_start
     <<-SQL.lines.map(&:strip).join(' ')
       event_dates.start_at = (
