@@ -16,7 +16,6 @@ module Youth::Event::ListsController
 
   def bsv_export
     authorize!(:export_list, Event::Course)
-    set_group_vars
 
     redirecting = flash_on_errors_and_redirect
 
@@ -66,6 +65,14 @@ module Youth::Event::ListsController
     end
 
     courses.order('event_dates.start_at')
+  end
+
+  def limited_courses_scope(courses)
+    Events::Filter::Groups.new(
+      current_person, params,
+      { kind_used: kind_used?, list_all_courses: can?(:list_all, Event::Course) },
+      courses
+    ).to_scope
   end
 
   def first_event_date_start
