@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2012-2021, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -81,7 +81,7 @@ describe Event::ListsController do
       create_course('123', '03.01.2015', '09.01.2015')
       create_course('124', '03.01.2015', '09.01.2015', 'closed', kind, groups(:top_layer))
 
-      get :bsv_export, params: { year: '2015', group_id: groups(:top_layer).id, bsv_export: { event_kinds: [kind.id], date_to: '09.09.2015' } }
+      get :bsv_export, params: { year: '2015', filter: { group_ids: [groups(:top_layer).id] }, bsv_export: { event_kinds: [kind.id], date_to: '09.09.2015' } }
       expect(response).to be_successful
       expect(rows.size).to eq(2)
       expect(rows.second).to match(/^fiver42;;124;03.01.2015;/)
