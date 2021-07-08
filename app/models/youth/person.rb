@@ -25,8 +25,12 @@ module Youth::Person
     # Allow changing the password, even if there is an invalid AHV number in the database
     return if will_save_change_to_encrypted_password? && !will_save_change_to_ahv_number?
     return unless ahv_number.present?
-    if !checksum_validate(ahv_number).valid? || ahv_number !~ AHV_NUMBER_REGEX
-      errors.add(:ahv_number, :must_be_valid_social_security_number)
+    if ahv_number !~ AHV_NUMBER_REGEX
+      errors.add(:ahv_number, :must_be_social_security_number_with_correct_format)
+      return
+    end
+    unless checksum_validate(ahv_number).valid?
+      errors.add(:ahv_number, :must_be_social_security_number_with_correct_checksum)
     end
   end
 
