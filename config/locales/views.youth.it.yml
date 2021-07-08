@@ -63,7 +63,6 @@ it:
         valid_until_end_of_year: Valido fino alla fine dell'anno
         can_be_reactivated: Omesso, può essere riattivato
   dropdown/people_export:
-    ndbjs: NDBJS
     sportdb: Sport DB
   event/lists:
     courses:
