@@ -40,6 +40,7 @@ module HitobitoYouth
       # domain
       Event::ParticipationFilter.include Youth::Event::ParticipationFilter
       Event::ParticipantAssigner.include Youth::Event::ParticipantAssigner
+      Events::FilteredList.prepend Youth::Events::FilteredList
       Export::Tabular::Events::List.include Youth::Export::Tabular::Events::List
       Export::Tabular::Events::Row.include Youth::Export::Tabular::Events::Row
       Person::AddRequest::Approver::Event.include Youth::Person::AddRequest::Approver::Event

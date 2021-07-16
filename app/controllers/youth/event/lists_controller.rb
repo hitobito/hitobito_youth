@@ -51,20 +51,10 @@ module Youth::Event::ListsController
   end
 
   def courses_for_bsv_export
-    courses = Event::Course.joins(:dates).includes(participations: [:roles, person: :location])
-
-    courses = limited_courses_scope(courses)
-              .where(state: bsv_course_states)
-              .where(first_event_date_start)
-
-    courses = date_range_condition(courses, @date_from, '>=')
-    courses = date_range_condition(courses, @date_to, '<=')
-
-    if model_params.fetch(:event_kinds, []).reject(&:blank?).present?
-      courses = courses.where(kind: model_params[:event_kinds])
-    end
-
-    courses.order('event_dates.start_at')
+    courses = course_filters
+                  .to_scope
+                  .includes(participations: [:roles, person: :location])
+                  .order('event_dates.start_at')
   end
 
   def limited_courses_scope(courses)
@@ -75,30 +65,9 @@ module Youth::Event::ListsController
     ).to_scope
   end
 
-  def first_event_date_start
-    <<-SQL.lines.map(&:strip).join(' ')
-      event_dates.start_at = (
-        SELECT start_at
-        FROM event_dates
-        WHERE event_dates.event_id = events.id
-        ORDER BY start_at DESC
-        LIMIT 1
-      )
-    SQL
-  end
-
-  def date_range_condition(courses, date, operator)
-    return courses unless date
-
-    courses.where('(event_dates.finish_at IS NULL' \
-                  " AND event_dates.start_at #{operator} ?)" \
-                  " OR (event_dates.finish_at #{operator} ?)",
-                  date, date)
-  end
-
   def dates_from_to
-    date_from = model_params[:date_from]
-    date_to = model_params[:date_to]
+    date_from = params.dig(:filter, :bsv_since)
+    date_to = params.dig(:filter, :bsv_until)
     begin
       @date_from = Date.parse(date_from) if date_from.present?
       @date_to = Date.parse(date_to) if date_to.present?
