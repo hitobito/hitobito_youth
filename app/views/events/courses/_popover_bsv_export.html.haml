@@ -6,20 +6,23 @@
                 stacked: true,
                 builder: PlainObjectFormBuilder) do |f|
 
-  / have to pass group_id for filtering to work
-  = hidden_field_tag(:group_id, group_id)
+  = hidden_field_tag('filter[state]', 'closed')
   = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
   = f.labeled(t('event.lists.popover_bsv_export.event_kinds'), help: 'f00') do
-    = f.has_many_field(:event_kinds, list: Event::Kind.includes(:translations).without_deleted)
+    = select_tag('filter[kinds]', options_from_collection_for_select(Event::Kind.includes(:translations).without_deleted, :id, :label), multiple: true)
     = f.help_block do
       %span.muted= t('event.lists.popover_bsv_export.event_kinds_hint')
 
   = f.labeled(t('event.lists.popover_bsv_export.date_from')) do
-    = f.date_field(:date_from, value: f(Date.today.beginning_of_year))
+    .input-prepend{style: 'margin: 0 0.5rem 0.5rem 0'}
+      %span.add-on= icon(:'calendar-alt')
+      = text_field_tag('filter[bsv_since]', f(Date.today.beginning_of_year), class: 'date span2')
 
   = f.labeled(t('event.lists.popover_bsv_export.date_to')) do
-    = f.date_field(:date_to, value: f(Date.today.end_of_year))
+    .input-prepend{style: 'margin: 0 0.5rem 0.5rem 0'}
+      %span.add-on= icon(:'calendar-alt')
+      = text_field_tag('filter[bsv_until]', f(Date.today.end_of_year), class: 'date span2')
 
   = form_buttons(f, submit_label: t('event.lists.bsv_export_button'), cancel_url: :list_courses)
 
