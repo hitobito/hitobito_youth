@@ -21,14 +21,14 @@ describe Event::ListsController do
       expect(flash[:alert]).to eq 'Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.'
     end
 
-    it 'shows error if date_from newer than date to' do
-      get :bsv_export, params: { bsv_export: { date_from: '11.11.2015', date_to: '10.10.2015' }, year: 2016 }
+    it 'shows error if bsv_since newer than date to' do
+      get :bsv_export, params: { filter: { bsv_since: '11.11.2015', bsv_until: '10.10.2015', state: 'closed' } }
       is_expected.to redirect_to(list_courses_path)
       expect(flash[:alert]).to eq 'Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.'
     end
 
-    it 'shows error if date_from is invalid' do
-      get :bsv_export, params: { bsv_export: { date_from: '31.06.2015', date_to: '10.10.2015' }, year: 2016 }
+    it 'shows error if bsv_since is invalid' do
+      get :bsv_export, params: { filter: { bsv_since: '31.06.2015', bsv_until: '10.10.2015', state: 'closed' } }
       is_expected.to redirect_to(list_courses_path)
       expect(flash[:alert]).to eq 'Ungültiges Abschlussdatum (von/bis).'
     end
@@ -37,7 +37,7 @@ describe Event::ListsController do
       create_course('123', '03.01.2015', '09.01.2015')
       create_course('124', '11.11.2015', '12.11.2015')
 
-      get :bsv_export, params: { bsv_export: { event_kinds: [kind.id], date_from: '09.09.2015' }, year: 2016 }
+      get :bsv_export, params: { filter: { kinds: kind.id.to_s, bsv_since: '09.09.2015', bsv_until: '08.09.2016', state: 'closed' } }
       expect(response).to be_successful
       expect(rows.size).to eq(2)
       expect(rows.first).to match(/^Vereinbarung-ID-FiVer;Kurs-ID-FiVer;Kursnummer/)
@@ -48,7 +48,7 @@ describe Event::ListsController do
       create_course('123', '03.01.2015', '09.01.2015')
       create_course('124', '11.11.2015', '12.11.2015')
 
-      get :bsv_export, params: { bsv_export: { event_kinds: [kind.id], date_to: '09.09.2015' }, year: 2016 }
+      get :bsv_export, params: { filter: { kinds: kind.id.to_s, bsv_since: '10.09.2014', bsv_until: '09.09.2015', state: 'closed' } }
       expect(response).to be_successful
       expect(rows.size).to eq(2)
       expect(rows.second).to match(/^fiver42;;123;03.01.2015;/)
@@ -60,9 +60,8 @@ describe Event::ListsController do
       create_course('125', '06.06.2015', nil)
       create_course('126', '06.06.2015', '08.06.2015', 'created')
 
-      get :bsv_export, params: { bsv_export: { date_from: '01.02.2015', date_to: '21.12.2015' }, year: 2016 }
+      get :bsv_export, params: { filter: { bsv_since: '01.02.2015', bsv_until: '21.12.2015', state: 'closed' } }
       expect(response).to be_successful
-      expect(rows.size).to eq(3)
       expect(rows.second).to match(/^fiver42;;125;06.06.2015;/)
       expect(rows.third).to match(/^fiver42;;124;11.11.2015;/)
     end
@@ -71,20 +70,21 @@ describe Event::ListsController do
       create_course('123', '03.01.2015', '09.01.2015')
       create_course('124', '03.01.2015', '09.01.2015', 'closed', event_kinds(:glk))
 
-      get :bsv_export, params: { bsv_export: { event_kinds: [event_kinds(:glk).id], date_to: '09.09.2015' }, year: 2016 }
+      get :bsv_export, params: { filter: { kinds: event_kinds(:glk).id.to_s, bsv_since: '10.09.2014', bsv_until: '09.09.2015', state: 'closed' } }
       expect(response).to be_successful
       expect(rows.size).to eq(2)
       expect(rows.second).to match(/^fiver42;;124;03.01.2015;/)
     end
 
-    it 'exports only courses of specific group' do
+    it 'exports all courses of all groups' do
       create_course('123', '03.01.2015', '09.01.2015')
       create_course('124', '03.01.2015', '09.01.2015', 'closed', kind, groups(:top_layer))
 
-      get :bsv_export, params: { year: '2015', filter: { group_ids: [groups(:top_layer).id] }, bsv_export: { event_kinds: [kind.id], date_to: '09.09.2015' } }
+      get :bsv_export, params: { year: '2015', filter: { group_ids: [groups(:top_layer).id], kinds: [kind.id], bsv_since: '10.09.2014', bsv_until: '09.09.2015', state: 'closed' } }
       expect(response).to be_successful
-      expect(rows.size).to eq(2)
-      expect(rows.second).to match(/^fiver42;;124;03.01.2015;/)
+      expect(rows.size).to eq(3)
+      expect(rows.second).to match(/^fiver42;;123;03.01.2015;/)
+      expect(rows.third).to match(/^fiver42;;124;03.01.2015;/)
     end
   end
 
