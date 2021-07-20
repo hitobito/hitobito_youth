@@ -39,13 +39,13 @@ module Events::Filter::Bsv
 
     def first_event_date_start
       <<-SQL.lines.map(&:strip).join(' ')
-      event_dates.start_at = (
-        SELECT start_at
-        FROM event_dates
-        WHERE event_dates.event_id = events.id
-        ORDER BY start_at DESC
-        LIMIT 1
-      )
+        event_dates.start_at = (
+          SELECT start_at
+          FROM event_dates
+          WHERE event_dates.event_id = events.id
+          ORDER BY start_at DESC
+          LIMIT 1
+        )
       SQL
     end
 
