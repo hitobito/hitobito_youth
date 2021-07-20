@@ -21,7 +21,7 @@ module Events::Filter::Bsv
     private
 
     def kind_ids
-      (@params.dig(:filter, :kinds) || '').split(',')
+      @kind_ids ||= (@params.dig(:filter, :kinds) || '').split(',')
     end
   end
 end
