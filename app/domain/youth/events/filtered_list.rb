@@ -8,13 +8,13 @@
 module Youth::Events::FilteredList
 
   def filter_scopes
-    filters = super
-    if params.dig(:filter, :bsv_since).present?
-      filters = [Events::Filter::Bsv::DateRange] + super
-      filters.prepend(Events::Filter::Bsv::CourseKind) if kind_used?
-      filters.delete(Events::Filter::DateRange)
-      filters.delete(Events::Filter::Groups)
-    end
+    return super if params.dig(:filter, :bsv_since).blank?
+
+    filters = [Events::Filter::Bsv::DateRange] + super
+    filters.prepend(Events::Filter::Bsv::CourseKind) if kind_used?
+    filters.delete(Events::Filter::DateRange)
+    filters.delete(Events::Filter::Groups)
+
     filters
   end
 

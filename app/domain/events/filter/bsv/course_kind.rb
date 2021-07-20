@@ -13,7 +13,7 @@ module Events::Filter::Bsv
     end
 
     def to_scope
-      return @scope unless kind_ids.present?
+      return @scope if kind_ids.blank?
 
       @scope.left_joins(:kind).where(event_kinds: { id: kind_ids })
     end
