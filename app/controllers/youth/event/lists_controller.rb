@@ -51,18 +51,10 @@ module Youth::Event::ListsController
   end
 
   def courses_for_bsv_export
-    courses = course_filters
-                  .to_scope
-                  .includes(participations: [:roles, person: :location])
-                  .order('event_dates.start_at')
-  end
-
-  def limited_courses_scope(courses)
-    Events::Filter::Groups.new(
-      current_person, params,
-      { kind_used: kind_used?, list_all_courses: can?(:list_all, Event::Course) },
-      courses
-    ).to_scope
+    course_filters
+      .to_scope
+      .includes(participations: [:roles, person: :location])
+      .order('event_dates.start_at')
   end
 
   def dates_from_to
