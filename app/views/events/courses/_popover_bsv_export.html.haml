@@ -6,7 +6,7 @@
                 stacked: true,
                 builder: PlainObjectFormBuilder) do |f|
 
-  = hidden_field_tag('filter[state]', 'closed')
+  = hidden_field_tag('filter[states][]', 'closed')
   = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
   = f.labeled(t('event.lists.popover_bsv_export.event_kinds'), help: 'f00') do
