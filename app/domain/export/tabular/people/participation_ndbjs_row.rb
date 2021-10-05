@@ -95,6 +95,10 @@ module Export::Tabular::People
       nil
     end
 
+    def ahv_number
+      entry.ahv_number.presence
+    end
+
     private
 
     def phone_number(label)

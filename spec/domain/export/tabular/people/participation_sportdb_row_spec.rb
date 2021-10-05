@@ -30,6 +30,10 @@ describe Export::Tabular::People::ParticipationsSportdb do
     expect(row[11]).to eq 'D'
   end
 
+  it 'outputs empty ahv_number as nil' do
+    person.update(ahv_number: '')
+    expect(row[5]).to eq nil
+  end
 
   private
 
