@@ -30,9 +30,21 @@ describe Export::Tabular::People::ParticipationsSportdb do
     expect(row[11]).to eq 'D'
   end
 
-  it 'outputs empty ahv_number as nil' do
-    person.update(ahv_number: '')
+  it 'outputs optional empty values as nil, in order to not overwrite existing values in SPORTDB' do
+    person.update(
+        first_name: '',
+        last_name: '',
+        ahv_number: '',
+        address: '',
+        zip_code: '',
+        town: '',
+    )
+    expect(row[2]).to eq nil
+    expect(row[3]).to eq nil
     expect(row[5]).to eq nil
+    expect(row[6]).to eq nil
+    expect(row[7]).to eq nil
+    expect(row[8]).to eq nil
   end
 
   private

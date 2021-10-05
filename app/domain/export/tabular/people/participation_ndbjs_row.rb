@@ -95,8 +95,8 @@ module Export::Tabular::People
       nil
     end
 
-    def ahv_number
-      entry.ahv_number.presence
+    def fetch(attr)
+      super(attr).presence
     end
 
     private
