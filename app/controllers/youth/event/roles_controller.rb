@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2017, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2022, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -15,6 +15,9 @@ module Youth::Event::RolesController
         set_participation_active
         new_participation = entry.participation.new_record?
         created = with_callbacks(:create, :save) { save_entry }
+        if true?(params[:remove_participant_role])
+          destroy_participant_roles!
+        end
         respond_with(entry,
                      success: created,
                      location: after_create_url(new_participation, created))
