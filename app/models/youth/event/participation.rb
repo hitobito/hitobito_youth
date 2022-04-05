@@ -32,7 +32,7 @@ module Youth::Event::Participation
 
     class << self
       def pending
-        where(active: false).where.not(state: 'canceled')
+        where(active: false).where.not(state: 'canceled').or(where(state: nil))
       end
     end
   end
