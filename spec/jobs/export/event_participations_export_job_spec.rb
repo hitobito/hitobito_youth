@@ -20,7 +20,7 @@ describe Export::EventParticipationsExportJob do
   let(:event_role)    { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
   let(:participation) { Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true) }
   let(:event_participation_filter) { Event::ParticipationFilter.new(course, user, params) }
-  let(:filepath)      { AsyncDownloadFile::DIRECTORY.join('event_participation_export') }
+  let(:file)      { AsyncDownloadFile.maybe_from_filename('event_participation_export', user.id, format) }
 
   before do
     SeedFu.quiet = true
@@ -35,10 +35,11 @@ describe Export::EventParticipationsExportJob do
     it 'and saves it' do
       subject.perform
 
-      lines = File.readlines("#{filepath}.#{format}")
+      lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/^Vorname;Nachname/)
       expect(lines[0].split(';').count).to match(19)
+      expect(file.generated_file).to be_attached
     end
   end
 
@@ -49,11 +50,12 @@ describe Export::EventParticipationsExportJob do
     it 'and saves it' do
       subject.perform
 
-      lines = File.readlines("#{filepath}.#{format}")
+      lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/#{ndbjs_csv_header}/)
       expect(lines[3]).to match(/#{person_ndbjs_csv_row}/)
       expect(lines[0].split(';').count).to match(24)
+      expect(file.generated_file).to be_attached
     end
   end
 
@@ -64,11 +66,12 @@ describe Export::EventParticipationsExportJob do
     it 'and saves it' do
       subject.perform
 
-      lines = File.readlines("#{filepath}.#{format}")
+      lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/#{sportdb_csv_header}/)
       expect(lines[3]).to match(/#{person_sportdb_csv_row}/)
       expect(lines[0].split(';').count).to match(13)
+      expect(file.generated_file).to be_attached
     end
   end
 
