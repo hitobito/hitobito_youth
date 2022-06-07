@@ -6,5 +6,5 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module HitobitoYouth
-  VERSION = '1.27.22'
+  VERSION = '1.27.23'
 end
