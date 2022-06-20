@@ -10,17 +10,18 @@ describe Export::EventParticipationsExportJob do
   subject { Export::EventParticipationsExportJob.new(format,
                                                      user.id,
                                                      event_participation_filter,
-                                                     params.merge(filename: 'event_participation_export')) }
+                                                     params.merge(filename: filename)) }
 
-  let(:user)          { people(:top_leader) }
-  let(:other_user)    { people(:bottom_member) }
-  let(:course)        { events(:top_course) }
-  let(:person)        { ndbjs_person }
-  let(:group)         { course.groups.first }
-  let(:event_role)    { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
+  let(:user) { people(:top_leader) }
+  let(:other_user) { people(:bottom_member) }
+  let(:course) { events(:top_course) }
+  let(:person) { ndbjs_person }
+  let(:group) { course.groups.first }
+  let(:event_role) { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
   let(:participation) { Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true) }
   let(:event_participation_filter) { Event::ParticipationFilter.new(course, user, params) }
-  let(:file)      { AsyncDownloadFile.maybe_from_filename('event_participation_export', user.id, format) }
+  let(:filename) { AsyncDownloadFile.create_name('event_participation_export', user.id) }
+  let(:file) { AsyncDownloadFile.from_filename(filename, format) }
 
   before do
     SeedFu.quiet = true
