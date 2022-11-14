@@ -46,32 +46,32 @@ describe Export::EventParticipationsExportJob do
 
   context 'exports csv ndbjs' do
     let(:format) { :csv }
-    let(:params) { { filter: 'all', ndbjs: true } }
+    let(:params) { { filter: 'all', nds_course: true } }
 
     it 'and saves it' do
       subject.perform
 
       lines = file.read.lines
       expect(lines.size).to eq(4)
-      expect(lines[0]).to match(/#{ndbjs_csv_header}/)
-      expect(lines[3]).to match(/#{person_ndbjs_csv_row}/)
-      expect(lines[0].split(';').count).to match(24)
+      expect(lines[0]).to eq("#{nds_course_csv_header}\n")
+      expect(lines[3]).to eq("#{person_ndbjs_csv_row}\n")
+      expect(lines[0].split(';').count).to match(21)
       expect(file.generated_file).to be_attached
     end
   end
 
   context 'exports csv sportdb' do
     let(:format) { :csv }
-    let(:params) { { filter: 'all', sportdb: true } }
+    let(:params) { { filter: 'all', nds_camp: true } }
 
     it 'and saves it' do
       subject.perform
 
       lines = file.read.lines
       expect(lines.size).to eq(4)
-      expect(lines[0]).to match(/#{sportdb_csv_header}/)
-      expect(lines[3]).to match(/#{person_sportdb_csv_row}/)
-      expect(lines[0].split(';').count).to match(13)
+      expect(lines[0]).to eq("#{nds_camp_csv_header}\n")
+      expect(lines[3]).to eq("#{person_sportdb_csv_row}\n")
+      expect(lines[0].split(';').count).to match(14)
       expect(file.generated_file).to be_attached
     end
   end
@@ -104,59 +104,92 @@ describe Export::EventParticipationsExportJob do
     Fabricate(:phone_number, contactable: person, label: 'Fax', number: '+41 31 123 45 33')
   end
 
-  def ndbjs_csv_header
-    %w( NDS_PERSONEN_NR
-        GESCHLECHT
-        NAME
-        VORNAME
-        GEBURTSDATUM
-        AHV_NUMMER
-        STRASSE
-        PLZ
-        ORT
-        KANTON
-        LAND
-        TELEFON_PRIVAT
-        TELEFON_GESCHAEFT
-        TELEFON_MOBIL
-        FAX
-        EMAIL
-        NATIONALITAET
-        ERSTSPRACHE
-        ZWEITSPRACHE
-        BERUF
-        VERPFLICHT_ORG
-        VERPFLICHT_VERB
-        TAETIGKEIT
-        BEILAGEN
-    ).join(';')
+  def nds_course_csv_header
+    [ 
+     'PERSONENNUMMER',
+     'NAME',
+     'VORNAME',
+     'GEBURTSDATUM',
+     'GESCHLECHT',
+     'AHV_NR',
+     'PEID',
+     'NATIONALITAET',
+     'MUTTERSPRACHE',
+     'ZWEITSPRACHE',
+     'STRASSE',
+     'HAUSNUMMER',
+     'PLZ',
+     'ORT',
+     'LAND',
+     'TELEFON (PRIVAT)',
+     'TELEFON (AMTLICH)',
+     'TELEFON (GESCHAEFT)',
+     'EMAIL (PRIVAT)',
+     'EMAIL (AMTLICH)',
+     "EMAIL (GESCHAEFT)"
+    ].join(';')
   end
 
-  def sportdb_csv_header
-    %w( NDBJS_PERS_NR
-        GESCHLECHT
-        NAME
-        VORNAME
-        GEB_DATUM
-        AHV_NR
-        STRASSE
-        PLZ
-        ORT
-        LAND
-        NATIONALITAET
-        ERSTSPRACHE
-        KLASSE/GRUPPE
+  def nds_camp_csv_header
+    %w( 
+     NDBJS_PERS_NR
+     NAME
+     VORNAME
+     GEBURTSDATUM
+     GESCHLECHT
+     AHV_NR
+     PEID
+     NATIONALITAET
+     MUTTERSPRACHE
+     STRASSE
+     HAUSNUMMER
+     PLZ
+     ORT
+     LAND
     ).join(';')
   end
 
   def person_ndbjs_csv_row
-    (%w(123 1 Muster Peter 11.06.1980 756.1234.5678.97 Str 4000 Basel BS CH) +
-      ['\+41 31 123 45 11', '\+41 32 123 45 42', '\+41 77 123 45 99', '\+41\ 31\ 123\ 45\ 33'] +
-      %w(foo@e.com FL D) +
-      ['', '3', '', '', '1', '1']).join(';')
+    [
+      '123',
+      'Muster',
+      'Peter',
+      '11.06.1980',
+      'm',
+      '756.1234.5678.97',
+      '', 'FL',
+      'DE',
+      '',
+      '',
+      '',
+      '4000',
+      'Basel',
+      'CH',
+      '+41 31 123 45 11',
+      '',
+      '+41 32 123 45 42',
+      'foo@e.com',
+      '',
+      '',
+    ].join(';')
   end
 
   def person_sportdb_csv_row
-    %w(123 1 Muster Peter 11.06.1980 756.1234.5678.97 Str 4000 Basel CH FL D).join(';')
+    [
+      '123',
+      'Muster',
+      'Peter',
+      '11.06.1980',
+      'm',
+      '756.1234.5678.97',
+      '',
+      'FL',
+      'DE',
+      '',
+      '',
+      '4000',
+      'Basel',
+      'CH'
+    ].join(';')
   end
 end

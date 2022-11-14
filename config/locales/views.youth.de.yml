@@ -79,8 +79,8 @@ de:
         valid_until_end_of_year: Gültig bis Ende Jahr
         can_be_reactivated: Weggefallen, kann reaktiviert werden
   dropdown/people_export:
-    ndbjs: NDS
-    sportdb: SPORTdb
+    nds_course: NDS-Kurs
+    nds_camp: NDS-Lager
 
   event/lists:
     courses:

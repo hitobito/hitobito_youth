@@ -7,36 +7,35 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::People::ParticipationNdbjsRow do
+describe Export::Tabular::People::ParticipationNdsRow do
 
-  let(:person) { ndbjs_person }
+  let(:person) { nds_person }
   let(:participation) { Fabricate(:event_participation, person: person, event: events(:top_course)) }
 
-  let(:row) { Export::Tabular::People::ParticipationNdbjsRow.new(participation) }
+  let(:row) { Export::Tabular::People::ParticipationNdsRow.new(participation) }
   subject { row }
 
   it { expect(row.fetch(:j_s_number)).to eq '1695579' }
-  it { expect(row.fetch(:gender)).to eq 1 }
-  it { expect(row.fetch(:first_name)).to eq 'Peter' }
   it { expect(row.fetch(:last_name)).to eq 'Muster' }
+  it { expect(row.fetch(:first_name)).to eq 'Peter' }
   it { expect(row.fetch(:birthday)).to eq '11.06.1980' }
+  it { expect(row.fetch(:gender)).to eq 'm' }
   it { expect(row.fetch(:ahv_number)).to eq '756.1234.5678.97' }
-  it { expect(row.fetch(:address)).to eq 'Hauptstrasse 33' }
+  it { expect(row.fetch(:peid)).to be_nil }
+  it { expect(row.fetch(:nationality_j_s)).to eq 'FL' }
+  it { expect(row.fetch(:first_language)).to eq 'DE' }
+  it { expect(row.fetch(:second_language)).to be_nil }
+  it { expect(row.fetch(:address)).to eq 'Hauptstrasse' }
+  it { expect(row.fetch(:house_number)).to eq '33' }
   it { expect(row.fetch(:zip_code)).to eq '4000' }
   it { expect(row.fetch(:town)).to eq 'Basel' }
-  it { expect(row.fetch(:canton)).to eq 'BS' }
   it { expect(row.fetch(:country)).to eq 'CH' }
   it { expect(row.fetch(:phone_private)).to eq '+41 31 111 12 13' }
   it { expect(row.fetch(:phone_work)).to eq '+41 24 422 42 42' }
-  it { expect(row.fetch(:phone_mobile)).to eq '+41 77 999 99 99' }
-  it { expect(row.fetch(:phone_fax)).to eq '+41 33 333 33 33' }
-  it { expect(row.fetch(:nationality_j_s)).to eq 'FL' }
-  it { expect(row.fetch(:first_language)).to eq 'D' }
-  it { expect(row.fetch(:profession)).to eq 3 }
-  it { expect(row.fetch(:organisation)).to eq nil }
-  it { expect(row.fetch(:association)).to eq nil }
-  it { expect(row.fetch(:activity)).to eq 1 }
-  it { expect(row.fetch(:attachments)).to eq 1 }
+  it { expect(row.fetch(:phone_official)).to be_nil }
+  it { expect(row.fetch(:email)).to eq 'foo@example.com' }
+  it { expect(row.fetch(:email_official)).to be_nil }
+  it { expect(row.fetch(:email_work)).to be_nil }
 
   describe 'j_s_number format' do
     before do
@@ -61,7 +60,7 @@ describe Export::Tabular::People::ParticipationNdbjsRow do
 
   private
 
-  def ndbjs_person
+  def nds_person
     person = Fabricate(:person,
                        email: 'foo@example.com',
                        first_name: 'Peter',
