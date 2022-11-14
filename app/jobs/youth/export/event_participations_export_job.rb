@@ -9,18 +9,18 @@ module Youth::Export::EventParticipationsExportJob
   extend ActiveSupport::Concern
 
   included do
-    alias_method_chain :exporter, :ndbjs
+    alias_method_chain :exporter, :nds
   end
 
   private
 
-  def exporter_with_ndbjs
-    if @options[:ndbjs] && ability.can?(:show_details, entries.first)
-      Export::Tabular::People::ParticipationsNdbjs
-    elsif @options[:sportdb] && ability.can?(:show_details, entries.first)
-      Export::Tabular::People::ParticipationsSportdb
+  def exporter_with_nds
+    if @options[:nds_course] && ability.can?(:show_details, entries.first)
+      Export::Tabular::People::ParticipationsNdsCourse
+    elsif @options[:nds_camp] && ability.can?(:show_details, entries.first)
+      Export::Tabular::People::ParticipationsNdsCamp
     else
-      exporter_without_ndbjs
+      exporter_without_nds
     end
   end
 

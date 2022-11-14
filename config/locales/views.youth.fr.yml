@@ -63,8 +63,8 @@ fr:
         valid_until_end_of_year: Valable jusqu'à la fin de l'année
         can_be_reactivated: Omis, peut être réactivé
   dropdown/people_export:
-    ndbjs: BDNS
-    sportdb: SPORTdb
+    nds_camp: BDNS
+    nds_course: SPORTdb
   event/lists:
     courses:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.
