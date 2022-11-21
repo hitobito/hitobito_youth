@@ -12,7 +12,7 @@ class Export::Tabular::People::ParticipationsNdsCamp < Export::Tabular::Base
 
   def build_attribute_labels # rubocop:disable Metrics/MethodLength
     {
-      j_s_number: 'NDBJS_PERS_NR',
+      j_s_number: 'PERSONENNUMMER',
       last_name: 'NAME',
       first_name: 'VORNAME',
       birthday: 'GEBURTSDATUM',
