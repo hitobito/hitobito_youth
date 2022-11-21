@@ -15,7 +15,7 @@ describe Export::EventParticipationsExportJob do
   let(:user) { people(:top_leader) }
   let(:other_user) { people(:bottom_member) }
   let(:course) { events(:top_course) }
-  let(:person) { ndbjs_person }
+  let(:person) { nds_person }
   let(:group) { course.groups.first }
   let(:event_role) { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
   let(:participation) { Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true) }
@@ -44,7 +44,7 @@ describe Export::EventParticipationsExportJob do
     end
   end
 
-  context 'exports csv ndbjs' do
+  context 'exports csv nds' do
     let(:format) { :csv }
     let(:params) { { filter: 'all', nds_course: true } }
 
@@ -54,7 +54,7 @@ describe Export::EventParticipationsExportJob do
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to eq("#{nds_course_csv_header}\n")
-      expect(lines[3]).to eq("#{person_ndbjs_csv_row}\n")
+      expect(lines[3]).to eq("#{person_nds_csv_row}\n")
       expect(lines[0].split(';').count).to match(21)
       expect(file.generated_file).to be_attached
     end
@@ -78,7 +78,7 @@ describe Export::EventParticipationsExportJob do
 
   private
 
-  def ndbjs_person
+  def nds_person
     person = Fabricate(:person,
                        email: 'foo@e.com',
                        first_name: 'Peter',
@@ -149,7 +149,7 @@ describe Export::EventParticipationsExportJob do
     ).join(';')
   end
 
-  def person_ndbjs_csv_row
+  def person_nds_csv_row
     [
       '123',
       'Muster',
