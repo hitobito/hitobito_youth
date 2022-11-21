@@ -132,7 +132,7 @@ describe Export::EventParticipationsExportJob do
 
   def nds_camp_csv_header
     %w( 
-     NDBJS_PERS_NR
+     PERSONENNUMMER
      NAME
      VORNAME
      GEBURTSDATUM
