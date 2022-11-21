@@ -24,7 +24,7 @@ module Export::Tabular::People
     end
 
     def birthday
-      # date format defined by ndbjs
+      # date format defined by nds
       entry.birthday && entry.birthday.strftime('%d.%m.%Y')
     end
 
