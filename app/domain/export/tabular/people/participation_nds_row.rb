@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Export::Tabular::People
-  class ParticipationNdbjsRow < Export::Tabular::People::PersonRow
+  class ParticipationNdsRow < Export::Tabular::People::PersonRow
 
     attr_reader :participation
 
@@ -20,11 +20,11 @@ module Export::Tabular::People
     end
 
     def gender
-      { 'm' => 1, 'w' => 2 }[entry.gender]
+      entry.gender # prevent human_attribute
     end
 
     def birthday
-      # date format defined by ndbjs
+      # date format defined by nds
       entry.birthday && entry.birthday.strftime('%d.%m.%Y')
     end
 
@@ -35,11 +35,11 @@ module Export::Tabular::People
     def country
       {
         'CH' => 'CH',
-        'DE' => 'D',
+        'DE' => 'DE',
         'FL' => 'FL',
-        'FR' => 'F',
-        'IT' => 'I',
-        'AT' => 'A'
+        'FR' => 'FR',
+        'IT' => 'IT',
+        'AT' => 'AT'
       }.fetch(entry.country, 'CH')
     end
 
@@ -55,43 +55,35 @@ module Export::Tabular::People
       phone_number('Arbeit')
     end
 
-    def phone_mobile
-      phone_number('Mobil')
+    def phone_official
+      nil
     end
 
-    def phone_fax
-      phone_number('Fax')
+    def email_official
+      nil
+    end
+
+    def email_work
+      additional_email('Arbeit')
     end
 
     def first_language
-      'D'
+      'DE'
     end
 
     def second_language
       nil
     end
 
-    def profession
-      3 # andere
+    def address
+      split_address[1]
     end
 
-    def organisation
-      nil
+    def house_number
+      split_address[2]
     end
 
-    def association
-      nil
-    end
-
-    def activity
-      1 # mit kindern / jugendlichen j+s
-    end
-
-    def attachments
-      1 # keine
-    end
-
-    def class_group
+    def peid
       nil
     end
 
@@ -105,5 +97,13 @@ module Export::Tabular::People
       entry.phone_numbers.find_by(label: label).try(:number)
     end
 
+    def additional_email(label)
+      entry.additional_emails.find_by(label: label).try(:email)
+    end
+
+    def split_address
+      entry.address&.match(Address::FullTextSearch::ADDRESS_WITH_NUMBER_REGEX)&.to_a ||
+        [entry.address]
+    end
   end
 end

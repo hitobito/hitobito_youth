@@ -1,5 +1,9 @@
 # Hitobito Changelog
 
+## unreleased
+
+* NDBJS und SportDB Exporte wurden entsprechend der neuen NDS ersetzt (#1733)
+
 ## Version 1.19
 
 * Personen mit Leseberechtigungen aus übergeordneten Layern können jetzt das Abteilungstab sehen, nicht nur die Lokalgruppen selbst.

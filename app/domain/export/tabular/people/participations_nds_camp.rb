@@ -5,26 +5,27 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-class Export::Tabular::People::ParticipationsSportdb < Export::Tabular::Base
+class Export::Tabular::People::ParticipationsNdsCamp < Export::Tabular::Base
 
   self.model_class = ::Event::Participation
-  self.row_class = ::Export::Tabular::People::ParticipationNdbjsRow
+  self.row_class = ::Export::Tabular::People::ParticipationNdsRow
 
   def build_attribute_labels # rubocop:disable Metrics/MethodLength
     {
-      j_s_number: 'NDBJS_PERS_NR',
-      gender: 'GESCHLECHT',
+      j_s_number: 'PERSONENNUMMER',
       last_name: 'NAME',
       first_name: 'VORNAME',
-      birthday: 'GEB_DATUM',
+      birthday: 'GEBURTSDATUM',
+      gender: 'GESCHLECHT',
       ahv_number: 'AHV_NR',
+      peid: 'PEID',
+      nationality_j_s: 'NATIONALITAET',
+      first_language: 'MUTTERSPRACHE',
       address: 'STRASSE',
+      house_number: 'HAUSNUMMER',
       zip_code: 'PLZ',
       town: 'ORT',
       country: 'LAND',
-      nationality_j_s: 'NATIONALITAET',
-      first_language: 'ERSTSPRACHE',
-      class_group: 'KLASSE/GRUPPE'
     }
   end
 

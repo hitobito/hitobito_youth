@@ -20,9 +20,9 @@ describe 'Dropdown::PeopleExport' do
     true
   end
 
-  context 'ndbjs' do
+  context 'nds' do
 
-    it 'no ndbjs items if no details permission' do
+    it 'no nds items if no details permission' do
       dropdown = create_dropdown.to_s
       expect(dropdown).to have_content 'Export'
       expect(dropdown).to have_selector 'a' do |tag|
@@ -33,7 +33,7 @@ describe 'Dropdown::PeopleExport' do
       end
     end
 
-    it 'no ndbjs items if not people controller' do
+    it 'no nds items if not people controller' do
       dropdown = create_dropdown(true, 'people').to_s
       expect(dropdown).to have_content 'Export'
       expect(dropdown).to have_selector 'a' do |tag|
@@ -44,7 +44,7 @@ describe 'Dropdown::PeopleExport' do
       end
     end
 
-    it 'does add ndbjs items' do
+    it 'does add nds items' do
       dropdown = create_dropdown(true).to_s
       expect(dropdown).to have_content 'Export'
       expect(dropdown).to have_selector 'ul.dropdown-menu'

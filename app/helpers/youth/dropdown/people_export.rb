@@ -10,18 +10,18 @@ module Youth
     module PeopleExport
       extend ActiveSupport::Concern
       included do
-        alias_method_chain :tabular_links, :ndbjs
+        alias_method_chain :tabular_links, :nds
       end
 
-      def tabular_links_with_ndbjs(format)
-        tabular_links_without_ndbjs(format)
+      def tabular_links_with_nds(format)
+        tabular_links_without_nds(format)
 
         if @details && params[:controller] == 'event/participations'
           path = params.merge(format: format)
           item = @items.find { |i| i.label == translate(format) }
           item.sub_items <<
-            ::Dropdown::Item.new(translate(:ndbjs), path.merge(ndbjs: true)) <<
-            ::Dropdown::Item.new(translate(:sportdb), path.merge(sportdb: true))
+            ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
+            ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true))
         end
       end
 
