@@ -29,7 +29,7 @@ class Group::EducationsController < ApplicationController
 
   def filter_entries
     @person_filter = Person::Filter::List.new(group, current_user, list_filter_args)
-    entries = @person_filter.entries.order_by_name
+    entries = @person_filter.entries.reorder(:birthday)
     entries
   end
 

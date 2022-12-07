@@ -37,5 +37,6 @@
                     @person_filter.multiple_groups ? group_person_path(person.default_group_id, person) : group_person_path(@group, person))
       - t.col(Qualification.model_name.human(count: 2)) { |person| joined_qualification_kind_labels(person) }
       - t.col(Event::Application.model_name.human(count: 2)) { |person| joined_event_participations(person) }
+      - t.col(Person.human_attribute_name(:birthday)) { |person| format_attr(person, :birthday) }
 
 = paginate @people
