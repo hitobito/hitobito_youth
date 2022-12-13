@@ -1,6 +1,6 @@
 # Hitobito Changelog
 
-## unreleased
+## Version 1.28
 
 * NDBJS und SportDB Exporte wurden entsprechend der neuen NDS ersetzt (#1733)
 
