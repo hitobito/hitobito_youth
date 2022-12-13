@@ -62,9 +62,6 @@ it:
         valid: Valido
         valid_until_end_of_year: Valido fino alla fine dell'anno
         can_be_reactivated: Omesso, può essere riattivato
-  dropdown/people_export:
-    nds_course: NDS
-    nds_camp: Sport DB
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
