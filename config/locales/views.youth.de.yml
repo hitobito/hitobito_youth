@@ -8,6 +8,10 @@ de:
     fields_youth:
       nationality:
         placeholder: z.B. CH
+      nationality_j_s:
+        CH: CH
+        FL: FL
+        ANDERE: ANDERE
 
   event:
     lists:
@@ -35,6 +39,12 @@ de:
         attended_button: Teilgenommen
         assigned_button: Zugeteilt
 
+    participation_contact_datas:
+      fields_youth:
+        nationality_j_s:
+          CH: CH
+          FL: FL
+          ANDERE: ANDERE
     tentatives:
       created: Provisorische Anmeldung für %{participant} wurde erstellt.
       index:

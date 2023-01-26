@@ -49,6 +49,7 @@ module HitobitoYouth
       Event::ParticipationAbility.include Youth::Event::ParticipationAbility
 
       # decorator
+      PersonDecorator.include Youth::PersonDecorator
       Event::ParticipationDecorator.include Youth::Event::ParticipationDecorator
 
       # controller
