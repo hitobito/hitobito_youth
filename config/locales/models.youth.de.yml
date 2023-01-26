@@ -44,6 +44,11 @@ de:
         ahv_number: AHV-Nummer
         j_s_number: J+S-Nummer
         nationality_j_s: Nationalität gemäss J+S
+        translated_nationality_j_s: Nationalität gemäss J+S
+        nationalities_j_s:
+          CH: CH
+          FL: FL
+          ANDERE: ANDERE
     errors:
       messages:
         must_be_social_security_number_with_correct_format: muss im gültigen Format sein (756.1234.5678.97).

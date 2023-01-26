@@ -10,8 +10,8 @@ require 'spec_helper'
 describe Person do
 
   describe '#nationality_j_s' do
-    it 'accepts values CH FL DIV' do
-      %w(CH FL DIV).each do |value|
+    it 'accepts values CH FL ANDERE' do
+      %w(CH FL ANDERE).each do |value|
         person = Person.new(last_name: 'dummy', nationality_j_s: value)
         expect(person).to be_valid
       end

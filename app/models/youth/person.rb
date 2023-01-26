@@ -11,7 +11,7 @@ module Youth::Person
   require_dependency 'social_security_number'
   include ::SocialSecurityNumber
 
-  NATIONALITIES_J_S = %w(CH FL DIV).freeze
+  NATIONALITIES_J_S = %w(CH FL ANDERE).freeze
 
   included do
     validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
