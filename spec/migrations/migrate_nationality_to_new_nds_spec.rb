@@ -34,6 +34,8 @@ describe MigrateNationalityToNewNds do
   end
 
   context 'down' do
+    after { migration.up }
+
     it 'updates nationality_j_s from ANDERE to DIV' do
       person_with_andere_nationality = Fabricate(:person)
       person_with_andere_nationality.update_attribute(:nationality_j_s, 'ANDERE')
