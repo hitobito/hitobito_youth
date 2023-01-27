@@ -37,6 +37,12 @@ describe Export::Tabular::People::ParticipationNdsRow do
   it { expect(row.fetch(:email_official)).to be_nil }
   it { expect(row.fetch(:email_work)).to be_nil }
 
+  context 'with nationality_j_s ANDERE' do
+    let(:person) { p = nds_person; p.update(nationality_j_s: 'ANDERE'); p }
+
+    it { expect(row.fetch(:nationality_j_s)).to eq 'ANDERE' }
+  end
+
   describe 'j_s_number format' do
     before do
       person.j_s_number = '169-55-79'
