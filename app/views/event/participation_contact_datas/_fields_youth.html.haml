@@ -10,6 +10,6 @@
   - if entry.show_attr?(:nationality_j_s)
     = f.labeled_collection_select(:nationality_j_s,
                                   Person::NATIONALITIES_J_S,
-                                  :to_s, Proc.new { |n| t(".nationality_j_s.#{n}") },
+                                  :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
                                   { include_blank: true },
                                   { class: 'span6' })
