@@ -3,10 +3,6 @@ it:
     fields_youth:
       nationality:
         placeholder: per es. CH
-      nationality_j_s:
-        CH: CH
-        FL: FL
-        ANDERE: ALTRO
   event:
     lists:
       bsv_export_button: Esportazione UFAS
@@ -31,10 +27,6 @@ it:
         assigned_button: Assegnato
     participation_contact_datas:
       fields_youth:
-        nationality_j_s:
-          CH: CH
-          FL: FL
-          ANDERE: ALTRO
     tentatives:
       created: L'iscrizione provvisioria per %{participant} è stata creata.
       index:

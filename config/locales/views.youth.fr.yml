@@ -3,10 +3,6 @@ fr:
     fields_youth:
       nationality:
         placeholder: p.ex. CH
-      nationality_j_s:
-        CH: CH
-        FL: FL
-        ANDERE: AUTRE
   event:
     lists:
       bsv_export_button: Export OFAS
@@ -32,10 +28,6 @@ fr:
 
     participation_contact_datas:
       fields_youth:
-        nationality_j_s:
-          CH: CH
-          FL: FL
-          ANDERE: AUTRE
     tentatives:
       created: Inscription provisoire étatit crée pour %{participant}.
       index:
