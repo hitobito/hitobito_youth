@@ -26,8 +26,6 @@ fr:
         attended_button: Participé
         assigned_button: Placé
 
-    participation_contact_datas:
-      fields_youth:
     tentatives:
       created: Inscription provisoire étatit crée pour %{participant}.
       index:
