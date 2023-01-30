@@ -7,6 +7,8 @@ module Youth::PersonDecorator
   extend ActiveSupport::Concern
 
   def translated_nationality_j_s
+    return '' unless nationality_j_s.present?
+
     I18n.t("activerecord.attributes.person.nationalities_j_s.#{nationality_j_s}")
   end
 
