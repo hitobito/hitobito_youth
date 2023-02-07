@@ -51,6 +51,7 @@ module HitobitoYouth
       # decorator
       PersonDecorator.include Youth::PersonDecorator
       Event::ParticipationDecorator.include Youth::Event::ParticipationDecorator
+      PaperTrail::VersionDecorator.include Youth::PaperTrail::VersionDecorator
 
       # controller
       PeopleController.include Youth::PeopleController
