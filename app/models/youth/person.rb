@@ -14,6 +14,18 @@ module Youth::Person
   NATIONALITIES_J_S = %w(CH FL ANDERE).freeze
 
   included do
+    has_many :people_managers, foreign_key: :managed_id,
+                               dependent: :destroy
+    has_many :people_manageds, class_name: 'PeopleManager',
+                               foreign_key: :manager_id,
+                               dependent: :destroy
+
+    has_many :managers, through: :people_managers
+    has_many :manageds, through: :people_manageds
+
+    accepts_nested_attributes_for :people_managers, allow_destroy: true
+    accepts_nested_attributes_for :people_manageds, allow_destroy: true
+
     validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
     validate :validate_ahv_number
   end
