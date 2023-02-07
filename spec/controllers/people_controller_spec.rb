@@ -10,14 +10,15 @@ require 'spec_helper'
 
 describe PeopleController do
   let(:top_leader) { people(:top_leader) }
+  let(:bottom_leader) { people(:bottom_leader) }
   let(:bottom_member) { people(:bottom_member) }
 
   before { sign_in(user) }
 
   context 'PUT update' do
     context 'self' do
-      let(:user) { bottom_member }
-      subject { bottom_member }
+      let(:user) { bottom_leader }
+      subject { bottom_leader }
 
       it 'does not set managers' do
         manager_attrs = {
@@ -39,7 +40,7 @@ describe PeopleController do
         managed_attrs = {
           people_manageds_attributes: {
             '0' => {
-              managed_id: top_leader.id
+              managed_id: bottom_member.id
             }
           }
         }
@@ -50,7 +51,7 @@ describe PeopleController do
                                  person: managed_attrs }
         end.to change { PeopleManager.count }.by(1)
 
-        pm = PeopleManager.find_by(manager: subject, managed: top_leader)
+        pm = PeopleManager.find_by(manager: subject, managed: bottom_member)
 
         expect(pm).to be_present
       end
@@ -130,6 +131,28 @@ describe PeopleController do
 
         expect(manager_version).to be_present
         expect(managed_version).to be_present
+      end
+    end
+
+    context 'as bottom_leader' do
+      let(:user) { bottom_leader }
+
+      it 'does not establish managed relation to people without update permission' do
+        managed_attrs = {
+          people_manageds_attributes: {
+            '0' => {
+              managed_id: top_leader.id
+            }
+          }
+        }
+
+        expect do
+          put :update, params: { id: bottom_member.id,
+                                 group_id: bottom_member.primary_group_id,
+                                 person: managed_attrs }
+        end.to_not change { PeopleManager.count }
+
+        expect(PeopleManager.where(manager: subject, managed: top_leader)).to_not exist
       end
     end
   end

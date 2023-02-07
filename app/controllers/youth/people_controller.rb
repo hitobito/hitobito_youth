@@ -45,6 +45,13 @@ module Youth::PeopleController
     if current_user.id == entry.id
       permitted = permitted.except(:people_managers_attributes)
     end
+    permitted[:people_manageds_attributes]&.keep_if do |index, attrs|
+      can?(:update, Person.find(attrs[:managed_id]))
+    end
+    permitted
+  end
+
+  def accessible_people_managers_attributes
     permitted
   end
 end
