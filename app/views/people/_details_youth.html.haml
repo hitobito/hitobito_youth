@@ -5,3 +5,24 @@
 
 - if show_full
   = render_attrs(entry, :ahv_number, :j_s_number, :translated_nationality_j_s)
+
+  - if can?(:update, entry)
+    %dl.dl-horizontal
+      %dt.muted
+        = t('activerecord.attributes.person.people_managers')
+        - entry.managers.each do |manager|
+          %dd
+            - if can?(:show, manager)
+              = link_to(manager, manager)
+            - else
+              = manager.person_name
+
+    %dl.dl-horizontal
+      %dt.muted
+      = t('activerecord.attributes.person.people_manageds')
+      - entry.manageds.each do |managed|
+        %dd
+          - if can?(:show, managed)
+            = link_to(managed, managed)
+          - else
+            = managed.person_name

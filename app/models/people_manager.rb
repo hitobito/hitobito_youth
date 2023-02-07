@@ -10,4 +10,11 @@
 class PeopleManager < ActiveRecord::Base
   belongs_to :manager, class_name: 'Person'
   belongs_to :managed, class_name: 'Person'
+
+  validates :manager_id, uniqueness: { scope: :managed_id }
+  validate :assert_manager_is_not_managed
+
+  def assert_manager_is_not_managed
+    errors.add(:base, :manager_and_managed_the_same) if manager.id == managed.id
+  end
 end

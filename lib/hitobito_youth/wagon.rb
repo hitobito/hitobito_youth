@@ -53,10 +53,17 @@ module HitobitoYouth
       Event::ParticipationDecorator.include Youth::Event::ParticipationDecorator
 
       # controller
+      PeopleController.include Youth::PeopleController
       PeopleFiltersController.include Youth::PeopleFiltersController
       Event::ParticipationsController.include Youth::Event::ParticipationsController
 
-      PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number]
+      PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number,
+                                           people_managers_attributes: [:id,
+                                                                        :manager_id,
+                                                                        :_destroy],
+                                           people_manageds_attributes: [:id,
+                                                                        :managed_id,
+                                                                        :_destroy]]
       EventsController.permitted_attrs += [:tentative_applications]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 

@@ -8,6 +8,8 @@
 require 'spec_helper'
 
 describe Person do
+  let(:top_leader) { people(:top_leader) }
+  let(:bottom_member) { people(:bottom_member) }
 
   describe '#nationality_j_s' do
     it 'accepts values CH FL ANDERE' do
@@ -58,7 +60,24 @@ describe Person do
         person.password = 'mynewsuperstrongpassword'
       end.to change(person, :valid?).from(false).to(true)
     end
+  end
 
+  describe 'people managers' do
+     it 'does not allow for someone to be both manager and managed' do
+       top_leader.managers = [bottom_member]
+       top_leader.manageds = [Fabricate(:person)]
+
+       expect(top_leader).to_not be_valid
+     end
+     
+     it 'does not allow to manage someone who is manager' do
+       bottom_member.manageds = [Fabricate(:person)]
+       bottom_member.save
+
+       top_leader.manageds = [bottom_member]
+
+       expect(top_leader).to_not be_valid
+     end
   end
 
 end

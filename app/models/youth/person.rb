@@ -27,6 +27,8 @@ module Youth::Person
     accepts_nested_attributes_for :people_manageds, allow_destroy: true
 
     validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
+
+    validate :assert_either_only_managers_or_manageds
     validate :validate_ahv_number
   end
 
@@ -46,8 +48,19 @@ module Youth::Person
     end
   end
 
+  def assert_either_only_managers_or_manageds
+    existent_managers = people_managers.reject { |pm| pm.marked_for_destruction? }
+    existent_manageds = people_manageds.reject { |pm| pm.marked_for_destruction? }
+    if existent_managers.any? && existent_manageds.any?
+      errors.add(:base, :cannot_have_managers_and_manageds)
+    elsif PeopleManager.exists?(managed: existent_managers.map(&:manager_id))
+      errors.add(:base, :manager_already_managed)
+    elsif PeopleManager.exists?(manager: existent_manageds.map(&:managed_id))
+      errors.add(:base, :managed_already_manager)
+    end
+  end
+
   def checksum_validate(ahv_number)
     SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: 'ch')
   end
-
 end
