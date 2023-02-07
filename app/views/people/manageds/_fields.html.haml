@@ -5,7 +5,7 @@
 - #  https://github.com/hitobito/hitobito_youth.
 
 - if f.object.new_record?
-  = f.person_field(:managed, { data: { url: query_people_path(limit_by: :update) } })
+  = f.person_field(:managed, { data: { url: query_people_path(limit_by_permission: :update) } })
 - else
   .span4
     = f.object.managed.full_name
