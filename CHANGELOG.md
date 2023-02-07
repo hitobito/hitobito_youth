@@ -1,5 +1,9 @@
 # Hitobito Changelog
 
+## unreleased
+
+* Es können neu bei einer Person entweder Verwalter*innen oder Kinder hinterlegt werden. (#1965)
+
 ## Version 1.28
 
 * NDBJS und SportDB Exporte wurden entsprechend der neuen NDS ersetzt (#1733)
