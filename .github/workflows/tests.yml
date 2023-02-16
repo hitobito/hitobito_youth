@@ -19,3 +19,6 @@ jobs:
     uses: hitobito/hitobito/.github/workflows/wagon-tests.yml@master
     with:
       wagon_repository: ${{ github.event.repository.name }}
+    secrets:
+      HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
+      HEARTBEAT_TOKEN: ${{ secrets.HEARTBEAT_TOKEN }}
