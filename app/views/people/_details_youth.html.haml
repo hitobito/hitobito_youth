@@ -19,10 +19,10 @@
 
     %dl.dl-horizontal
       %dt.muted
-      = t('activerecord.attributes.person.people_manageds')
-      - entry.manageds.each do |managed|
-        %dd
-          - if can?(:show, managed)
-            = link_to(managed, managed)
-          - else
-            = managed.person_name
+        = t('activerecord.attributes.person.people_manageds')
+        - entry.manageds.each do |managed|
+          %dd
+            - if can?(:show, managed)
+              = link_to(managed, managed)
+            - else
+              = managed.person_name
