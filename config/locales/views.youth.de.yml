@@ -5,6 +5,20 @@
 
 de:
   people:
+    update:
+      flash:
+        new_managers:
+          one: "Verwalter*in %{labels} hinzugefügt."
+          other: "Verwalter*innen %{labels} hinzugefügt."
+        destroyed_managers:
+          one: "Verwalter*in %{labels} entfernt."
+          other: "Verwalter*innen %{labels} entfernt."
+        new_manageds:
+          one: "Kind %{labels} hinzugefügt."
+          other: "Kinder %{labels} hinzugefügt."
+        destroyed_manageds:
+          one: "Kind %{labels} entfernt."
+          other: "Kinder %{labels} entfernt."
     fields_youth:
       nationality:
         placeholder: z.B. CH
@@ -87,4 +101,19 @@ de:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
       bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
       bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
+
+  person_duplicates:
+    merge:
+      new:
+        merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
+
+  version:
+    association_change:
+      people_manager:
+        create:
+          manager: "<i>%{label}</i> wurde als Verwalter*in hinzugefügt."
+          managed: "<i>%{label}</i> wurde als Kind hinzugefügt."
+        destroy:
+          manager: "<i>%{label}</i> wurde als Verwalter*in entfernt."
+          managed: "<i>%{label}</i> wurde als Kind entfernt."
 
