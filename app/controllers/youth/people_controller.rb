@@ -46,7 +46,10 @@ module Youth::PeopleController
       permitted = permitted.except(:people_managers_attributes)
     end
     permitted[:people_manageds_attributes]&.keep_if do |index, attrs|
-      can?(:update, Person.find(attrs[:managed_id]))
+      managed = attrs[:managed_id].present? ?
+        Person.find(attrs[:managed_id]) :
+        PeopleManager.find(attrs[:id]).managed
+      can?(:update, managed)
     end
     permitted
   end
