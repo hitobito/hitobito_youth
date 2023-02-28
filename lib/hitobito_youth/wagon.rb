@@ -47,6 +47,7 @@ module HitobitoYouth
       # ability
       GroupAbility.include Youth::GroupAbility
       EventAbility.include Youth::EventAbility
+      PersonAbility.include Youth::PersonAbility
       Event::ParticipationAbility.include Youth::Event::ParticipationAbility
 
       # decorator
