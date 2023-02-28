@@ -74,5 +74,16 @@ describe PersonAbility do
       # the additional manager relation
       is_expected.to be_able_to(:change_managers, member)
     end
+
+    it 'cannot change own managers' do
+      Fabricate(Group::BottomLayer::Leader.name.to_sym,
+                group_id: member_role.group_id,
+                person: member)
+      # precondition: has write permission, so can update
+      expect(Ability.new(member)).to be_able_to(:update, member)
+
+      # assertion: has write permission, but can still not change own managers
+      expect(Ability.new(member)).not_to be_able_to(:change_managers, member)
+    end
   end
 end

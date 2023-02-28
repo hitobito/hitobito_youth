@@ -18,11 +18,14 @@ module Youth::PersonAbility
 
       # People with update permission on a managed person also have the permission to update the
       # managers of that managed person
-      permission(:group_full).may(:change_managers).non_restricted_in_same_group
-      permission(:group_and_below_full).may(:change_managers).non_restricted_in_same_group_or_below
-      permission(:layer_full).may(:change_managers).non_restricted_in_same_layer
+      permission(:group_full).may(:change_managers).
+        non_restricted_in_same_group_except_self
+      permission(:group_and_below_full).may(:change_managers).
+        non_restricted_in_same_group_or_below_except_self
+      permission(:layer_full).may(:change_managers).
+        non_restricted_in_same_layer_except_self
       permission(:layer_and_below_full).may(:change_managers).
-        non_restricted_in_same_layer_or_visible_below
+        non_restricted_in_same_layer_or_visible_below_except_self
     end
   end
 
@@ -32,6 +35,22 @@ module Youth::PersonAbility
 
   def manager
     contains_any?([user.id], person.managers.pluck(:id))
+  end
+
+  def non_restricted_in_same_group_except_self
+    non_restricted_in_same_group && !herself
+  end
+
+  def non_restricted_in_same_group_or_below_except_self
+    non_restricted_in_same_group_or_below && !herself
+  end
+
+  def non_restricted_in_same_layer_except_self
+    non_restricted_in_same_layer && !herself
+  end
+
+  def non_restricted_in_same_layer_or_visible_below_except_self
+    non_restricted_in_same_layer_or_visible_below && !herself
   end
 
 end
