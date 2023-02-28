@@ -20,6 +20,7 @@ de:
           one: "Kind %{labels} entfernt."
           other: "Kinder %{labels} entfernt."
     fields_youth:
+      manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
       nationality:
         placeholder: z.B. CH
 

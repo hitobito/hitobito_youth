@@ -50,6 +50,8 @@ de:
           ANDERE: ANDERE
         people_managers: Verwalter*innen
         people_manageds: Kinder
+        people_managers_attributes: Verwalter*innen
+        people_manageds_attributes: Kinder
 
       people_managers:
         manager_id: Verwalter*in

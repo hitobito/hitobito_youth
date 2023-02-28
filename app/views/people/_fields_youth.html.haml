@@ -8,6 +8,9 @@
     = f.labeled_inline_fields_for :people_managers, 'people/managers/fields', f.object.people_managers
 = field_set_tag do
   = f.labeled_inline_fields_for :people_manageds, 'people/manageds/fields', f.object.people_manageds
+  = f.labeled(:manageds_help, '&nbsp;'.html_safe) do
+    %span.help-block
+      = t('.manageds_help')
 
 = field_set_tag do
   = f.labeled_input_fields(:ahv_number, :j_s_number)
