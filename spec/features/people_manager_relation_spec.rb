@@ -269,9 +269,9 @@ describe 'PeopleManagerRelation', js: true do
 
       visit group_person_duplicates_path(groups(:bottom_layer_one))
 
-      find('.person-duplicates-table a', text: 'Zusammenführen').click
+      find_all('.person-duplicates-table td.vertical-middle a').first.click
 
-      find('form .modal-footer button', text: 'Zusammenführen').click
+      find('form .modal-footer button').click
 
       expect(page).to have_content('Die Personen Einträge wurden erfolgreich zusammengeführt.')
 
@@ -288,9 +288,9 @@ describe 'PeopleManagerRelation', js: true do
 
       visit group_person_duplicates_path(groups(:bottom_layer_one))
 
-      find('.person-duplicates-table a', text: 'Zusammenführen').click
+      find_all('.person-duplicates-table td.vertical-middle a').first.click
 
-      find('form .modal-footer button', text: 'Zusammenführen').click
+      find('form .modal-footer button').click
 
       expect(page).to have_content('Die Personen Einträge wurden erfolgreich zusammengeführt.')
 
@@ -307,9 +307,9 @@ describe 'PeopleManagerRelation', js: true do
 
       visit group_person_duplicates_path(groups(:bottom_layer_one))
 
-      find('.person-duplicates-table a', text: 'Zusammenführen').click
+      find_all('.person-duplicates-table td.vertical-middle a').first.click
 
-      find('form .modal-footer button', text: 'Zusammenführen').click
+      find('form .modal-footer button').click
 
       expect(page).to have_content('Die Personen Einträge wurden erfolgreich zusammengeführt.')
 
@@ -326,9 +326,9 @@ describe 'PeopleManagerRelation', js: true do
 
       visit group_person_duplicates_path(groups(:bottom_layer_one))
 
-      find('.person-duplicates-table a', text: 'Zusammenführen').click
+      find_all('.person-duplicates-table td.vertical-middle a').first.click
 
-      find('form .modal-footer button', text: 'Zusammenführen').click
+      find('form .modal-footer button').click
 
       expect(page).to have_content('Die Personen Einträge wurden erfolgreich zusammengeführt.')
 
