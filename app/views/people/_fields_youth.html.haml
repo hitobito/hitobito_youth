@@ -3,24 +3,26 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_youth.
 
-= field_set_tag do
-  - if can?(:change_managers, entry)
-    = f.labeled_inline_fields_for :people_managers, 'people/managers/fields', f.object.people_managers
-  - else
-    = f.labeled(:people_managers) do
-      %div{style: 'padding-top: 5px'}
-        %span.help-block{style: 'display: inline'}
-          = t('.no_permission_to_change_managers')
-= field_set_tag do
-  = f.labeled_inline_fields_for :people_manageds, 'people/manageds/fields', f.object.people_manageds
-  = f.labeled(:manageds_help, '&nbsp;'.html_safe) do
-    %span.help-block
-      = t('.manageds_help')
+- FeatureGate.if('people.people_managers') do
+  = field_set_tag do
+    - if can?(:change_managers, entry)
+      = f.labeled_inline_fields_for :people_managers, 'people/managers/fields', f.object.people_managers
+    - else
+      = f.labeled(:people_managers) do
+        %div{style: 'padding-top: 5px'}
+          %span.help-block{style: 'display: inline'}
+            = t('.no_permission_to_change_managers')
 
-= field_set_tag do
-  = f.labeled_input_fields(:ahv_number, :j_s_number)
-  = f.labeled_collection_select(:nationality_j_s,
-                                Person::NATIONALITIES_J_S,
-                                :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
-                                { include_blank: true },
-                                { class: 'span6' })
+  = field_set_tag do
+    = f.labeled_inline_fields_for :people_manageds, 'people/manageds/fields', f.object.people_manageds
+    = f.labeled(:manageds_help, '&nbsp;'.html_safe) do
+      %span.help-block
+        = t('.manageds_help')
+
+  = field_set_tag do
+    = f.labeled_input_fields(:ahv_number, :j_s_number)
+    = f.labeled_collection_select(:nationality_j_s,
+                                  Person::NATIONALITIES_J_S,
+                                  :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
+                                  { include_blank: true },
+                                  { class: 'span6' })

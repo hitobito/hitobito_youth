@@ -6,5 +6,6 @@
 - if show_full
   = render_attrs(entry, :ahv_number, :j_s_number, :translated_nationality_j_s)
 
-- if can?(:update, entry)
-  = render_attrs(entry, :managers, :manageds)
+- FeatureGate.if('people.people_managers') do
+  - if can?(:update, entry)
+    = render_attrs(entry, :managers, :manageds)
