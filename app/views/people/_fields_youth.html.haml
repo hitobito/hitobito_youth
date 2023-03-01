@@ -3,9 +3,14 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_youth.
 
-- if can?(:change_managers, entry)
-  = field_set_tag do
+= field_set_tag do
+  - if can?(:change_managers, entry)
     = f.labeled_inline_fields_for :people_managers, 'people/managers/fields', f.object.people_managers
+  - else
+    = f.labeled(:people_managers) do
+      %div{style: 'padding-top: 5px'}
+        %span.help-block{style: 'display: inline'}
+          = t('.no_permission_to_change_managers')
 = field_set_tag do
   = f.labeled_inline_fields_for :people_manageds, 'people/manageds/fields', f.object.people_manageds
   = f.labeled(:manageds_help, '&nbsp;'.html_safe) do
