@@ -19,10 +19,10 @@ describe 'PeopleManagerRelation', js: true do
     context 'as top_leader' do
       let(:user) { top_leader }
 
-      it 'does not show manager form for self' do
+      it 'shows permission denied instead of manager form for self' do
         visit edit_group_person_path(group_id: top_leader.primary_group_id, id: top_leader)
 
-        expect(page).to_not have_content 'Verwalter*innen'
+        expect(page).to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
       end
 
@@ -30,6 +30,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_leader.primary_group_id, id: bottom_leader)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
 
         find('a.add_nested_fields[data-association="people_managers"]').click
@@ -57,6 +58,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_leader.primary_group_id, id: bottom_leader)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
 
         find('a.add_nested_fields[data-association="people_manageds"]').click
@@ -84,6 +86,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_leader.primary_group_id, id: bottom_leader)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
 
         find('a.add_nested_fields[data-association="people_manageds"]').click
@@ -115,6 +118,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
 
         find('a.add_nested_fields[data-association="people_managers"]').click
@@ -138,6 +142,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
 
         find('a.add_nested_fields[data-association="people_manageds"]').click
@@ -161,6 +166,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
 
         find('a.add_nested_fields[data-association="people_managers"]').click
@@ -188,6 +194,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
         expect(page).to have_content 'Bottom Leader'
 
@@ -210,6 +217,7 @@ describe 'PeopleManagerRelation', js: true do
         visit edit_group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member)
 
         expect(page).to have_content 'Verwalter*innen'
+        expect(page).not_to have_content 'Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.'
         expect(page).to have_content 'Kinder'
         expect(page).to have_content 'Bottom Leader'
 

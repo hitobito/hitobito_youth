@@ -42,19 +42,25 @@ module Youth::PeopleController
 
   def permitted_params
     permitted = super
-    if current_user.id == entry.id
+    if cannot?(:change_managers, entry)
       permitted = permitted.except(:people_managers_attributes)
     end
     permitted[:people_manageds_attributes]&.keep_if do |index, attrs|
-      managed = attrs[:managed_id].present? ?
-        Person.find(attrs[:managed_id]) :
-        PeopleManager.find(attrs[:id]).managed
-      can?(:update, managed)
+      managed = extract_managed(attrs)
+      managed.present? && can?(:change_managers, managed)
     end
     permitted
   end
 
   def accessible_people_managers_attributes
     permitted
+  end
+
+  private
+
+  def extract_managed(attrs)
+    return Person.find_by(id: attrs[:managed_id]) if attrs[:managed_id].present?
+    return PeopleManager.find_by(id: attrs[:id]).managed if attrs[:id].present?
+    nil
   end
 end

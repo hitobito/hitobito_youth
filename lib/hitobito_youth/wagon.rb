@@ -47,7 +47,10 @@ module HitobitoYouth
       # ability
       GroupAbility.include Youth::GroupAbility
       EventAbility.include Youth::EventAbility
+      PersonAbility.include Youth::PersonAbility
       Event::ParticipationAbility.include Youth::Event::ParticipationAbility
+      PersonReadables.prepend(Youth::PersonReadables)
+      PersonLayerWritables.prepend(Youth::PersonLayerWritables)
 
       # decorator
       PersonDecorator.include Youth::PersonDecorator
