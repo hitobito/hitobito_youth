@@ -1,6 +1,6 @@
 # Hitobito Changelog
 
-## unreleased
+## Version 1.28
 
 * Es können neu bei einer Person entweder Verwalter*innen oder Kinder hinterlegt werden. (#1965)
 
