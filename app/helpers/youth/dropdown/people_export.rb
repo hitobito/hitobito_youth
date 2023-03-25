@@ -18,12 +18,28 @@ module Youth
 
         if @details && params[:controller] == 'event/participations'
           path = params.merge(format: format)
+          event = template.entry.event
           item = @items.find { |i| i.label == translate(format) }
-          item.sub_items <<
-            ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
-            ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true)) <<
-            ::Dropdown::Item.new(translate(:slrg), path.merge(slrg: true))
+          if is_camp?(event)
+            item.sub_items <<
+              ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true))
+          end
+          if is_course?(event)
+            item.sub_items <<
+              ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
+              ::Dropdown::Item.new(translate(:slrg), path.merge(slrg: true))
+          end
         end
+      end
+
+      def is_course?(event)
+        # Meant to be overridden in more specific wagon
+        true
+      end
+
+      def is_camp?(event)
+        # Meant to be overridden in more specific wagon
+        true
       end
 
     end
