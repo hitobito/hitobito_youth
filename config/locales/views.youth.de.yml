@@ -97,6 +97,7 @@ de:
   dropdown/people_export:
     nds_course: NDS-Kurs
     nds_camp: NDS-Lager
+    slrg: SLRG-Kurs
 
   event/lists:
     courses:
