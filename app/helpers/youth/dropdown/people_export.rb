@@ -21,7 +21,8 @@ module Youth
           item = @items.find { |i| i.label == translate(format) }
           item.sub_items <<
             ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
-            ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true))
+            ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true)) <<
+            ::Dropdown::Item.new(translate(:slrg), path.merge(slrg: true))
         end
       end
 

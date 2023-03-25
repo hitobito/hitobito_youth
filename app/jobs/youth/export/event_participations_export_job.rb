@@ -19,6 +19,8 @@ module Youth::Export::EventParticipationsExportJob
       Export::Tabular::People::ParticipationsNdsCourse
     elsif @options[:nds_camp] && ability.can?(:show_details, entries.first)
       Export::Tabular::People::ParticipationsNdsCamp
+    elsif @options[:slrg] && ability.can?(:show_details, entries.first)
+      Export::Tabular::People::ParticipationsSlrgList
     else
       exporter_without_nds
     end

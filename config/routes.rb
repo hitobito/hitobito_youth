@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
     scope path: 'list_courses', as: 'list_courses' do
       get 'bsv_export' => 'event/lists#bsv_export'
+      get 'slrg_export' => 'event/lists#slrg_export'
     end
   end
 
