@@ -59,9 +59,9 @@ describe Bsv::Info do
     expect(info.participant_count).to eq 0
   end
 
-  it '#participant_count ignores participant born less than 17 years before course' do
+  it '#participant_count includes participant born less than 17 years before course' do
     create_participant(zip_code: 3000, birthday: Date.new(course_year - 16, 1, 1))
-    expect(info.participant_count).to eq 0
+    expect(info.participant_count).to eq 1
   end
 
   it '#participant_count ignores participant without birthday set' do
@@ -75,7 +75,7 @@ describe Bsv::Info do
     expect(info.participant_count).to eq 0
   end
 
-  it '#canton_count counts distinct cantons of participants aged 17 to 30' do
+  it '#canton_count counts distinct cantons of participants aged under 30' do
     create_participant(zip_code: 3000, birthday: Date.new(course_year - 18, 1, 1))
     create_participant(zip_code: 3000, birthday: Date.new(course_year - 18, 1, 1))
     create_participant(zip_code: 4000, birthday: Date.new(course_year - 18, 1, 1))
