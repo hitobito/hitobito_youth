@@ -11,6 +11,7 @@ module Export::Tabular::People
     self.model_class = ::Event::Participation
     self.row_class = Export::Tabular::People::ParticipationsSlrgRow
 
+    # rubocop:disable Metrics/MethodLength
     def attribute_labels
       {
         slrg_id: 'SLRG-Nr.',
@@ -32,6 +33,7 @@ module Export::Tabular::People
         country: 'Land',
       }
     end
+    # rubocop:enable Metrics/MethodLength
 
   end
 end
