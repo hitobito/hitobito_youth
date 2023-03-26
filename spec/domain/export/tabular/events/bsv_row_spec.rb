@@ -20,7 +20,7 @@ describe Export::Tabular::Events::BsvRow do
   it { expect(row.fetch(:first_event_date)).to eq '11.11.2011' }
   it { expect(row.fetch(:location)).to eq 'Baumhaus im Wald, Blumenstein' }
   it { expect(row.fetch(:training_days)).to eq 11.5 }
-  it { expect(row.fetch(:participant_count)).to eq 2 }
+  it { expect(row.fetch(:participant_count)).to eq 3 }
   it { expect(row.fetch(:leader_count)).to eq 2 }
   it { expect(row.fetch(:canton_count)).to eq 2 }
   it { expect(row.fetch(:language_count)).to eq 1 }
