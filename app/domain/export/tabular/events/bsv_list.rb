@@ -24,7 +24,7 @@ module Export::Tabular::Events
         first_event_date: 'Datum',
         location: 'Kursort',
         training_days: 'Ausbildungstage',
-        participant_count: 'Teilnehmende (17-30)',
+        participant_count: 'Teilnehmende (bis 30)',
         leader_count: 'Kursleitende',
         canton_count: 'Wohnkantone der TN',
         language_count: 'Sprachen' }

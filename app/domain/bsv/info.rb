@@ -37,7 +37,7 @@ module Bsv
     end
 
     def participant_count
-      participants_aged_17_to_30.
+      participants_aged_under_30.
         count { |person| ch_resident?(person) }
     end
 
@@ -53,11 +53,11 @@ module Bsv
       1
     end
 
-    def participants_aged_17_to_30
+    def participants_aged_under_30
       participants.
         collect(&:person).
         select(&:birthday?).
-        select { |person| aged_17_to_30?(person) }
+        select { |person| aged_under_30?(person) }
     end
 
     private
@@ -74,7 +74,7 @@ module Bsv
     end
 
     def cantons
-      participants_aged_17_to_30.collect { |p| p.canton.try(:downcase) }.compact.uniq
+      participants_aged_under_30.collect { |p| p.canton.try(:downcase) }.compact.uniq
     end
 
     def leaders
@@ -85,9 +85,9 @@ module Bsv
       @participants ||= participations_for([Event::Course::Role::Participant])
     end
 
-    def aged_17_to_30?(person)
+    def aged_under_30?(person)
       person.birthday.present? &&
-        (17..30).cover?(first_event_date.year - person.birthday.year)
+        (0..30).cover?(first_event_date.year - person.birthday.year)
     end
 
     # how is this done in jubla
