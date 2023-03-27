@@ -81,4 +81,86 @@ describe Group::EducationsController, type: :controller do
     end.to raise_error CanCan::AccessDenied
   end
 
+  context 'exports to csv' do
+    let(:rows) { response.body.split("\n") }
+    it 'CSV does list leader participations' do
+      get :index, params: { locale: :de, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } }, format: :csv }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.size).to eq(2)
+      expect(rows.second).to have_content 'Top;Leader'
+      expect(rows.second).to have_content 'Top Course'
+    end
+
+    it 'CSV does list participant participations' do
+      get :index, params: { locale: :de, format: :csv, id: groups(:bottom_layer_one).id }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.size).to eq(3)
+      expect(rows.third).to have_content 'Bottom;Member;'
+      expect(rows.third).to have_content 'Top Course'
+    end
+
+    it 'CSV does not list completed events' do
+      events(:top_course).dates.last.update!(start_at: Date.today - 1.month)
+      get :index, params: { locale: :de, format: :csv, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.second).to eq("Top;Leader;;top_leader@example.com;;\"\";\"\"")
+    end
+
+    it 'CSV lists qualifications' do
+      create_qualification(start_at: Date.yesterday)
+      get :index, params: { locale: :de, format: :csv, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.second).to have_content 'Super Lead'
+    end
+
+    it 'CSV lists qualifications event when expired' do
+      create_qualification(start_at: Date.today - 3.days, finish_at: Date.yesterday)
+      get :index, params: { locale: :de, format: :csv, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.second).to have_content 'Super Lead'
+    end
+
+    it 'CSV filters qualifications positive' do
+      create_qualification(start_at: Date.yesterday)
+      get :index,
+          params: {
+            locale: :de,
+            format: :csv,
+            id: groups(:top_layer).id,
+            range: :layer,
+            filters: { qualification: { qualification_kind_ids: qualification_kinds(:sl).id } }
+          }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.second).to have_content 'Super Lead'
+    end
+
+    it 'CSV filters qualifications negative' do
+      create_qualification(start_at: Date.yesterday)
+      get :index,
+          params: {
+            locale: :de,
+            format: :csv,
+            id: groups(:top_layer).id,
+            range: :layer,
+            filters: { qualification: { qualification_kind_ids: qualification_kinds(:gl).id } }
+          }
+      expect(response).to be_successful
+      expect(rows.first).to match("Vorname;Nachname;Übername;Haupt-E-Mail;Geburtstag;Qualifikationen;Anmeldungen")
+      expect(rows.second).not_to have_content 'Super Lead'
+    end
+
+    it 'CSV raises AccessDenied if not permitted' do
+      sign_in(people(:bottom_leader))
+      expect do
+        get :index, params: { locale: :de, format: :csv, id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+      end.to raise_error CanCan::AccessDenied
+    end
+  end
+
 end
