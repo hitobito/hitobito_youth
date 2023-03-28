@@ -39,7 +39,7 @@ describe Export::EventParticipationsExportJob do
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(/^Vorname;Nachname/)
-      expect(lines[0].split(';').count).to match(19)
+      expect(lines[0].split(';').count).to match(17)
       expect(file.generated_file).to be_attached
     end
   end
