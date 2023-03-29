@@ -15,6 +15,8 @@ describe 'Dropdown::PeopleExport' do
 
   let(:user) { people(:top_leader) }
   let(:params) { { controller: 'event/participations' } }
+  let(:entry) { double(event: event) }
+  let(:event) { events(:top_course) }
 
   def can?(*args)
     true
@@ -25,34 +27,66 @@ describe 'Dropdown::PeopleExport' do
     it 'no nds items if no details permission' do
       dropdown = create_dropdown.to_s
       expect(dropdown).to have_content 'Export'
-      expect(dropdown).to have_selector 'a' do |tag|
-        expect(tag).to have_content 'CSV'
-        expect(tag).not_to have_selector 'ul.dropdown-submenu'
-        expect(tag).to_not have_content 'NDBJS'
-        expect(tag).to_not have_content 'SPORTdb'
-      end
+      expect(dropdown).to have_selector 'a'
+      expect(dropdown).to have_content 'CSV'
+      expect(dropdown).to have_selector 'ul.dropdown-menu > li.dropdown-submenu'
+      expect(dropdown).not_to have_content 'NDS-Kurs'
+      expect(dropdown).not_to have_content 'NDS-Lager'
+      expect(dropdown).not_to have_content 'SLRG-Kurs'
     end
 
     it 'no nds items if not people controller' do
       dropdown = create_dropdown(true, 'people').to_s
       expect(dropdown).to have_content 'Export'
-      expect(dropdown).to have_selector 'a' do |tag|
-        expect(tag).to have_content 'CSV'
-        expect(tag).not_to have_selector 'ul.dropdown-submenu'
-        expect(tag).to_not have_content 'NDBJS'
-        expect(tag).to_not have_content 'SPORTdb'
-      end
+      expect(dropdown).to have_selector 'a'
+      expect(dropdown).to have_content 'CSV'
+      expect(dropdown).to have_selector 'ul.dropdown-menu > li.dropdown-submenu'
+      expect(dropdown).not_to have_content 'NDS-Kurs'
+      expect(dropdown).not_to have_content 'NDS-Lager'
+      expect(dropdown).not_to have_content 'SLRG-Kurs'
     end
 
     it 'does add nds items' do
-      dropdown = create_dropdown(true).to_s
+      dropdown = Capybara.string(create_dropdown(true).to_s)
       expect(dropdown).to have_content 'Export'
       expect(dropdown).to have_selector 'ul.dropdown-menu'
-      expect(dropdown).to have_selector 'a' do |tag|
-        expect(tag).to have_content 'CSV'
-        expect(tag).to have_selector 'ul.dropdown-submenu'
-        expect(tag).to have_content 'NDBJS'
-        expect(tag).to have_content 'SPORTdb'
+      expect(dropdown).to have_selector 'a'
+      expect(dropdown).to have_content 'CSV'
+      expect(dropdown).to have_selector 'ul.dropdown-menu > li.dropdown-submenu'
+      expect(dropdown).to have_content 'NDS-Kurs'
+      expect(dropdown).to have_content 'NDS-Lager'
+      expect(dropdown).to have_content 'SLRG-Kurs'
+    end
+
+    context 'if wagon claims it is a camp' do
+      it 'adds correct NDS items' do
+        allow_any_instance_of(Dropdown::PeopleExport).to receive(:is_camp?).and_return(true)
+        allow_any_instance_of(Dropdown::PeopleExport).to receive(:is_course?).and_return(false)
+        dropdown = Capybara.string(create_dropdown(true).to_s)
+        expect(dropdown).to have_content 'Export'
+        expect(dropdown).to have_selector 'ul.dropdown-menu'
+        expect(dropdown).to have_selector 'a'
+        expect(dropdown).to have_content 'CSV'
+        expect(dropdown).to have_selector 'ul.dropdown-menu > li.dropdown-submenu'
+        expect(dropdown).not_to have_content 'NDS-Kurs'
+        expect(dropdown).to have_content 'NDS-Lager'
+        expect(dropdown).not_to have_content 'SLRG-Kurs'
+      end
+    end
+
+    context 'if wagon claims it is a course' do
+      it 'adds correct NDS items' do
+        allow_any_instance_of(Dropdown::PeopleExport).to receive(:is_camp?).and_return(false)
+        allow_any_instance_of(Dropdown::PeopleExport).to receive(:is_course?).and_return(true)
+        dropdown = Capybara.string(create_dropdown(true).to_s)
+        expect(dropdown).to have_content 'Export'
+        expect(dropdown).to have_selector 'ul.dropdown-menu'
+        expect(dropdown).to have_selector 'a'
+        expect(dropdown).to have_content 'CSV'
+        expect(dropdown).to have_selector 'ul.dropdown-menu > li.dropdown-submenu'
+        expect(dropdown).to have_content 'NDS-Kurs'
+        expect(dropdown).not_to have_content 'NDS-Lager'
+        expect(dropdown).to have_content 'SLRG-Kurs'
       end
     end
   end
