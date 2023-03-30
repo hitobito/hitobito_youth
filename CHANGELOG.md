@@ -1,5 +1,9 @@
 # Hitobito Changelog
 
+## unreleased
+
+* Der BSV-Export berücksichtigt jetzt gemäss den neuen BSV-Regeln alle Personen unter 30 Jahren (statt wie zuvor nur zwischen 17 und 30 Jahren). Merci @Michael-Schaer! (hitobito/hitobito_youth#27, hitobito/hitobito_pbs#265)
+
 ## Version 1.28
 
 * Es können neu bei einer Person entweder Verwalter*innen oder Kinder hinterlegt werden. (#1965)
