@@ -16,7 +16,7 @@ describe Export::Tabular::Events::List do
 
   context 'headers' do
     subject { csv.first }
-    it { is_expected.to match(/^Name;Organisatoren;Kursnummer;Kursart;.*Anzahl Abgelehnte$/) }
+    it { is_expected.to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Name;Organisatoren;Kursnummer;Kursart;.*Anzahl Abgelehnte$")) }
   end
 
   context 'first row' do
@@ -101,7 +101,7 @@ describe Export::Tabular::Events::List do
 
     context 'headers' do
       subject { csv.first }
-      it { is_expected.to match(/^Name;Organisatoren;Beschreibung;Ort.*Anzahl Anmeldungen$/) }
+      it { is_expected.to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Name;Organisatoren;Beschreibung;Ort.*Anzahl Anmeldungen$")) }
     end
 
     context 'first row' do

@@ -38,7 +38,7 @@ describe Export::EventParticipationsExportJob do
 
       lines = file.read.lines
       expect(lines.size).to eq(4)
-      expect(lines[0]).to match(/^Vorname;Nachname/)
+      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname"))
       expect(lines[0].split(';').count).to match(17)
       expect(file.generated_file).to be_attached
     end
@@ -53,7 +53,7 @@ describe Export::EventParticipationsExportJob do
 
       lines = file.read.lines
       expect(lines.size).to eq(4)
-      expect(lines[0]).to eq("#{nds_course_csv_header}\n")
+      expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_course_csv_header}\n")
       expect(lines[3]).to eq("#{person_nds_csv_row}\n")
       expect(lines[0].split(';').count).to match(21)
       expect(file.generated_file).to be_attached
@@ -69,7 +69,7 @@ describe Export::EventParticipationsExportJob do
 
       lines = file.read.lines
       expect(lines.size).to eq(4)
-      expect(lines[0]).to eq("#{nds_camp_csv_header}\n")
+      expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_camp_csv_header}\n")
       expect(lines[3]).to eq("#{person_sportdb_csv_row}\n")
       expect(lines[0].split(';').count).to match(14)
       expect(file.generated_file).to be_attached

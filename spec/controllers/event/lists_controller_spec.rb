@@ -40,7 +40,7 @@ describe Event::ListsController do
       get :bsv_export, params: { filter: { kinds: kind.id.to_s, bsv_since: '09.09.2015', bsv_until: '08.09.2016', states: ['closed'] } }
       expect(response).to be_successful
       expect(rows.size).to eq(2)
-      expect(rows.first).to match(/^Vereinbarung-ID-FiVer;Kurs-ID-FiVer;Kursnummer/)
+      expect(rows.first).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vereinbarung-ID-FiVer;Kurs-ID-FiVer;Kursnummer"))
       expect(rows.second).to match(/^fiver42;;124;11.11.2015;/)
     end
 
