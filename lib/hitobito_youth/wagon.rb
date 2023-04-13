@@ -45,6 +45,11 @@ module HitobitoYouth
       People::Merger.prepend Youth::People::Merger
 
       # ability
+      Ability.prepend Youth::Ability
+      AbilityDsl::Recorder::Base.include Youth::AbilityDsl::Recorder::Base
+      AbilityDsl::Recorder.include Youth::AbilityDsl::Recorder
+      AbilityDsl::Config.prepend Youth::AbilityDsl::Config
+      AbilityDsl::Store.prepend Youth::AbilityDsl::Store
       GroupAbility.include Youth::GroupAbility
       EventAbility.include Youth::EventAbility
       PersonAbility.include Youth::PersonAbility
