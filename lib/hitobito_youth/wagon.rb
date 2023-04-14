@@ -53,7 +53,10 @@ module HitobitoYouth
       GroupAbility.include Youth::GroupAbility
       EventAbility.include Youth::EventAbility
       PersonAbility.include Youth::PersonAbility
+      Event::ApplicationAbility.include Youth::Event::ApplicationAbility
+      Event::InvitationAbility.include Youth::Event::InvitationAbility
       Event::ParticipationAbility.include Youth::Event::ParticipationAbility
+      Event::ParticipationContactDataAbility.include Youth::Event::ParticipationContactDataAbility
       PersonReadables.prepend(Youth::PersonReadables)
       PersonLayerWritables.prepend(Youth::PersonLayerWritables)
 
