@@ -22,8 +22,9 @@ module Youth::Ability
 
   private
 
-  def define_user_abilities(current_store, current_user_context)
-    super
+  def define_user_abilities(current_store, current_user_context, include_manageds = true)
+    super(current_store, current_user_context)
+    return unless include_manageds
 
     user.manageds.each do |managed|
       managed_user_context = AbilityDsl::UserContext.new(managed)
