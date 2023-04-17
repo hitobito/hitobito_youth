@@ -43,6 +43,7 @@ module HitobitoYouth
       Export::Tabular::Events::Row.include Youth::Export::Tabular::Events::Row
       Person::AddRequest::Approver::Event.include Youth::Person::AddRequest::Approver::Event
       People::Merger.prepend Youth::People::Merger
+      MailRelay::AddressList.include Youth::MailRelay::AddressList
 
       # ability
       GroupAbility.include Youth::GroupAbility
