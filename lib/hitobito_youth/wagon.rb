@@ -45,6 +45,7 @@ module HitobitoYouth
       People::Merger.prepend Youth::People::Merger
       MailRelay::AddressList.include Youth::MailRelay::AddressList
       Messages::BulkMail::AddressList.prepend Youth::Messages::BulkMail::AddressList
+      Synchronize::Mailchimp::Subscriber.prepend Youth::Synchronize::Mailchimp::Subscriber
 
       # ability
       GroupAbility.include Youth::GroupAbility
