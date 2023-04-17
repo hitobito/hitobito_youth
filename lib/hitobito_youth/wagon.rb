@@ -44,6 +44,7 @@ module HitobitoYouth
       Person::AddRequest::Approver::Event.include Youth::Person::AddRequest::Approver::Event
       People::Merger.prepend Youth::People::Merger
       MailRelay::AddressList.include Youth::MailRelay::AddressList
+      Messages::BulkMail::AddressList.prepend Youth::Messages::BulkMail::AddressList
 
       # ability
       GroupAbility.include Youth::GroupAbility
