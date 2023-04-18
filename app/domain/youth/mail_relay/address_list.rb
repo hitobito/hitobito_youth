@@ -12,7 +12,7 @@ module Youth::MailRelay::AddressList
 
   included do
     def people
-      @people + @people.flat_map(&:managers)
+      @people + Person.joins(:people_manageds).where(people_manageds: { managed: @people })
     end
   end
 end

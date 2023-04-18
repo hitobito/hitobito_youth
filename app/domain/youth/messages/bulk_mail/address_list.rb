@@ -10,8 +10,6 @@
 module Youth::Messages::BulkMail::AddressList
 
   def preferred_addresses(person)
-    # TODO performance? .includes is not possible i believe since its an Array
-
     super(person) + person.managers.flat_map { |manager| super(manager) }
   end
 
