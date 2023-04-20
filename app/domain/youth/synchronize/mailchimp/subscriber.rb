@@ -13,7 +13,8 @@ module Youth::Synchronize::Mailchimp::Subscriber
   prepended do
     def self.default_and_additional_addresses(mailing_list)
       people = mailing_list.people
-      people = people + Person.joins(:people_manageds).where(people_manageds: { managed_id: people.pluck(:id) })
+      people = people + Person.joins(:people_manageds)
+                              .where(people_manageds: { managed_id: people.pluck(:id) })
 
       additional_emails = AdditionalEmail.where(contactable_type: Person.sti_name,
                                                 contactable_id: people.collect(&:id),
@@ -30,7 +31,8 @@ module Youth::Synchronize::Mailchimp::Subscriber
 
     def self.default_addresses(mailing_list)
       people = mailing_list.people
-      people = people + Person.joins(:people_manageds).where(people_manageds: { managed_id: people.pluck(:id) })
+      people = people + Person.joins(:people_manageds)
+                              .where(people_manageds: { managed_id: people.pluck(:id) })
       people.map do |person|
         self.new(person, person.email)
       end
