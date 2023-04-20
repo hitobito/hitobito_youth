@@ -8,17 +8,12 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::Messages::BulkMail::AddressList
+  extend ActiveSupport::Concern
 
-  def preferred_addresses(person)
-    super(person) + person.managers.flat_map { |manager| super(manager) }
-  end
-
-  def default_addresses(person)
-    super(person) + person.managers.flat_map { |manager| super(manager) }
-  end
-
-  def additional_emails_scope
-    AdditionalEmail.where(contactable_type: Person.sti_name,
-                          contactable_id: (people + people.flat_map(&:managers)).map(&:id))
+  included do
+    def people
+      @people + Person.joins(:people_manageds)
+                      .where(people_manageds: { managed: @people })
+    end
   end
 end
