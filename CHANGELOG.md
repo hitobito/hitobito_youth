@@ -3,6 +3,7 @@
 ## unreleased
 
 * Der BSV-Export berücksichtigt jetzt gemäss den neuen BSV-Regeln alle Personen unter 30 Jahren (statt wie zuvor nur zwischen 17 und 30 Jahren). Merci @Michael-Schaer! (hitobito/hitobito_youth#27, hitobito/hitobito_pbs#265)
+* Beim Abo-Mailversand, dem E-Mail Addressen Export sowie dem Mailchimp Export werden neu die Verwalter*innen des Empfängers berücksichtigt und mitexportiert oder als Mail Empfänger gezählt.
 
 ## Version 1.28
 
