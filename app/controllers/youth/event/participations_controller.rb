@@ -12,6 +12,7 @@ module Youth::Event::ParticipationsController
     define_model_callbacks :cancel, :reject, :attend, :absent, :assign
 
     alias_method_chain :set_active, :state
+    alias_method_chain :person_id, :managed
   end
 
   def cancel
@@ -54,6 +55,14 @@ module Youth::Event::ParticipationsController
 
   def new_record_for_someone_else?
     entry.new_record? && entry.person != current_user
+  end
+
+  def person_id_with_managed
+    if model_params&.key?(:person_id) && current_user.manageds.pluck(:id).include?(model_params[:person_id].to_i)
+      model_params[:person_id]
+    else
+      person_id_without_managed
+    end
   end
 
 end
