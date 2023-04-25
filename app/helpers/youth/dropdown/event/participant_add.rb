@@ -47,14 +47,15 @@ module Youth
             opts = url_options.clone
             opts[:person_id] = person.id unless person == user
 
-            if ::Ability.new(person).can?(:create, ::Event::Participation.new(person: person, event: event))
+            disabled_message = disabled_message_for_person(person)
+            if disabled_message.nil?
               if event.participant_types.size > 1
                 item = add_item(person.full_name, '#')
 
                 item.sub_items = event.participant_types.map do |type|
                   opts = opts.merge(event_role: { type: type.sti_name })
                   link = participate_link(opts)
-                  Item.new(translate(:as, type.label), link)
+                  ::Dropdown::Item.new(translate(:as, type.label), link)
                 end
               else
                 opts = opts.merge(event_role: { type: event.participant_types.first.sti_name })
@@ -62,9 +63,15 @@ module Youth
                 item = add_item(person.full_name, link)
               end
             else
-              #if not allowed
+              add_item("#{person.full_name} (#{disabled_message})", '#', disabled_msg: disabled_message)
             end
           end
+        end
+
+        def disabled_message_for_person(person)
+          disabled_message = translate(:'disabled_messages.not_allowed') unless ::Ability.new(person).can?(:create, ::Event::Participation.new(person: person, event: event))
+          disabled_message ||= translate(:'disabled_messages.already_exists') if ::Event::Participation.exists?(person: person, event: event)
+          disabled_message
         end
       end
     end

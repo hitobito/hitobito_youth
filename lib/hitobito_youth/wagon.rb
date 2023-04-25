@@ -68,7 +68,9 @@ module HitobitoYouth
       # controller
       PeopleController.include Youth::PeopleController
       PeopleFiltersController.include Youth::PeopleFiltersController
+      EventsController.include Youth::EventsController
       Event::ParticipationsController.include Youth::Event::ParticipationsController
+      Event::ParticipationContactDatasController.prepend Youth::Event::ParticipationContactDatasController
 
       PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number,
                                            people_managers_attributes: [:id,
@@ -94,6 +96,7 @@ module HitobitoYouth
       Sheet::Event.include Youth::Sheet::Event
       Dropdown::PeopleExport.include Youth::Dropdown::PeopleExport
       Dropdown::Event::ParticipantAdd.include Youth::Dropdown::Event::ParticipantAdd
+      Event::ParticipationBanner.prepend Youth::Event::ParticipationBanner
 
       # serializer
       PersonSerializer.include Youth::PersonSerializer
