@@ -11,6 +11,7 @@ module Youth::Event::ParticipationBanner
 
     key = ['managed', key].join('.') unless @user_participation.person == @context.current_user
 
-    t("event.participations.cancel_application.#{key}", person: @user_participation.person.full_name)
+    t("event.participations.cancel_application.#{key}",
+      person: @user_participation.person.full_name)
   end
 end

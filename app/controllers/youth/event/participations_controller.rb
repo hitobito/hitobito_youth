@@ -58,7 +58,9 @@ module Youth::Event::ParticipationsController
   end
 
   def person_id_with_managed
-    if model_params&.key?(:person_id) && (model_params[:person_id].to_i == current_user.id || current_user.manageds.pluck(:id).include?(model_params[:person_id].to_i))
+    if model_params&.key?(:person_id) &&
+        (model_params[:person_id].to_i == current_user.id ||
+         current_user.manageds.pluck(:id).include?(model_params[:person_id].to_i))
       model_params[:person_id]
     else
       person_id_without_managed
