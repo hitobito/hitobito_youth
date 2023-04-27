@@ -9,6 +9,14 @@ module Youth::EventAbility
   extend ActiveSupport::Concern
 
   included do
+    on(Event) do
+      for_self_or_manageds do
+        # abilities which managers inherit from their managed children
+        class_side(:list_available).if_any_role
+        permission(:any).may(:show).in_same_layer_or_globally_visible_or_participating
+      end
+    end
+
     on(Event::Course) do
 
       for_self_or_manageds do
