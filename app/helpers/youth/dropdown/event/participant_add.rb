@@ -22,7 +22,9 @@ module Youth
 
         module ClassMethods
           def for_user_with_cancel(template, group, event, user)
-            return new(template, user, group, event, I18n.t('event_decorator.apply'), :check).to_s if user.manageds.any?
+            if user.manageds.any?
+              return new(template, user, group, event, I18n.t('event_decorator.apply'), :check).to_s
+            end
 
             participation = user_participation(event, user).first
             if participation && participation.state == 'canceled'
@@ -47,33 +49,48 @@ module Youth
         def init_items_with_manageds(url_options)
           [user, user.manageds].flatten.each do |person|
             opts = url_options.clone
-            opts[:person_id] = person.id unless person == user
+            opts[:person_id] = person.id unless @user == person
 
             disabled_message = disabled_message_for_person(person)
-            if disabled_message.nil?
+            if disabled_message.present?
+              add_disabled_item(person, disabled_message)
+            else
               if event.participant_types.size > 1
                 item = add_item(person.full_name, '#')
 
-                item.sub_items = event.participant_types.map do |type|
-                  opts = opts.merge(event_role: { type: type.sti_name })
-                  link = participate_link(opts)
-                  ::Dropdown::Item.new(translate(:as, type.label), link)
-                end
+                item.sub_items = participant_types_sub_items(opts)
               else
-                opts = opts.merge(event_role: { type: event.participant_types.first.sti_name })
-                link = participate_link(opts)
-                item = add_item(person.full_name, link)
+                add_participant_item(person, opts)
               end
-            else
-              add_item("#{person.full_name} (#{disabled_message})", '#', disabled_msg: disabled_message)
             end
           end
         end
 
         def disabled_message_for_person(person)
-          disabled_message = translate(:'disabled_messages.not_allowed') unless ::Ability.new(person).can?(:create, ::Event::Participation.new(person: person, event: event))
-          disabled_message ||= translate(:'disabled_messages.already_exists') if ::Event::Participation.exists?(person: person, event: event)
-          disabled_message
+          if ::Ability.new(person).cannot?(:create, ::Event::Participation.new(person: person,
+                                                                               event: event))
+            translate(:'disabled_messages.not_allowed')
+          elsif ::Event::Participation.exists?(person: person, event: event)
+            translate(:'disabled_messages.already_exists')
+          end
+        end
+
+        def add_disabled_item(person, message)
+          add_item("#{person.full_name} (#{message})", '#', disabled_msg: message)
+        end
+
+        def add_participant_item(person, opts)
+          opts = opts.merge(event_role: { type: event.participant_types.first.sti_name })
+          link = participate_link(opts)
+          add_item(person.full_name, link)
+        end
+
+        def participant_types_sub_items(opts)
+          event.participant_types.map do |type|
+            opts = opts.merge(event_role: { type: type.sti_name })
+            link = participate_link(opts)
+            ::Dropdown::Item.new(translate(:as, type.label), link)
+          end
         end
       end
     end

@@ -19,8 +19,9 @@ module HitobitoYouth
       #{config.root}/app/domain
       #{config.root}/app/jobs
     ]
-
-    config.to_prepare do # rubocop:disable Metrics/BlockLength
+    
+    # rubocop:disable Metrics/BlockLength,Metrics/LineLength
+    config.to_prepare do
       # extend application classes here
 
       # models
