@@ -12,6 +12,8 @@ module Youth::EventsController
     @user_participations = [current_user, current_user&.manageds].flatten.map do |person|
       person.event_participations.find_by(event_id: entry.id)
     end.compact
+
+    load_user_participation_without_manageds
   end
 
   def load_my_invitation_with_manageds
@@ -27,6 +29,8 @@ module Youth::EventsController
     @declined_invitations = @invitations.select do |invitation|
       invitation.status == :declined
     end.compact
+
+    load_my_invitation_without_manageds
   end
 
   def event_user_application_possible?(person = current_user)

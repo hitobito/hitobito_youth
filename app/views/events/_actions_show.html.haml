@@ -1,5 +1,4 @@
-
-- if event_user_application_possible?(entry)
+- if event_user_application_possible?(entry) && (!@user_participation || current_user.manageds.any?)
   = Dropdown::Event::ParticipantAdd.for_user(self, @group, entry, current_user)
 = button_action_edit if can?(:update, entry)
 = button_action_destroy if can?(:destroy, entry)

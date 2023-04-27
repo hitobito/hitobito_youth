@@ -14,6 +14,7 @@ module Youth::Event::ParticipationAbility
       permission(:any).may(:show).her_own_or_manager_or_for_participations_read_events
       permission(:any).may(:show_details, :print).
         her_own_or_manager_or_for_participations_full_events
+
       for_self_or_manageds do
         permission(:any).may(:create).her_own_if_application_possible
         permission(:any).may(:destroy).her_own_if_application_cancelable
