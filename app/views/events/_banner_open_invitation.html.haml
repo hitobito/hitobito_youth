@@ -1,0 +1,14 @@
+- @open_invitations.each do |invitation|
+  .alert.alert-warning
+    - translation_key = invitation.person == current_user ? '.explanation' : '.managed.explanation'
+    = t(translation_key, person: invitation.person.full_name)
+    .d-inline-block.offset-sm-1
+      = form_with method: :post, url: decline_group_event_invitation_path(@group, entry, invitation), class: 'no-margin' do |f|
+        .btn-group
+          = link_to(contact_data_group_event_participations_path(@group, entry, event_role: { type: invitation.participation_type }), class: 'btn', role: 'button') do
+            = icon(:check)
+            = t('.buttons.accept') 
+          = button_tag type: :submit , class: 'btn' do
+            = icon(:times)
+            = t('.buttons.decline')
+  

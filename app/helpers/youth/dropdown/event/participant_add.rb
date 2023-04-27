@@ -22,6 +22,8 @@ module Youth
 
         module ClassMethods
           def for_user_with_cancel(template, group, event, user)
+            return new(template, user, group, event, I18n.t('event_decorator.apply'), :check).to_s if user.manageds.any?
+
             participation = user_participation(event, user).first
             if participation && participation.state == 'canceled'
               new(template, group, event, I18n.t('event_decorator.canceled'), 'times-circle').

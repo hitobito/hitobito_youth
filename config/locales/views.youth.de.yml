@@ -76,6 +76,14 @@ de:
       tentatives: Provisorische Anmeldungen
     application_fields_youth:
       tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
+    banner_open_invitation:
+      managed:
+        explanation: "%{person} wurde zu diesem Anlass eingeladen."
+    banner_declined_invitation:
+      managed:
+        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
+
+
 
   export/tabular/events/list:
     male_count: Anzahl Teilnehmende Männer
