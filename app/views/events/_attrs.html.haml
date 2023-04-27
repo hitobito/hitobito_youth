@@ -1,0 +1,21 @@
+- if @user_participations.present?
+  = render 'banner_participating'
+- if @open_invitations.present?
+  = render 'banner_open_invitation'
+- if @declined_invitations.present?
+  = render 'banner_declined_invitation'
+
+#main.row-fluid
+  %article.span7
+    = render 'attrs_primary'
+
+    = render_extensions 'show_left'
+
+  %aside.span5
+    = render 'attrs_contact'
+
+    - if entry.participant_types.present?
+      = render 'attrs_application'
+
+    = render_extensions 'show_right'
+
