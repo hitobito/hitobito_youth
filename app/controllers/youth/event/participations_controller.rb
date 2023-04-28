@@ -56,7 +56,7 @@ module Youth::Event::ParticipationsController
   end
 
   def new_record_for_someone_else?
-    entry.new_record? && entry.person != current_user
+    entry.new_record? && entry.person != current_user && params[:for_someone_else]
   end
 
   def person_id_with_managed
