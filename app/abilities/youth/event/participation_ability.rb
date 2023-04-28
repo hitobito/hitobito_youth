@@ -35,6 +35,8 @@ module Youth::Event::ParticipationAbility
       general(:create_tentative).event_tentative_and_person_in_tentative_group
       general(:cancel, :reject, :absent, :assign, :attend).if_application
     end
+
+    alias_method_chain :participant_can_show_event?, :no_managed_regards
   end
 
   def her_own_or_manager_or_for_participations_read_events
@@ -64,7 +66,7 @@ module Youth::Event::ParticipationAbility
     event.supports_applications && participation.application_id?
   end
 
-  def participant_can_show_event?
+  def participant_can_show_event_with_no_managed_regards?
     participation.person &&
       (AbilityWithoutManagerAbilities.new(participation.person).can? :show, participation.event)
   end
