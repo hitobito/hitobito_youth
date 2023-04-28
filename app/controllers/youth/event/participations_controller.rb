@@ -13,6 +13,8 @@ module Youth::Event::ParticipationsController
 
     alias_method_chain :set_active, :state
     alias_method_chain :person_id, :managed
+    alias_method_chain :return_path, :managed
+    alias_method_chain :after_destroy_path, :managed
   end
 
   def cancel
@@ -65,6 +67,26 @@ module Youth::Event::ParticipationsController
     else
       person_id_without_managed
     end
+  end
+
+  def return_path_with_managed
+    if participation_of_managed? && !entry.persisted?
+      group_event_path(group, event)
+    else
+      return_path_without_managed
+    end
+  end
+
+  def after_destroy_path_with_managed
+    if participation_of_managed?
+      group_event_path(group, event)
+    else
+      after_destroy_path_without_managed
+    end
+  end
+
+  def participation_of_managed?
+    current_user.manageds.include?(entry.person)
   end
 
 end
