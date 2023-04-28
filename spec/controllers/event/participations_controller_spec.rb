@@ -159,4 +159,27 @@ describe Event::ParticipationsController do
       expect(participation.state).to eq 'assigned'
     end
   end
+
+  context 'DELETE destroy' do
+    context 'for managed participation' do
+      let(:managed) { Fabricate(:person) }
+      let!(:manager_relation) { PeopleManager.create(manager: people(:top_leader), managed: managed) }
+
+      let(:participation) do Fabricate(:event_participation,
+                                       event: course,
+                                       state: 'applied',
+                                       person: managed,
+                                       active: true)
+      end
+
+      it 'rediects to event#show' do
+        delete :destroy, params: { group_id: group.id,
+                                   event_id: course.id,
+                                   id: participation.id }
+
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(group_event_path(group, course))
+      end
+    end
+  end
 end
