@@ -8,15 +8,23 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::Event::ParticipationContactDatasController
+  private
+
+  def contact_data_class
+    return super unless current_user.manageds.include?(params_person)
+
+    Event::ParticipationContactDatas::Managed
+  end
+
   def person
     @person ||= entry&.person || params_person || current_user
   end
 
   def params_person
-    return current_user.manageds.find(params[:person_id]) if params[:person_id]
+    return current_user.manageds.find(params[:person_id]) if params[:person_id].present?
 
-    if params.dig(:event_participation_contact_data, :email)
-      return current_user.manageds.find_by(email: params.dig(:event_participation_contact_data,
+    if params.dig(:event_participation_contact_data_managed, :email)
+      return current_user.manageds.find_by(email: params.dig(:event_participation_contact_data_managed,
                                                              :email))
     end
   end

@@ -26,6 +26,13 @@ Rails.application.routes.draw do
           end
 
           resources :participations, only: [] do
+            collection do
+              scope module: :participation_contact_data do
+                get 'contact_data/managed' => 'managed#edit'
+                post 'contact_data/managed' => 'managed#update'
+              end
+            end
+
             member do
               put :cancel
               put :reject

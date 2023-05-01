@@ -46,6 +46,6 @@ class PeopleManager < ActiveRecord::Base
   end
 
   def assert_manager_is_not_managed
-    errors.add(:base, :manager_and_managed_the_same) if manager.id == managed.id
+    errors.add(:base, :manager_and_managed_the_same) if manager&.id == managed&.id
   end
 end

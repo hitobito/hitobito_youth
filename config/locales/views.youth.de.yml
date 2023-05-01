@@ -66,6 +66,12 @@ de:
       new:
         title: Provisorisch Anmelden
 
+    participation_contact_data:
+      managed:
+        edit:
+          title: Neues Kind registrieren und am Anlass anmelden
+          save: Weiter
+
   event_decorator:
     canceled: Abgemeldet
 
