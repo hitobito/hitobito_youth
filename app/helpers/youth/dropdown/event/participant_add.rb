@@ -68,7 +68,8 @@ module Youth
           end
 
           opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
-          add_item('Neues Kind', template.contact_data_managed_group_event_participations_path(group, event, opts))
+          add_item(translate('.register_new_managed'),
+                   template.contact_data_managed_group_event_participations_path(group, event, opts))
         end
 
         def disabled_message_for_person(person)
