@@ -77,3 +77,11 @@ de:
           attributes:
             manager_id:
               taken: ist bereits gesetzt.
+
+  activemodel:
+    errors:
+      models:
+        event/participation_contact_datas/managed:
+          attributes:
+            base:
+              duplicates_present: Diese Person existiert bereits, bitte kontaktiere die Addressverwaltung um sie als Ihr Kind zu registrieren
