@@ -37,6 +37,7 @@ module Youth::Event::ParticipationAbility
     end
 
     alias_method_chain :participant_can_show_event?, :no_managed_regards
+    alias_method_chain :her_own_if_application_possible, :managed
   end
 
   def her_own_or_manager_or_for_participations_read_events
@@ -64,6 +65,11 @@ module Youth::Event::ParticipationAbility
 
   def if_application
     event.supports_applications && participation.application_id?
+  end
+
+  def her_own_if_application_possible_with_managed
+    her_own_if_application_possible_without_managed ||
+      (event.application_possible? && manager && Ability.new(user).can?(:show, participation.event))
   end
 
   def participant_can_show_event_with_no_managed_regards?

@@ -73,10 +73,7 @@ module Youth
         end
 
         def disabled_message_for_person(person)
-          if ::Ability.new(person).cannot?(:create, ::Event::Participation.new(person: person,
-                                                                               event: event))
-            translate(:'disabled_messages.not_allowed')
-          elsif ::Event::Participation.exists?(person: person, event: event)
+          if ::Event::Participation.exists?(person: person, event: event)
             translate(:'disabled_messages.already_exists')
           end
         end
