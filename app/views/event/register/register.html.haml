@@ -1,0 +1,24 @@
+
+- title t('.title')
+
+- unless manager
+  = render 'event/participations/step_wizard', step: 1
+
+- return_url = manager ? group_event_path(group, event) : new_group_event_participation_path(group, event)
+
+= crud_form(entry,
+            url: register_group_event_path(group, event),
+            method: :put,
+            cancel_url: register_group_event_path(group, event),
+            buttons_bottom: true,
+            buttons_top: false) do |f|
+  = hidden_field_tag(:manager, manager)
+  = hidden_field_tag(:return_url, return_url)
+
+  - if manager
+    = render 'manager_fields', f: f
+  - else
+    = render 'event/participation_contact_datas/form', f: f
+
+  = f.honeypot(:verification)
+

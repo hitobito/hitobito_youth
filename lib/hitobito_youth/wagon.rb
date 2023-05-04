@@ -86,6 +86,7 @@ module HitobitoYouth
       Event::ParticipationsController.include Youth::Event::ParticipationsController
       Event::ListsController.include Youth::Event::ListsController
       Event::RolesController.include Youth::Event::RolesController
+      Event::RegisterController.include Youth::Event::RegisterController
 
       # job
       Export::EventParticipationsExportJob.
