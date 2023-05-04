@@ -21,12 +21,7 @@ module Youth::Event::ParticipationContactDatasController
   end
 
   def params_person
-    return current_user.manageds.find(params[:person_id]) if params[:person_id].present?
-
-    if params.dig(:event_participation_contact_data_managed, :email)
-      return current_user.manageds.find_by(email: params.dig(:event_participation_contact_data_managed,
-                                                             :email))
-    end
+    current_user.manageds.find(params[:person_id]) if params[:person_id].present?
   end
 
   def after_update_success_path
