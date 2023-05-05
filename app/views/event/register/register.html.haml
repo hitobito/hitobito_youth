@@ -1,5 +1,5 @@
 
-- title t('.title')
+- title t(".title.#{manager ? 'manager' : 'participant'}")
 
 - unless manager
   = render 'event/participations/step_wizard', step: 1

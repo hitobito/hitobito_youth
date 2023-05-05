@@ -1,0 +1,10 @@
+
+%p= t('.enter_email')
+
+= standard_form(Person.new, {url: register_group_event_path(group, event)}) do |f|
+  = f.error_messages
+  = f.labeled_input_field(:email)
+  = f.honeypot(:verification)
+  = f.indented do
+    = submit_button(f, t('.next'))
+    = submit_button(f, t('.next_for_manager'), formaction: register_group_event_path(group, event, manager: true))
