@@ -88,6 +88,10 @@ de:
 
   event/register:
     form_data_missing: Bitte fülle das folgende Formular aus, um dich zu registrieren.
+    registered_manager: 'Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden'
+
+  event/participations:
+    success_for_external_manager: '%{full_entry_label} wurde erfolgreich erstellt.'
 
   event_decorator:
     canceled: Abgemeldet
