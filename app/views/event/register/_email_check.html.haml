@@ -7,4 +7,5 @@
   = f.honeypot(:verification)
   = f.indented do
     = submit_button(f, t('.next'))
-    = submit_button(f, t('.next_for_manager'), formaction: register_group_event_path(group, event, manager: true))
+    - FeatureGate.if('people.people_managers') do
+      = submit_button(f, t('.next_for_manager'), formaction: register_group_event_path(group, event, manager: true))
