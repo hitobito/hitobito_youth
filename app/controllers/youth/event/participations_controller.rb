@@ -15,7 +15,6 @@ module Youth::Event::ParticipationsController
     alias_method_chain :person_id, :managed
     alias_method_chain :return_path, :managed
     alias_method_chain :after_destroy_path, :managed
-
     alias_method_chain :set_success_notice, :managed
   end
 
@@ -70,7 +69,7 @@ module Youth::Event::ParticipationsController
   end
 
   def return_path_with_managed
-    if participation_of_managed? && !entry.persisted? || manager_via_public_event?
+    if  manager_via_public_event? || (participation_of_managed? && !entry.persisted?)
       group_event_path(group, event)
     else
       return_path_without_managed
@@ -87,7 +86,8 @@ module Youth::Event::ParticipationsController
 
   def set_success_notice_with_managed
     if !entry.pending? && manager_via_public_event?
-      flash[:notice] ||= translate(:success_for_external_manager, full_entry_label: full_entry_label)
+      flash[:notice] ||= translate(:success_for_external_manager,
+                                   full_entry_label: full_entry_label)
     else
       set_success_notice_without_managed
     end
