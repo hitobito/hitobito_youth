@@ -23,7 +23,7 @@ module Youth
         module ClassMethods
           def for_user_with_cancel(template, group, event, user)
             if user.manageds.any?
-              return new(template, user, group, event, I18n.t('event_decorator.apply'), :check).to_s
+              return new(template, group, event, I18n.t('event_decorator.apply'), :check).to_s
             end
 
             participation = user_participation(event, user).first
@@ -49,9 +49,9 @@ module Youth
         def init_items_with_manageds(url_options)
           return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers')  # rubocop:disable Metrics/LineLength
 
-          user.and_manageds.each do |person|
+          template.current_user.and_manageds.each do |person|
             opts = url_options.clone
-            opts[:person_id] = person.id unless @user == person
+            opts[:person_id] = person.id unless template.current_user == person
 
             disabled_message = disabled_message_for_person(person)
             if disabled_message.present?
