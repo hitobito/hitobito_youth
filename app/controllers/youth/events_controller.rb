@@ -16,7 +16,7 @@ module Youth::EventsController
   end
 
   def load_user_participation_with_manageds
-    @user_participations = [current_user, current_user&.manageds].flatten.map do |person|
+    @user_participations = current_user&.and_manageds.map do |person|
       person.event_participations.find_by(event_id: entry.id)
     end.compact
 
@@ -24,7 +24,7 @@ module Youth::EventsController
   end
 
   def load_my_invitation_with_manageds
-    @invitations = [current_user, current_user&.manageds].flatten.map do |person|
+    @invitations = current_user&.and_manageds.map do |person|
       person.event_invitations.find_by(event_id: entry.id)
     end.compact
 
