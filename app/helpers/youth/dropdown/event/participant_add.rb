@@ -47,6 +47,7 @@ module Youth
         end
 
         def init_items_with_manageds(url_options)
+          return init_items_without_manageds(url_options) if url_options[:for_someone_else]
           return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers')  # rubocop:disable Metrics/LineLength
 
           template.current_user.and_manageds.each do |person|
