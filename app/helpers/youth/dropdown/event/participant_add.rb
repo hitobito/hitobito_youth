@@ -92,7 +92,7 @@ module Youth
           event.participant_types.map do |type|
             opts = opts.merge(event_role: { type: type.sti_name })
             link = participate_link(opts)
-            ::Dropdown::Item.new(translate(:as, type.label), link)
+            ::Dropdown::Item.new(translate(:as, role: type.label), link)
           end
         end
       end
