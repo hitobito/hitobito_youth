@@ -70,8 +70,10 @@ module Youth
           end
 
           opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
-          add_item(translate('.register_new_managed'),
-                   template.contact_data_managed_group_event_participations_path(group, event, opts)) # rubocop:disable Metrics/LineLength
+          add_item(
+            translate('.register_new_managed'),
+            template.contact_data_managed_group_event_participations_path(group, event, opts)
+          )
         end
         # rubocop:enable Metrics/MethodLength
 

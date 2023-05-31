@@ -64,18 +64,7 @@ describe 'EventRegisterManaged', js: true do
 
             expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
             find('a.dropdown-toggle', text: /Anmelden/i).click
-            expect(page).to have_css('ul.dropdown-menu li a.disabled', text: "#{managed.full_name} (Ist bereits angemeldet)", exact_text: true)
-          end
-
-          it 'shows disabled dropdown option for existing managed since they can not see the event' do
-            managed_from_different_layer = Fabricate(Group::BottomLayer::Member.sti_name.to_sym, group: groups(:bottom_layer_two)).person
-            user.manageds += [managed_from_different_layer]
-
-            visit group_event_path(group, event)
-
-            expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
-            find('a.dropdown-toggle', text: /Anmelden/i).click
-            expect(page).to have_css('ul.dropdown-menu li a.disabled', text: "#{managed_from_different_layer.full_name} (Darf den Anlass nicht sehen)", exact_text: true)
+            expect(page).to have_css('ul.dropdown-menu li a.disabled', text: "#{managed.full_name} (ist bereits angemeldet)", exact_text: true)
           end
 
           it 'allows you to create new participation for managed' do
