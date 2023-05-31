@@ -1,6 +1,6 @@
 # Hitobito Changelog
 
-## unreleased
+## Version 1.28
 
 * Der BSV-Export berücksichtigt jetzt gemäss den neuen BSV-Regeln alle Personen unter 30 Jahren (statt wie zuvor nur zwischen 17 und 30 Jahren). Merci @Michael-Schaer! (hitobito/hitobito_youth#27, hitobito/hitobito_pbs#265)
 * Es können neu die eigenen Kinder direkt am Anlass angemeldet werden. Kinder werden entweder auf der Person hinterlegt oder können bei der Anlass-Anmeldung direkt neu angelegt werden. (#1969)
