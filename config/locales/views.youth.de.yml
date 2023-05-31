@@ -66,6 +66,12 @@ de:
       new:
         title: Provisorisch Anmelden
 
+    participation_contact_data:
+      managed:
+        edit:
+          title: Neues Kind registrieren und am Anlass anmelden
+          save: Weiter
+
   event_decorator:
     canceled: Abgemeldet
 
@@ -115,8 +121,8 @@ de:
 
   dropdown/event/participant_add:
     disabled_messages:
-      not_allowed: 'Darf den Anlass nicht sehen'
-      already_exists: 'Ist bereits angemeldet'
+      already_exists: 'ist bereits angemeldet'
+    register_new_managed: Neues Kind erfassen und anmelden
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.

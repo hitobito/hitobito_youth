@@ -64,18 +64,7 @@ describe 'EventRegisterManaged', js: true do
 
             expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
             find('a.dropdown-toggle', text: /Anmelden/i).click
-            expect(page).to have_css('ul.dropdown-menu li a.disabled', text: "#{managed.full_name} (Ist bereits angemeldet)", exact_text: true)
-          end
-
-          it 'shows disabled dropdown option for existing managed since they can not see the event' do
-            managed_from_different_layer = Fabricate(Group::BottomLayer::Member.sti_name.to_sym, group: groups(:bottom_layer_two)).person
-            user.manageds += [managed_from_different_layer]
-
-            visit group_event_path(group, event)
-
-            expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
-            find('a.dropdown-toggle', text: /Anmelden/i).click
-            expect(page).to have_css('ul.dropdown-menu li a.disabled', text: "#{managed_from_different_layer.full_name} (Darf den Anlass nicht sehen)", exact_text: true)
+            expect(page).to have_css('ul.dropdown-menu li a.disabled', text: "#{managed.full_name} (ist bereits angemeldet)", exact_text: true)
           end
 
           it 'allows you to create new participation for managed' do
@@ -103,6 +92,100 @@ describe 'EventRegisterManaged', js: true do
             expect(page).to have_content(participation_success_text_for_event(event, managed))
           end
 
+        end
+      end
+
+      describe 'registering new managed' do
+        context 'with feature toggle disabled' do
+          before do
+            allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(false)
+          end
+
+          it 'does not show dropdown option for new managed' do
+            visit group_event_path(group, event)
+
+            expect(page).to_not have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            expect(page).to_not have_css('dropdown-menu a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+            expect(page).to have_css('a.btn', text: 'Anmelden', exact_text: true)
+          end
+        end
+
+        context 'with feature toggle enabled' do
+          before do
+            allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
+          end
+
+          it 'shows dropdown option for new managed' do
+            visit group_event_path(group, event)
+
+            expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
+            expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+          end
+
+          it 'allows you to create new managed even if you cancel before creating participation' do
+            visit group_event_path(group, event)
+
+            expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
+            expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+            find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
+
+            contact_data_path = contact_data_managed_group_event_participations_path(group, event)
+            expect(current_path).to eq(contact_data_path)
+
+            fill_in('Vorname', with: 'Bob')
+            fill_in('Nachname', with: 'Miller')
+
+            expect do
+              find_all('button.btn[type="submit"]').last.click
+            end.to change { Person.count }.by(1)
+
+            new_managed = Person.last
+            expect(new_managed.managers).to eq([user])
+
+            expect(current_path).to eq(new_group_event_participation_path(group, event))
+
+            expect do
+              find('a.cancel').click
+            end.to_not change { Event::Participation.count }
+
+            new_managed.reload
+            expect(new_managed).to be_present
+            expect(new_managed.managers).to eq([user])
+
+            expect(current_path).to eq(group_event_path(group, event))
+          end
+
+          it 'allows you to create new managed and participation for said person' do
+            visit group_event_path(group, event)
+
+            expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
+            expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+            find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
+
+            contact_data_path = contact_data_managed_group_event_participations_path(group, event)
+            expect(current_path).to eq(contact_data_path)
+
+            fill_in('Vorname', with: 'Bob')
+            fill_in('Nachname', with: 'Miller')
+
+            expect do
+              find_all('button.btn[type="submit"]').last.click
+            end.to change { Person.count }.by(1)
+
+            new_managed = Person.last
+            expect(new_managed.managers).to eq([user])
+
+            expect(current_path).to eq(new_group_event_participation_path(group, event))
+
+            expect do
+              find_all('button.btn[type="submit"]').last.click
+            end.to change { Event::Participation.count }.by(1)
+
+            expect(page).to have_content(participation_success_text_for_event(event, new_managed))
+          end
         end
       end
     end

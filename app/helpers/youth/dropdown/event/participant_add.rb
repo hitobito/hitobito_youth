@@ -46,9 +46,10 @@ module Youth
           end
         end
 
+        # rubocop:disable Metrics/MethodLength
         def init_items_with_manageds(url_options)
           return init_items_without_manageds(url_options) if url_options[:for_someone_else]
-          return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers')  # rubocop:disable Metrics/LineLength
+          return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers') # rubocop:disable Metrics/LineLength
 
           template.current_user.and_manageds.each do |person|
             opts = url_options.clone
@@ -67,13 +68,17 @@ module Youth
               end
             end
           end
+
+          opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
+          add_item(
+            translate('.register_new_managed'),
+            template.contact_data_managed_group_event_participations_path(group, event, opts)
+          )
         end
+        # rubocop:enable Metrics/MethodLength
 
         def disabled_message_for_person(person)
-          if ::Ability.new(person).cannot?(:create, ::Event::Participation.new(person: person,
-                                                                               event: event))
-            translate(:'disabled_messages.not_allowed')
-          elsif ::Event::Participation.exists?(person: person, event: event)
+          if ::Event::Participation.exists?(person: person, event: event)
             translate(:'disabled_messages.already_exists')
           end
         end
