@@ -1,5 +1,7 @@
 
-class Event::ParticipationContactData::ManagedController < Event::ParticipationContactDatasController
+class Event::ParticipationContactData::ManagedController <
+  Event::ParticipationContactDatasController
+
   def update
     if any_duplicates?
       entry.errors.add(:base, :duplicates_present) if any_duplicates?
