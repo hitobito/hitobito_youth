@@ -142,8 +142,7 @@ de:
 
   dropdown/event/participant_add:
     disabled_messages:
-      not_allowed: 'Darf den Anlass nicht sehen'
-      already_exists: 'Ist bereits angemeldet'
+      already_exists: 'ist bereits angemeldet'
     register_new_managed: Neues Kind erfassen und anmelden
   event/lists:
     courses:

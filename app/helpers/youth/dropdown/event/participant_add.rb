@@ -23,7 +23,7 @@ module Youth
         module ClassMethods
           def for_user_with_cancel(template, group, event, user)
             if user.manageds.any?
-              return new(template, user, group, event, I18n.t('event_decorator.apply'), :check).to_s
+              return new(template, group, event, I18n.t('event_decorator.apply'), :check).to_s
             end
 
             participation = user_participation(event, user).first
@@ -46,12 +46,14 @@ module Youth
           end
         end
 
+        # rubocop:disable Metrics/MethodLength
         def init_items_with_manageds(url_options)
-          return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers')  # rubocop:disable Metrics/LineLength
+          return init_items_without_manageds(url_options) if url_options[:for_someone_else]
+          return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers') # rubocop:disable Metrics/LineLength
 
-          [user, user.manageds].flatten.each do |person|
+          template.current_user.and_manageds.each do |person|
             opts = url_options.clone
-            opts[:person_id] = person.id unless @user == person
+            opts[:person_id] = person.id unless template.current_user == person
 
             disabled_message = disabled_message_for_person(person)
             if disabled_message.present?
@@ -68,9 +70,12 @@ module Youth
           end
 
           opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
-          add_item(translate('.register_new_managed'),
-                   template.contact_data_managed_group_event_participations_path(group, event, opts))
+          add_item(
+            translate('.register_new_managed'),
+            template.contact_data_managed_group_event_participations_path(group, event, opts)
+          )
         end
+        # rubocop:enable Metrics/MethodLength
 
         def disabled_message_for_person(person)
           if ::Event::Participation.exists?(person: person, event: event)
@@ -92,7 +97,7 @@ module Youth
           event.participant_types.map do |type|
             opts = opts.merge(event_role: { type: type.sti_name })
             link = participate_link(opts)
-            ::Dropdown::Item.new(translate(:as, type.label), link)
+            ::Dropdown::Item.new(translate(:as, role: type.label), link)
           end
         end
       end

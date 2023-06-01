@@ -15,9 +15,10 @@ module Youth::AbilityDsl::Recorder
   def for_self_or_manageds
     return unless block_given?
 
+    original_include_manageds = AbilityDsl::Recorder::Base.include_manageds
     AbilityDsl::Recorder::Base.include_manageds = true
     yield
-    AbilityDsl::Recorder::Base.include_manageds = false
+    AbilityDsl::Recorder::Base.include_manageds = original_include_manageds
   end
 
   # I found no way to add a class_attribute using the .prepend mechanism.
