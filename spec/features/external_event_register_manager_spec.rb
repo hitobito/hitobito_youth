@@ -31,6 +31,7 @@ describe 'ExternalEventRegisterManager', js: true do
         before do
           allow(FeatureGate).to receive(:enabled?).with('groups.self_registration').and_return(false)
           allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
+          CustomContent.create!(key: 'views/devise/sessions/info', label: 'foo', body: 'dummy custom content has to be created because the youth wagon does not have built-in custom content fixtures')
         end
 
         it 'creates an external event manager and participation for managed' do
