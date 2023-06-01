@@ -12,8 +12,9 @@ module Youth::Messages::BulkMail::AddressList
 
   included do
     def people
-      @people + Person.joins(:people_manageds)
-                      .where(people_manageds: { managed: @people })
+      Person.left_joins(:people_manageds).distinct.
+        where(people_manageds: { managed_id: @people }).
+        or(Person.distinct.where(id: @people))
     end
   end
 end

@@ -11,31 +11,11 @@ module Youth::Synchronize::Mailchimp::Subscriber
   extend ActiveSupport::Concern
 
   prepended do
-    def self.default_and_additional_addresses(mailing_list)
-      people = mailing_list.people
-      people = people + Person.joins(:people_manageds)
-                              .where(people_manageds: { managed_id: people.pluck(:id) })
-
-      additional_emails = AdditionalEmail.where(contactable_type: Person.sti_name,
-                                                contactable_id: people.collect(&:id),
-                                                mailings: true).to_a
-      people.flat_map do |person|
-        additional_email_subscribers = additional_emails.select do |additional_email|
-          additional_email.contactable_id == person.id
-        end.map do |additional_email|
-          self.new(person, additional_email.email)
-        end
-        [self.new(person, person.email)] + additional_email_subscribers
-      end
-    end
-
-    def self.default_addresses(mailing_list)
-      people = mailing_list.people
-      people = people + Person.joins(:people_manageds)
-                              .where(people_manageds: { managed_id: people.pluck(:id) })
-      people.map do |person|
-        self.new(person, person.email)
-      end
+    def self.recipients(mailing_list)
+      people = mailing_list.people.pluck(:id)
+      Person.left_joins(:people_manageds).distinct.
+        where(people_manageds: { managed_id: people }).
+        or(Person.distinct.where(id: people))
     end
   end
 end
