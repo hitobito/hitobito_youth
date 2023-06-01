@@ -87,6 +87,7 @@ de:
         next_for_manager: Mein Kind anmelden
 
   event/register:
+    email_sent: 'Wir haben dir ein E-Mail mit einem Link geschickt, wo du dich oder dein Kind direkt für den Anlass anmelden kannst.'
     form_data_missing: Bitte fülle das folgende Formular aus, um dich zu registrieren.
     registered_manager: 'Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden'
 

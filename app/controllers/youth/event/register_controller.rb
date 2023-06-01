@@ -20,6 +20,6 @@ module Youth::Event::RegisterController
   end
 
   def manager
-    @manager ||= params[:manager]
+    @manager ||= true?(params[:manager])
   end
 end

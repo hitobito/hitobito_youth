@@ -7,10 +7,10 @@
 
 - title t(".title.#{manager ? 'manager' : 'participant'}")
 
-- unless manager
+- unless FeatureGate.enabled?('people.people_managers')
   = render 'event/participations/step_wizard', step: 1
 
-- return_url = manager ? group_event_path(group, event) : new_group_event_participation_path(group, event)
+- return_url = FeatureGate.enabled?('people.people_managers') ? group_event_path(group, event) : new_group_event_participation_path(group, event)
 
 = crud_form(entry,
             url: register_group_event_path(group, event),
@@ -21,7 +21,7 @@
   = hidden_field_tag(:manager, manager)
   = hidden_field_tag(:return_url, return_url)
 
-  - if manager
+  - if FeatureGate.enabled?('people.people_managers') && manager
     = render 'manager_fields', f: f
   - else
     = render 'event/participation_contact_datas/form', f: f
