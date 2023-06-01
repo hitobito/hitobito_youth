@@ -43,4 +43,32 @@ describe EventAbility do
     end
   end
 
+  context 'external_applications active' do
+    let(:event) { Fabricate(:event, external_applications: true, groups: [groups(:top_group)]) }
+
+    context 'without roles' do
+      let(:person) { Fabricate(:person) }
+
+      it 'can show event' do
+        expect(ability(person)).to be_able_to(:show, event)
+      end
+    end
+
+    context 'as top leader' do
+      let(:person) { people(:top_leader) }
+
+      it 'can show event' do
+        expect(ability(person)).to be_able_to(:show, event)
+      end
+    end
+
+    context 'as top bottom_member' do
+      let(:person) { people(:bottom_member) }
+
+      it 'can show event' do
+        expect(ability(person)).to be_able_to(:show, event)
+      end
+    end
+  end
+
 end

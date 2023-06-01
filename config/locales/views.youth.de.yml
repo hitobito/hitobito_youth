@@ -72,6 +72,28 @@ de:
           title: Neues Kind registrieren und am Anlass anmelden
           save: Weiter
 
+    register:
+      register:
+        title: 
+          participant: Kontaktdaten der teilnehmenden Person erfassen
+          manager: Kontaktdaten der erziehungsberechtigten Person
+        email_check:
+          enter_email: Bitte gib deine E-Mailadresse ein, mit der du dich registrieren möchtest.
+      manager_fields:
+        manager_first_name: Vorname erziehungsberechtigte Person
+        manager_last_name: Nachname erziehungsberechtigte Person
+
+      email_check:
+        next_for_manager: Mein Kind anmelden
+
+  event/register:
+    email_sent: 'Wir haben dir ein E-Mail mit einem Link geschickt, wo du dich oder dein Kind direkt für den Anlass anmelden kannst.'
+    form_data_missing: Bitte fülle das folgende Formular aus, um dich zu registrieren.
+    registered_manager: 'Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden'
+
+  event/participations:
+    success_for_external_manager: '%{full_entry_label} wurde erfolgreich erstellt.'
+
   event_decorator:
     canceled: Abgemeldet
 
