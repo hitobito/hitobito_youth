@@ -16,10 +16,16 @@ module Youth
             alias_method_chain :user_participates_in?, :tentative
             alias_method_chain :for_user, :cancel
           end
+
+          alias_method_chain :init_items, :manageds
         end
 
         module ClassMethods
           def for_user_with_cancel(template, group, event, user)
+            if user.manageds.any?
+              return new(template, group, event, I18n.t('event_decorator.apply'), :check).to_s
+            end
+
             participation = user_participation(event, user).first
             if participation && participation.state == 'canceled'
               new(template, group, event, I18n.t('event_decorator.canceled'), 'times-circle').
@@ -37,6 +43,61 @@ module Youth
 
           def user_participates_in_with_tentative?(user, event)
             user_participation(event, user).exists?
+          end
+        end
+
+        # rubocop:disable Metrics/MethodLength
+        def init_items_with_manageds(url_options)
+          return init_items_without_manageds(url_options) if url_options[:for_someone_else]
+          return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers') # rubocop:disable Metrics/LineLength
+
+          template.current_user.and_manageds.each do |person|
+            opts = url_options.clone
+            opts[:person_id] = person.id unless template.current_user == person
+
+            disabled_message = disabled_message_for_person(person)
+            if disabled_message.present?
+              add_disabled_item(person, disabled_message)
+            else
+              if event.participant_types.size > 1
+                item = add_item(person.full_name, '#')
+
+                item.sub_items = participant_types_sub_items(opts)
+              else
+                add_participant_item(person, opts)
+              end
+            end
+          end
+
+          opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
+          add_item(
+            translate('.register_new_managed'),
+            template.contact_data_managed_group_event_participations_path(group, event, opts)
+          )
+        end
+        # rubocop:enable Metrics/MethodLength
+
+        def disabled_message_for_person(person)
+          if ::Event::Participation.exists?(person: person, event: event)
+            translate(:'disabled_messages.already_exists')
+          end
+        end
+
+        def add_disabled_item(person, message)
+          add_item("#{person.full_name} (#{message})", '#', disabled_msg: message)
+        end
+
+        def add_participant_item(person, opts)
+          opts = opts.merge(event_role: { type: event.participant_types.first.sti_name })
+          link = participate_link(opts)
+          add_item(person.full_name, link)
+        end
+
+        def participant_types_sub_items(opts)
+          event.participant_types.map do |type|
+            opts = opts.merge(event_role: { type: type.sti_name })
+            link = participate_link(opts)
+            ::Dropdown::Item.new(translate(:as, role: type.label), link)
           end
         end
       end

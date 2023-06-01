@@ -25,7 +25,6 @@ fr:
         absent_button: absent
         attended_button: Participé
         assigned_button: Placé
-
     tentatives:
       created: Inscription provisoire étatit crée pour %{participant}.
       index:

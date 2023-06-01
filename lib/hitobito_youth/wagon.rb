@@ -19,8 +19,9 @@ module HitobitoYouth
       #{config.root}/app/domain
       #{config.root}/app/jobs
     ]
-
-    config.to_prepare do # rubocop:disable Metrics/BlockLength
+    
+    # rubocop:disable Metrics/BlockLength,Metrics/LineLength
+    config.to_prepare do
       # extend application classes here
 
       # models
@@ -48,10 +49,18 @@ module HitobitoYouth
       Synchronize::Mailchimp::Subscriber.prepend Youth::Synchronize::Mailchimp::Subscriber
 
       # ability
+      Ability.prepend Youth::Ability
+      AbilityDsl::Recorder::Base.include Youth::AbilityDsl::Recorder::Base
+      AbilityDsl::Recorder.include Youth::AbilityDsl::Recorder
+      AbilityDsl::Config.prepend Youth::AbilityDsl::Config
+      AbilityDsl::Store.prepend Youth::AbilityDsl::Store
       GroupAbility.include Youth::GroupAbility
       EventAbility.include Youth::EventAbility
       PersonAbility.include Youth::PersonAbility
+      Event::ApplicationAbility.include Youth::Event::ApplicationAbility
+      Event::InvitationAbility.include Youth::Event::InvitationAbility
       Event::ParticipationAbility.include Youth::Event::ParticipationAbility
+      Event::ParticipationContactDataAbility.include Youth::Event::ParticipationContactDataAbility
       Person::AddRequestAbility.include Youth::Person::AddRequestAbility
       PersonReadables.prepend(Youth::PersonReadables)
       PersonLayerWritables.prepend(Youth::PersonLayerWritables)
@@ -64,7 +73,9 @@ module HitobitoYouth
       # controller
       PeopleController.include Youth::PeopleController
       PeopleFiltersController.include Youth::PeopleFiltersController
+      EventsController.include Youth::EventsController
       Event::ParticipationsController.include Youth::Event::ParticipationsController
+      Event::ParticipationContactDatasController.prepend Youth::Event::ParticipationContactDatasController
 
       PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number,
                                            people_managers_attributes: [:id,
@@ -79,6 +90,7 @@ module HitobitoYouth
       Event::ParticipationsController.include Youth::Event::ParticipationsController
       Event::ListsController.include Youth::Event::ListsController
       Event::RolesController.include Youth::Event::RolesController
+      Event::RegisterController.include Youth::Event::RegisterController
 
       # job
       Export::EventParticipationsExportJob.
@@ -90,6 +102,7 @@ module HitobitoYouth
       Sheet::Event.include Youth::Sheet::Event
       Dropdown::PeopleExport.include Youth::Dropdown::PeopleExport
       Dropdown::Event::ParticipantAdd.include Youth::Dropdown::Event::ParticipantAdd
+      Event::ParticipationBanner.prepend Youth::Event::ParticipationBanner
 
       # serializer
       PersonSerializer.include Youth::PersonSerializer

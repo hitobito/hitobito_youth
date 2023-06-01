@@ -60,6 +60,10 @@ module Youth::Person
     end
   end
 
+  def and_manageds
+    [self, manageds].flatten
+  end
+
   def checksum_validate(ahv_number)
     SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: 'ch')
   end

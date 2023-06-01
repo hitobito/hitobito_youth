@@ -77,7 +77,8 @@ describe Event::ParticipationContactDatasController, type: :controller do
 
       is_expected.to redirect_to new_group_event_participation_path(group,
                                                                     course,
-                                                                    event_role: { type: 'Event::Course::Role::Participant' })
+                                                                    event_role: { type: 'Event::Course::Role::Participant' },
+                                                                    event_participation: { person_id: person.id })
 
       person.reload
       expect(person.j_s_number).to eq('4242')

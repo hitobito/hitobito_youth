@@ -1,0 +1,4 @@
+- @declined_invitations.each do |invitation|
+  .alert.alert-warning
+    - translation_key = invitation.person == current_user ? '.explanation' : '.managed.explanation'
+    = t(translation_key, person: invitation.person.full_name)

@@ -7,17 +7,23 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Person::AddRequestAbility
-  extend ActiveSupport::Concern
+module Youth::Event::ParticipationBanner
 
-  included do
-    on(Person::AddRequest) do
-      for_self_or_manageds do
-        # Skip add requests for managers adding their manageds somewhere
-        permission(:any).may(:approve).herself
-        permission(:any).may(:reject).herself_or_her_own
-        permission(:any).may(:add_without_request).herself
-      end
+  def status_text
+    if waiting_list?
+      key = 'waiting_list'
+    elsif pending?
+      key = 'pending'
+    else
+      key = 'explanation'
     end
+
+    if @user_participation.person != @context.current_user
+      key = ['managed', key].join('.')
+    end
+
+    t(key,
+      person: @user_participation.person.full_name,
+      scope: 'event.participations.cancel_application')
   end
 end
