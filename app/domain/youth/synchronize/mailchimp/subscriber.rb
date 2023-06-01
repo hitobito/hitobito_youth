@@ -7,17 +7,15 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Person::AddRequestAbility
+module Youth::Synchronize::Mailchimp::Subscriber
   extend ActiveSupport::Concern
 
-  included do
-    on(Person::AddRequest) do
-      for_self_or_manageds do
-        # Skip add requests for managers adding their manageds somewhere
-        permission(:any).may(:approve).herself
-        permission(:any).may(:reject).herself_or_her_own
-        permission(:any).may(:add_without_request).herself
-      end
+  prepended do
+    def self.recipients(mailing_list)
+      people = mailing_list.people.pluck(:id)
+      Person.left_joins(:people_manageds).distinct.
+        where(people_manageds: { managed_id: people }).
+        or(Person.distinct.where(id: people))
     end
   end
 end
