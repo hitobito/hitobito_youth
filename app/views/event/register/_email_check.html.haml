@@ -7,7 +7,7 @@
 
 %p= t('.enter_email')
 
-= standard_form(Person.new, {url: register_group_event_path(group, event)}) do |f|
+= standard_form(Person.new, {url: register_group_event_path(group, event), html: { id: 'register_form' }}) do |f|
   = f.error_messages
   = f.labeled_input_field(:email)
   = f.honeypot(:verification)

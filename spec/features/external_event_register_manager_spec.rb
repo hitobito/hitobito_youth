@@ -36,7 +36,7 @@ describe 'ExternalEventRegisterManager', js: true do
         it 'creates an external event manager and participation for managed' do
           visit group_public_event_path(group, event)
 
-          find_all('#new_person input#person_email').first.fill_in(with: 'max.papi@hitobito.example.com')
+          find_all('#register_form input#person_email').first.fill_in(with: 'max.papi@hitobito.example.com')
 
           click_button('Mein Kind anmelden')
 
