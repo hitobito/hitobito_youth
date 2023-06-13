@@ -119,7 +119,7 @@ describe 'EventRegisterManaged', js: true do
             visit group_event_path(group, event)
 
             expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-            find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
+            find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
             expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
           end
 
@@ -127,9 +127,9 @@ describe 'EventRegisterManaged', js: true do
             visit group_event_path(group, event)
 
             expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-            find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
+            find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
             expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-            find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
+            find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true).click
 
             contact_data_path = contact_data_managed_group_event_participations_path(group, event)
             expect(current_path).to eq(contact_data_path)
@@ -161,9 +161,9 @@ describe 'EventRegisterManaged', js: true do
             visit group_event_path(group, event)
 
             expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-            find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
+            find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
             expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-            find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
+            find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true).click
 
             contact_data_path = contact_data_managed_group_event_participations_path(group, event)
             expect(current_path).to eq(contact_data_path)
