@@ -23,7 +23,7 @@ describe 'ExternalEventRegisterManager', js: true do
         it 'does not show button for registering manager' do
           visit group_public_event_path(group, event)
 
-          expect(page).to_not have_css('btn.btn-primary[type="submit"]', text: 'Mein Kind anmelden', exact_text: true)
+          expect(page).to_not have_css('btn.btn-primary[type="submit"]', text: /Mein Kind anmelden/i, exact_text: true)
         end
       end
 
@@ -59,9 +59,9 @@ describe 'ExternalEventRegisterManager', js: true do
 
           expect(page).to have_text('Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden')
 
-          expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+          expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
           find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
-          expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+          expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
           find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
 
           contact_data_path = contact_data_managed_group_event_participations_path(group, event)

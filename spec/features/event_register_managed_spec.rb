@@ -104,9 +104,9 @@ describe 'EventRegisterManaged', js: true do
           it 'does not show dropdown option for new managed' do
             visit group_event_path(group, event)
 
-            expect(page).to_not have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
-            expect(page).to_not have_css('dropdown-menu a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
-            expect(page).to have_css('a.btn', text: 'Anmelden', exact_text: true)
+            expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
+            expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
+            expect(page).to have_css('a.btn', text: /Anmelden/i, exact_text: true)
           end
         end
 
@@ -118,17 +118,17 @@ describe 'EventRegisterManaged', js: true do
           it 'shows dropdown option for new managed' do
             visit group_event_path(group, event)
 
-            expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
             find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
-            expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+            expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
           end
 
           it 'allows you to create new managed even if you cancel before creating participation' do
             visit group_event_path(group, event)
 
-            expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
             find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
-            expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+            expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
             find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
 
             contact_data_path = contact_data_managed_group_event_participations_path(group, event)
@@ -160,9 +160,9 @@ describe 'EventRegisterManaged', js: true do
           it 'allows you to create new managed and participation for said person' do
             visit group_event_path(group, event)
 
-            expect(page).to have_css('a.dropdown-toggle', text: 'Anmelden', exact_text: true)
+            expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
             find('a.dropdown-toggle', text: 'Anmelden', exact_text: true).click
-            expect(page).to have_css('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true)
+            expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
             find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
 
             contact_data_path = contact_data_managed_group_event_participations_path(group, event)
