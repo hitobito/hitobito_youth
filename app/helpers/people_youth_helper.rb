@@ -11,4 +11,17 @@ module PeopleYouthHelper
     Person.distinct.where('nationality IS NOT NULL').pluck(:nationality)
   end
 
+  def render_manageds(person)
+    readable_manageds = person.manageds.select { |m| can?(:show, m) }
+    return ta('no_entry') if readable_manageds.blank?
+
+    content_tag(:ul) do
+      safe_join(readable_manageds.map do |managed|
+        content_tag(:li) do
+          can?(:update, managed) ? link_to(managed, managed) : managed.to_s
+        end
+      end)
+    end
+  end
+
 end

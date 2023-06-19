@@ -8,4 +8,9 @@
 
 - FeatureGate.if('people.people_managers') do
   - if can?(:update, entry)
-    = render_attrs(entry, :managers, :manageds)
+
+    %dl.dl-horizontal
+      = labeled_attr(entry, :managers)
+      %dt.muted= Person.human_attribute_name(:manageds)
+      %dd
+        = render_manageds(entry)
