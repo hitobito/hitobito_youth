@@ -13,6 +13,7 @@ module Youth::Event::RegisterController
     helper_method :manager
 
     alias_method_chain :registered_notice, :manager
+    alias_method_chain :contact_data_class, :manager
   end
 
   def registered_notice_with_manager
@@ -21,5 +22,13 @@ module Youth::Event::RegisterController
 
   def manager
     @manager ||= true?(params[:manager])
+  end
+
+  def contact_data_class_with_manager
+    if manager
+      Event::ParticipationContactDatas::Manager
+    else
+      Event::ParticipationContactData
+    end
   end
 end
