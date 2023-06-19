@@ -34,4 +34,8 @@ class Event::ParticipationContactData::ManagedController <
   def person_duplicate_finder
     @person_duplicate_finder ||= Import::PersonDuplicateFinder.new
   end
+
+  def privacy_policy_param
+    params[:event_participation_contact_datas_managed][:privacy_policy_accepted]
+  end
 end

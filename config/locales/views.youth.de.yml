@@ -68,6 +68,10 @@ de:
 
     participation_contact_data:
       managed:
+        update:
+          flash:
+            privacy_policy_not_accepted: 'Um die Anmeldung abzuschliessen, muss der Datenschutzerklärung zugestimmt werden.'
+
         edit:
           title: Neues Kind registrieren und am Anlass anmelden
           save: Weiter
