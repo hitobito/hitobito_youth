@@ -5,4 +5,4 @@
 
 people:
   people_managers:
-    enabled: true
+    enabled: false
