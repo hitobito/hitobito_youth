@@ -16,6 +16,10 @@ module Youth::Event::ParticipationContactDatasController
     Event::ParticipationContactDatas::Managed
   end
 
+  def permitted_attrs
+    super + [:privacy_policy_accepted]
+  end
+
   def person
     @person ||= entry&.person || params_person || current_user
   end
