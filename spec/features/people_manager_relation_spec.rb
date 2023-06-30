@@ -13,7 +13,11 @@ describe 'PeopleManagerRelation', js: true do
   let(:bottom_member) { people(:bottom_member) }
   let(:bottom_leader) { people(:bottom_leader) }
   let(:root) { people(:root) }
-  before { sign_in(user) }
+  before do
+    allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
+    allow_any_instance_of(FeatureGate).to receive(:enabled?).and_return(true)
+    sign_in(user)
+  end
 
   describe 'person edit' do
     context 'as top_leader' do
