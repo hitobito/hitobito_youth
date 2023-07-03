@@ -1,6 +1,6 @@
 # Hitobito Changelog
 
-## unreleased
+## Version 1.30
 
 * Es können neu die eigenen Kinder direkt am Anlass angemeldet werden. Kinder werden entweder auf der Person hinterlegt oder können bei der Anlass-Anmeldung direkt neu angelegt werden. (#1969)
 * Beim Abo-Mailversand, dem E-Mail Addressen Export sowie dem Mailchimp Export werden neu die Verwalter*innen des Empfängers berücksichtigt und mitexportiert oder als Mail Empfänger gezählt.
