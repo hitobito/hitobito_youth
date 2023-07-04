@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
+#  Copyright (c) 2023, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
 
 class Event::ParticipationContactData::ManagedController <
   Event::ParticipationContactDatasController
@@ -33,5 +39,9 @@ class Event::ParticipationContactData::ManagedController <
 
   def person_duplicate_finder
     @person_duplicate_finder ||= Import::PersonDuplicateFinder.new
+  end
+
+  def privacy_policy_param
+    params[:event_participation_contact_datas_managed][:privacy_policy_accepted]
   end
 end

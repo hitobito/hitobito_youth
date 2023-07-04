@@ -8,4 +8,4 @@
 
 - FeatureGate.if('people.people_managers') do
   - if can?(:update, entry)
-    = render_attrs(entry, :managers, :manageds)
+    = render_attrs(entry, :managers, :readable_manageds)

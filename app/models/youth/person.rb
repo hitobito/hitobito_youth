@@ -61,6 +61,8 @@ module Youth::Person
   end
 
   def and_manageds
+    return [self] unless FeatureGate.enabled?('people.people_managers')
+
     [self, manageds].flatten
   end
 

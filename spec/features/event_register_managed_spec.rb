@@ -93,6 +93,61 @@ describe 'EventRegisterManaged', js: true do
           end
 
         end
+
+        context 'via invitation' do
+          before do
+            Event::Invitation.create!(person: managed,
+                                      event: event,
+                                      participation_type: event.role_types.last)
+          end
+
+          context 'with feature toggle disabled' do
+            before do
+              allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(false)
+            end
+
+            it 'does not show invitation for existing managed' do
+              visit group_event_path(group, event)
+
+              expect(page).to_not have_css('.alert-warning', text: /#{managed.full_name} wurde zu diesem Anlass eingeladen/i)
+            end
+          end
+
+          context 'with feature toggle enabled' do
+            before do
+              allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
+            end
+
+            it 'shows invitation for existing managed' do
+              visit group_event_path(group, event)
+
+              expect(page).to have_css('.alert-warning', text: /#{managed.full_name} wurde zu diesem Anlass eingeladen/i)
+            end
+
+            it 'allows you to create new participation for managed' do
+              visit group_event_path(group, event)
+
+              expect(page).to have_css('.alert-warning', text: /#{managed.full_name} wurde zu diesem Anlass eingeladen/i)
+              find('.alert-warning a.btn', text: /Anmelden/i).click
+
+              contact_data_path = contact_data_group_event_participations_path(group, event)
+              expect(current_path).to eq(contact_data_path)
+
+              expect(page).to have_field('Vorname', with: managed.first_name)
+              expect(page).to have_field('Nachname', with: managed.last_name)
+
+              find_all('button.btn[type="submit"]').last.click
+
+              expect(current_path).to eq(new_group_event_participation_path(group, event))
+
+              expect do
+                find_all('button.btn[type="submit"]').last.click
+              end.to change { Event::Participation.count }.by(1)
+
+              expect(page).to have_content(participation_success_text_for_event(event, managed))
+            end
+          end
+        end
       end
 
       describe 'registering new managed' do

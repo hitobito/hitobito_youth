@@ -11,4 +11,8 @@ module PeopleYouthHelper
     Person.distinct.where('nationality IS NOT NULL').pluck(:nationality)
   end
 
+  def format_person_readable_manageds(person)
+    format_many_assoc(person, OpenStruct.new({ name: :readable_manageds }))
+  end
+
 end
