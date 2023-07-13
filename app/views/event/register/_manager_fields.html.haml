@@ -7,8 +7,8 @@
 
 = f.labeled_input_field(:first_name, label: t('.manager_first_name'))
 = f.labeled_input_field(:last_name, label: t('.manager_last_name'))
-= f.labeled_input_field :nickname if Person::PUBLIC_ATTRS.include?(:nickname)
-= f.labeled_input_fields :company_name
+= f.labeled_input_field :nickname if Person.used_attributes.include?(:nickname)
+= f.labeled_input_field :company_name if Person.used_attributes.include?(:company_name)
 = f.labeled_input_field :email, help_inline: t('people.email_field.used_as_login')
 = render_extensions :additional_person_fields, locals: { fields: f }
 
