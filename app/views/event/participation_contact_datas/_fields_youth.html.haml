@@ -12,7 +12,7 @@
                                   Person::NATIONALITIES_J_S,
                                   :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
                                   { include_blank: true },
-                                  { class: 'span6' })
+                                  { class: 'form-select form-select-sm' })
 
   - if entry.person != current_user
     = hidden_field_tag(:person_id, entry.person.id)
