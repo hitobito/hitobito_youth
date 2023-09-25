@@ -9,8 +9,8 @@
       = f.labeled_inline_fields_for :people_managers, 'people/managers/fields', f.object.people_managers
     - else
       = f.labeled(:people_managers) do
-        %div{style: 'padding-top: 5px'}
-          %span.help-block{style: 'display: inline'}
+        %div.pt-1
+          %span.help-block.d-inline
             = t('.no_permission_to_change_managers')
 
   = field_set_tag do
@@ -25,4 +25,4 @@
                                 Person::NATIONALITIES_J_S,
                                 :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
                                 { include_blank: true },
-                                { class: 'span6' })
+                                { class: 'form-select form-select-sm' })
