@@ -48,6 +48,7 @@ module Youth::Person
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def assert_either_only_managers_or_manageds
     existent_managers = people_managers.reject { |pm| pm.marked_for_destruction? }
     existent_manageds = people_manageds.reject { |pm| pm.marked_for_destruction? }
@@ -59,6 +60,7 @@ module Youth::Person
       errors.add(:base, :managed_already_manager)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def and_manageds
     return [self] unless FeatureGate.enabled?('people.people_managers')

@@ -21,13 +21,6 @@ module Youth::PeopleController
   end
 
   def set_manager_notice
-    new_managers = entry.people_managers.select { |pm| pm.new_record? }.map(&:manager)
-    destroyed_managers = entry.people_managers
-                              .select { |pm| pm.marked_for_destruction? }.map(&:manager)
-    new_manageds = entry.people_manageds.select { |pm| pm.new_record? }.map(&:managed)
-    destroyed_manageds = entry.people_manageds
-                              .select { |pm| pm.marked_for_destruction? }.map(&:managed)
-
     @manager_notice = [['new_managers', new_managers],
                        ['destroyed_managers', destroyed_managers],
                        ['new_manageds', new_manageds],
@@ -62,5 +55,21 @@ module Youth::PeopleController
     return Person.find_by(id: attrs[:managed_id]) if attrs[:managed_id].present?
     return PeopleManager.find_by(id: attrs[:id]).managed if attrs[:id].present?
     nil
+  end
+
+  def new_managers
+    entry.people_managers.select { |pm| pm.new_record? }.map(&:manager)
+  end
+
+  def destroyed_managers
+    entry.people_managers.select { |pm| pm.marked_for_destruction? }.map(&:manager)
+  end
+
+  def new_manageds
+    entry.people_manageds.select { |pm| pm.new_record? }.map(&:managed)
+  end
+
+  def destroyed_manageds
+    entry.people_manageds.select { |pm| pm.marked_for_destruction? }.map(&:managed)
   end
 end

@@ -46,7 +46,7 @@ module Youth
           end
         end
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def init_items_with_manageds(url_options)
           return init_items_without_manageds(url_options) if url_options[:for_someone_else]
           return init_items_without_manageds(url_options) unless FeatureGate.enabled?('people.people_managers') # rubocop:disable Metrics/LineLength
@@ -75,7 +75,7 @@ module Youth
             template.contact_data_managed_group_event_participations_path(group, event, opts)
           )
         end
-        # rubocop:enable Metrics/MethodLength
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
         def disabled_message_for_person(person)
           if ::Event::Participation.exists?(person: person, event: event)
