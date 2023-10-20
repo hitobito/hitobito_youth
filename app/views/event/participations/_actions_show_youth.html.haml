@@ -7,10 +7,10 @@
 - if @application.present?
   -  if show_event_participation_cancel_button?
     = action_button(t('.cancel_button'),
-                    '#',
+                    nil,
                     :'times-circle',
                     title: t('.cancel_title'),
-                    data: { toggle: 'popover', content: render('popover_cancel').to_str })
+                    data: { bs_toggle: 'popover', bs_content: render('popover_cancel').to_str })
 
   - if show_event_participation_reject_button?
     = action_button(t('.reject_button'),
