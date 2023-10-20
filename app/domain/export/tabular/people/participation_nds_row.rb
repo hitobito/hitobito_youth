@@ -7,7 +7,7 @@
 
 module Export::Tabular::People
   class ParticipationNdsRow < Export::Tabular::People::PersonRow
-    NDS_LANGUAGE_MAPPING = %w[DE FR IT].to_h { [_1, _1] }.freeze
+    NDS_LANGUAGES = %w[DE FR IT].freeze
 
     attr_reader :participation
 
@@ -69,7 +69,8 @@ module Export::Tabular::People
     end
 
     def first_language
-      NDS_LANGUAGE_MAPPING.fetch(entry.language.presence&.to_s&.upcase, 'Andere')
+      language = entry.language.presence&.to_s&.upcase
+      NDS_LANGUAGES.include?(language) ? language : 'Andere'
     end
 
     def second_language

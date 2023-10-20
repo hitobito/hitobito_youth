@@ -43,6 +43,24 @@ describe Export::Tabular::People::ParticipationNdsRow do
     it { expect(row.fetch(:nationality_j_s)).to eq 'ANDERE' }
   end
 
+  describe 'first_language' do 
+    context 'with supported language' do
+      before do
+        person.language = :fr
+      end
+
+      it { expect(row.fetch(:first_language)).to eq 'FR' }
+    end
+
+    context 'with unsupported language' do
+      before do
+        person.language = :en
+      end
+
+      it { expect(row.fetch(:first_language)).to eq 'Andere' }
+    end
+  end
+
   describe 'j_s_number format' do
     before do
       person.j_s_number = '169-55-79'
