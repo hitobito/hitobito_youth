@@ -15,7 +15,10 @@ describe 'PeopleManagerRelation', js: true do
   let(:root) { people(:root) }
   before do
     allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
-    allow_any_instance_of(FeatureGate).to receive(:enabled?).and_return(true)
+    allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
+    allow_any_instance_of(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
+    allow_any_instance_of(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
+    allow_any_instance_of(FeatureGate).to receive(:enabled?).with(:person_language).and_return(true)
     sign_in(user)
   end
 
