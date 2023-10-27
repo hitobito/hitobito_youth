@@ -14,10 +14,11 @@ module GroupEducationsHelper
       reverse.
       uniq(&:qualification_kind).
       collect do |q|
-        label = "#{q.qualification_kind.label} #{format_attr(q, :finish_at)}".strip
+        label = "#{h(q.qualification_kind.label)} #{format_attr(q, :finish_at)}".strip
         content_tag(:span, label, class: qualification_label_class(q))
       end.
-      join('<br/>')
+      join('<br/>').
+      html_safe
   end
 
   def joined_event_participations(person)
@@ -30,7 +31,8 @@ module GroupEducationsHelper
       collect do |p|
         format_open_participation_event(p)
       end.
-      join(', ')
+      join(', ').
+      html_safe
   end
 
   def format_open_participation_event(participation)
