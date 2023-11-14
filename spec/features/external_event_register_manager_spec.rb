@@ -30,6 +30,7 @@ describe 'ExternalEventRegisterManager', js: true do
 
       context 'with feature toggle enabled' do
         before do
+          allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
           allow(FeatureGate).to receive(:enabled?).with('groups.self_registration').and_return(false)
           allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
           allow_any_instance_of(FeatureGate).to receive(:enabled?).and_return(true)
