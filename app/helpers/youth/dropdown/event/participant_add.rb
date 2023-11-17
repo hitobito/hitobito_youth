@@ -69,7 +69,7 @@ module Youth
             end
           end
 
-          if event.external_applications?
+          if register_new_managed?
             opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
             add_item(
               translate('.register_new_managed'),
@@ -103,6 +103,11 @@ module Youth
             link = participate_link(opts)
             ::Dropdown::Item.new(translate(:as, role: type.label), link)
           end
+        end
+
+        def register_new_managed?
+          event.external_applications? &&
+            FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
         end
       end
     end

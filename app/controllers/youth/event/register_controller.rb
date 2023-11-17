@@ -31,4 +31,8 @@ module Youth::Event::RegisterController
       Event::ParticipationContactData
     end
   end
+
+  def feature_enabled?
+    FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+  end
 end

@@ -8,6 +8,8 @@
 class Event::ParticipationContactData::ManagedController <
   Event::ParticipationContactDatasController
 
+  before_action :assert_feature_enabled
+
   def update
     if any_duplicates?
       entry.errors.add(:base, :duplicates_present) if any_duplicates?
@@ -43,5 +45,9 @@ class Event::ParticipationContactData::ManagedController <
 
   def privacy_policy_param
     params[:event_participation_contact_datas_managed][:privacy_policy_accepted]
+  end
+
+  def assert_feature_enabled
+    FeatureGate.assert!('people.people_managers.self_service_managed_creation')
   end
 end

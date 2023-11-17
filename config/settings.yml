@@ -6,3 +6,5 @@
 people:
   people_managers:
     enabled: true
+    self_service_managed_creation:
+      enabled: true
