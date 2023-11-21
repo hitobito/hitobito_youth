@@ -8,7 +8,10 @@
 module Youth::People::CleanupFinder
 
   def run
-    Person.where(id: super.map(&:id)).left_joins(:people_manageds).where(no_people_manageds_exist).distinct
+    Person.where(id: super.map(&:id))
+          .left_joins(:people_manageds)
+          .where(no_people_manageds_exist)
+          .distinct
   end
 
   private
