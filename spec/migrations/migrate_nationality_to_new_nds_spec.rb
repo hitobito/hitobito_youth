@@ -12,12 +12,20 @@ describe MigrateNationalityToNewNds do
   let(:migration) { described_class.new.tap { |m| m.verbose = false } }
 
   context 'up' do
+    let(:person_with_div_nationality) do
+      p = Fabricate(:person)
+      p.update_attribute(:nationality_j_s, 'DIV') # not in Person::NATIONALITIES_J_S
+      p
+    end
+
+    let(:person_with_ch_nationality) { Fabricate(:person, nationality_j_s: 'CH') }
+
+    after do
+      person_with_div_nationality.delete
+      person_with_ch_nationality.delete
+    end
+
     it 'updates nationality_j_s from DIV to ANDERE' do
-      person_with_div_nationality = Fabricate(:person)
-      person_with_div_nationality.update_attribute(:nationality_j_s, 'DIV') # not in Person::NATIONALITIES_J_S
-
-      person_with_ch_nationality = Fabricate(:person, nationality_j_s: 'CH')
-
       event_contact_data_for_div_person = Event::ParticipationContactData.new(events(:top_event),
                                                                               person_with_div_nationality)
       expect(person_with_div_nationality.nationality_j_s).to eq('DIV')
@@ -30,18 +38,28 @@ describe MigrateNationalityToNewNds do
       expect(person_with_div_nationality.reload.nationality_j_s).to eq('ANDERE')
       expect(event_contact_data_for_div_person.nationality_j_s).to eq('ANDERE')
       expect(person_with_ch_nationality.reload.nationality_j_s).to eq('CH')
+      person_with_div_nationality.delete
+      person_with_ch_nationality.delete
     end
   end
 
   context 'down' do
     after { migration.up }
 
+    let(:person_with_andere_nationality) do
+      p = Fabricate(:person)
+      p.update_attribute(:nationality_j_s, 'ANDERE')
+      p
+    end
+
+    let(:person_with_ch_nationality) { Fabricate(:person, nationality_j_s: 'CH') }
+
+    after do
+      person_with_andere_nationality.delete
+      person_with_ch_nationality.delete
+    end
+
     it 'updates nationality_j_s from ANDERE to DIV' do
-      person_with_andere_nationality = Fabricate(:person)
-      person_with_andere_nationality.update_attribute(:nationality_j_s, 'ANDERE')
-
-      person_with_ch_nationality = Fabricate(:person, nationality_j_s: 'CH')
-
       event_contact_data_for_div_person = Event::ParticipationContactData.new(events(:top_event),
                                                                               person_with_andere_nationality)
       expect(person_with_andere_nationality.nationality_j_s).to eq('ANDERE')
@@ -54,6 +72,8 @@ describe MigrateNationalityToNewNds do
       expect(person_with_andere_nationality.reload.nationality_j_s).to eq('DIV')
       expect(event_contact_data_for_div_person.nationality_j_s).to eq('DIV')
       expect(person_with_ch_nationality.reload.nationality_j_s).to eq('CH')
+      person_with_andere_nationality.delete
+      person_with_ch_nationality.delete
     end
   end
 end
