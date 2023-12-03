@@ -46,7 +46,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bottom Member'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -74,7 +74,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bottom Member'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -102,7 +102,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bottom Member'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         find('a.add_nested_fields[data-association="people_managers"]').click
 
@@ -110,7 +110,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bottom Leader'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -134,7 +134,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bottom Leader'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -158,7 +158,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bottom Leader'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -182,7 +182,7 @@ describe 'PeopleManagerRelation', js: true do
 
         expect(page).to have_content 'Bob Foo'
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -209,7 +209,7 @@ describe 'PeopleManagerRelation', js: true do
 
         find('#people_managers_fields input').set('Bottom Le')
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -232,7 +232,7 @@ describe 'PeopleManagerRelation', js: true do
 
         find('#people_manageds_fields input').set('Bottom Le')
 
-        find('.typeahead.dropdown-menu li').click
+        find('ul[role="listbox"] li[role="option"]').click
 
         expect do
           all('form button[type="submit"]').last.click
@@ -265,7 +265,7 @@ describe 'PeopleManagerRelation', js: true do
 
         find('#people_manageds_fields input').set('Top Leader')
 
-        expect(page).to_not have_css '.typeahead.dropdown-menu li'
+        expect(page).to_not have_css 'ul[role="listbox"] li[role="option"]'
       end
     end
   end

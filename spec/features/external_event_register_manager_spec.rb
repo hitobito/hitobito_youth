@@ -88,9 +88,9 @@ describe 'ExternalEventRegisterManager', js: true do
             fill_in 'Nachname erziehungsberechtigte Person', with: 'Muster'
             fill_in 'Haupt-E-Mail', with: 'max.papi@hitobito.example.com'
 
-            expect do
-              find_all('.btn-toolbar.bottom .btn-group button[type="submit"]').first.click # submit
-            end.to change { Person.count }.by(1)
+          expect do
+            find_all('.offset-md-3.offset-xl-2 .btn-group button[type="submit"]').first.click # submit
+          end.to change { Person.count }.by(1)
 
             expect(current_path).to eq(group_event_path(group, event))
 
