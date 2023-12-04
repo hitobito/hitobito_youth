@@ -48,6 +48,7 @@ class Event::ParticipationContactData::ManagedController <
   end
 
   def assert_feature_enabled
-    FeatureGate.assert!('people.people_managers.self_service_managed_creation')
+    FeatureGate.assert!('people.people_managers') &&
+      FeatureGate.assert!('people.people_managers.self_service_managed_creation')
   end
 end

@@ -10,7 +10,7 @@ module Youth::Event::RegisterController
   extend ActiveSupport::Concern
 
   included do
-    helper_method :manager
+    helper_method :manager, :self_service_managed_enabled?
 
     alias_method_chain :registered_notice, :manager
     alias_method_chain :contact_data_class, :manager
@@ -21,7 +21,7 @@ module Youth::Event::RegisterController
   end
 
   def manager
-    @manager ||= true?(params[:manager])
+    @manager ||= true?(params[:manager]) && self_service_managed_enabled?
   end
 
   def contact_data_class_with_manager
@@ -32,7 +32,8 @@ module Youth::Event::RegisterController
     end
   end
 
-  def feature_enabled?
-    FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+  def self_service_managed_enabled?
+    FeatureGate.enabled?('people.people_managers') &&
+      FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
   end
 end
