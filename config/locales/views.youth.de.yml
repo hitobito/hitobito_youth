@@ -114,8 +114,8 @@ de:
     banner_declined_invitation:
       managed:
         explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
-
-
+    form:
+      caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
 
   export/tabular/events/list:
     male_count: Anzahl Teilnehmende Männer
@@ -148,6 +148,7 @@ de:
   dropdown/event/participant_add:
     disabled_messages:
       already_exists: 'ist bereits angemeldet'
+      cannot_see_event: 'darf den Anlass nicht sehen'
     register_new_managed: Neues Kind erfassen und anmelden
   event/lists:
     courses:
@@ -160,6 +161,10 @@ de:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
 
+  unauthorized:
+    new:
+      event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
+        
   version:
     association_change:
       people_manager:

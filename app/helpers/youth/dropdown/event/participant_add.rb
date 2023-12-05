@@ -69,17 +69,21 @@ module Youth
             end
           end
 
-          opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
-          add_item(
-            translate('.register_new_managed'),
-            template.contact_data_managed_group_event_participations_path(group, event, opts)
-          )
+          if register_new_managed?
+            opts = url_options.merge(event_role: { type: event.participant_types.first.sti_name })
+            add_item(
+              translate('.register_new_managed'),
+              template.contact_data_managed_group_event_participations_path(group, event, opts)
+            )
+          end
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
         def disabled_message_for_person(person)
           if ::Event::Participation.exists?(person: person, event: event)
             translate(:'disabled_messages.already_exists')
+          elsif ::Ability.new(person).cannot?(:show, event)
+            translate(:'disabled_messages.cannot_see_event')
           end
         end
 
@@ -99,6 +103,11 @@ module Youth
             link = participate_link(opts)
             ::Dropdown::Item.new(translate(:as, role: type.label), link)
           end
+        end
+
+        def register_new_managed?
+          event.external_applications? &&
+            FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
         end
       end
     end
