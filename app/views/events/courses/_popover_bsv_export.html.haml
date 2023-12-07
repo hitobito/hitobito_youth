@@ -10,27 +10,18 @@
   = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
   = f.labeled(t('event.lists.popover_bsv_export.event_kinds'), help: 'f00') do
-    = select_tag('filter[kinds]', options_from_collection_for_select(Event::Kind.includes(:translations).without_deleted, :id, :label), multiple: true)
-    = f.help_block do
-      %span.muted= t('event.lists.popover_bsv_export.event_kinds_hint')
+    = select_tag('filter[kinds]', options_from_collection_for_select(Event::Kind.includes(:translations).without_deleted, :id, :label), multiple: true, class: 'form-select tom-select')
 
   = f.labeled(t('event.lists.popover_bsv_export.date_from')) do
-    .input-prepend{style: 'margin: 0 0.5rem 0.5rem 0'}
-      %span.add-on= icon(:'calendar-alt')
-      = text_field_tag('filter[bsv_since]', f(Date.today.beginning_of_year), class: 'date span2')
+    .input-group.w-50
+      .input-prepend
+        %span.input-group-text= icon(:'calendar-alt')
+      = text_field_tag('filter[bsv_since]', f(Date.today.beginning_of_year), class: 'date form-control form-control-sm')
 
   = f.labeled(t('event.lists.popover_bsv_export.date_to')) do
-    .input-prepend{style: 'margin: 0 0.5rem 0.5rem 0'}
-      %span.add-on= icon(:'calendar-alt')
-      = text_field_tag('filter[bsv_until]', f(Date.today.end_of_year), class: 'date span2')
+    .input-group.w-50
+      .input-prepend
+        %span.input-group-text= icon(:'calendar-alt')
+      = text_field_tag('filter[bsv_until]', f(Date.today.end_of_year), class: 'date form-control form-control-sm')
 
   = form_buttons(f, submit_label: t('event.lists.bsv_export_button'), cancel_url: :list_courses)
-
-:javascript
-  (function() {
-    $('body').on('click', '.popover :submit', function(e) {
-      return setTimeout((function() {
-        return $('a[data-toggle=popover]').popover('hide');
-      }), 100);
-    });
-  });

@@ -5,13 +5,13 @@
 - if @declined_invitations.present?
   = render 'banner_declined_invitation'
 
-#main.row-fluid
-  %article.span7
+#main.row
+  %article.col-7
     = render 'attrs_primary'
 
     = render_extensions 'show_left'
 
-  %aside.span5
+  %aside.col-5
     = render 'attrs_contact'
 
     - if entry.participant_types.present?
