@@ -8,7 +8,7 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class Event::ParticipationContactDatas::Manager < Event::ParticipationContactData
-  def required_attributes
-    @required_attributes ||= self.class.mandatory_contact_attrs.map(&:to_s)
+  def required_attrs
+    @required_attrs ||= self.class.mandatory_contact_attrs
   end
 end
