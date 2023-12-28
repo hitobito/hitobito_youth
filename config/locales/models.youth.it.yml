@@ -38,6 +38,19 @@ it:
           CH: CH
           FL: FL
           ANDERE: ALTRO
+        managers: Gestore
+        manageds: Bambini
+        people_managers: Gestore
+        people_manageds: Bambini
+        people_managers_attributes: Gestore
+        people_manageds_attributes: Bambini
+        readable_manageds: Bambini
+      people_managers:
+        manager_id: Gestore
+        managed_id: bambina/o
+      people_manageds:
+        manager_id: bambina/o
+        managed_id: Gestore
     errors:
       messages:
         must_be_social_security_number_with_correct_format: deve essere in formato valido (756.1234.5678.97).

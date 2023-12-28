@@ -34,10 +34,24 @@ fr:
         ahv_number: Numéro AVS
         j_s_number: Numéro J+S
         nationality_j_s: Nationalité selon J+S
+        translated_nationality_j_s: Nationalité selon J+S
         nationalities_j_s:
           CH: CH
           FL: FL
           ANDERE: AUTRE
+        managers: Gérants
+        manageds: Enfants
+        people_managers: Gérants
+        people_manageds: Enfants
+        people_managers_attributes: Gérants
+        people_manageds_attributes: Enfants
+        readable_manageds: Enfants
+      people_managers:
+        manager_id: Gérant
+        managed_id: Enfant
+      people_manageds:
+        manager_id: Enfant
+        managed_id: Gérant
     errors:
       messages:
         must_be_social_security_number_with_correct_format: doit être dans un format valide (756.1234.5678.97).
