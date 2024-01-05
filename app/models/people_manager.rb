@@ -11,6 +11,7 @@ class PeopleManager < ActiveRecord::Base
   belongs_to :manager, class_name: 'Person'
   belongs_to :managed, class_name: 'Person'
 
+  accepts_nested_attributes_for :managed
   validates :manager_id, uniqueness: { scope: :managed_id }
   validate :assert_manager_is_not_managed
 

@@ -55,6 +55,42 @@ describe PeopleController do
 
         expect(pm).to be_present
       end
+
+      context 'trying to create new person' do
+        context 'with feature gate disabled' do
+        end
+
+        context 'with feature gate enabled' do
+          it 'works' do
+            managed_attrs = {
+              people_manageds_attributes: {
+                '99' => {
+                  managed_id: nil,
+                  managed_attributes: {
+                    first_name: 'Bob',
+                    last_name: 'Miller',
+                    birthday: '19.12.2002',
+                    gender: 'w'
+                  }
+                }
+              }
+            }
+
+            expect do
+              put :update, params: { id: subject.id,
+                                     group_id: subject.primary_group_id,
+                                     person: managed_attrs }
+            end.to change { Person.count }.by(1)
+               .and change { PeopleManager.count }.by(1)
+
+            managed = Person.find_by(first_name: 'Bob', last_name: 'Miller')
+            
+            pm = PeopleManager.find_by(manager: subject, managed: managed)
+
+            expect(pm).to be_present
+          end
+        end
+      end
     end
 
     context 'as top_leader', versioning: true do

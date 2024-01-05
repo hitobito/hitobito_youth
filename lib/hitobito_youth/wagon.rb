@@ -84,7 +84,13 @@ module HitobitoYouth
                                                                         :_destroy],
                                            people_manageds_attributes: [:id,
                                                                         :managed_id,
-                                                                        :_destroy]]
+                                                                        :_destroy,
+                                                                        managed_attributes: [
+                                                                          :first_name,
+                                                                          :last_name,
+                                                                          :gender,
+                                                                          :birthday
+                                           ]]]
       EventsController.permitted_attrs += [:tentative_applications]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 

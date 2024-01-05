@@ -40,7 +40,7 @@ module Youth::PeopleController
     end
     permitted[:people_manageds_attributes]&.keep_if do |index, attrs|
       managed = extract_managed(attrs)
-      managed.present? && can?(:change_managers, managed)
+      managed.present? && (managed.new_record? || can?(:change_managers, managed))
     end
     permitted
   end
@@ -54,6 +54,7 @@ module Youth::PeopleController
   def extract_managed(attrs)
     return Person.find_by(id: attrs[:managed_id]) if attrs[:managed_id].present?
     return PeopleManager.find_by(id: attrs[:id]).managed if attrs[:id].present?
+    return Person.new(attrs[:managed_attributes]) if attrs[:managed_attributes].values.any?
     nil
   end
 
