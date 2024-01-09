@@ -1,1 +1,3 @@
-en: {}
+en:
+  dropdown/event/participant_add:
+    register_new_managed: Register new Child
