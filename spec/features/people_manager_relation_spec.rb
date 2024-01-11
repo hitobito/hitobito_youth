@@ -15,6 +15,7 @@ describe 'PeopleManagerRelation', js: true do
   let(:root) { people(:root) }
   before do
     allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
+    allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
     allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
     allow_any_instance_of(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
     allow_any_instance_of(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)

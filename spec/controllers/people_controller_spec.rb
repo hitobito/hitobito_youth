@@ -58,9 +58,42 @@ describe PeopleController do
 
       context 'trying to create new person' do
         context 'with feature gate disabled' do
+          before do
+            allow(FeatureGate).to receive(:enabled?).and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(false)
+          end
+
+          it 'does not work' do
+            managed_attrs = {
+              people_manageds_attributes: {
+                '99' => {
+                  managed_id: nil,
+                  managed_attributes: {
+                    first_name: 'Bob',
+                    last_name: 'Miller',
+                    birthday: '19.12.2002',
+                    gender: 'w'
+                  }
+                }
+              }
+            }
+
+            expect do
+              put :update, params: { id: subject.id,
+                                     group_id: subject.primary_group_id,
+                                     person: managed_attrs }
+            end.to_not change { Person.count }
+
+            expect(Person.exists?(first_name: 'Bob', last_name: 'Miller')).to eq(false)
+          end
         end
 
         context 'with feature gate enabled' do
+          before do
+            allow(FeatureGate).to receive(:enabled?).and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
+          end
+
           it 'works' do
             managed_attrs = {
               people_manageds_attributes: {
