@@ -5,7 +5,7 @@
 -#  https://github.com/hitobito/hitobito_youth.
 
 - if f.object.new_record?
-  - if cannot?(:create_households, Person) && FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+  - if cannot?(:lookup_manageds, Person) && FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
     = render('people/manageds/create_new_managed_person', f: f)
   - else
     = f.person_field(:managed, { disabled: cannot?(:create_households, Person), data: { url: query_people_path(limit_by_permission: :change_managers) } })
