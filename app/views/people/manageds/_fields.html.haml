@@ -8,9 +8,8 @@
   - if cannot?(:lookup_manageds, Person) && FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
     = render('people/manageds/create_new_managed_person', f: f)
   - else
-    = f.person_field(:managed, { disabled: cannot?(:create_households, Person), data: { url: query_people_path(limit_by_permission: :change_managers) } })
-
-  %span.help-block= t('.manageds_help')
+    %span
+      = f.person_field(:managed, { disabled: cannot?(:create_households, Person), data: { url: query_people_path(limit_by_permission: :change_managers) } })
+      %span.help-block= t('.manageds_help')
 - else
-  .col-4
-    = f.object.managed.full_name
+  = f.object.managed.full_name
