@@ -19,9 +19,13 @@ de:
         destroyed_manageds:
           one: "Kind %{labels} entfernt."
           other: "Kinder %{labels} entfernt."
+    manageds:
+      fields:
+        manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
+      create_new_managed_person:
+        birthday_hint: (dd.mm.yyyy)
     fields_youth:
       no_permission_to_change_managers: Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.
-      manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
       nationality:
         placeholder: z.B. CH
 

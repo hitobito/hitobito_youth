@@ -26,11 +26,31 @@ describe PersonAbility do
       end
     end
 
+    it 'may not create households' do
+      is_expected.to_not be_able_to(:create_households, Person)
+    end
+
+    it 'may not lookup manageds' do
+      is_expected.to_not be_able_to(:lookup_manageds, Person)
+    end
+
     it 'may access member if is manager of member' do
       member.people_managers.create(manager_id: manager.id)
       actions.each do |action|
         is_expected.to be_able_to(action, member)
       end
+    end
+  end
+
+  context 'manager permission' do
+    before { member.people_managers.create(manager_id: manager.id) }
+
+    it 'may create households' do
+      is_expected.to be_able_to(:create_households, Person)
+    end
+
+    it 'may not lookup manageds' do
+      is_expected.to_not be_able_to(:lookup_manageds, Person)
     end
   end
 
@@ -41,6 +61,13 @@ describe PersonAbility do
 
       # assertion: does not have write permission via a role, so cannot change managers
       is_expected.not_to be_able_to(:change_managers, member)
+    end
+
+    it 'may lookup manageds if has write permissions on managed person' do
+      Fabricate(Group::BottomLayer::Leader.name.to_sym,
+                group_id: member_role.group_id,
+                person: manager)
+      is_expected.to be_able_to(:lookup_manageds, Person)
     end
 
     it 'cannot change managers if only related to the managed person via manager relation' do
