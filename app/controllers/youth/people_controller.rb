@@ -34,22 +34,24 @@ module Youth::PeopleController
   end
 
   def permitted_attrs
-    return unless FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+    permitted = self.class.permitted_attrs.uniq
 
-    self.class.permitted_attrs += [
-      people_manageds_attributes: [:id,
-                                   :managed_id,
-                                   :_destroy, 
-                                    managed_attributes: [
-                                      :first_name,
-                                      :last_name,
-                                      :gender,
-                                      :birthday
-                                    ]
+    if FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+      permitted += [
+        people_manageds_attributes: [:id,
+                                     :managed_id,
+                                     :_destroy, 
+                                     managed_attributes: [
+                                       :first_name,
+                                       :last_name,
+                                       :gender,
+                                       :birthday
+                                     ]
+        ]
       ]
-    ]
+    end
 
-    self.class.permitted_attrs.uniq
+    permitted.uniq
   end
 
   def permitted_params
@@ -73,7 +75,7 @@ module Youth::PeopleController
   def extract_managed(attrs)
     return Person.find_by(id: attrs[:managed_id]) if attrs[:managed_id].present?
     return PeopleManager.find_by(id: attrs[:id]).managed if attrs[:id].present?
-    return Person.new(attrs[:managed_attributes]) if attrs[:managed_attributes].values.any?
+    return Person.new(attrs[:managed_attributes]) if attrs[:managed_attributes]&.values&.any?
     nil
   end
 
