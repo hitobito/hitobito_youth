@@ -20,6 +20,14 @@ describe PeopleController do
       let(:user) { bottom_leader }
       subject { bottom_leader }
 
+      it 'updates person' do
+        expect do
+          put :update, params: { id: subject.id,
+                                 group_id: subject.primary_group_id,
+                                 person: { first_name: 'New' } }
+        end.to change { subject.reload.first_name }.to('New')
+      end
+
       it 'does not set managers' do
         manager_attrs = {
           people_managers_attributes: {
@@ -129,6 +137,14 @@ describe PeopleController do
     context 'as top_leader', versioning: true do
       let(:user) { top_leader }
       subject { bottom_member }
+
+      it 'updates person' do
+        expect do
+          put :update, params: { id: subject.id,
+                                 group_id: subject.primary_group_id,
+                                 person: { first_name: 'New' } }
+        end.to change { subject.reload.first_name }.to('New')
+      end
 
       it 'sets managers' do
         manager_attrs = {
