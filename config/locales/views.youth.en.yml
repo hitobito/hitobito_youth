@@ -1,3 +1,11 @@
 en:
+  event:
+    participation_contact_data:
+      managed:
+        edit:
+          save: continue
+    register:
+      email_check:
+        next_for_manager: Register my child
   dropdown/event/participant_add:
     register_new_managed: Register new Child
