@@ -88,7 +88,7 @@ module Youth::PeopleController
   end
 
   def new_manageds
-    entry.people_manageds.select { |pm| pm.new_record? }.map(&:managed)
+    @new_manageds ||= entry.people_manageds.select { |pm| pm.new_record? }.map(&:managed)
   end
 
   def destroyed_manageds
