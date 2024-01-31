@@ -21,5 +21,8 @@ spec/reports
 brakeman-output.tabs
 rubocop-results.xml
 config/environment.rb
+
 .envrc
 .tool-versions
+.nvimrc
+tags
