@@ -13,6 +13,8 @@ class PeopleManager < ActiveRecord::Base
 
   accepts_nested_attributes_for :managed
   validates :manager_id, uniqueness: { scope: :managed_id }
+  validates :manager_id, presence: true
+  validates :managed_id, presence: true, unless: ->(p) { p.managed.present? }
   validate :assert_manager_is_not_managed
 
   after_create :create_paper_trail_versions_for_create_event

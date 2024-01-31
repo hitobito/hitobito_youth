@@ -23,7 +23,7 @@ class Event::ParticipationContactData::ManagedController <
 
   def person
     @person ||= Person.new.tap do |person|
-      person.managers = [current_user]
+      person.people_managers.build(manager: current_user, managed: person)
     end
   end
 

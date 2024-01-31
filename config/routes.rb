@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   extend LanguageRouteScope
 
   language_scope do
-    # Define wagon routes here
+    resources :people, only: [] do
+      scope module: 'person' do
+        resources :managers, except: [:edit, :update]
+        resources :manageds, except: [:edit, :update]
+      end
+    end
 
     resources :groups do
       member do

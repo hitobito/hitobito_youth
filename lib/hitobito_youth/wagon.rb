@@ -66,6 +66,8 @@ module HitobitoYouth
       PersonReadables.prepend(Youth::PersonReadables)
       PersonLayerWritables.prepend(Youth::PersonLayerWritables)
 
+      Ability.store.register PeopleManagerAbility
+
       # decorator
       PersonDecorator.include Youth::PersonDecorator
       Event::ParticipationDecorator.include Youth::Event::ParticipationDecorator
