@@ -74,20 +74,12 @@ module HitobitoYouth
       PaperTrail::VersionDecorator.include Youth::PaperTrail::VersionDecorator
 
       # controller
-      PeopleController.include Youth::PeopleController
       PeopleFiltersController.include Youth::PeopleFiltersController
       EventsController.include Youth::EventsController
       Event::ParticipationsController.include Youth::Event::ParticipationsController
       Event::ParticipationContactDatasController.prepend Youth::Event::ParticipationContactDatasController
 
-      PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number,
-                                           people_managers_attributes: [:id,
-                                                                        :manager_id,
-                                                                        :_destroy],
-                                           people_manageds_attributes: [:id,
-                                                                        :managed_id,
-                                                                        :_destroy]
-      ]
+      PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number]
       EventsController.permitted_attrs += [:tentative_applications]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 
