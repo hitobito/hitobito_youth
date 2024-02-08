@@ -103,9 +103,9 @@ module Youth::Event::Course
 
   module ClassMethods
     def application_possible
-      where(state: 'application_open').
-      where('events.application_opening_at IS NULL OR events.application_opening_at <= ?',
-            ::Time.zone.today)
+      where(state: 'application_open')
+        .where('events.application_opening_at IS NULL OR events.application_opening_at <= ?',
+               ::Time.zone.today)
     end
   end
 end
