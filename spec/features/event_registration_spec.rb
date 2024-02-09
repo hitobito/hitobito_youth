@@ -22,7 +22,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(event.groups.first, event)
 
-      expect(page).to have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to have_css('a.btn', text: /Anmelden/i)
     end
 
     it 'with currently open application window is allowed' do
@@ -31,7 +31,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(event.groups.first, event)
 
-      expect(page).to have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to have_css('a.btn', text: /Anmelden/i)
     end
 
     it 'with application window in the future is not allowed' do
@@ -40,7 +40,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(event.groups.first, event)
 
-      expect(page).to_not have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to_not have_css('a.btn', text: /Anmelden/i)
     end
 
     it 'with application window completely in the past is not allowed' do
@@ -49,7 +49,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(event.groups.first, event)
 
-      expect(page).to_not have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to_not have_css('a.btn', text: /Anmelden/i)
     end
   end
 
@@ -62,7 +62,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(course.groups.first, course)
 
-      expect(page).to have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to have_css('a.btn', text: /Anmelden/i)
     end
 
     it 'in state application_open in the past is allowed (for now)' do
@@ -71,7 +71,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(course.groups.first, course)
 
-      expect(page).to have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to have_css('a.btn', text: /Anmelden/i)
     end
 
     it 'in state application_open in the future is not allowed' do
@@ -80,7 +80,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(course.groups.first, course)
 
-      expect(page).to_not have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to_not have_css('a.btn', text: /Anmelden/i)
     end
 
     it 'in state application_closed it not allowed' do
@@ -89,7 +89,7 @@ describe 'event registration', js: true do
 
       visit group_event_path(course.groups.first, course)
 
-      expect(page).to_not have_css('a.btn', text: 'Anmelden', exact_text: true)
+      expect(page).to_not have_css('a.btn', text: /Anmelden/i)
     end
   end
 end
