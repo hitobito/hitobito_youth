@@ -63,21 +63,21 @@ describe Person do
   end
 
   describe 'people managers' do
-     it 'does not allow for someone to be both manager and managed' do
-       top_leader.managers = [bottom_member]
-       top_leader.manageds = [Fabricate(:person)]
+    it 'does not allow for someone to be both manager and managed' do
+      top_leader.managers = [bottom_member]
+      top_leader.manageds = [Fabricate(:person)]
 
-       expect(top_leader).to_not be_valid
-     end
-     
-     it 'does not allow to manage someone who is manager' do
-       bottom_member.manageds = [Fabricate(:person)]
-       bottom_member.save
+      expect(top_leader).to_not be_valid
+    end
 
-       top_leader.manageds = [bottom_member]
+    it 'does not allow to manage someone who is manager' do
+      bottom_member.manageds = [Fabricate(:person)]
+      bottom_member.save
 
-       expect(top_leader).to_not be_valid
-     end
+      top_leader.manageds = [bottom_member]
+
+      expect(top_leader).to_not be_valid
+    end
 
     it 'can provide a mail to a managed person' do
       managed = Fabricate(:person, email: nil)

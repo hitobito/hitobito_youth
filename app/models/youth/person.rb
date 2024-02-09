@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2012-2024, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
@@ -38,7 +38,8 @@ module Youth::Person
   def validate_ahv_number
     # Allow changing the password, even if there is an invalid AHV number in the database
     return if will_save_change_to_encrypted_password? && !will_save_change_to_ahv_number?
-    return unless ahv_number.present?
+    return if ahv_number.blank?
+
     if ahv_number !~ AHV_NUMBER_REGEX
       errors.add(:ahv_number, :must_be_social_security_number_with_correct_format)
       return
@@ -48,10 +49,10 @@ module Youth::Person
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def assert_either_only_managers_or_manageds
+  def assert_either_only_managers_or_manageds # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
     existent_managers = people_managers.reject { |pm| pm.marked_for_destruction? }
     existent_manageds = people_manageds.reject { |pm| pm.marked_for_destruction? }
+
     if existent_managers.any? && existent_manageds.any?
       errors.add(:base, :cannot_have_managers_and_manageds)
     elsif PeopleManager.exists?(managed: existent_managers.map(&:manager_id))
@@ -60,7 +61,6 @@ module Youth::Person
       errors.add(:base, :managed_already_manager)
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def and_manageds
     return [self] unless FeatureGate.enabled?('people.people_managers')
