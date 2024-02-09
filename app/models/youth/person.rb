@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2024, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -70,5 +70,13 @@ module Youth::Person
 
   def checksum_validate(ahv_number)
     SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: 'ch')
+  end
+
+  def valid_email?(email = self.email)
+    if FeatureGate.enabled?('people.people_managers')
+      Person.mailing_emails_for(self).any? { |mail| super(mail) }
+    else
+      super(email)
+    end
   end
 end

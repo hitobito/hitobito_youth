@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2024, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -78,6 +78,16 @@ describe Person do
 
        expect(top_leader).to_not be_valid
      end
+
+    it 'can provide a mail to a managed person' do
+      managed = Fabricate(:person, email: nil)
+      expect(managed).to_not be_valid_email
+      expect(bottom_member).to be_valid_email
+
+      expect do
+        managed.managers = [bottom_member]
+      end.to change(managed, :valid_email?).from(false).to(true)
+    end
   end
 
 end
