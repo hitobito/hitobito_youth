@@ -19,9 +19,9 @@ module HitobitoYouth
       #{config.root}/app/domain
       #{config.root}/app/jobs
     ]
-    
-    # rubocop:disable Metrics/BlockLength,Metrics/LineLength
-    config.to_prepare do
+
+    # rubocop:disable Layout/LineLength
+    config.to_prepare do # rubocop:disable Metrics/BlockLength
       # extend application classes here
 
       # models
@@ -109,6 +109,7 @@ module HitobitoYouth
       # serializer
       PersonSerializer.include Youth::PersonSerializer
     end
+    # rubocop:enable Layout/LineLength
 
     initializer 'youth.add_settings' do |_app|
       Settings.add_source!(File.join(paths['config'].existent, 'settings.yml'))

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2024, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -63,21 +63,31 @@ describe Person do
   end
 
   describe 'people managers' do
-     it 'does not allow for someone to be both manager and managed' do
-       top_leader.managers = [bottom_member]
-       top_leader.manageds = [Fabricate(:person)]
+    it 'does not allow for someone to be both manager and managed' do
+      top_leader.managers = [bottom_member]
+      top_leader.manageds = [Fabricate(:person)]
 
-       expect(top_leader).to_not be_valid
-     end
-     
-     it 'does not allow to manage someone who is manager' do
-       bottom_member.manageds = [Fabricate(:person)]
-       bottom_member.save
+      expect(top_leader).to_not be_valid
+    end
 
-       top_leader.manageds = [bottom_member]
+    it 'does not allow to manage someone who is manager' do
+      bottom_member.manageds = [Fabricate(:person)]
+      bottom_member.save
 
-       expect(top_leader).to_not be_valid
-     end
+      top_leader.manageds = [bottom_member]
+
+      expect(top_leader).to_not be_valid
+    end
+
+    it 'can provide a mail to a managed person' do
+      managed = Fabricate(:person, email: nil)
+      expect(managed).to_not be_valid_email
+      expect(bottom_member).to be_valid_email
+
+      expect do
+        managed.managers = [bottom_member]
+      end.to change(managed, :valid_email?).from(false).to(true)
+    end
   end
 
 end
