@@ -74,7 +74,7 @@ module Youth::Person
 
   def valid_email?(email = self.email)
     if FeatureGate.enabled?('people.people_managers')
-      Person.mailing_emails_for(self).any? { |mail| super(mail) }
+      super(email) || Person.mailing_emails_for(self).any? { |mail| super(mail) }
     else
       super(email)
     end
