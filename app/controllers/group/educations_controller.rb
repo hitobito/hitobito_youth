@@ -12,7 +12,17 @@ class Group::EducationsController < ApplicationController
 
   def index
     authorize!(:education, group)
-    @people = education_entries.page(params[:page])
+
+    respond_to do |format|
+      format.html  { @people = education_entries.page(params[:page]) }
+      format.csv   { export_people(:csv) }
+      format.xlsx  { export_people(:xlsx) }
+    end
+  end
+
+  def export_people(format)
+    exporter = Export::Tabular::People::PeopleEducationList
+    send_data exporter.export(format, education_entries), type: format
   end
 
   private

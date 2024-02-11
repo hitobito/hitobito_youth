@@ -62,6 +62,8 @@ fr:
         valid: Valable
         valid_until_end_of_year: Valable jusqu'à la fin de l'année
         can_be_reactivated: Omis, peut être réactivé
+      actions_index:
+        export_people: Export
   event/lists:
     courses:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.

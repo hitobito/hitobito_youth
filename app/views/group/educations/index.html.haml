@@ -7,6 +7,7 @@
 
 - content_for(:filter, FilterNavigation::People.new(self, @group, @person_filter).to_s)
 
+- content_for(:toolbar, render('actions_index'))
 
 #main
   %p

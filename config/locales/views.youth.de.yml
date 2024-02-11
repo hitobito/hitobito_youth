@@ -144,6 +144,8 @@ de:
         valid: Gültig
         valid_until_end_of_year: Gültig bis Ende Jahr
         can_be_reactivated: Weggefallen, kann reaktiviert werden
+      actions_index:
+        export_people: Export
   dropdown/people_export:
     nds_course: NDS-Kurs
     nds_camp: NDS-Lager
