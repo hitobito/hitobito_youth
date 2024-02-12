@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2023, CEVI Schweiz, Pfadibewegung Schweiz,
+#  Copyright (c) 2023-2024, CEVI Schweiz, Pfadibewegung Schweiz,
 #  Jungwacht Blauring Schweiz, Pro Natura, Stiftung für junge Auslandschweizer.
 #  This file is part of hitobito_youth and
 #  licensed under the Affero General Public License version 3
@@ -42,7 +42,7 @@ describe 'EventRegisterManaged', js: true do
 
             expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i)
             expect(page).to_not have_css('dropdown-menu a', text: managed.full_name, exact_text: true)
-            expect(page).to have_css('a.btn', text: /Anmelden/i, exact_text: true)
+            expect(page).to have_css('a.btn', text: /Anmelden/i)
           end
         end
 
@@ -175,9 +175,9 @@ describe 'EventRegisterManaged', js: true do
             it 'does not show dropdown option for new managed' do
               visit group_event_path(group, event)
 
-              expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-              expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-              expect(page).to have_css('a.btn', text: /Anmelden/i, exact_text: true)
+              expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i)
+              expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i)
+              expect(page).to have_css('a.btn', text: /Anmelden/i)
             end
           end
 
@@ -189,9 +189,9 @@ describe 'EventRegisterManaged', js: true do
             it 'does not show dropdown option for new managed' do
               visit group_event_path(group, event)
 
-              expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-              expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-              expect(page).to have_css('a.btn', text: /Anmelden/i, exact_text: true)
+              expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i)
+              expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i)
+              expect(page).to have_css('a.btn', text: /Anmelden/i)
             end
           end
         end
@@ -210,9 +210,9 @@ describe 'EventRegisterManaged', js: true do
             it 'does not show dropdown option for new managed' do
               visit group_event_path(group, event)
 
-              expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-              expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-              expect(page).to have_css('a.btn', text: /Anmelden/i, exact_text: true)
+              expect(page).to_not have_css('a.dropdown-toggle', text: /Anmelden/i)
+              expect(page).to_not have_css('dropdown-menu a', text: /Neues Kind erfassen und anmelden/i)
+              expect(page).to have_css('a.btn', text: /Anmelden/i)
             end
           end
 
@@ -224,18 +224,18 @@ describe 'EventRegisterManaged', js: true do
             it 'shows dropdown option for new managed' do
               visit group_event_path(group, event)
 
-              expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-              find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
-              expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
+              expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
+              find('a.dropdown-toggle', text: /Anmelden/i).click
+              expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i)
             end
 
             it 'allows you to create new managed even if you cancel before creating participation' do
               visit group_event_path(group, event)
 
-              expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-              find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
-              expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-              find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true).click
+              expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
+              find('a.dropdown-toggle', text: /Anmelden/i).click
+              expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i)
+              find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i).click
 
               expect(page).to have_content 'Neues Kind registrieren und am Anlass anmelden'
               contact_data_path = contact_data_managed_group_event_participations_path(group, event)
@@ -270,10 +270,10 @@ describe 'EventRegisterManaged', js: true do
             it 'allows you to create new managed and participation for said person' do
               visit group_event_path(group, event)
 
-              expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
-              find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
-              expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
-              find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true).click
+              expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
+              find('a.dropdown-toggle', text: /Anmelden/i).click
+              expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i)
+              find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i).click
 
               expect(page).to have_content 'Neues Kind registrieren und am Anlass anmelden'
               contact_data_path = contact_data_managed_group_event_participations_path(group, event)
