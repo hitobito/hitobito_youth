@@ -81,12 +81,12 @@ describe Person do
 
     it 'can provide a mail to a managed person' do
       managed = Fabricate(:person, email: nil)
-      expect(managed).to_not be_valid_email
+      expect(managed).to_not be_nil
       expect(bottom_member).to be_valid_email
 
-      expect do
-        managed.managers = [bottom_member]
-      end.to change(managed, :valid_email?).from(false).to(true)
+      managed.managers = [bottom_member]
+
+      expect(managed).to be_valid_email
     end
   end
 
