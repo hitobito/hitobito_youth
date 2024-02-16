@@ -84,6 +84,11 @@ de:
           attributes:
             manager_id:
               taken: ist bereits gesetzt.
+          manager_and_managed_the_same: kann sich nicht selber verwalten.
+    models:
+      people_manager:
+        one: Verwalter*in
+        other: Verwalter*innen
 
   activemodel:
     errors:
