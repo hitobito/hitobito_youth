@@ -51,15 +51,15 @@ describe 'PeopleManagerRelation', js: true do
 
         expect do
           all('form button[type="submit"]').last.click
+          expect(page).to have_content 'Verwalter*in Bottom Member hinzugefügt.'
         end.to change { PeopleManager.count }.by(1)
           .and change { PaperTrail::Version.count }.by(2)
 
-        expect(page).to have_content 'Verwalter*in Bottom Member hinzugefügt.'
+        expect(page).to have_css('dd a', text: 'Bottom Member')
         find('dd a', text: 'Bottom Member').click
 
-        expect(current_path).to eq(person_path(id: bottom_member.id))
-
-        expect(page).to have_content 'Top Leader'
+        expect(page).to have_content 'bottom_member@example.com'
+        expect(current_path).to eq(group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member.id))
       end
 
       it 'establishes managed relation' do
@@ -79,15 +79,15 @@ describe 'PeopleManagerRelation', js: true do
 
         expect do
           all('form button[type="submit"]').last.click
+          expect(page).to have_content 'Kind Bottom Member hinzugefügt.'
         end.to change { PeopleManager.count }.by(1)
           .and change { PaperTrail::Version.count }.by(2)
 
-        expect(page).to have_content 'Kind Bottom Member hinzugefügt.'
+        expect(page).to have_css('dd a', text: 'Bottom Member')
         find('dd a', text: 'Bottom Member').click
 
-        expect(current_path).to eq(person_path(id: bottom_member.id))
-
-        expect(page).to have_content 'Top Leader'
+        expect(page).to have_content 'bottom_member@example.com'
+        expect(current_path).to eq(group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member.id))
       end
 
       it 'can not establish both managed and manager relation' do
@@ -169,7 +169,7 @@ describe 'PeopleManagerRelation', js: true do
       end
 
       it 'finds person without roles for manager option' do
-        person_without_roles = Fabricate(:person, first_name: 'Bob', last_name: 'Foo')
+        person_without_roles = Fabricate(:person, first_name: 'Bob', last_name: 'Foo', email: 'bob@example.com')
 
         visit edit_group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member)
 
@@ -187,13 +187,15 @@ describe 'PeopleManagerRelation', js: true do
 
         expect do
           all('form button[type="submit"]').last.click
+          expect(page).to have_content "Verwalter*in #{person_without_roles.person_name} hinzugefügt."
         end.to change { PeopleManager.count }.by(1)
           .and change { PaperTrail::Version.count }.by(2)
 
-        expect(page).to have_content "Verwalter*in #{person_without_roles.person_name} hinzugefügt."
+        expect(page).to have_css('dd a', text: 'Bob Foo')
         find('dd a', text: 'Bob Foo').click
 
-        expect(current_path).to eq(person_path(id: person_without_roles))
+        expect(page).to have_content "bob@example.com"
+        expect(current_path).to eq(group_person_path(group_id: Group.root.id, id: person_without_roles.id))
       end
 
       it 'can not add same manager twice' do
