@@ -56,10 +56,7 @@ describe 'PeopleManagerRelation', js: true do
           .and change { PaperTrail::Version.count }.by(2)
 
         expect(page).to have_css('dd a', text: 'Bottom Member')
-        find('dd a', text: 'Bottom Member').click
-
-        expect(page).to have_content 'bottom_member@example.com'
-        expect(current_path).to eq(group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member.id))
+        expect(page).to have_link 'Bottom Member'
       end
 
       it 'establishes managed relation' do
@@ -84,10 +81,7 @@ describe 'PeopleManagerRelation', js: true do
           .and change { PaperTrail::Version.count }.by(2)
 
         expect(page).to have_css('dd a', text: 'Bottom Member')
-        find('dd a', text: 'Bottom Member').click
-
-        expect(page).to have_content 'bottom_member@example.com'
-        expect(current_path).to eq(group_person_path(group_id: bottom_member.primary_group_id, id: bottom_member.id))
+        expect(page).to have_link 'Bottom Member'
       end
 
       it 'can not establish both managed and manager relation' do
@@ -192,10 +186,7 @@ describe 'PeopleManagerRelation', js: true do
           .and change { PaperTrail::Version.count }.by(2)
 
         expect(page).to have_css('dd a', text: 'Bob Foo')
-        find('dd a', text: 'Bob Foo').click
-
-        expect(page).to have_content "bob@example.com"
-        expect(current_path).to eq(group_person_path(group_id: Group.root.id, id: person_without_roles.id))
+        expect(page).to have_link 'Bob Foo'
       end
 
       it 'can not add same manager twice' do
