@@ -177,7 +177,7 @@ describe Event::ParticipationsController do
                                    event_id: course.id,
                                    id: participation.id }
 
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(303)
         expect(response).to redirect_to(group_event_path(group, course))
       end
     end

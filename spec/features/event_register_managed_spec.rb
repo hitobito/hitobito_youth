@@ -79,6 +79,7 @@ describe 'EventRegisterManaged', js: true do
             expect(page).to have_css('ul.dropdown-menu li a', text: managed.full_name, exact_text: true)
             find('ul.dropdown-menu li a', text: managed.full_name, exact_text: true).click
 
+            expect(page).to have_content 'Kontaktangaben der teilnehmenden Person'
             contact_data_path = contact_data_group_event_participations_path(group, event)
             expect(current_path).to eq(contact_data_path)
 
@@ -86,14 +87,14 @@ describe 'EventRegisterManaged', js: true do
             expect(page).to have_field('Nachname', with: managed.last_name)
 
             find_all('button.btn[type="submit"]').last.click
-
+            expect(page).to have_content 'Anmeldung als Teilnehmer/-in'
             expect(current_path).to eq(new_group_event_participation_path(group, event))
 
             expect do
               find_all('button.btn[type="submit"]').last.click
+              expect(page).to have_content(participation_success_text_for_event(event, managed))
             end.to change { Event::Participation.count }.by(1)
 
-            expect(page).to have_content(participation_success_text_for_event(event, managed))
           end
 
         end
@@ -138,6 +139,7 @@ describe 'EventRegisterManaged', js: true do
               expect(page).to have_css('.alert-warning', text: /#{managed.full_name} wurde zu diesem Anlass eingeladen/i)
               find('.alert-warning a.btn', text: /Anmelden/i).click
 
+              expect(page).to have_content 'Kontaktangaben der teilnehmenden Person'
               contact_data_path = contact_data_group_event_participations_path(group, event)
               expect(current_path).to eq(contact_data_path)
 
@@ -145,14 +147,14 @@ describe 'EventRegisterManaged', js: true do
               expect(page).to have_field('Nachname', with: managed.last_name)
 
               find_all('button.btn[type="submit"]').last.click
-
+              expect(page).to have_content 'Anmeldung als Teilnehmer/-in'
               expect(current_path).to eq(new_group_event_participation_path(group, event))
 
               expect do
                 find_all('button.btn[type="submit"]').last.click
+                expect(page).to have_content(participation_success_text_for_event(event, managed))
               end.to change { Event::Participation.count }.by(1)
 
-              expect(page).to have_content(participation_success_text_for_event(event, managed))
             end
           end
         end
@@ -235,6 +237,7 @@ describe 'EventRegisterManaged', js: true do
               expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
               find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true).click
 
+              expect(page).to have_content 'Neues Kind registrieren und am Anlass anmelden'
               contact_data_path = contact_data_managed_group_event_participations_path(group, event)
               expect(current_path).to eq(contact_data_path)
 
@@ -243,6 +246,7 @@ describe 'EventRegisterManaged', js: true do
 
               expect do
                 find_all('button.btn[type="submit"]').last.click
+                expect(page).to have_content 'Anmeldung als Teilnehmer/-in'
               end.to change { Person.count }.by(1)
 
               new_managed = Person.last
@@ -252,6 +256,8 @@ describe 'EventRegisterManaged', js: true do
 
               expect do
                 find('a.cancel').click
+                # back on event#show
+                expect(page).to have_content 'Durchgeführt von'
               end.to_not change { Event::Participation.count }
 
               new_managed.reload
@@ -269,6 +275,7 @@ describe 'EventRegisterManaged', js: true do
               expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
               find('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true).click
 
+              expect(page).to have_content 'Neues Kind registrieren und am Anlass anmelden'
               contact_data_path = contact_data_managed_group_event_participations_path(group, event)
               expect(current_path).to eq(contact_data_path)
 
@@ -277,6 +284,7 @@ describe 'EventRegisterManaged', js: true do
 
               expect do
                 find_all('button.btn[type="submit"]').last.click
+                expect(page).to have_content 'Anmeldung als Teilnehmer/-in'
               end.to change { Person.count }.by(1)
 
               new_managed = Person.last
@@ -286,9 +294,9 @@ describe 'EventRegisterManaged', js: true do
 
               expect do
                 find_all('button.btn[type="submit"]').last.click
+                expect(page).to have_content(participation_success_text_for_event(event, new_managed))
               end.to change { Event::Participation.count }.by(1)
 
-              expect(page).to have_content(participation_success_text_for_event(event, new_managed))
             end
           end
         end

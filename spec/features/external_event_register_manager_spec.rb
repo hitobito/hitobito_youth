@@ -88,22 +88,22 @@ describe 'ExternalEventRegisterManager', js: true do
             fill_in 'Nachname erziehungsberechtigte Person', with: 'Muster'
             fill_in 'Haupt-E-Mail', with: 'max.papi@hitobito.example.com'
 
-          expect do
-            find_all('.offset-md-3.offset-xl-2 .btn-group button[type="submit"]').first.click # submit
-          end.to change { Person.count }.by(1)
+            expect do
+              find_all('.offset-md-3.offset-xl-2 .btn-group button[type="submit"]').first.click # submit
+              expect(page).to have_text('Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden')
+            end.to change { Person.count }.by(1)
 
             expect(current_path).to eq(group_event_path(group, event))
 
             manager = Person.find_by(email: 'max.papi@hitobito.example.com')
             expect(manager).to be_present
 
-            expect(page).to have_text('Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden')
-
             expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i, exact_text: true)
             find('a.dropdown-toggle', text: /Anmelden/i, exact_text: true).click
             expect(page).to have_css('ul.dropdown-menu li a', text: /Neues Kind erfassen und anmelden/i, exact_text: true)
             find('ul.dropdown-menu li a', text: 'Neues Kind erfassen und anmelden', exact_text: true).click
 
+            expect(page).to have_content 'Neues Kind registrieren und am Anlass anmelden'
             contact_data_path = contact_data_managed_group_event_participations_path(group, event)
             expect(current_path).to eq(contact_data_path)
 
@@ -112,6 +112,7 @@ describe 'ExternalEventRegisterManager', js: true do
 
             expect do
               find_all('button.btn[type="submit"]').last.click
+              expect(page).to have_content 'Anmeldung als Teilnehmer/-in'
             end.to change { Person.count }.by(1)
 
             new_managed = Person.last
@@ -121,11 +122,10 @@ describe 'ExternalEventRegisterManager', js: true do
 
             expect do
               find_all('button.btn[type="submit"]').last.click
+              expect(page).to have_text(participation_success_text_for_event(event, new_managed))
             end.to change { Event::Participation.count }.by(1)
 
             expect(current_path).to eq(group_event_path(group, event))
-
-            expect(page).to have_text(participation_success_text_for_event(event, new_managed))
           end
         end
       end
