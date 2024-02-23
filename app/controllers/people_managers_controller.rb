@@ -29,7 +29,12 @@ class PeopleManagersController < ApplicationController
   end
 
   def destroy
-    find_entry.destroy!
+    ActiveRecord::Base.transaction do
+      find_entry.tap do |entry|
+        entry.destroy!
+        yield entry if block_given?
+      end
+    end
     redirect_to redirect_to_path
   end
 
