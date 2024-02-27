@@ -1,0 +1,16 @@
+- #  Copyright (c) 2024, Schweizer Alpen-Club. This file is part of
+- #  hitobito and licensed under the Affero General Public License version 3
+- #  or later. See the COPYING file at the top-level directory or at
+- #  https://github.com/hitobito/hitobito_youth.
+
+- content_for(:section_header) do
+  = t('people_managers.managers_heading')
+  %span.float-end
+    = action_button(ti('link.add'), new_person_manager_path(person), :plus, class: 'btn-sm')
+
+= render layout: 'people_managers/section', locals: { list: person.people_managers } do
+  - person.people_managers.each do |item|
+    %tr
+      %td
+        %strong= link_to(item.manager, item.manager)
+      %td=render 'people_managers/delete_link', path: person_manager_path(person_id: person.id, id: item.id)

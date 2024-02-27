@@ -89,5 +89,4 @@ describe Person do
       expect(managed).to be_valid_email
     end
   end
-
 end

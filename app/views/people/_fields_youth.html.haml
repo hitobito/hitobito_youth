@@ -3,19 +3,6 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_youth.
 
-- FeatureGate.if('people.people_managers') do
-  = field_set_tag do
-    - if can?(:change_managers, entry)
-      = f.labeled_inline_fields_for :people_managers, 'people/managers/fields', f.object.people_managers
-    - else
-      = f.labeled(:people_managers) do
-        %div.pt-1
-          %span.help-block.d-inline
-            = t('.no_permission_to_change_managers')
-
-  = field_set_tag do
-    = f.labeled_inline_fields_for :people_manageds, 'people/manageds/fields', f.object.people_manageds
-
 = field_set_tag do
   = f.labeled_input_fields(:ahv_number, :j_s_number)
   = f.labeled_collection_select(:nationality_j_s,

@@ -1,0 +1,11 @@
+- #  Copyright (c) 2024, Schweizer Alpen-Club. This file is part of
+- #  hitobito and licensed under the Affero General Public License version 3
+- #  or later. See the COPYING file at the top-level directory or at
+- #  https://github.com/hitobito/hitobito_youth.
+
+- content_for(:section_header) do
+  =t('people_managers.managers_heading')
+
+= render layout: 'people_managers/section' do
+  = crud_form(entry, url: person_managers_path(person), cancel_url: person_path(person)) do |f|
+    = f.person_field(:manager)
