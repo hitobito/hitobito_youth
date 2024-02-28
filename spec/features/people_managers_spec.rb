@@ -41,7 +41,7 @@ describe 'people management', :js do
       click_on 'Speichern'
       expect(page).to have_css('h2', text: 'Verwalter*innen')
       expect(page).to have_link 'Bottom Member'
-      expect(page).to have_link 'Erstellen'
+      expect(page).to have_link 'Verwalter*in zuweisen'
       click_link 'Löschen'
       expect(page).to have_css('h2', text: heading)
       expect(page).not_to have_link 'Bottom Member'
@@ -56,7 +56,7 @@ describe 'people management', :js do
       click_on 'Speichern'
       expect(page).to have_css('h2', text: 'Kinder')
       expect(page).to have_link 'Bottom Member'
-      expect(page).to have_link 'Erstellen'
+      expect(page).to have_link 'Kind zuweisen'
       click_link 'Löschen'
       expect(page).to have_css('h2', text: heading)
       expect(page).not_to have_link 'Bottom Member'
@@ -82,12 +82,12 @@ describe 'people management', :js do
 
       within_turbo_frame do
         expect(page).to have_css('h2', text: heading)
-        click_dropdown('Kind erfassen')
+        click_link('Kind erfassen')
         fill_in 'Vorname', with: 'test'
         fill_in 'Nachname', with: 'test'
         click_on 'Speichern'
         expect(page).to have_css('h2', text: 'Kinder')
-        expect(page).to have_link 'Erstellen'
+        expect(page).to have_link 'Kind erfassen'
         expect(page).to have_link 'test test'
         click_link 'Löschen'
         expect(page).to have_css('h2', text: heading)

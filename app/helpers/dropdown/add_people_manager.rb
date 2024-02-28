@@ -2,11 +2,11 @@ module Dropdown
   class AddPeopleManager < Base
 
     delegate :can?, :cannot?, :new_person_manager_path, :new_person_managed_path, to: :template
+    delegate :managers, :manageds, to: '@person'
 
-    def initialize(template, person, managers: true)
+    def initialize(template, person)
       super(template, template.ti(:'link.add'), :plus)
       @person = person
-      @managers = managers
       init_items
     end
 
@@ -24,25 +24,25 @@ module Dropdown
     end
 
     def init_items
-      add_assign_manager_item if create_manager?
-      add_assign_managed_item if create_managed?
-      add_create_managed_item if create_new_managed?
+      add_assign_manager_item if create_manager? && manageds.none?
+      add_assign_managed_item if create_managed? && managers.none?
+      add_create_managed_item if create_new_managed? && managers.none?
     end
 
     def add_assign_manager_item
       add_item(t(:assign_manager_person_button), new_person_manager_path(@person))
     end
 
-    def add_create_managed_item
-      add_item(t(:create_managed_person_button), new_person_managed_path(@person, create: true))
-    end
-
     def add_assign_managed_item
       add_item(t(:assign_managed_person_button), new_person_managed_path(@person))
     end
 
+    def add_create_managed_item
+      add_item(t(:create_managed_person_button), new_person_managed_path(@person, create: true))
+    end
+
     def create_managed?
-      can?(:create_managed, PeopleManager.new(manager: @person))
+      can?(:create_managed, PeopleManager.new(manager: @person)) && can?(:lookup_manageds, Person)
     end
 
     def create_manager?

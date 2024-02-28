@@ -40,6 +40,9 @@ class PeopleManagersController < ApplicationController
     action_to_authorize = :"#{action_name}_#{kind}"
 
     authorize!(action_to_authorize, entry)
+  rescue CanCan::AccessDenied => e
+    entry.errors.add(:base, e.message)
+    render :new, status: :unprocessable_entity
   end
 
   def authorize_class

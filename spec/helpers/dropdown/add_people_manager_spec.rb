@@ -22,22 +22,23 @@ describe Dropdown::AddPeopleManager do
 
   context 'when ability user and person are identical' do
     let(:person) { people(:top_leader) }
-    it 'renders single button only to create new managed' do
+
+    it 'renders single button only to assign new managed' do
       expect(html).to have_css('a', count: 1)
       expect(html).to have_link('Kind zuweisen', href: new_person_managed_path(person))
     end
   end
 
-  context 'when person with read permissions only' do
+  context 'when person has only read permissions' do
     let(:role) { Fabricate(Group::BottomGroup::Member.sti_name, group: groups(:bottom_group_one_one)) }
     let(:ability) { Ability.new(role.person) }
 
-    it 'renders nothing if creating person feature is disabled' do
+    it 'renders nothing if creating assigned managed feature is disabled' do
       allow(FeatureGate).to receive(:enabled?).and_return(false)
       expect(dropdown.to_s).to be_blank
     end
 
-    it 'renders additional button cannot lookup people and create feature gate is enabled' do
+    it 'renders assign managed cannot lookup people and create feature gate is enabled' do
       allow(FeatureGate).to receive(:enabled?).and_return(true)
       expect(html).to have_css('a', count: 1)
       expect(html).to have_link('Kind erfassen', href: new_person_managed_path(person, create: true))
