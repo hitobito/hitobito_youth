@@ -3,9 +3,40 @@
 #  Copyright (c) 2024, Schweizer Alpen-Club. This file is part of
 #  hitobito_sac_cas and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_sac_cas
+#  https://github.com/hitobito/hitobito_youth
 
 require 'spec_helper'
+
+shared_examples 'people_managers#create' do
+  controller(described_class) do
+    def create
+      super { |entry| entry.call_on_yielded }
+    end
+  end
+
+  before { sign_in(people(:root)) }
+
+  context '#create' do
+    let(:params) do
+      attr = described_class.assoc == :people_managers ? :manager_id : :managed_id
+      { person_id: people(:bottom_leader).id, people_manager: { attr => people(:bottom_member).id } }
+    end
+
+    it 'yields' do
+      expect_any_instance_of(PeopleManager).to receive(:call_on_yielded)
+
+      expect { post :create, params: params }.to change { PeopleManager.count }.by(1)
+    end
+
+    it 'does not create entry if yielded block raises error' do
+      expect_any_instance_of(PeopleManager).to receive(:call_on_yielded).and_raise('baaad stuff')
+
+      expect { post :create, params: params }.
+        to raise_error('baaad stuff').
+        and not_change { PeopleManager.count }
+    end
+  end
+end
 
 shared_examples 'people_managers#destroy' do
   controller(described_class) do

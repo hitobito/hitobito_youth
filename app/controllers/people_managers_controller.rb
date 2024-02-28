@@ -21,10 +21,13 @@ class PeopleManagersController < ApplicationController
 
   def create
     assign_attributes
-    if entry.save
-      redirect_to redirect_to_path
-    else
-      render :new
+    ActiveRecord::Base.transaction do
+      if entry.save
+        yield entry if block_given?
+        redirect_to redirect_to_path
+      else
+        render :new
+      end
     end
   end
 
