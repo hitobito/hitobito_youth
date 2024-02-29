@@ -7,5 +7,7 @@
   =t('people_managers.managers_heading')
 
 = render layout: 'people_managers/section' do
-  = crud_form(entry, url: person_managers_path(person), cancel_url: person_path(person)) do |f|
+  = standard_form(entry, url: person_managers_path(person), html: {class: 'p-2'}) do |f|
+    = f.error_messages
     = f.person_field(:manager)
+    = render 'submit_buttons', f: f, cancel_url: person_managers_path(person)

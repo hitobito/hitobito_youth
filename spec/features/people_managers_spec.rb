@@ -42,7 +42,9 @@ describe 'people management', :js do
       expect(page).to have_css('h2', text: 'Verwalter*innen')
       expect(page).to have_link 'Bottom Member'
       expect(page).to have_link 'Verwalter*in zuweisen'
-      click_link 'Löschen'
+      accept_alert('wirklich löschen') do
+        click_link 'Löschen'
+      end
       expect(page).to have_css('h2', text: heading)
       expect(page).not_to have_link 'Bottom Member'
     end
@@ -57,7 +59,9 @@ describe 'people management', :js do
       expect(page).to have_css('h2', text: 'Kinder')
       expect(page).to have_link 'Bottom Member'
       expect(page).to have_link 'Kind zuweisen'
-      click_link 'Löschen'
+      accept_alert('wirklich löschen') do
+        click_link 'Löschen'
+      end
       expect(page).to have_css('h2', text: heading)
       expect(page).not_to have_link 'Bottom Member'
     end
@@ -89,7 +93,9 @@ describe 'people management', :js do
         expect(page).to have_css('h2', text: 'Kinder')
         expect(page).to have_link 'Kind erfassen'
         expect(page).to have_link 'test test'
-        click_link 'Löschen'
+        accept_alert('wirklich löschen') do
+          click_link 'Löschen'
+        end
         expect(page).to have_css('h2', text: heading)
         expect(page).not_to have_link 'test test'
       end

@@ -7,9 +7,11 @@
   = t('people_managers.manageds_heading')
 
 = render layout: 'people_managers/section' do
-  = crud_form(entry, url: person_manageds_path(person), cancel_url: person_path(person)) do |f|
+  = standard_form(entry, url: person_manageds_path(person), html: {class: 'p-2'}) do |f|
     - if create_managed? && params[:create]
       = render "new_person_fields", f: f
     - else
       = f.person_field(:managed, { disabled: cannot?(:create_households, Person), data: { url: query_people_path(limit_by_permission: :change_managers) } })
       %span.help-block= t('.manageds_help')
+
+    = render 'submit_buttons', f: f, cancel_url: person_manageds_path(person)

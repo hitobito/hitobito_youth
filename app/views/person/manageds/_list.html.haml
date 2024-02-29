@@ -12,7 +12,6 @@
   - person.people_manageds.each do |item|
     %tr
       %td
-        %strong= link_to(item.managed, item.managed)
+        %strong= link_to(item.managed, item.managed, data: { turbo_frame: :_top })
       - if can?(:destroy_managed, item)
         %td=render 'people_managers/delete_link', path: person_managed_path(person_id: person.id, id: item.id)
-
