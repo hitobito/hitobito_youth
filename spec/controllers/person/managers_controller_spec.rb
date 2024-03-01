@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_sac_cas
 
 require 'spec_helper'
-require_relative '../people_managers_controller_spec'
+require_relative 'people_managers_shared_examples'
 
 describe Person::ManagersController do
   it_behaves_like 'people_managers#destroy'
