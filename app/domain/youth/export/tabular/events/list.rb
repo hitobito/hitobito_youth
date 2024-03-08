@@ -11,7 +11,6 @@ module Youth::Export::Tabular::Events::List
   included do
     alias_method_chain :data_rows, :counts
     alias_method_chain :row_for, :counts
-    alias_method_chain :add_additional_labels, :training_days
     alias_method_chain :add_count_labels, :state
   end
 
@@ -30,11 +29,6 @@ module Youth::Export::Tabular::Events::List
   end
 
   private
-
-  def add_additional_labels_with_training_days(labels)
-    add_additional_labels_without_training_days(labels)
-    add_used_attribute_label(labels, :training_days)
-  end
 
   def add_count_labels_with_state(labels)
     add_count_labels_without_state(labels)
