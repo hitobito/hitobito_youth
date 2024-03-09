@@ -1,11 +1,99 @@
 en:
+  people:
+    fields_youth:
+      no_permission_to_change_managers: You are not authorized to change the supervisors of this person.
+      nationality:
+        placeholder: e.g. CH
   event:
+    lists:
+      bsv_export_button: Export BSV
+      popover_bsv_export:
+        export_info: Exports a course list for the BSV. Only courses with course status 'Completed' will be exported.
+        event_kinds: Course types
+        event_kinds_hint: Use <Ctrl> + Click to select multiple course types.
+    participations:
+      canceled_notice: "%{participant} has been deregistered."
+      rejected_notice: "%{participant} was rejected."
+      assigned_notice: "%{participant} has been assigned."
+      absent_notice: "%{participant} has been marked as absent."
+      cancel_application:
+        managed:
+          explanation: "%{person} is registered for this event."
+          pending: "\"%{person} is pre-registered for this event. The registration is not yet final and needs to be confirmed by the organizer.\""
+          waiting_list: "%{person} is on the waiting list for this event."
+      actions_show_youth:
+        cancel_button: Cancel Registration
+        cancel_title: Deregister participant
+        reject_button: Reject
+        absent_button: Absent
+        attended_button: Attended
+        assigned_button: Assigned
+    tentatives:
+      created: Provisional registration for %{participant} has been created.
+      index:
+        tentatives_count: Provisionally
+        layer: Level
+      new:
+        title: Register provisionally
     participation_contact_data:
       managed:
+        update:
+          flash:
+            privacy_policy_not_accepted: 'To complete the registration, you must agree to the data protection declaration.'
         edit:
-          save: continue
+          title: Register a new child and register for the event
+          save: Continue
     register:
+      register:
+        title:
+          participant: Enter contact details of the participating individual to complete registration.
+          manager: Contact details of the legal guardian
+        email_check:
+          enter_email: Please enter the email address you would like to use to register.
+      manager_fields:
+        manager_first_name: First name of legal guardian
+        manager_last_name: Last name of legal guardian
       email_check:
         next_for_manager: Register my child
+  event/register:
+    email_sent: 'We have sent you an email with a link where you or your child can register directly for the event.'
+    form_data_missing: Please fill out the following form to register.
+    registered_manager: 'Your personal information has been recorded. You can now register your children using the “Register” button'
+  event/participations:
+    success_for_external_manager: '%{full_entry_label} was created successfully.'
+  event_decorator:
+    canceled: Registration cancelled
+  events:
+    actions_show_youth:
+      create_tentative_application: Register provisionally
+    tabs:
+      tentatives: Provisional Registration
   dropdown/event/participant_add:
+    disabled_messages:
+      already_exists: 'is already registered'
     register_new_managed: Register new Child
+  person:
+    manageds:
+      new_person_fields:
+        birthday_hint: (dd.mm.yyyy)
+  people_managers:
+    section:
+      manageds_help: You can only add individuals as children to whom you have write access.
+    common_heading: Childer / supervisors
+    managers_heading: Supervisors
+    manageds_heading: Children
+    create_managed_person_button: Create child
+    assign_managed_person_button: Assign child
+    assign_manager_person_button: Assign supervisor
+  unauthorized:
+    new:
+      event/participation: 'The selected person does not meet the event requirements.'
+  version:
+    association_change:
+      people_manager:
+        create:
+          manager: "%{label} has been added as a supervisor."
+          managed: " %{label} has been added as a child."
+        destroy:
+          manager: " %{label} has been removed as supervisor."
+          managed: " %{label} has been removed as a child."

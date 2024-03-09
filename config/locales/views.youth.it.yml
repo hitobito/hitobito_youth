@@ -1,6 +1,7 @@
 it:
   people:
     fields_youth:
+      no_permission_to_change_managers: Non sei autorizzato a modificare gli gestori di questa persona.
       nationality:
         placeholder: per es. CH
   event:
@@ -18,6 +19,11 @@ it:
       assigned_notice: "%{participant} è stato assegnato."
       attended_notice: "%{participant} è stato registrato come \"ha partecipato\"."
       absent_notice: "%{participant} è stato registrato come \"non apparso\"."
+      cancel_application:
+        managed:
+          explanation: "%{person} è registrato per questo evento."
+          pending: "\"%{person} è pre-registrato per questo evento. La registrazione non è ancora definitiva e deve essere confermata dalla gestione dell'evento.\""
+          waiting_list: "%{person} è in lista d'attesa per questo evento."
       actions_show_youth:
         cancel_button: Disiscrivere
         cancel_title: Disiscrivere il partecipante
@@ -33,6 +39,32 @@ it:
         layer: Livello
       new:
         title: Iscrivere provvisoriamente
+    participation_contact_data:
+      managed:
+        update:
+          flash:
+            privacy_policy_not_accepted: 'Per completare la registrazione è necessario accettare la dichiarazione sulla protezione dei dati.'
+        edit:
+          title: Registra un nuovo bambino e iscriviti all'evento
+          save: Continua
+    register:
+      register:
+        title:
+          participant: Raccogliere i dettagli di contatto della persona partecipante
+          manager: Dati di contatto del tutore legale
+        email_check:
+          enter_email: Inserisci l'indirizzo email che desideri utilizzare per registrarti.
+      manager_fields:
+        manager_first_name: Nome del tutore legale
+        manager_last_name: Cognome del tutore legale
+      email_check:
+        next_for_manager: Registra mio bambino
+  event/register:
+    email_sent: 'Ti abbiamo inviato un''e-mail con un link dove tu o tuo figlio potete registrarvi direttamente all''evento.'
+    form_data_missing: Si prega di compilare il seguente modulo per registrarsi.
+    registered_manager: 'Le tue informazioni personali sono state registrate. Ora puoi registrare i tuoi figli utilizzando il pulsante “Registrati”.'
+  event/participations:
+    success_for_external_manager: '%{full_entry_label} è stato creato correttamente.'
   event_decorator:
     canceled: Disiscritto
   events:
@@ -62,8 +94,30 @@ it:
         valid: Valido
         valid_until_end_of_year: Valido fino alla fine dell'anno
         can_be_reactivated: Omesso, può essere riattivato
+  dropdown/event/participant_add:
+    disabled_messages:
+      already_exists: 'è già registrato'
+    register_new_managed: Registrati e registra un nuovo bambino
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
       bsv_export_date_invalid: Data di scadenza non valido (da/a)
       bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".
+  people_managers:
+    section:
+      manageds_help: Puoi aggiungere persone solo come bambini a cui hai accesso in scrittura.
+    common_heading: Bambini / Gestori
+    managers_heading: Gestori/rici
+    manageds_heading: Bambini
+    create_managed_person_button: Registrati bambino
+    assign_managed_person_button: Assegna bambino
+    assign_manager_person_button: Assegna Gestore/rice
+  version:
+    association_change:
+      people_manager:
+        create:
+          manager: "%{label} è stato aggiunto come gestore/rice."
+          managed: "%{label} è stato aggiunto da bambino."
+        destroy:
+          manager: "%{label} è stato rimosso dal gestori/rice."
+          managed: "%{label} è stata rimossa da bambino."
