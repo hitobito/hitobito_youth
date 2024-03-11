@@ -12,9 +12,19 @@ module Youth::MailRelay::AddressList
 
   included do
     def people
-      Person.left_joins(:people_manageds).distinct.
-        where(people_manageds: { managed_id: @people }).
-        or(Person.distinct.where(id: @people))
+      persisted_people, new_people = *@people.partition(&:persisted?)
+      new_people_and_their_managers = new_people + new_people.flat_map(&:managers)
+      return new_people_and_their_managers unless persisted_people.present?
+
+      people_and_their_managers(persisted_people) + new_people_and_their_managers
     end
+  end
+
+  private
+
+  def people_and_their_managers(people)
+    Person.left_joins(:people_manageds).distinct.
+      where(people_manageds: { managed_id: people }).
+      or(Person.distinct.where(id: people))
   end
 end
