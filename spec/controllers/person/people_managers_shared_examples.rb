@@ -14,17 +14,22 @@ shared_examples 'people_managers#destroy' do
     end
   end
 
+
+  let(:attr) { described_class.assoc == :people_managers ? :managed_id : :manager_id }
+  let(:attr_opposite) { described_class.assoc != :people_managers ? :managed_id : :manager_id }
   let(:entry) do
     PeopleManager.create!(
-      manager: people(:bottom_leader),
-      managed: people(:bottom_member)
+      attr => people(:bottom_leader).id,
+      attr_opposite => people(:bottom_member).id
     )
   end
 
-  before { sign_in(people(:root)) }
+  before do
+    allow_any_instance_of(PeopleManager).to receive(:call_on_yielded)
+    sign_in(people(:root))
+  end
 
   def params
-    attr = described_class.assoc == :people_managers ? :managed_id : :manager_id
     {
       id: entry.id,
       person_id: entry.send(attr)
@@ -32,7 +37,28 @@ shared_examples 'people_managers#destroy' do
   end
 
   context '#destroy' do
-    it 'yields' do
+    it 'deletes the correct record' do
+      PeopleManager.create!(attr => people(:bottom_leader).id, attr_opposite => Fabricate(:person).id)
+      entry # trigger let to create the entry
+      PeopleManager.create!(attr => people(:bottom_leader).id, attr_opposite => Fabricate(:person).id)
+
+      expect { delete :destroy, params: params }.
+        to change { PeopleManager.count }.by(-1)
+
+      expect { entry.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'does not remove managed from all managers' do
+      second_pm = PeopleManager.create!(manager: people(:top_leader), managed: entry.managed)
+
+      delete :destroy, params: params
+
+      expect { entry.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { second_pm.reload }.not_to raise_error
+    end
+
+
+  it 'yields' do
       expect_any_instance_of(PeopleManager).to receive(:call_on_yielded)
       delete :destroy, params: params
 

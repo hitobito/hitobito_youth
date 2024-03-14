@@ -63,7 +63,7 @@ class PeopleManagersController < ApplicationController
   end
 
   def find_entry
-    person.send(assoc).find_by(params[:id])
+    person.send(assoc).find(params[:id])
   end
 
   def person
