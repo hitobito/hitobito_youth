@@ -97,6 +97,39 @@ describe 'EventRegisterManaged', js: true do
 
           end
 
+          it 'allows you to create new participation for managed with privacy policy in hierarchy' do
+            file = Rails.root.join('spec', 'fixtures', 'files', 'images', 'logo.png')
+            image = ActiveStorage::Blob.create_and_upload!(io: File.open(file, 'rb'),
+                                                           filename: 'logo.png',
+                                                           content_type: 'image/png').signed_id
+            group.update(privacy_policy: image,
+                         privacy_policy_title: 'Additional Policies Bottom Layer')
+
+            visit group_event_path(group, event)
+
+            expect(page).to have_css('a.dropdown-toggle', text: /Anmelden/i)
+            find('a.dropdown-toggle', text: /Anmelden/i).click
+            expect(page).to have_css('ul.dropdown-menu li a', text: managed.full_name, exact_text: true)
+            find('ul.dropdown-menu li a', text: managed.full_name, exact_text: true).click
+
+            expect(page).to have_content 'Kontaktangaben der teilnehmenden Person'
+            contact_data_path = contact_data_group_event_participations_path(group, event)
+            expect(current_path).to eq(contact_data_path)
+
+            expect(page).to have_field('Vorname', with: managed.first_name)
+            expect(page).to have_field('Nachname', with: managed.last_name)
+
+            find('input#event_participation_contact_datas_managed_privacy_policy_accepted').click
+            find_all('button.btn[type="submit"]').last.click
+            expect(page).to have_content 'Anmeldung als Teilnehmer/-in'
+            expect(current_path).to eq(new_group_event_participation_path(group, event))
+
+            expect do
+              find_all('button.btn[type="submit"]').last.click
+              expect(page).to have_content(participation_success_text_for_event(event, managed))
+            end.to change { Event::Participation.count }.by(1)
+
+          end
         end
 
         context 'via invitation' do
