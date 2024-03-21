@@ -29,7 +29,7 @@ shared_examples 'people_managers#create' do
     end
 
     it 'does not create entry if yielded block raises error' do
-      expect_any_instance_of(PeopleManager).to receive(:call_on_yielded).and_raise('baaad stuff')
+      expect_any_instance_of(PeopleManager).to receive(:call_on_yielded).and_raise(ActiveRecord::Rollback)
 
       expect { post :create, params: params }.
         to raise_error('baaad stuff').
