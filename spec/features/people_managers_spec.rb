@@ -67,10 +67,20 @@ describe 'people management', :js do
     end
   end
 
-  it 'shows validation errors in form' do
+  it 'shows manager validation errors in form' do
     within_turbo_frame do
       person.people_managers.create!(manager: people(:bottom_member))
       click_dropdown('Verwalter*in zuweisen')
+      find_person 'Bottom Member'
+      click_on 'Speichern'
+      expect(page).to have_css('.alert-danger', text: 'Verwalter*in ist bereits gesetzt.')
+    end
+  end
+
+  it 'shows managed validation errors in form' do
+    within_turbo_frame do
+      person.people_manageds.create!(managed: people(:bottom_member))
+      click_dropdown('Kind zuweisen')
       find_person 'Bottom Member'
       click_on 'Speichern'
       expect(page).to have_css('.alert-danger', text: 'Verwalter*in ist bereits gesetzt.')
