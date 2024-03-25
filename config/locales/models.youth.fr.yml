@@ -67,7 +67,6 @@ fr:
               manager_already_managed: L'administrateur.trice n'a pas pu être ajouté.e, car il/elle est déjà administré.e.
               managed_already_manager: L'enfant n'a pas pu être ajouté, car il est déjà administrateur
         people_manager:
-          manager_and_managed_the_same: L'administrateur.trice et l'enfant doivent être des personnes différentes.
           attributes:
             manager_id:
               taken: est déjà défini.

@@ -67,7 +67,6 @@ en:
               manager_already_managed: Supervisor could not be added because he/she is already supervised.
               managed_already_manager: Child could not be added because he/she is already a supervisor.
         people_manager:
-          manager_and_managed_the_same: Supervisor and child must be different individuals.
           attributes:
             manager_id:
               taken: is already set.

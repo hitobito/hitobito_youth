@@ -67,9 +67,6 @@ it:
               manager_already_managed: Impossibile aggiungere gestore/rice perché è già gestito.
               managed_already_manager: Impossibile aggiungere bambino/a perché è già un/a gestore/rice.
         people_manager:
-          manager_and_managed_the_same: 'Gestore/rice e bambino/a devono essere persone diverse.
-
-             '
           attributes:
             manager_id:
               taken: è già impostato.
