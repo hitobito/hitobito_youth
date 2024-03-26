@@ -32,8 +32,8 @@ shared_examples 'people_managers#create' do
       expect_any_instance_of(PeopleManager).to receive(:call_on_yielded).and_raise(ActiveRecord::Rollback)
 
       expect { post :create, params: params }.
-        to raise_error('baaad stuff').
-        and not_change { PeopleManager.count }
+        to not_change { PeopleManager.count }
+      expect(response).to render_template(:new)
     end
   end
 end

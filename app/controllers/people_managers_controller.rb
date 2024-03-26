@@ -34,7 +34,7 @@ class PeopleManagersController < ApplicationController
     if success
       redirect_to redirect_to_path
     else
-      render :new
+      render :new, layout: false
     end
   end
 
