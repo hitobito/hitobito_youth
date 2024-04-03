@@ -60,6 +60,24 @@ describe Event::Course do
     end
   end
 
+  context '#qualifications_visible?' do
+    subject(:course) { Fabricate.build(:course, state: :completed) }
+
+    it 'is true if kind is qualifiying and state is completed' do
+      expect(course.qualifications_visible?).to be_truthy
+    end
+
+    it 'is false if kind is not qualifiying' do
+      course.kind = event_kinds(:old)
+      expect(course.qualifications_visible?).to be_falsy
+    end
+
+    it 'is false if state is confirmed' do
+      course.state = :confirmed
+      expect(course.qualifications_visible?).to be_falsy
+    end
+  end
+
   it 'updates assigned participations to attended when course closed' do
     first, second = subject.participations.joins(:roles).
       where(event_roles: { type: Event::Course::Role::Participant.sti_name }).to_a

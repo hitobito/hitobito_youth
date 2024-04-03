@@ -31,13 +31,15 @@ module Youth::Event::Course
 
     ### VALIDATIONS
 
-    validates :state, inclusion: possible_states
+    validates :state, inclusion: { in: ->(_) { possible_states } }
 
 
     ### CALLBACKS
 
     before_save :update_attended_participants_state, if: -> { state_changed?(to: 'closed') }
     before_save :update_assigned_participants_state, if: -> { changed_state_from_closed? }
+
+    alias_method_chain :qualifications_visible?, :state
 
 
     # Define methods to query if a course is in the given state.
@@ -57,6 +59,12 @@ module Youth::Event::Course
 
   def qualification_possible?
     !completed? && !closed?
+  end
+
+  # True when qualifications are ready to be displayed to participants.
+  # Overridden in wagons
+  def qualifications_visible_with_state?
+    qualifying? && (completed? || closed?)
   end
 
   def state
