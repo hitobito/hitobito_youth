@@ -57,7 +57,11 @@ class Event::ParticipationButtons
                   nil,
                   :'times-circle',
                   title: t('.cancel_title'),
-                  data: { bs_toggle: 'popover', bs_content: render('popover_cancel').to_str })
+                  data: {
+                    bs_toggle: 'popover',
+                    bs_placement: :bottom,
+                    bs_content: render('popover_cancel').to_str
+                  })
   end
 
   def build_reject_button
