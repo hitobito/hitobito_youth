@@ -4,6 +4,7 @@
                 url: :list_courses_bsv_export,
                 method: :get,
                 stacked: true,
+                data: { turbo: false },
                 builder: PlainObjectFormBuilder) do |f|
 
   = hidden_field_tag('filter[states][]', 'closed')
