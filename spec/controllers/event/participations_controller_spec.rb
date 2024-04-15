@@ -107,9 +107,6 @@ describe Event::ParticipationsController do
     end
 
     context 'PUT reject' do
-      render_views
-      let(:dom) { Capybara::Node::Simple.new(response.body) }
-
       it 'rejects participation' do
         put :reject,
           params: {
