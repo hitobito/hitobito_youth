@@ -16,5 +16,6 @@
     url: contact_data_managed_group_event_participations_path(group, event,
       {event_role: { type: params[:event_role][:type] }})}) do |f|
 
-  = render 'form', f: f
+
+  = render 'fields', f: f
 
