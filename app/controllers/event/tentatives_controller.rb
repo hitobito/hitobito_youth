@@ -36,7 +36,7 @@ class Event::TentativesController < ApplicationController
       flash[:notice] = t('event.tentatives.created', participant: @participation.person)
       redirect_to group_event_path(@group, @event)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
