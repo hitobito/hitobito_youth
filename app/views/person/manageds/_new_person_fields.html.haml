@@ -4,6 +4,7 @@
 - #  https://github.com/hitobito/hitobito_youth.
 
 = f.fields_for(:managed_attributes, Person.new) do |fields|
+  = hidden_field_tag(:create, true)
   = field_set_tag do
     = fields.labeled_input_fields :first_name, :last_name, required: true
     = fields.labeled(:gender) do
