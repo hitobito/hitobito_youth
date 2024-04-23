@@ -96,7 +96,7 @@ module HitobitoYouth
       FilterNavigation::People.include Youth::FilterNavigation::People
       Sheet::Group.include Youth::Sheet::Group
       Sheet::Event.include Youth::Sheet::Event
-      Dropdown::PeopleExport.include Youth::Dropdown::PeopleExport
+      Dropdown::PeopleExport.prepend Youth::Dropdown::PeopleExport
       Dropdown::Event::ParticipantAdd.include Youth::Dropdown::Event::ParticipantAdd
       Event::ParticipationBanner.prepend Youth::Event::ParticipationBanner
 

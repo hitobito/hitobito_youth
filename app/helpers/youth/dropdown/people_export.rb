@@ -8,26 +8,15 @@
 module Youth
   module Dropdown
     module PeopleExport
-      extend ActiveSupport::Concern
-      included do
-        alias_method_chain :tabular_links, :nds
-      end
 
-      def tabular_links_with_nds(format)
-        tabular_links_without_nds(format)
+      def tabular_links(format)
+        super.tap do |item|
+          if @details && params[:controller] == 'event/participations'
+            path = params.merge(format: format)
+            event = template.entry.event
 
-        if @details && params[:controller] == 'event/participations'
-          path = params.merge(format: format)
-          event = template.entry.event
-          item = @items.find { |i| i.label == translate(format) }
-          if is_camp?(event)
-            item.sub_items <<
-              ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true))
-          end
-          if is_course?(event)
-            item.sub_items <<
-              ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
-              ::Dropdown::Item.new(translate(:slrg), path.merge(slrg: true))
+            add_camp_items(item, path) if is_camp?(event)
+            add_course_items(item, path) if is_course?(event)
           end
         end
       end
@@ -40,6 +29,17 @@ module Youth
       def is_camp?(event)
         # Meant to be overridden in more specific wagon
         true
+      end
+
+      def add_camp_items(item, path)
+        item.sub_items <<
+          ::Dropdown::Item.new(translate(:nds_camp), path.merge(nds_camp: true))
+      end
+
+      def add_course_items(item, path)
+        item.sub_items <<
+          ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
+          ::Dropdown::Item.new(translate(:slrg), path.merge(slrg: true))
       end
 
     end
