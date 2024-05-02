@@ -19,6 +19,8 @@ describe 'ExternalEventRegisterManager', js: true do
           allow(FeatureGate).to receive(:enabled?).with('groups.self_registration').and_return(false)
           allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(false)
           allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
+          allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+          allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
           allow_any_instance_of(FeatureGate).to receive(:enabled?).and_return(false)
         end
 
@@ -53,12 +55,16 @@ describe 'ExternalEventRegisterManager', js: true do
           allow(FeatureGate).to receive(:enabled?).with('groups.self_registration').and_return(false)
           allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
           allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
+          allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+          allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
           allow_any_instance_of(FeatureGate).to receive(:enabled?).and_return(true)
           CustomContent.create!(key: 'views/devise/sessions/info', label: 'foo', body: 'dummy custom content has to be created because the youth wagon does not have built-in custom content fixtures')
         end
 
         context 'with self_service_managed_creation feature toggle disabled' do
           before do
+            allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(false)
           end
 
@@ -71,6 +77,8 @@ describe 'ExternalEventRegisterManager', js: true do
 
         context 'with self_service_managed_creation feature toggle enabled' do
           before do
+            allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
           end
 
