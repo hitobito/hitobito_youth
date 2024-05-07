@@ -17,7 +17,9 @@ module Youth::Event::ParticipationContactDatasController
   end
 
   def permitted_attrs
-    super + [:privacy_policy_accepted]
+    permitted_attrs = super
+    permitted_attrs -= entry.class.personal_readonly_attrs if cannot?(:update_personal_readonly_attrs, entry)
+    permitted_attrs + [:privacy_policy_accepted]
   end
 
   def person
