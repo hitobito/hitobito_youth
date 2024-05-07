@@ -34,7 +34,16 @@ module Youth::PersonAbility
         non_restricted_in_same_layer_or_visible_below_except_self
 
       class_side(:lookup_manageds).if_any_writing_permissions
+      permission(:any).may(:update_personal_readonly_attrs).not_self_or_managed
     end
+  end
+
+  def not_self_or_managed
+    ((!not_self && !not_manager)).tap { |val| puts val }
+  end
+
+  def not_manager
+    user.manageds.exclude?(person)
   end
 
   def if_any_writing_permission_or_any_manageds
