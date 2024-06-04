@@ -32,6 +32,8 @@ describe 'EventRegisterManaged', js: true do
 
         context 'with feature toggle disabled' do
           before do
+            allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(false)
@@ -48,6 +50,8 @@ describe 'EventRegisterManaged', js: true do
 
         context 'with people_managers feature toggle enabled' do
           before do
+            allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(false)
@@ -141,6 +145,8 @@ describe 'EventRegisterManaged', js: true do
 
           context 'with feature toggle disabled' do
             before do
+              allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+              allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
               allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
               allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
               allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(false)
@@ -155,6 +161,8 @@ describe 'EventRegisterManaged', js: true do
 
           context 'with feature toggle enabled' do
             before do
+              allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+              allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
               allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
               allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
               allow(FeatureGate).to receive(:enabled?).with('people.people_managers.self_service_managed_creation').and_return(true)
@@ -196,6 +204,8 @@ describe 'EventRegisterManaged', js: true do
       describe 'registering new managed' do
         context 'with people_managers feature toggle disabled' do
           before do
+            allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(false)
           end
@@ -231,6 +241,8 @@ describe 'EventRegisterManaged', js: true do
 
         context 'with people_managers feature toggle enabled' do
           before do
+            allow(FeatureGate).to receive(:enabled?).with('structured_addresses').and_return(true)
+            allow(FeatureGate).to receive(:enabled?).with('address_migration').and_return(false)
             allow(FeatureGate).to receive(:enabled?).with(:self_registration_reason).and_return(false)
             allow(FeatureGate).to receive(:enabled?).with('people.people_managers').and_return(true)
           end
