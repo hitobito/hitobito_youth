@@ -22,11 +22,11 @@ module Youth::Event::Course
     self.possible_participation_states =
       %w(tentative applied assigned rejected canceled attended absent)
 
-    self.active_participation_states = %w(assigned attended)
+    self.active_participation_states = %w(assigned attended summoned)
 
     self.revoked_participation_states = %w(rejected canceled absent)
 
-    self.countable_participation_states = %w(applied assigned attended absent)
+    self.countable_participation_states = %w(applied assigned attended absent summoned)
 
 
     ### VALIDATIONS
