@@ -70,6 +70,12 @@ fr:
           attributes:
             manager_id:
               taken: est déjà défini.
+          manager_and_managed_the_same: Ne peut pas s'auto-gérer.
+    models:
+      people_manager:
+        one: Administrateur·trice
+        many: Administrateur·trice·s
+        other: Administrateur·trice·s
   activemodel:
     errors:
       models:
