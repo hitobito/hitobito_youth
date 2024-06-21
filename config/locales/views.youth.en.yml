@@ -11,10 +11,13 @@ en:
         export_info: Exports a course list for the BSV. Only courses with course status 'Completed' will be exported.
         event_kinds: Course types
         event_kinds_hint: Use <Ctrl> + Click to select multiple course types.
+        date_from: Completion date from
+        date_to: Completion date to
     participations:
       canceled_notice: "%{participant} has been deregistered."
       rejected_notice: "%{participant} was rejected."
       assigned_notice: "%{participant} has been assigned."
+      attended_notice: "%{participant} has been marked as participated."
       absent_notice: "%{participant} has been marked as absent."
       cancel_application:
         managed:
@@ -32,6 +35,7 @@ en:
       created: Provisional registration for %{participant} has been created.
       index:
         tentatives_count: Provisionally
+        total_info_html: "Total <strong>%{count}</strong> provisional registrations."
         layer: Level
       new:
         title: Register provisionally
@@ -68,6 +72,27 @@ en:
       create_tentative_application: Register provisionally
     tabs:
       tentatives: Provisional Registration
+    form:
+      caption_external_applications: 'External participants can register for this event. This makes the event visible to the entire database.'
+  export/tabular/events/list:
+    male_count: Number of male participants
+    female_count: Number of female participants
+    canceled_count: Number of cancellations
+    rejected_count: Number of rejections
+  filter_navigation/event/participations:
+    predefined_filters:
+      revoked: Absentees
+  groups:
+    tabs:
+      education: Formation
+  group:
+    educations:
+      index:
+        tentative_participation: Provisional Registration
+        valid: valid
+        valid_until_end_of_year: valid until the end of the year
+  dropdown/people_export:
+    slrg: SSS-Course
   dropdown/event/participant_add:
     disabled_messages:
       already_exists: 'is already registered'
@@ -79,7 +104,7 @@ en:
   people_managers:
     section:
       manageds_help: You can only add individuals as children to whom you have write access.
-    common_heading: Childer / supervisors
+    common_heading: Children / supervisors
     managers_heading: Supervisors
     manageds_heading: Children
     create_managed_person_button: Create child

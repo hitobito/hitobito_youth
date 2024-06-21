@@ -70,6 +70,11 @@ en:
           attributes:
             manager_id:
               taken: is already set.
+          manager_and_managed_the_same: cannot manage themselves.
+    models:
+      people_manager:
+        one: Supervisors
+        other: Supervisors
   activemodel:
     errors:
       models:
