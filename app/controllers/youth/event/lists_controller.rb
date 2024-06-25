@@ -54,7 +54,7 @@ module Youth::Event::ListsController
     course_filters
       .to_scope
       .includes(participations: [:roles, person: :location])
-      .order("event_dates.start_at")
+      .order("start_at")
   end
 
   def dates_from_to
