@@ -21,7 +21,7 @@ on:
         default: 'master'
 jobs:
   wagon_tests:
-    uses: hitobito/hitobito/.github/workflows/wagon-tests.yml@master
+    uses: hitobito/hitobito/.github/workflows/wagon-tests.yml@psql-migration
     with:
       wagon_repository: ${{ github.event.repository.name }}
       core_ref: ${{ inputs.core_ref }}
