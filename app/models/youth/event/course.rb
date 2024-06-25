@@ -82,7 +82,7 @@ module Youth::Event::Course
   def organizers
     Person.
       includes(:roles).
-      where(roles: { type: organizing_role_types,
+      where(roles: { type: organizing_role_types.map(&:to_s),
                      group_id: groups.collect(&:id) })
   end
 
