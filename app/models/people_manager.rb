@@ -8,8 +8,8 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class PeopleManager < ActiveRecord::Base
-  belongs_to :manager, class_name: 'Person'
-  belongs_to :managed, class_name: 'Person'
+  belongs_to :manager, class_name: 'Person', validate: true
+  belongs_to :managed, class_name: 'Person', validate: true
 
   accepts_nested_attributes_for :managed
   validates :manager_id, uniqueness: { scope: :managed_id }

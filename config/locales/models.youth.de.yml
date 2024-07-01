@@ -75,7 +75,7 @@ de:
         person:
           attributes:
             base:
-              cannot_have_managers_and_manageds: Kann nicht sowohl Verwalter*innen als auch Kinder haben.
+              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
               manager_already_managed: Verwalter*in konnte nicht hinzugefügt werden, da er/sie bereits verwaltet wird.
               managed_already_manager: Kind konnte nicht hinzugefügt werden, da es bereits Verwalter*in ist.
         people_manager:
