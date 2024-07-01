@@ -51,7 +51,7 @@ module Youth::Person
     existent_manageds = people_manageds.reject { |pm| pm.marked_for_destruction? }
 
     if existent_managers.any? && existent_manageds.any?
-      errors.add(:base, :cannot_have_managers_and_manageds)
+      errors.add(:base, :cannot_have_managers_and_manageds, name: full_name)
     elsif PeopleManager.exists?(managed: existent_managers.map(&:manager_id))
       errors.add(:base, :manager_already_managed)
     elsif PeopleManager.exists?(manager: existent_manageds.map(&:managed_id))

@@ -23,11 +23,11 @@ class PeopleManagersController < ApplicationController
     assign_attributes
 
     success = ActiveRecord::Base.transaction do
-      if entry.save
+      if entry.save && entry.managed.valid? && entry.manager.valid?
         yield entry if block_given?
         true
       else
-        false
+        raise ActiveRecord::Rollback
       end
     end
 

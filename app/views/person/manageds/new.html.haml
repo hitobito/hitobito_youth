@@ -9,6 +9,9 @@
 = render layout: 'people_managers/section' do
   = standard_form(entry, url: person_manageds_path(person), html: {class: 'p-2'}) do |f|
     = f.error_messages
+    = render('shared/error_messages', errors: entry.manager.errors, object: f.object.manager) if entry.manager&.errors.present?
+    = render('shared/error_messages', errors: entry.managed.errors, object: f.object.managed) if entry.managed&.errors.present?
+
     - if create_managed? && params[:create]
       = render "new_person_fields", f: f
     - else

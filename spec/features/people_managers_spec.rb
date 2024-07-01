@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'people management', :js do
   let(:top_leader) { people(:top_leader) }
+  let(:bottom_member) { people(:bottom_member) }
   let(:current_user) { people(:root) }
   let(:heading) { 'Kinder / Verwalter*innen' }
   let(:top_group) { groups(:top_group) }
@@ -67,9 +68,19 @@ describe 'people management', :js do
     end
   end
 
+  it 'shows managed already manager validation error in form' do
+    within_turbo_frame do
+      bottom_member.people_manageds.create!(managed: current_user)
+      click_dropdown('Kind zuweisen')
+      find_person 'Bottom Member'
+      click_on 'Speichern'
+      expect(page).to have_css('.alert-danger', text: 'Bottom Member kann nicht sowohl Verwalter*innen als auch Kinder haben.')
+    end
+  end
+
   it 'shows manager validation errors in form' do
     within_turbo_frame do
-      person.people_managers.create!(manager: people(:bottom_member))
+      person.people_managers.create!(manager: bottom_member)
       click_dropdown('Verwalter*in zuweisen')
       find_person 'Bottom Member'
       click_on 'Speichern'
@@ -79,7 +90,7 @@ describe 'people management', :js do
 
   it 'shows managed validation errors in form' do
     within_turbo_frame do
-      person.people_manageds.create!(managed: people(:bottom_member))
+      person.people_manageds.create!(managed: bottom_member)
       click_dropdown('Kind zuweisen')
       find_person 'Bottom Member'
       click_on 'Speichern'
