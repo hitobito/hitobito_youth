@@ -63,7 +63,6 @@ it:
         person:
           attributes:
             base:
-              cannot_have_managers_and_manageds: Non è possibile avere sia gestori che bambini.
               manager_already_managed: Impossibile aggiungere gestore/rice perché è già gestito.
               managed_already_manager: Impossibile aggiungere bambino/a perché è già un/a gestore/rice.
         people_manager:

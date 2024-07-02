@@ -63,7 +63,6 @@ en:
         person:
           attributes:
             base:
-              cannot_have_managers_and_manageds: Cannot have both supervisors and children.
               manager_already_managed: Supervisor could not be added because he/she is already supervised.
               managed_already_manager: Child could not be added because he/she is already a supervisor.
         people_manager:
