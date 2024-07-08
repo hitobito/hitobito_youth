@@ -6,12 +6,4 @@
 - #  https://github.com/hitobito/hitobito.
 
 
-- FeatureGate.if('people.people_managers') do
-  %section
-    - if entry.people_managers.any?
-      = render 'person/managers/list', person: entry
-    - elsif entry.people_manageds.any?
-      = render 'person/manageds/list', person: entry
-    - else
-      = render 'people_managers/list', person: entry
-
+= render 'people_managers_aside'
