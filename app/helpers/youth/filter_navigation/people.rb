@@ -3,6 +3,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
+# It's safe to use instance variables here because they
+# are encapsulated within their own class.
+# rubocop:disable Rails/HelperInstanceVariable
 module Youth::FilterNavigation::People
   extend ActiveSupport::Concern
 
@@ -54,3 +57,4 @@ module Youth::FilterNavigation::People
     template.controller_name == "educations"
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable

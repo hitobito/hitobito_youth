@@ -1,4 +1,7 @@
 module Dropdown
+  # It's safe to use instance variables here because they
+  # are encapsulated within their own class.
+  # rubocop:disable Rails/HelperInstanceVariable
   class AddPeopleManager < Base
     delegate :can?, :cannot?, :new_person_manager_path, :new_person_managed_path, to: :template
     delegate :managers, :manageds, to: "@person"
@@ -57,4 +60,5 @@ module Dropdown
       I18n.t(key, scope: [:people_managers])
     end
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 end

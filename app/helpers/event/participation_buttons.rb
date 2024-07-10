@@ -5,6 +5,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth
 
+# It's safe to use instance variables here because they
+# are encapsulated within their own class.
+# rubocop:disable Rails/HelperInstanceVariable
 class Event::ParticipationButtons
   # defines state dependent rendering of buttons, i.e.
   # cancel button is only rendered if participation is in state assigned or applied
@@ -94,3 +97,4 @@ class Event::ParticipationButtons
     from_states.collect(&:to_s).include?(@participation.state) && can?(to_state, @participation)
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable

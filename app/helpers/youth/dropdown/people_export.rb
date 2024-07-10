@@ -4,6 +4,9 @@
 #  https://github.com/hitobito/hitobito_pbs.
 
 module Youth
+  # It's safe to use instance variables here because they
+  # are encapsulated within their own class.
+  # rubocop:disable Rails/HelperInstanceVariable
   module Dropdown
     module PeopleExport
       def tabular_links(format)
@@ -40,4 +43,5 @@ module Youth
       end
     end
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 end

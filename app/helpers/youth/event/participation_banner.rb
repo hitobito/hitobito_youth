@@ -7,6 +7,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
+# It's safe to use instance variables here because they
+# are encapsulated within their own class.
+# rubocop:disable Rails/HelperInstanceVariable
 module Youth::Event::ParticipationBanner
   def status_text
     key = if waiting_list?
@@ -26,3 +29,4 @@ module Youth::Event::ParticipationBanner
       scope: "event.participations.cancel_application")
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable
