@@ -8,7 +8,6 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::PersonReadables
-
   def accessible_conditions
     super.tap do |condition|
       condition.or(*manager_condition)
@@ -18,5 +17,4 @@ module Youth::PersonReadables
   def manager_condition
     ["people.id IN (#{PeopleManager.where(manager_id: user.id).select(:managed_id).to_sql})"]
   end
-
 end

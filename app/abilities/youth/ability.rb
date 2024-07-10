@@ -19,7 +19,6 @@
 # generating additional "can :foo, :bar" statements (but only the ones which
 # originate inside a for_self_or_manageds block in the ability DSL).
 module Youth::Ability
-
   private
 
   def define_user_abilities(current_store, current_user_context, include_manageds = true)

@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_youth
 
 class Event::ParticipationButtons
-
   # defines state dependent rendering of buttons, i.e.
   # cancel button is only rendered if participation is in state assigned or applied
   class_attribute :conditions, default: {
@@ -22,7 +21,7 @@ class Event::ParticipationButtons
     assign: :assigned
   }
 
-  delegate :can?, :content_tag, :action_button, :render, :safe_join, to: '@template'
+  delegate :can?, :content_tag, :action_button, :render, :safe_join, to: "@template"
 
   def initialize(template, participation)
     @template = template
@@ -53,19 +52,19 @@ class Event::ParticipationButtons
   end
 
   def build_cancel_button
-    action_button(t('.cancel_button'),
-                  nil,
-                  :'times-circle',
-                  title: t('.cancel_title'),
-                  data: {
-                    bs_toggle: 'popover',
-                    bs_placement: :bottom,
-                    bs_content: render('popover_cancel').to_str
-                  })
+    action_button(t(".cancel_button"),
+      nil,
+      :"times-circle",
+      title: t(".cancel_title"),
+      data: {
+        bs_toggle: "popover",
+        bs_placement: :bottom,
+        bs_content: render("popover_cancel").to_str
+      })
   end
 
   def build_reject_button
-    build_action_button(:reject, :'thumbs-down')
+    build_action_button(:reject, :"thumbs-down")
   end
 
   def build_action_button(state, icon = :tag)
@@ -88,7 +87,7 @@ class Event::ParticipationButtons
   end
 
   def t(key)
-    @template.t(key, i18n_scope: 'events.participations.actions_show')
+    @template.t(key, i18n_scope: "events.participations.actions_show")
   end
 
   def participation_state_transition_allowed?(to_state, from_states)

@@ -25,7 +25,7 @@ class PeopleManagerAbility < AbilityDsl::Base
 
   def creating_new_managed_person?
     subject.managed&.new_record? &&
-      FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+      FeatureGate.enabled?("people.people_managers.self_service_managed_creation")
   end
 
   def can?(action, person)

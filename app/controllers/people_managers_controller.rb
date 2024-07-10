@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class PeopleManagersController < ApplicationController
-
   before_action :authorize_action, except: [:index]
   before_action :authorize_class, only: :index
   helper_method :entry, :person

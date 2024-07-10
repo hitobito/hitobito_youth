@@ -36,8 +36,8 @@ module Youth::Event::ParticipationContactDatasController
     new_group_event_participation_path(
       group,
       event,
-      { event_role: { type: params[:event_role][:type] },
-        event_participation: { person_id: entry.person.id } }
+      {event_role: {type: params[:event_role][:type]},
+       event_participation: {person_id: entry.person.id}}
     )
   end
 

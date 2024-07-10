@@ -7,33 +7,31 @@
 
 module Export::Tabular::People
   class ParticipationsSlrgList < Export::Tabular::Base
-
     self.model_class = ::Event::Participation
     self.row_class = Export::Tabular::People::ParticipationsSlrgRow
 
     # rubocop:disable Metrics/MethodLength
     def attribute_labels
       {
-        slrg_id: 'SLRG-Nr.',
-        gender: 'Geschlecht',
-        last_name: 'Name',
-        first_name: 'Vorname',
-        slrg_status: 'Status (neu / bestehend)',
-        language: 'Sprache',
-        salutation: 'Anrede',
-        phone_private: 'Telefon Privat',
-        phone_mobile: 'Telefon Mobile',
-        email: 'E-Mail',
-        birthday: 'Geburtsdatum',
-        slrg_empty: '(leere Spalte L)',
-        slrg_remarks: 'Bemerkung',
-        address: 'Strasse',
-        zip_code: 'PLZ',
-        town: 'Ort',
-        country: 'Land',
+        slrg_id: "SLRG-Nr.",
+        gender: "Geschlecht",
+        last_name: "Name",
+        first_name: "Vorname",
+        slrg_status: "Status (neu / bestehend)",
+        language: "Sprache",
+        salutation: "Anrede",
+        phone_private: "Telefon Privat",
+        phone_mobile: "Telefon Mobile",
+        email: "E-Mail",
+        birthday: "Geburtsdatum",
+        slrg_empty: "(leere Spalte L)",
+        slrg_remarks: "Bemerkung",
+        address: "Strasse",
+        zip_code: "PLZ",
+        town: "Ort",
+        country: "Land"
       }
     end
     # rubocop:enable Metrics/MethodLength
-
   end
 end

@@ -8,12 +8,10 @@
 # Extends the ability configs from core with the possibility
 # to add options.
 module Youth::AbilityDsl::Config
-
   attr_reader :options
 
   def initialize(permission, subject_class, action, ability_class, constraint, options = {})
     super(permission, subject_class, action, ability_class, constraint)
     @options = options
   end
-
 end

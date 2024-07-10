@@ -26,7 +26,7 @@ module Youth::Event::ListsController
 
   def render_bsv_export(courses_for_bsv_export)
     send_data(Export::Tabular::Events::BsvList.csv(courses_for_bsv_export),
-              type: :csv, filename: 'bsv_export.csv')
+      type: :csv, filename: "bsv_export.csv")
   end
 
   def flash_on_errors_and_redirect
@@ -54,7 +54,7 @@ module Youth::Event::ListsController
     course_filters
       .to_scope
       .includes(participations: [:roles, person: :location])
-      .order('event_dates.start_at')
+      .order("event_dates.start_at")
   end
 
   def dates_from_to
@@ -72,5 +72,4 @@ module Youth::Event::ListsController
   def model_params
     @model_params ||= params.fetch(:bsv_export, {})
   end
-
 end

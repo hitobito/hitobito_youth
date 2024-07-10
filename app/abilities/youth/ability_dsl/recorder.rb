@@ -11,7 +11,6 @@
 # In other words, if the abilities defined in a for_self_or_manageds block are granted
 # to my child, I automatically get the same abilities.
 module Youth::AbilityDsl::Recorder
-
   def for_self_or_manageds
     return unless block_given?
 
@@ -32,13 +31,12 @@ module Youth::AbilityDsl::Recorder
 
       def add_config(permission, action, constraint)
         @store.add(AbilityDsl::Config.new(permission,
-                                          @subject_class,
-                                          action,
-                                          @ability_class,
-                                          constraint,
-                                          { include_manageds: self.include_manageds }))
+          @subject_class,
+          action,
+          @ability_class,
+          constraint,
+          {include_manageds: include_manageds}))
       end
     end
   end
-
 end

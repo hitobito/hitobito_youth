@@ -15,13 +15,13 @@ module Events::Filter::Bsv
     def to_scope
       return @scope if kind_ids.blank?
 
-      @scope.left_joins(:kind).where(event_kinds: { id: kind_ids })
+      @scope.left_joins(:kind).where(event_kinds: {id: kind_ids})
     end
 
     private
 
     def kind_ids
-      @kind_ids ||= (@params.dig(:filter, :kinds) || '').split(',')
+      @kind_ids ||= (@params.dig(:filter, :kinds) || "").split(",")
     end
   end
 end

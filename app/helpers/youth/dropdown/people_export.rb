@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
 #  hitobito_pbs and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -8,10 +6,9 @@
 module Youth
   module Dropdown
     module PeopleExport
-
       def tabular_links(format)
         super.tap do |item|
-          if @details && params[:controller] == 'event/participations'
+          if @details && params[:controller] == "event/participations"
             path = params.merge(format: format)
             event = template.entry.event
 
@@ -41,7 +38,6 @@ module Youth
           ::Dropdown::Item.new(translate(:nds_course), path.merge(nds_course: true)) <<
           ::Dropdown::Item.new(translate(:slrg), path.merge(slrg: true))
       end
-
     end
   end
 end

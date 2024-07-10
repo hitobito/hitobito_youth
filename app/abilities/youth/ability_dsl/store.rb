@@ -9,7 +9,6 @@
 # stored ability configs and keep only the ones which a manager can inherit from their
 # manageds (children).
 module Youth::AbilityDsl::Store
-
   def only_manager_inheritable
     filtered_configs = configs.select { |_, config| config.options[:include_manageds] }
     AbilityDsl::Store.new.tap do |clone|
@@ -17,5 +16,4 @@ module Youth::AbilityDsl::Store
       clone.instance_variable_set(:@configs, filtered_configs)
     end
   end
-
 end

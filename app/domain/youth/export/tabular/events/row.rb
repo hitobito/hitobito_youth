@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -21,23 +19,22 @@ module Youth::Export::Tabular::Events::Row
   end
 
   def male_count
-    gender_counts[entry.id]['m']
+    gender_counts[entry.id]["m"]
   end
 
   def female_count
-    gender_counts[entry.id]['w']
+    gender_counts[entry.id]["w"]
   end
 
   def absent_count
-    state_counts[entry.id]['absent']
+    state_counts[entry.id]["absent"]
   end
 
   def canceled_count
-    state_counts[entry.id]['canceled']
+    state_counts[entry.id]["canceled"]
   end
 
   def rejected_count
-    state_counts[entry.id]['rejected']
+    state_counts[entry.id]["rejected"]
   end
-
 end
