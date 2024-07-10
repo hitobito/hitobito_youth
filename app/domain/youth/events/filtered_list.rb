@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito.
 
 module Youth::Events::FilteredList
-
   def filter_scopes
     return super if params.dig(:filter, :bsv_since).blank?
 
@@ -17,5 +16,4 @@ module Youth::Events::FilteredList
 
     filters
   end
-
 end

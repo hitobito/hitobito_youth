@@ -7,7 +7,6 @@
 
 class Event::ParticipationContactData::ManagedController <
   Event::ParticipationContactDatasController
-
   before_action :assert_feature_enabled
 
   def update
@@ -33,8 +32,8 @@ class Event::ParticipationContactData::ManagedController <
 
   def any_duplicates?
     relevant_person_attrs = entry.person.attributes
-                                        .transform_keys(&:to_sym)
-                                        .slice(*Import::PersonDuplicateFinder::DUPLICATE_ATTRIBUTES)
+      .transform_keys(&:to_sym)
+      .slice(*Import::PersonDuplicateFinder::DUPLICATE_ATTRIBUTES)
 
     person_duplicate_finder.find(relevant_person_attrs).present?
   end
@@ -48,7 +47,7 @@ class Event::ParticipationContactData::ManagedController <
   end
 
   def assert_feature_enabled
-    FeatureGate.assert!('people.people_managers') &&
-      FeatureGate.assert!('people.people_managers.self_service_managed_creation')
+    FeatureGate.assert!("people.people_managers") &&
+      FeatureGate.assert!("people.people_managers.self_service_managed_creation")
   end
 end

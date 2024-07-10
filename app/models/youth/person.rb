@@ -8,27 +8,26 @@
 module Youth::Person
   extend ActiveSupport::Concern
 
-  require_dependency 'social_security_number'
+  require_dependency "social_security_number"
   include ::SocialSecurityNumber
 
-  NATIONALITIES_J_S = %w(CH FL ANDERE).freeze
+  NATIONALITIES_J_S = %w[CH FL ANDERE].freeze
 
   included do
     has_many :people_managers, foreign_key: :managed_id,
-                               dependent: :destroy
-    has_many :people_manageds, class_name: 'PeopleManager',
-                               foreign_key: :manager_id,
-                               dependent: :destroy
+      dependent: :destroy
+    has_many :people_manageds, class_name: "PeopleManager",
+      foreign_key: :manager_id,
+      dependent: :destroy
 
     has_many :managers, through: :people_managers
     has_many :manageds, through: :people_manageds
 
-    validates :nationality_j_s, inclusion: { in: NATIONALITIES_J_S, allow_blank: true }
+    validates :nationality_j_s, inclusion: {in: NATIONALITIES_J_S, allow_blank: true}
 
     validate :assert_either_only_managers_or_manageds
     validate :validate_ahv_number
   end
-
 
   AHV_NUMBER_REGEX = /\A\d{3}\.\d{4}\.\d{4}\.\d{2}\z/
 
@@ -37,7 +36,7 @@ module Youth::Person
     return if will_save_change_to_encrypted_password? && !will_save_change_to_ahv_number?
     return if ahv_number.blank?
 
-    if ahv_number !~ AHV_NUMBER_REGEX
+    if !AHV_NUMBER_REGEX.match?(ahv_number)
       errors.add(:ahv_number, :must_be_social_security_number_with_correct_format)
       return
     end
@@ -60,20 +59,20 @@ module Youth::Person
   end
 
   def and_manageds
-    return [self] unless FeatureGate.enabled?('people.people_managers')
+    return [self] unless FeatureGate.enabled?("people.people_managers")
 
     [self, manageds].flatten
   end
 
   def checksum_validate(ahv_number)
-    SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: 'ch')
+    SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: "ch")
   end
 
   def valid_email?(email = self.email)
-    if FeatureGate.enabled?('people.people_managers')
-      super(email) || Person.mailing_emails_for(self).any? { |mail| super(mail) }
+    if FeatureGate.enabled?("people.people_managers")
+      super || Person.mailing_emails_for(self).any? { |mail| super(mail) }
     else
-      super(email)
+      super
     end
   end
 end

@@ -1,17 +1,19 @@
 module Dropdown
+  # It's safe to use instance variables here because they
+  # are encapsulated within their own class.
+  # rubocop:disable Rails/HelperInstanceVariable
   class AddPeopleManager < Base
-
     delegate :can?, :cannot?, :new_person_manager_path, :new_person_managed_path, to: :template
-    delegate :managers, :manageds, to: '@person'
+    delegate :managers, :manageds, to: "@person"
 
     def initialize(template, person)
-      super(template, template.ti(:'link.add'), :plus)
+      super(template, template.ti(:"link.add"), :plus)
       @person = person
       init_items
     end
 
     def to_s
-      return '' if @items.none?
+      return "" if @items.none?
       return single_action_button if @items.one?
 
       super
@@ -20,7 +22,7 @@ module Dropdown
     private
 
     def single_action_button
-      template.action_button(@items.first.label, @items.first.url, :plus, class: 'btn-sm' )
+      template.action_button(@items.first.label, @items.first.url, :plus, class: "btn-sm")
     end
 
     def init_items
@@ -51,11 +53,12 @@ module Dropdown
 
     def create_new_managed?
       cannot?(:lookup_manageds, Person) &&
-        FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+        FeatureGate.enabled?("people.people_managers.self_service_managed_creation")
     end
 
     def t(key)
       I18n.t(key, scope: [:people_managers])
     end
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 end

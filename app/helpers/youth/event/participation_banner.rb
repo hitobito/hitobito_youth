@@ -7,23 +7,26 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
+# It's safe to use instance variables here because they
+# are encapsulated within their own class.
+# rubocop:disable Rails/HelperInstanceVariable
 module Youth::Event::ParticipationBanner
-
   def status_text
-    if waiting_list?
-      key = 'waiting_list'
+    key = if waiting_list?
+      "waiting_list"
     elsif pending?
-      key = 'pending'
+      "pending"
     else
-      key = 'explanation'
+      "explanation"
     end
 
     if @user_participation.person != @context.current_user
-      key = ['managed', key].join('.')
+      key = ["managed", key].join(".")
     end
 
     t(key,
       person: @user_participation.person.full_name,
-      scope: 'event.participations.cancel_application')
+      scope: "event.participations.cancel_application")
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable

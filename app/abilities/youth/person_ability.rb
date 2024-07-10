@@ -14,24 +14,24 @@ module Youth::PersonAbility
     on(Person) do
       # Managers have almost all base permissions on the managed person
       for_self_or_manageds do
-        permission(:any).
-          may(:show, :show_details, :show_full, :history, :update, :update_email, :primary_group,
-              :log, :totp_reset).
-          herself
+        permission(:any)
+          .may(:show, :show_details, :show_full, :history, :update, :update_email, :primary_group,
+            :log, :totp_reset)
+          .herself
 
         class_side(:create_households).if_any_writing_permission_or_any_manageds
       end
 
       # People with update permission on a managed person also have the permission to update the
       # managers of that managed person
-      permission(:group_full).may(:change_managers).
-        non_restricted_in_same_group_except_self
-      permission(:group_and_below_full).may(:change_managers).
-        non_restricted_in_same_group_or_below_except_self
-      permission(:layer_full).may(:change_managers).
-        non_restricted_in_same_layer_except_self
-      permission(:layer_and_below_full).may(:change_managers).
-        non_restricted_in_same_layer_or_visible_below_except_self
+      permission(:group_full).may(:change_managers)
+        .non_restricted_in_same_group_except_self
+      permission(:group_and_below_full).may(:change_managers)
+        .non_restricted_in_same_group_or_below_except_self
+      permission(:layer_full).may(:change_managers)
+        .non_restricted_in_same_layer_except_self
+      permission(:layer_and_below_full).may(:change_managers)
+        .non_restricted_in_same_layer_or_visible_below_except_self
 
       class_side(:lookup_manageds).if_any_writing_permissions
     end
@@ -56,5 +56,4 @@ module Youth::PersonAbility
   def non_restricted_in_same_layer_or_visible_below_except_self
     non_restricted_in_same_layer_or_visible_below && !herself
   end
-
 end

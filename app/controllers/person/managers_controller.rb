@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class Person::ManagersController < PeopleManagersController
-
   self.assoc = :people_managers
 
   private

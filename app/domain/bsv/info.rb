@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
 #  hitobito_pbs and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -7,7 +5,6 @@
 
 module Bsv
   class Info
-
     attr_reader :course
 
     class_attribute :leader_roles
@@ -37,8 +34,8 @@ module Bsv
     end
 
     def participant_count
-      participants_aged_under_30.
-        count { |person| ch_resident?(person) }
+      participants_aged_under_30
+        .count { |person| ch_resident?(person) }
     end
 
     def leader_count
@@ -54,19 +51,19 @@ module Bsv
     end
 
     def participants_aged_under_30
-      participants.
-        collect(&:person).
-        select(&:birthday?).
-        select { |person| aged_under_30?(person) }
+      participants
+        .collect(&:person)
+        .select(&:birthday?)
+        .select { |person| aged_under_30?(person) }
     end
 
     private
 
     def participations
-      @participations ||= course.
-        participations.
-        where(active: true).
-        includes(:roles, person: :location)
+      @participations ||= course
+        .participations
+        .where(active: true)
+        .includes(:roles, person: :location)
     end
 
     def participations_for(role_types)

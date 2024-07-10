@@ -33,7 +33,7 @@ module Youth::Event::RegisterController
   end
 
   def self_service_managed_enabled?
-    FeatureGate.enabled?('people.people_managers') &&
-      FeatureGate.enabled?('people.people_managers.self_service_managed_creation')
+    FeatureGate.enabled?("people.people_managers") &&
+      FeatureGate.enabled?("people.people_managers.self_service_managed_creation")
   end
 end

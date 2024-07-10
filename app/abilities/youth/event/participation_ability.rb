@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2023, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -12,8 +10,8 @@ module Youth::Event::ParticipationAbility
     on(Event::Participation) do
       # abilities which managers inherit from their managed children
       permission(:any).may(:show).her_own_or_manager_or_for_participations_read_events
-      permission(:any).may(:show_details, :print).
-        her_own_or_manager_or_for_participations_full_events
+      permission(:any).may(:show_details, :print)
+        .her_own_or_manager_or_for_participations_full_events
 
       for_self_or_manageds do
         permission(:any).may(:create).her_own_if_application_possible
@@ -23,12 +21,12 @@ module Youth::Event::ParticipationAbility
 
       permission(:any).may(:cancel, :absent, :assign, :attend).for_participations_full_events
       permission(:group_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_group
-      permission(:group_and_below_full).
-        may(:cancel, :reject, :absent, :assign, :attend).
-        in_same_group_or_below
+      permission(:group_and_below_full)
+        .may(:cancel, :reject, :absent, :assign, :attend)
+        .in_same_group_or_below
       permission(:layer_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_layer
-      permission(:layer_and_below_full).may(:cancel, :reject, :absent, :assign, :attend).
-        in_same_layer
+      permission(:layer_and_below_full).may(:cancel, :reject, :absent, :assign, :attend)
+        .in_same_layer
 
       permission(:layer_full).may(:create_tentative).person_in_same_layer
       permission(:layer_and_below_full).may(:create_tentative).person_in_same_layer_or_visible_below
@@ -92,5 +90,4 @@ module Youth::Event::ParticipationAbility
   def tentative_group_ids
     event.groups.flat_map { |g| g.self_and_descendants.pluck(:id) + g.hierarchy.pluck(:id) }
   end
-
 end

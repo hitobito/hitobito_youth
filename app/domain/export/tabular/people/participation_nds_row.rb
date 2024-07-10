@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2024, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -7,7 +5,6 @@
 
 module Export::Tabular::People
   class ParticipationNdsRow < Export::Tabular::People::PersonRow
-
     attr_reader :participation
 
     def initialize(participation, format = nil)
@@ -16,7 +13,7 @@ module Export::Tabular::People
     end
 
     def j_s_number
-      entry.j_s_number.to_s.try(:gsub, /\D/, '')
+      entry.j_s_number.to_s.try(:gsub, /\D/, "")
     end
 
     def gender
@@ -25,7 +22,7 @@ module Export::Tabular::People
 
     def birthday
       # date format defined by nds
-      entry.birthday && entry.birthday.strftime('%d.%m.%Y')
+      entry.birthday&.strftime("%d.%m.%Y")
     end
 
     def canton
@@ -34,25 +31,25 @@ module Export::Tabular::People
 
     def country
       {
-        'CH' => 'CH',
-        'DE' => 'DE',
-        'FL' => 'FL',
-        'FR' => 'FR',
-        'IT' => 'IT',
-        'AT' => 'AT'
-      }.fetch(entry.country, 'CH')
+        "CH" => "CH",
+        "DE" => "DE",
+        "FL" => "FL",
+        "FR" => "FR",
+        "IT" => "IT",
+        "AT" => "AT"
+      }.fetch(entry.country, "CH")
     end
 
     def nationality_j_s
-      entry.nationality_j_s.presence || 'CH'
+      entry.nationality_j_s.presence || "CH"
     end
 
     def phone_private
-      phone_number('Privat')
+      phone_number("Privat")
     end
 
     def phone_work
-      phone_number('Arbeit')
+      phone_number("Arbeit")
     end
 
     def phone_official
@@ -64,11 +61,11 @@ module Export::Tabular::People
     end
 
     def email_work
-      additional_email('Arbeit')
+      additional_email("Arbeit")
     end
 
     def first_language
-      'DE'
+      "DE"
     end
 
     def second_language
@@ -76,7 +73,7 @@ module Export::Tabular::People
     end
 
     def street
-      if FeatureGate.enabled?('structured_addresses')
+      if FeatureGate.enabled?("structured_addresses")
         entry.street
       else
         split_address[1]
@@ -84,7 +81,7 @@ module Export::Tabular::People
     end
 
     def housenumber
-      if FeatureGate.enabled?('structured_addresses')
+      if FeatureGate.enabled?("structured_addresses")
         entry.housenumber
       else
         split_address[2]
@@ -96,7 +93,7 @@ module Export::Tabular::People
     end
 
     def fetch(attr)
-      super(attr).presence
+      super.presence
     end
 
     private
@@ -110,7 +107,7 @@ module Export::Tabular::People
     end
 
     def split_address
-      FeatureGate.refute!('structured_addresses')
+      FeatureGate.refute!("structured_addresses")
 
       entry.address&.match(Address::FullTextSearch::ADDRESS_WITH_NUMBER_REGEX)&.to_a ||
         [entry.address]

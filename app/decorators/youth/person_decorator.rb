@@ -7,7 +7,7 @@ module Youth::PersonDecorator
   extend ActiveSupport::Concern
 
   def translated_nationality_j_s
-    return '' unless nationality_j_s.present?
+    return "" if nationality_j_s.blank?
 
     I18n.t("activerecord.attributes.person.nationalities_j_s.#{nationality_j_s}")
   end
@@ -15,5 +15,4 @@ module Youth::PersonDecorator
   def readable_manageds
     manageds.select { |m| can?(:show, m) }
   end
-
 end

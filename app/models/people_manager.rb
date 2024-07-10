@@ -8,12 +8,12 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class PeopleManager < ActiveRecord::Base
-  belongs_to :manager, class_name: 'Person', validate: true
-  belongs_to :managed, class_name: 'Person', validate: true
+  belongs_to :manager, class_name: "Person", validate: true
+  belongs_to :managed, class_name: "Person", validate: true
 
   accepts_nested_attributes_for :managed
-  validates :manager_id, uniqueness: { scope: :managed_id }
   validates :manager_id, presence: true
+  validates :manager_id, uniqueness: {scope: :managed_id}
   # Does not work when managed is new since the PeopleManager record
   # will not have a reference to the managed object
   # when navigating like this: new_managed.people_managers.first.managed
@@ -28,7 +28,7 @@ class PeopleManager < ActiveRecord::Base
   def create_paper_trail_versions_for_create_event
     [manager_id, managed_id].each do |main_id|
       PaperTrail::RecordTrail.new(self).send(:build_version_on_create,
-                                             in_after_callback: true).tap do |version|
+        in_after_callback: true).tap do |version|
         version.main_id = main_id
         version.main_type = Person.sti_name
 
@@ -45,9 +45,7 @@ class PeopleManager < ActiveRecord::Base
       data[:main_id] = main_id
       data[:main_type] = Person.sti_name
 
-      version = self.class.paper_trail.version_class.create(data)
-
-      versions = version
+      self.class.paper_trail.version_class.create(data)
     end
   end
 

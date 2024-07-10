@@ -6,9 +6,7 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module EventParticipationYouthHelper
-
   def format_event_participation_state(entry)
     entry.state_translated
   end
-
 end

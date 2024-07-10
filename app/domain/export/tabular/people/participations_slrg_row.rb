@@ -7,46 +7,45 @@
 
 module Export::Tabular::People
   class ParticipationsSlrgRow < Export::Tabular::Row
-
     delegate :gender, :last_name, :first_name, :language, :email,
-             :address, :zip_code, :town, to: :person
+      :address, :zip_code, :town, to: :person
 
     def slrg_id
-      ''
+      ""
     end
 
     def slrg_status
-      ''
+      ""
     end
 
     def slrg_empty
-      ''
+      ""
     end
 
     def slrg_remarks
-      ''
+      ""
     end
 
     def gender
-      if person.gender == 'm'
-        'Männlich / Masculin / Maschile'
-      elsif person.gender == 'w'
-        'Weiblich / Féminin / Femminile'
+      if person.gender == "m"
+        "Männlich / Masculin / Maschile"
+      elsif person.gender == "w"
+        "Weiblich / Féminin / Femminile"
       else
-        ''
+        ""
       end
     end
 
     def salutation
-      ''
+      ""
     end
 
     def phone_private
-      ''
+      ""
     end
 
     def phone_mobile
-      ''
+      ""
     end
 
     def birthday
@@ -54,7 +53,7 @@ module Export::Tabular::People
     end
 
     def country
-      person.country == 'CH' ? 'Schweiz' : person.country
+      (person.country == "CH") ? "Schweiz" : person.country
     end
 
     private
@@ -62,6 +61,5 @@ module Export::Tabular::People
     def person
       @person ||= entry.person
     end
-
   end
 end

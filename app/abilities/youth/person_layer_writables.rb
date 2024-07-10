@@ -8,7 +8,6 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::PersonLayerWritables
-
   def accessible_people
     if user.root?
       super
@@ -24,7 +23,6 @@ module Youth::PersonLayerWritables
   end
 
   def manager_condition
-    ['people_managers.manager_id = ?', user.id]
+    ["people_managers.manager_id = ?", user.id]
   end
-
 end

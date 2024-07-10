@@ -13,9 +13,9 @@ module Youth::Synchronize::Mailchimp::Subscriber
   prepended do
     def self.recipients(mailing_list)
       people = mailing_list.people.pluck(:id)
-      Person.left_joins(:people_manageds).distinct.
-        where(people_manageds: { managed_id: people }).
-        or(Person.distinct.where(id: people))
+      Person.left_joins(:people_manageds).distinct
+        .where(people_manageds: {managed_id: people})
+        .or(Person.distinct.where(id: people))
     end
   end
 end

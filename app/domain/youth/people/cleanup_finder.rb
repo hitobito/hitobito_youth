@@ -6,12 +6,11 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::People::CleanupFinder
-
   def run
     Person.where(id: super.map(&:id))
-          .left_joins(:people_manageds)
-          .where(no_people_manageds_exist)
-          .distinct
+      .left_joins(:people_manageds)
+      .where(no_people_manageds_exist)
+      .distinct
   end
 
   private
@@ -21,6 +20,6 @@ module Youth::People::CleanupFinder
   end
 
   def people_manageds
-    PeopleManager.where('people_managers.manager_id = people.id')
+    PeopleManager.where("people_managers.manager_id = people.id")
   end
 end
