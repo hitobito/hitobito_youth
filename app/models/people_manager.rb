@@ -8,10 +8,11 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class PeopleManager < ActiveRecord::Base
-  belongs_to :manager, class_name: "Person", validate: true
-  belongs_to :managed, class_name: "Person", validate: true
+  belongs_to :manager, class_name: Person.sti_name, validate: true
+  belongs_to :managed, class_name: Person.sti_name, validate: true
 
   accepts_nested_attributes_for :managed
+  validates :manager_id, presence: true
   validates :manager_id, uniqueness: {scope: :managed_id}
   # Does not work when managed is new since the PeopleManager record
   # will not have a reference to the managed object
