@@ -8,7 +8,7 @@ source "https://rubygems.org"
 gemspec
 
 # Load application Gemfile for all application dependencies.
-eval File.read(File.expand_path("Gemfile", ENV["APP_ROOT"]))
+eval File.read(File.expand_path("Gemfile", ENV["APP_ROOT"])) # rubocop:disable Security/Eval
 
 group :development, :test do
   # Explicitly define the path for dependencies on other wagons.
