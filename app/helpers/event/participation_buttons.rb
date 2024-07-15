@@ -15,8 +15,8 @@ class Event::ParticipationButtons
     cancel: [:assigned, :applied],
     reject: [:applied],
     absent: [:assigned, :attended],
-    attend: [:absent, if: -> { @event.closed? }],
-    assign: [:absent, if: -> { !@event.closed? }]
+    attend: [:absent, if: -> { @event.possible_states.include?("closed") ? @event.closed? : nil }],
+    assign: [:absent, if: -> { @event.possible_states.include?("closed") ? !@event.closed? : nil }]
   }
 
   class_attribute :i18n_keys, default: {
