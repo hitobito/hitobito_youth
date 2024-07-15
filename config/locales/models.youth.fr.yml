@@ -63,6 +63,7 @@ fr:
         person:
           attributes:
             base:
+              cannot_have_managers_and_manageds: '%{name} ne peut pas avoir à la fois des administrateurs* et des enfants.'
               manager_already_managed: L'administrateur.trice n'a pas pu être ajouté.e, car il/elle est déjà administré.e.
               managed_already_manager: L'enfant n'a pas pu être ajouté, car il est déjà administrateur
         people_manager:
