@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+export WAGONS='youth'
+export RAILS_ENV=test
+# export RAILS_TEST_DB_NAME=hit_youth_test
+
+# ensure that schema.rb is current for the test-db to load
+# bundle exec rake db:migrate
+
 # shellcheck disable=SC2068
 # SC2068: Double quote array expansions to avoid re-splitting elements.
 
