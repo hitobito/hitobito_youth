@@ -16,6 +16,7 @@ zeus.json
 Gemfile.lock
 
 # reports
+/coverage
 spec/coverage
 spec/reports
 brakeman-output.tabs
