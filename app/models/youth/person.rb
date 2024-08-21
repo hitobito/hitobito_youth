@@ -14,6 +14,9 @@ module Youth::Person
   NATIONALITIES_J_S = %w[CH FL ANDERE].freeze
 
   included do
+    Person::SEARCHABLE_ATTRS << :ahv_number << :j_s_number
+    include PgSearchable
+
     has_many :people_managers, foreign_key: :managed_id,
       dependent: :destroy
     has_many :people_manageds, class_name: "PeopleManager",
