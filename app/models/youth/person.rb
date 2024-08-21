@@ -8,9 +8,6 @@
 module Youth::Person
   extend ActiveSupport::Concern
 
-  require_dependency "social_security_number"
-  include ::SocialSecurityNumber
-
   NATIONALITIES_J_S = %w[CH FL ANDERE].freeze
 
   included do
@@ -27,25 +24,9 @@ module Youth::Person
     has_many :manageds, through: :people_manageds
 
     validates :nationality_j_s, inclusion: {in: NATIONALITIES_J_S, allow_blank: true}
+    validates :ahv_number, ahv_number: true # AhvNumberValidator in core
 
     validate :assert_either_only_managers_or_manageds
-    validate :validate_ahv_number
-  end
-
-  AHV_NUMBER_REGEX = /\A\d{3}\.\d{4}\.\d{4}\.\d{2}\z/
-
-  def validate_ahv_number
-    # Allow changing the password, even if there is an invalid AHV number in the database
-    return if will_save_change_to_encrypted_password? && !will_save_change_to_ahv_number?
-    return if ahv_number.blank?
-
-    if !AHV_NUMBER_REGEX.match?(ahv_number)
-      errors.add(:ahv_number, :must_be_social_security_number_with_correct_format)
-      return
-    end
-    unless checksum_validate(ahv_number).valid?
-      errors.add(:ahv_number, :must_be_social_security_number_with_correct_checksum)
-    end
   end
 
   def assert_either_only_managers_or_manageds # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
@@ -65,10 +46,6 @@ module Youth::Person
     return [self] unless FeatureGate.enabled?("people.people_managers")
 
     [self, manageds].flatten
-  end
-
-  def checksum_validate(ahv_number)
-    SocialSecurityNumber::Validator.new(number: ahv_number.to_s, country_code: "ch")
   end
 
   def valid_email?(email = self.email)

@@ -5,19 +5,31 @@
 
 top_ov:
   event: top_course
+  disclosure: optional
+  type: Event::Question::Default
 
 top_vegi:
   event: top_course
+  disclosure: optional
+  type: Event::Question::Default
 
 top_more:
   event: top_course
+  disclosure: optional
+  type: Event::Question::Default
 
 # global questions (not assigned to event)
 ga:
   event: {}
+  disclosure: optional
+  type: Event::Question::Default
 
 vegi:
   event: {}
+  disclosure: optional
+  type: Event::Question::Default
 
 schub:
   event: {}
+  disclosure: optional
+  type: Event::Question::Default
