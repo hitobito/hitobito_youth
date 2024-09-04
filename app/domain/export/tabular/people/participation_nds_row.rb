@@ -29,6 +29,12 @@ module Export::Tabular::People
       entry.canton.to_s.upcase
     end
 
+    def ahv_number
+      entry.answers.joins(:question).where(event_questions: { type: Event::Question::AhvNumber.sti_name })
+                                    .where.not(answer: [nil, ""])
+                                    .first&.answer.presence
+    end
+
     def country
       {
         "CH" => "CH",

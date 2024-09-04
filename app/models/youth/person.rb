@@ -24,9 +24,13 @@ module Youth::Person
     has_many :manageds, through: :people_manageds
 
     validates :nationality_j_s, inclusion: {in: NATIONALITIES_J_S, allow_blank: true}
-    validates :ahv_number, ahv_number: true # AhvNumberValidator in core
+    validates :ahv_number, ahv_number: true, unless: :skip_ahv_number_validation?
 
     validate :assert_either_only_managers_or_manageds
+  end
+
+  def skip_ahv_number_validation?
+    will_save_change_to_encrypted_password? && !will_save_change_to_ahv_number?
   end
 
   def assert_either_only_managers_or_manageds # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
@@ -54,5 +58,14 @@ module Youth::Person
     else
       super
     end
+  end
+
+  def last_known_ahv_number
+    @last_known_ahv_number ||= Event::Answer.joins(:question, :participation)
+      .where(participation: event_participation_ids)
+      .where(event_questions: {type: Event::Question::AhvNumber.sti_name})
+      .where.not(answer: [nil, ""])
+      .order(Event::Participation.arel_table[:updated_at].desc)
+      .last&.answer.presence || try(:ahv_number)
   end
 end
