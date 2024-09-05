@@ -21,21 +21,23 @@ describe Synchronize::Mailchimp::Subscriber do
         AdditionalEmail.new(label: 'vater', email: 'vater@example.com', mailings: true)
     end
 
-    subject { described_class.mailing_list_subscribers(mailing_list) }
+    subject(:subscribers) { described_class.mailing_list_subscribers(mailing_list) }
 
     context 'default strategy' do
       it 'returns all people and their manager' do
         manager = Fabricate(:person)
         person.managers = [manager]
 
-        subscribers = subject
         expect(subscribers.count).to eq(2)
 
-        managed_subscriber = subscribers.first
-        manager_subscriber = subscribers.last
+        managed_subscriber = subscribers.find { _1.person == person }
+        manager_subscriber = subscribers.find { _1.person == manager }
 
+        expect(managed_subscriber).to be_present
         expect(managed_subscriber.email).to eq(person.email)
         expect(managed_subscriber.person).to eq(person)
+
+        expect(manager_subscriber).to be_present
         expect(manager_subscriber.email).to eq(manager.email)
         expect(manager_subscriber.person).to eq(manager)
       end
