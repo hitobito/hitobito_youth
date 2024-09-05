@@ -30,9 +30,7 @@ module Export::Tabular::People
     end
 
     def ahv_number
-      entry.answers.joins(:question).where(event_questions: { type: Event::Question::AhvNumber.sti_name })
-                                    .where.not(answer: [nil, ""])
-                                    .first&.answer.presence
+      entry.last_known_ahv_number(participation.id)
     end
 
     def country

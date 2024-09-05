@@ -60,9 +60,9 @@ module Youth::Person
     end
   end
 
-  def last_known_ahv_number
-    @last_known_ahv_number ||= Event::Answer.joins(:question, :participation)
-      .where(participation: event_participation_ids)
+  def last_known_ahv_number(participation_ids = event_participation_ids)
+    Event::Answer.joins(:question, :participation)
+      .where(participation: participation_ids)
       .where(event_questions: {type: Event::Question::AhvNumber.sti_name})
       .where.not(answer: [nil, ""])
       .order(Event::Participation.arel_table[:updated_at].desc)

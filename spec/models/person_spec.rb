@@ -61,6 +61,11 @@ describe Person do
         ahv_number_answers
         is_expected.to eq(ahv_numbers.last)
       end
+
+      it "uses only specified participation_id" do
+        expected_answer = ahv_number_answers.first
+        expect(person.last_known_ahv_number(expected_answer.participation_id)).to eq(expected_answer.answer)
+      end
     end
   end
 
