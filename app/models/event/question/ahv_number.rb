@@ -27,4 +27,9 @@ class Event::Question::AhvNumber < Event::Question
     validator = AhvNumberValidator.new(attributes: :answer)
     validator.validate(answer)
   end
+
+  def translation_class
+    # ensures globalize works with STI
+    Event::Question.globalize_translation_class
+  end
 end
