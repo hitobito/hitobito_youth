@@ -36,6 +36,25 @@ describe Event::ParticipationsController do
   end
 
   context 'POST#create' do
+    let(:pending_dj_handlers) { Delayed::Job.all.pluck(:handler) }
+    let(:user) { people(:bottom_member) }
+
+    it "sends confirmation mail when manager registers managed" do
+      PeopleManager.create!(manager_id: people(:top_leader).id, managed_id: user.id)
+      course.update!(waiting_list: false, maximum_participants: 2, participant_count: 1, automatic_assignment: true)
+
+      expect do
+        post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: user.id}}
+        expect(assigns(:participation)).to be_valid
+      end.to change { Delayed::Job.count }
+
+      expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationNotificationJob/ }
+      expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationConfirmationJob/ }
+
+      expect(flash[:notice])
+        .to include "Teilnahme von <i>#{user}</i> in <i>Eventus</i> wurde erfolgreich erstellt. Bitte überprüfe die Kontaktdaten und passe diese gegebenenfalls an."
+      expect(flash[:warning]).to be_nil
+    end
 
     it 'sets participation state to applied' do
       post :create,
