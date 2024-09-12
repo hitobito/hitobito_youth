@@ -22,7 +22,6 @@ describe Export::Tabular::People::ParticipationNdsRow do
   it { expect(row.fetch(:first_name)).to eq 'Peter' }
   it { expect(row.fetch(:birthday)).to eq '11.06.1980' }
   it { expect(row.fetch(:gender)).to eq 'm' }
-  it { expect(row.fetch(:ahv_number)).to eq '756.1234.5678.97' }
   it { expect(row.fetch(:peid)).to be_nil }
   it { expect(row.fetch(:nationality_j_s)).to eq 'FL' }
   it { expect(row.fetch(:first_language)).to eq 'DE' }
@@ -69,6 +68,31 @@ describe Export::Tabular::People::ParticipationNdsRow do
     end
   end
 
+  describe 'ahv_number' do
+    subject(:ahv_number) { row.fetch(:ahv_number) }
+    let(:valid_ahv_number) { '756.1234.5678.97' }
+
+    before do
+      expect(person).to receive(:last_known_ahv_number).and_call_original
+    end
+
+    context "with ahv_number fallback on person" do
+      it "calls #last_known_ahv_number and returns #ahv_number" do
+        person.ahv_number = valid_ahv_number
+        is_expected.to eq(person.ahv_number)
+      end
+    end
+
+    context "with ahv_number on participation" do
+      it "calls #last_known_ahv_number and returns participation answer" do
+        event = participation.event
+        question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
+        answer = Event::Answer.find_by(question: question, participation: participation)
+        answer.update!(answer: valid_ahv_number)
+        is_expected.to eq(valid_ahv_number)
+      end
+    end
+  end
 
   private
 
@@ -80,7 +104,6 @@ describe Export::Tabular::People::ParticipationNdsRow do
                        birthday: '11.06.1980',
                        gender: 'm',
                        j_s_number: '1695579',
-                       ahv_number: '756.1234.5678.97',
                        street: 'Hauptstrasse',
                        housenumber: '33',
                        zip_code: '4000',

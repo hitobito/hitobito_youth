@@ -29,6 +29,10 @@ module Export::Tabular::People
       entry.canton.to_s.upcase
     end
 
+    def ahv_number
+      entry.last_known_ahv_number(participation.id)
+    end
+
     def country
       {
         "CH" => "CH",

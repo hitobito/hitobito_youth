@@ -29,6 +29,46 @@ describe Person do
     end
   end
 
+  describe '#last_known_ahv_number' do
+    let(:valid_ahv_number) { '756.1234.5678.97' }
+    let(:person) { top_leader }
+    subject(:last_known_ahv_number) { person.last_known_ahv_number }
+
+    context "without any answers" do
+      it 'falls back on the legacy ahv number' do
+        person.ahv_number = valid_ahv_number
+        is_expected.to eq(person.ahv_number)
+      end
+    end
+
+    context "with answered questions of type Event::Question::AhvNumber" do
+      let(:ahv_numbers) do
+        %w[756.3720.9797.95 756.7774.5627.12 756.5137.2138.68]
+      end
+      let(:ahv_number_answers) do
+        ahv_numbers.map.with_index do |ahv_number, i|
+          participation = Fabricate(:event_participation, person: person)
+          event = participation.event
+          question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
+          answer = Event::Answer.find_by(question: question, participation: participation)
+          answer.update!(answer: ahv_number)
+          participation.touch(time: (i + 1).months.ago)
+          answer
+        end
+      end
+
+      it "uses the last updated answer" do
+        ahv_number_answers
+        is_expected.to eq(ahv_numbers.last)
+      end
+
+      it "uses only specified participation_id" do
+        expected_answer = ahv_number_answers.first
+        expect(person.last_known_ahv_number(expected_answer.participation_id)).to eq(expected_answer.answer)
+      end
+    end
+  end
+
   describe '#ahv_number' do
     it 'fails for malformatted ahv number' do
       person = Person.new

@@ -1,5 +1,9 @@
 # Hitobito Changelog
 
+## Unreleased
+
+* AHV-Nummern wurde als globale Frage für alle Anlässe hinzugefügt. Es muss für jeden neuen Anlass ausgewählt werden, ob die Antwort auf diese Frage obligatorisch, optional oder versteckt sein soll. Diese Antworten dafür werden im NDS-Export des jeweiligen Anlasses berücksichtigt. (hitobito_youth#58)
+
 ## Version 1.30
 
 * Es können neu die eigenen Kinder direkt am Anlass angemeldet werden. Kinder werden entweder auf der Person hinterlegt oder können bei der Anlass-Anmeldung direkt neu angelegt werden. (#1969)
