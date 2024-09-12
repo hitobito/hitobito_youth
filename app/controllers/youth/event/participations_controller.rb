@@ -14,6 +14,11 @@ module Youth::Event::ParticipationsController
     alias_method_chain :return_path, :managed
     alias_method_chain :after_destroy_path, :managed
     alias_method_chain :set_success_notice, :managed
+
+    def current_user_interested_in_mail?
+      # send email to kind and verwalter
+      current_user.and_manageds.map(&:id).include? entry.person_id
+    end
   end
 
   def cancel
