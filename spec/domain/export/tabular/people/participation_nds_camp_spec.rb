@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2012-2024, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -10,7 +10,9 @@ require 'spec_helper'
 describe Export::Tabular::People::ParticipationsNdsCamp do
 
   let(:person) { sportdb_person }
-  let(:participation) { Fabricate(:event_participation, person: person, event: events(:top_course)) }
+  let(:participation) do
+    Fabricate(:event_participation, person: person, event: events(:top_course))
+  end
 
   let(:list) { Export::Tabular::People::ParticipationsNdsCamp.new([participation]) }
   let(:row) { list.data_rows.first }
@@ -34,8 +36,9 @@ describe Export::Tabular::People::ParticipationsNdsCamp do
 
   it 'outputs optional empty values as nil, in order to not overwrite existing values in SPORTDB' do
     person.update(
-        j_s_number: '',
-        address: ''
+      j_s_number: '',
+      street: '',
+      housenumber: ''
     )
     expect(row[0]).to eq nil
     expect(row[9]).to eq nil
@@ -46,18 +49,18 @@ describe Export::Tabular::People::ParticipationsNdsCamp do
 
   def sportdb_person
     Fabricate(:person,
-                email: 'foo@example.com',
-                first_name: 'Peter',
-                last_name: 'Muster',
-                birthday: '11.06.1980',
-                gender: 'm',
-                j_s_number: '1695579',
-                ahv_number: '756.1234.5678.97',
-                address: 'Hauptstrasse 33',
-                zip_code: '4000',
-                town: 'Basel',
-                country: 'CH',
-                nationality_j_s: 'FL'
-              )
+              email: 'foo@example.com',
+              first_name: 'Peter',
+              last_name: 'Muster',
+              birthday: '11.06.1980',
+              gender: 'm',
+              j_s_number: '1695579',
+              ahv_number: '756.1234.5678.97',
+              street: 'Hauptstrasse',
+              housenumber: '33',
+              zip_code: '4000',
+              town: 'Basel',
+              country: 'CH',
+              nationality_j_s: 'FL')
   end
 end

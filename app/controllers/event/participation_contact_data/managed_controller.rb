@@ -7,11 +7,12 @@
 
 class Event::ParticipationContactData::ManagedController <
   Event::ParticipationContactDatasController
+  before_action :assert_feature_enabled
 
   def update
     if any_duplicates?
       entry.errors.add(:base, :duplicates_present) if any_duplicates?
-      render :edit
+      render :edit, status: :unprocessable_entity
     else
       super
     end
@@ -21,7 +22,7 @@ class Event::ParticipationContactData::ManagedController <
 
   def person
     @person ||= Person.new.tap do |person|
-      person.managers = [current_user]
+      person.people_managers.build(manager: current_user, managed: person)
     end
   end
 
@@ -31,8 +32,8 @@ class Event::ParticipationContactData::ManagedController <
 
   def any_duplicates?
     relevant_person_attrs = entry.person.attributes
-                                        .transform_keys(&:to_sym)
-                                        .slice(*Import::PersonDuplicateFinder::DUPLICATE_ATTRIBUTES)
+      .transform_keys(&:to_sym)
+      .slice(*Import::PersonDuplicateFinder::DUPLICATE_ATTRIBUTES)
 
     person_duplicate_finder.find(relevant_person_attrs).present?
   end
@@ -43,5 +44,10 @@ class Event::ParticipationContactData::ManagedController <
 
   def privacy_policy_param
     params[:event_participation_contact_datas_managed][:privacy_policy_accepted]
+  end
+
+  def assert_feature_enabled
+    FeatureGate.assert!("people.people_managers") &&
+      FeatureGate.assert!("people.people_managers.self_service_managed_creation")
   end
 end

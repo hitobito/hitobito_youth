@@ -1,10 +1,11 @@
-# encoding: utf-8
-
 #  Copyright (c) 2014-2017, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
+# It's safe to use instance variables here because they
+# are encapsulated within their own class.
+# rubocop:disable Rails/HelperInstanceVariable
 module Youth::FilterNavigation::People
   extend ActiveSupport::Concern
 
@@ -26,10 +27,10 @@ module Youth::FilterNavigation::People
 
   def new_group_people_filter_path_with_education
     template.new_group_people_filter_path(
-        group.id,
-        education: education?,
-        range: filter.range,
-        filters: filter.chain.to_params
+      group.id,
+      education: education?,
+      range: filter.range,
+      filters: filter.chain.to_params
     )
   end
 
@@ -48,11 +49,12 @@ module Youth::FilterNavigation::People
       start_at_year_from: @params[:start_at_year_from],
       start_at_year_until: @params[:start_at_year_until],
       finish_at_year_from: @params[:finish_at_year_from],
-      finish_at_year_until: @params[:finish_at_year_until])
+      finish_at_year_until: @params[:finish_at_year_until]
+    )
   end
 
   def education?
-    template.controller_name == 'educations'
+    template.controller_name == "educations"
   end
-
 end
+# rubocop:enable Rails/HelperInstanceVariable

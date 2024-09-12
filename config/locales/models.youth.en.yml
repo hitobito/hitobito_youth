@@ -1,9 +1,83 @@
 en:
   activerecord:
     attributes:
+      event:
+        training_days: Days of formation
+      event/course:
+        tentative_applications: Provisional registrations
+        states:
+          created: Created
+          confirmed: Confirmed
+          application_open: Open for registration
+          application_closed: Registration completed
+          assignment_closed: Assignment completed
+          canceled: Cancelled
+          completed: Qualifications registered
+          closed: Completed
+        participation_states:
+          tentative: Provisionally
+          applied: Registered
+          assigned: Assigned
+          rejected: Rejected
+          canceled: Cancelled Registration
+          attended: Participated
+          absent: Didn't attend
+      event/kind:
+        kurs_id_fiver: Course-ID-FiVer
+        vereinbarungs_id_fiver: Agreement-ID-FiVer
       event/participation:
         additional_information: Comments (general, health information, allergies, etc.)
+        canceled_at: Deregistration date
+        state: Status
+      person:
+        canton: Canton of residence
+        ahv_number: AVS number
+        j_s_number: J+S number
+        nationality_j_s: Nationality according to J+S
+        translated_nationality_j_s: Nationality according to J+S
+        nationalities_j_s:
+          CH: CH
+          FL: FL
+          ANDERE: OTHER
+        managers: Supervisors
+        manageds: Children
+        people_managers: Supervisors
+        people_manageds: Children
+        people_managers_attributes: Supervisors
+        people_manageds_attributes: Children
+        readable_manageds: Children
+      people_manager:
+        manager_id: Supervisor
+        managed_id: Child
+      people_managers:
+        manager_id: Supervisor
+        managed_id: Child
+      people_manageds:
+        manager_id: Child
+        managed_id: Supervisor
     errors:
       messages:
         must_be_social_security_number_with_correct_format: must be in valid format (756.1234.5678.97).
         must_be_social_security_number_with_correct_checksum: must have a valid checksum.
+      models:
+        person:
+          attributes:
+            base:
+              manager_already_managed: Supervisor could not be added because he/she is already supervised.
+              managed_already_manager: Child could not be added because he/she is already a supervisor.
+        people_manager:
+          attributes:
+            manager_id:
+              taken: is already set.
+          manager_and_managed_the_same: cannot manage themselves.
+    models:
+      people_manager:
+        one: Supervisors
+        other: Supervisors
+  activemodel:
+    errors:
+      models:
+        event/participation_contact_datas/managed:
+          attributes:
+            base:
+              duplicates_present: This person already exists. Please contact administrator to register them as your child.

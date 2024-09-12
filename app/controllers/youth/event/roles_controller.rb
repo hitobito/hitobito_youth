@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2022, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -19,8 +17,8 @@ module Youth::Event::RolesController
           destroy_participant_roles!
         end
         respond_with(entry,
-                     success: created,
-                     location: after_create_url(new_participation, created))
+          success: created,
+          location: after_create_url(new_participation, created))
       end
     end
   end
@@ -29,9 +27,8 @@ module Youth::Event::RolesController
 
   def set_participation_active
     participation = entry.participation
-    return unless participation.state == 'tentative'
+    return unless participation.state == "tentative"
     participation.active = true
-    participation.state = 'assigned'
+    participation.state = "assigned"
   end
-
 end

@@ -56,6 +56,10 @@ de:
         people_manageds_attributes: Kinder
         readable_manageds: Kinder
 
+      people_manager:
+        manager_id: Verwalter*in
+        managed_id: Kind
+
       people_managers:
         manager_id: Verwalter*in
         managed_id: Kind
@@ -71,13 +75,20 @@ de:
         person:
           attributes:
             base:
-              cannot_have_managers_and_manageds: Kann nicht sowohl Verwalter*innen als auch Kinder haben.
+              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
               manager_already_managed: Verwalter*in konnte nicht hinzugefügt werden, da er/sie bereits verwaltet wird.
               managed_already_manager: Kind konnte nicht hinzugefügt werden, da es bereits Verwalter*in ist.
         people_manager:
+          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
+
           attributes:
             manager_id:
               taken: ist bereits gesetzt.
+          manager_and_managed_the_same: kann sich nicht selber verwalten.
+    models:
+      people_manager:
+        one: Verwalter*in
+        other: Verwalter*innen
 
   activemodel:
     errors:

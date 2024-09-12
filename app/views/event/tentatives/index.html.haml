@@ -8,7 +8,7 @@
 %p= t('.total_info_html', count: @counts.values.sum)
 
 = table(@counts, class: 'table table-striped') do |t|
-  - t.col(t('.tentatives_count'), style: 'width: 100px;') do |_, tentatives_count|
+  - t.col(t('.tentatives_count'), class: 'w-100') do |_, tentatives_count|
     - fnumber(tentatives_count)
   - t.col(t('.layer')) do |(group_id, group_name), tentatives_count|
     - link_to(group_name, group_path(id: group_id))

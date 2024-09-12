@@ -11,7 +11,6 @@
 # ability class to take the inherited abilities into account. This ability class here
 # allows us to revert back to the core behaviour in the few places where we need it.
 class AbilityWithoutManagerAbilities < Ability
-
   private
 
   def define_user_abilities(current_store, current_user_context)

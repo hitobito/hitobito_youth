@@ -14,6 +14,7 @@ describe 'GroupEducationsHelper' do
   include LayoutHelper
   include UtilityHelper
   include QualificationsHelper
+  include ERB::Util
 
   subject { joined_qualification_kind_labels(user) }
 

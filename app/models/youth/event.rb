@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -29,17 +27,16 @@ module Youth::Event
     alias_method_chain :applicants_scope, :states
   end
 
-  def default_participation_state(_participation, for_someone_else)
+  def default_participation_state(_participation, _for_someone_else)
     possible_participation_states.first
   end
 
   def applicants_scope_with_states
     # required for migrations
-    if Event::Participation.column_names.include?('state') && possible_participation_states.present?
+    if Event::Participation.column_names.include?("state") && possible_participation_states.present?
       applicants_scope_without_states.where(state: countable_participation_states)
     else
       applicants_scope_without_states
     end
   end
-
 end

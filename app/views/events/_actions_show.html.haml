@@ -1,4 +1,4 @@
-= Dropdown::Event::ParticipantAdd.for_user(self, @group, entry, current_user)
+= Dropdown::Event::ParticipantAdd.for_user(self, @group, entry, current_user) if entry.application_possible?
 = button_action_edit if can?(:update, entry)
 = button_action_destroy if can?(:destroy, entry)
 - if can?(:new, entry)

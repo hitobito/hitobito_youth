@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -16,27 +14,32 @@ module Youth::Event::ParticipationsController
     alias_method_chain :return_path, :managed
     alias_method_chain :after_destroy_path, :managed
     alias_method_chain :set_success_notice, :managed
+
+    def current_user_interested_in_mail?
+      # send email to kind and verwalter
+      current_user.and_manageds.map(&:id).include? entry.person_id
+    end
   end
 
   def cancel
     entry.canceled_at = params[:event_participation][:canceled_at]
-    change_state('canceled', 'cancel')
+    change_state("canceled", "cancel")
   end
 
   def reject
-    change_state('rejected', 'reject')
+    change_state("rejected", "reject")
   end
 
   def absent
-    change_state('absent', 'absent')
+    change_state("absent", "absent")
   end
 
   def attend
-    change_state('attended', 'attend')
+    change_state("attended", "attend")
   end
 
   def assign
-    change_state('assigned', 'assign')
+    change_state("assigned", "assign")
   end
 
   private
@@ -69,7 +72,7 @@ module Youth::Event::ParticipationsController
   end
 
   def return_path_with_managed
-    if  manager_via_public_event? || (participation_of_managed? && !entry.persisted?)
+    if manager_via_public_event? || (participation_of_managed? && !entry.persisted?)
       group_event_path(group, event)
     else
       return_path_without_managed
@@ -87,7 +90,7 @@ module Youth::Event::ParticipationsController
   def set_success_notice_with_managed
     if !entry.pending? && manager_via_public_event?
       flash[:notice] ||= translate(:success_for_external_manager,
-                                   full_entry_label: full_entry_label)
+        full_entry_label: full_entry_label)
     else
       set_success_notice_without_managed
     end
@@ -105,5 +108,4 @@ module Youth::Event::ParticipationsController
     model_params[:person_id].to_i == current_user.id ||
       current_user.manageds.pluck(:id).include?(model_params[:person_id].to_i)
   end
-
 end

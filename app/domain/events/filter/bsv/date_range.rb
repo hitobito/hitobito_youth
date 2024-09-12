@@ -16,9 +16,8 @@ module Events::Filter::Bsv
       return @scope unless start_date.present? && end_date.present?
 
       courses = @scope.joins(:dates).where(first_event_date_start)
-      courses = date_range_condition(courses, start_date, '>=')
-      courses = date_range_condition(courses, end_date, '<=')
-      courses
+      courses = date_range_condition(courses, start_date, ">=")
+      date_range_condition(courses, end_date, "<=")
     end
 
     private
@@ -38,7 +37,7 @@ module Events::Filter::Bsv
     end
 
     def first_event_date_start
-      <<-SQL.lines.map(&:strip).join(' ')
+      <<-SQL.lines.map(&:strip).join(" ")
         event_dates.start_at = (
           SELECT start_at
           FROM event_dates
@@ -50,10 +49,10 @@ module Events::Filter::Bsv
     end
 
     def date_range_condition(courses, date, operator)
-      courses.where('(event_dates.finish_at IS NULL' \
+      courses.where("(event_dates.finish_at IS NULL" \
                   " AND event_dates.start_at #{operator} ?)" \
                   " OR (event_dates.finish_at #{operator} ?)",
-                    date, date)
+        date, date)
     end
   end
 end

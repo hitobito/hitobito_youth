@@ -8,15 +8,6 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::PersonReadables
-
-  def accessible_people
-    if user.root?
-      super
-    else
-      super.left_joins(:people_managers)
-    end
-  end
-
   def accessible_conditions
     super.tap do |condition|
       condition.or(*manager_condition)
@@ -24,7 +15,6 @@ module Youth::PersonReadables
   end
 
   def manager_condition
-    ['people_managers.manager_id = ?', user.id]
+    ["people.id IN (#{PeopleManager.where(manager_id: user.id).select(:managed_id).to_sql})"]
   end
-
 end

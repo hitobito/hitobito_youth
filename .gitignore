@@ -16,10 +16,14 @@ zeus.json
 Gemfile.lock
 
 # reports
+/coverage
 spec/coverage
 spec/reports
 brakeman-output.tabs
 rubocop-results.xml
 config/environment.rb
+
 .envrc
 .tool-versions
+.nvimrc
+tags

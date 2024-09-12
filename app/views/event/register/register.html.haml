@@ -7,7 +7,7 @@
 
 - title t(".title.#{manager ? 'manager' : 'participant'}")
 
-- unless FeatureGate.enabled?('people.people_managers')
+- unless self_service_managed_enabled?
   = render 'event/participations/step_wizard', step: 1
 
 - return_url = FeatureGate.enabled?('people.people_managers') ? group_event_path(group, event) : new_group_event_participation_path(group, event)
@@ -21,9 +21,9 @@
   = hidden_field_tag(:manager, manager)
   = hidden_field_tag(:return_url, return_url)
 
-  - if FeatureGate.enabled?('people.people_managers') && manager
+  - if manager
     = render 'manager_fields', f: f
   - else
-    = render 'event/participation_contact_datas/form', f: f
+    = render 'event/participation_contact_datas/fields', f: f
 
   = f.honeypot(:verification)

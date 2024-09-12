@@ -11,7 +11,7 @@ module Youth::Event::ParticipationContactDatasController
   private
 
   def contact_data_class
-    return super unless current_user.manageds.include?(params_person)
+    return super unless participation_for_managed?
 
     Event::ParticipationContactDatas::Managed
   end
@@ -28,12 +28,28 @@ module Youth::Event::ParticipationContactDatasController
     current_user.manageds.find(params[:person_id]) if params[:person_id].present?
   end
 
+  def participation_for_managed?
+    current_user.manageds.include?(params_person)
+  end
+
   def after_update_success_path
     new_group_event_participation_path(
       group,
       event,
-      { event_role: { type: params[:event_role][:type] },
-        event_participation: { person_id: entry.person.id } }
+      {event_role: {type: params[:event_role][:type]},
+       event_participation: {person_id: entry.person.id}}
     )
+  end
+
+  def privacy_policy_param
+    params.dig(contact_data_param_key, :privacy_policy_accepted)
+  end
+
+  def contact_data_param_key
+    if participation_for_managed?
+      :event_participation_contact_datas_managed
+    else
+      :event_participation_contact_data
+    end
   end
 end

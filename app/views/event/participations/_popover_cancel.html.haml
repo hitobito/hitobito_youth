@@ -10,5 +10,6 @@
                 url: cancel_group_event_participation_path(@group, @event, entry),
                 method: :put) do |f|
 
-  = f.labeled_input_field(:canceled_at, value: f(Date.today))
+  = f.labeled_input_field(:canceled_at, value: f(Date.today), label_class: 'col-md-3 col-xl-3 pb-1')
+  = render_extensions :popover_cancel, locals: { f: f }
   = form_buttons(f, submit_label: t('event.participations.actions_show_youth.cancel_button'), cancel_url: '#')

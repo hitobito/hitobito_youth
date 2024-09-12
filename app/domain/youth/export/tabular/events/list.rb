@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2017, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -11,30 +9,26 @@ module Youth::Export::Tabular::Events::List
   included do
     alias_method_chain :data_rows, :counts
     alias_method_chain :row_for, :counts
-    alias_method_chain :add_additional_labels, :training_days
     alias_method_chain :add_count_labels, :state
   end
 
-  def data_rows_with_counts(format = nil, &block)
+  def data_rows_with_counts(format = nil, &)
     if model_class.supports_applications?
       @gender_counts ||= participant_counts(
-        list.joins(participations: :person).
-             where(event_participations: { active: true }).
-             group('events.id', 'people.gender'))
+        list.joins(participations: :person)
+             .where(event_participations: {active: true})
+             .group("events.id", "people.gender")
+      )
       @state_counts ||= participant_counts(
-        list.where(event_participations: { state: model_class.revoked_participation_states }).
-             group('events.id', 'event_participations.state'))
+        list.where(event_participations: {state: model_class.revoked_participation_states})
+             .group("events.id", "event_participations.state")
+      )
     end
 
-    data_rows_without_counts(format, &block)
+    data_rows_without_counts(format, &)
   end
 
   private
-
-  def add_additional_labels_with_training_days(labels)
-    add_additional_labels_without_training_days(labels)
-    add_used_attribute_label(labels, :training_days)
-  end
 
   def add_count_labels_with_state(labels)
     add_count_labels_without_state(labels)
@@ -52,10 +46,10 @@ module Youth::Export::Tabular::Events::List
   end
 
   def participant_counts(scope)
-    counts = scope.joins(participations: :roles).
-                   where(event_roles: { type: model_class.participant_types.collect(&:sti_name) }).
-                   unscope(:order).
-                   count('event_participations.id')
+    counts = scope.joins(participations: :roles)
+      .where(event_roles: {type: model_class.participant_types.collect(&:sti_name)})
+      .unscope(:order)
+      .count("event_participations.id")
 
     Hash.new { |h, k| h[k] = Hash.new(0) }.tap do |hash|
       counts.each do |(event_id, group), count|
@@ -63,5 +57,4 @@ module Youth::Export::Tabular::Events::List
       end
     end
   end
-
 end

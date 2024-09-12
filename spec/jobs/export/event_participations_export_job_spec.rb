@@ -1,4 +1,4 @@
-#  Copyright (c) 2017-2019, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2017-2024, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -65,13 +65,14 @@ describe Export::EventParticipationsExportJob do
     let(:params) { { filter: 'all', nds_camp: true } }
 
     it 'and saves it' do
+      expect(FeatureGate.enabled?('structured_addresses')).to be_truthy
       subject.perform
 
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_camp_csv_header}\n")
-      expect(lines[3]).to eq("#{person_sportdb_csv_row}\n")
       expect(lines[0].split(';').count).to match(14)
+      expect(lines[3]).to eq("#{person_sportdb_csv_row}\n")
       expect(file.generated_file).to be_attached
     end
   end
@@ -87,7 +88,8 @@ describe Export::EventParticipationsExportJob do
                        gender: 'm',
                        j_s_number: '123',
                        ahv_number: '756.1234.5678.97',
-                       address: 'Str',
+                       street: 'Str',
+                       housenumber: '',
                        zip_code: '4000',
                        town: 'Basel',
                        country: 'CH',
@@ -105,7 +107,7 @@ describe Export::EventParticipationsExportJob do
   end
 
   def nds_course_csv_header
-    [ 
+    [
      'PERSONENNUMMER',
      'NAME',
      'VORNAME',
@@ -131,7 +133,7 @@ describe Export::EventParticipationsExportJob do
   end
 
   def nds_camp_csv_header
-    %w( 
+    %w(
      PERSONENNUMMER
      NAME
      VORNAME
@@ -160,7 +162,7 @@ describe Export::EventParticipationsExportJob do
       '', 'FL',
       'DE',
       '',
-      '',
+      'Str',
       '',
       '4000',
       'Basel',
@@ -185,7 +187,7 @@ describe Export::EventParticipationsExportJob do
       '',
       'FL',
       'DE',
-      '',
+      'Str',
       '',
       '4000',
       'Basel',

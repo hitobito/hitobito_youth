@@ -13,19 +13,18 @@ describe MailRelay::AddressList do
 
   let(:top_leader)    { people(:top_leader) }
   let(:bottom_member) { people(:bottom_member) }
+  let(:manager)       { people(:people_manager) }
+  let(:managed)       { people(:people_managed) }
 
   context 'entries' do
     it 'contains main and additional managers mailing emails' do
-      manager = Fabricate(:person)
-      bottom_member.managers = [manager]
-
       e1 = Fabricate(:additional_email, contactable: manager, mailings: true)
       e2 = Fabricate(:additional_email, contactable: top_leader, mailings: true)
 
       Fabricate(:additional_email, contactable: manager, mailings: false)
-      Fabricate(:additional_email, contactable: bottom_member, mailings: false)
-      expect(entries([bottom_member, top_leader])).to match_array([
-        'bottom_member@example.com',
+      Fabricate(:additional_email, contactable: managed, mailings: false)
+      expect(entries([managed, top_leader])).to match_array([
+        managed.email,
         'top_leader@example.com',
         manager.email,
         e1.email,
@@ -34,39 +33,40 @@ describe MailRelay::AddressList do
     end
 
     it 'does not contain blank manager emails' do
-      manager = Fabricate(:person)
-      bottom_member.managers = [manager]
-      manager.email = ' '
+      manager.update!(email: ' ')
 
-      expect(entries([top_leader])).to match_array([
-        'top_leader@example.com'
+      expect(entries(managed)).to match_array([
+        managed.email
       ])
     end
 
     it 'it uses only manager additional_email if label matches' do
-      manager = Fabricate(:person)
-      top_leader.managers = [manager]
-
-      e1 = Fabricate(:additional_email, contactable: top_leader, label: 'foo')
+      e1 = Fabricate(:additional_email, contactable: managed, label: 'foo')
       e2 = Fabricate(:additional_email, contactable: manager, label: 'foo')
       Fabricate(:additional_email, contactable: manager, label: 'bar')
-      expect(entries([top_leader], %w(foo))).to match_array([
+      expect(entries(managed, %w(foo))).to match_array([
         e1.email,
         e2.email
       ])
     end
 
     it 'it uses manager additional_email and main address if matches' do
-      manager = Fabricate(:person)
-      top_leader.managers = [manager]
-
-      e1 = Fabricate(:additional_email, contactable: top_leader, label: 'foo')
+      e1 = Fabricate(:additional_email, contactable: managed, label: 'foo')
       e2 = Fabricate(:additional_email, contactable: manager, label: 'foo')
-      expect(entries([top_leader], %W(foo #{MailingList::DEFAULT_LABEL}))).to match_array([
+      expect(entries(managed, %W(foo #{MailingList::DEFAULT_LABEL}))).to match_array([
         e1.email,
         e2.email,
-        top_leader.email,
+        managed.email,
         manager.email
+      ])
+    end
+
+    it 'for new person returns only the person' do
+      new_manager = Fabricate.build(:person)
+      new_person = Fabricate.build(:person, managers: [new_manager])
+      expect(entries(new_person)).to match_array([
+        new_person.email,
+        new_manager.email
       ])
     end
   end

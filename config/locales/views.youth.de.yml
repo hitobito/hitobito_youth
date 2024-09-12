@@ -5,23 +5,8 @@
 
 de:
   people:
-    update:
-      flash:
-        new_managers:
-          one: "Verwalter*in %{labels} hinzugefügt."
-          other: "Verwalter*innen %{labels} hinzugefügt."
-        destroyed_managers:
-          one: "Verwalter*in %{labels} entfernt."
-          other: "Verwalter*innen %{labels} entfernt."
-        new_manageds:
-          one: "Kind %{labels} hinzugefügt."
-          other: "Kinder %{labels} hinzugefügt."
-        destroyed_manageds:
-          one: "Kind %{labels} entfernt."
-          other: "Kinder %{labels} entfernt."
     fields_youth:
       no_permission_to_change_managers: Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.
-      manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
       nationality:
         placeholder: z.B. CH
 
@@ -78,7 +63,7 @@ de:
 
     register:
       register:
-        title: 
+        title:
           participant: Kontaktdaten der teilnehmenden Person erfassen
           manager: Kontaktdaten der erziehungsberechtigten Person
         email_check:
@@ -114,8 +99,8 @@ de:
     banner_declined_invitation:
       managed:
         explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
-
-
+    form:
+      caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
 
   export/tabular/events/list:
     male_count: Anzahl Teilnehmende Männer
@@ -148,6 +133,7 @@ de:
   dropdown/event/participant_add:
     disabled_messages:
       already_exists: 'ist bereits angemeldet'
+      cannot_see_event: 'darf den Anlass nicht sehen'
     register_new_managed: Neues Kind erfassen und anmelden
   event/lists:
     courses:
@@ -155,10 +141,29 @@ de:
       bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
       bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
 
+  person:
+    manageds:
+      new_person_fields:
+        birthday_hint: (dd.mm.yyyy)
+
   person_duplicates:
     merge:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
+
+  people_managers:
+    section:
+      manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
+    common_heading: Kinder / Verwalter*innen
+    managers_heading: Verwalter*innen
+    manageds_heading: Kinder
+    create_managed_person_button: Kind erfassen
+    assign_managed_person_button: Kind zuweisen
+    assign_manager_person_button: Verwalter*in zuweisen
+
+  unauthorized:
+    new:
+      event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
 
   version:
     association_change:
@@ -169,4 +174,3 @@ de:
         destroy:
           manager: "<i>%{label}</i> wurde als Verwalter*in entfernt."
           managed: "<i>%{label}</i> wurde als Kind entfernt."
-

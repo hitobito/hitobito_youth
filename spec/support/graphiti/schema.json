@@ -1,0 +1,2691 @@
+{
+  "resources": [
+    {
+      "name": "AdditionalEmailResource",
+      "type": "additional_emails",
+      "graphql_entrypoint": "additionalEmails",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "public": {
+          "type": "boolean",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "contactable_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "contactable_type": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "email": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "label": {
+        },
+        "public": {
+        },
+        "contactable_id": {
+        },
+        "contactable_type": {
+        },
+        "email": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "public": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "contactable_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "contactable_type": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "email": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        }
+      },
+      "relationships": {
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "Event::CourseResource",
+      "type": "courses",
+      "graphql_entrypoint": "courses",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "group_ids": {
+          "type": "array_of_integers",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "type": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "kind_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "description": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_conditions": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "motto": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "cost": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "location": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_opening_at": {
+          "type": "date",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_closing_at": {
+          "type": "date",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_contact_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "external_application_link": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "maximum_participants": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "state": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "training_days": {
+          "type": "float",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "applicant_count": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "participant_count": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "minimum_participants": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "number": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "teamer_count": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "kind_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "operators": [
+            "eq"
+          ]
+        },
+        "group_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq"
+          ]
+        },
+        "before_or_on": {
+          "type": "date",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "after_or_on": {
+          "type": "date",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "state": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "number": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        }
+      },
+      "relationships": {
+        "contact": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "dates": {
+          "type": "has_many",
+          "description": null,
+          "resource": "Event::DateResource"
+        },
+        "kind": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "Event::KindResource"
+        },
+        "leaders": {
+          "type": "has_many",
+          "description": null,
+          "resource": "Person::NameResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "Event::DateResource",
+      "type": "dates",
+      "graphql_entrypoint": "dates",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "event_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "location": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "start_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "finish_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "event_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "event": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "EventResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "Event::KindCategoryResource",
+      "type": "event_kind_categories",
+      "graphql_entrypoint": "kindCategories",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "Event::KindResource",
+      "type": "event_kinds",
+      "graphql_entrypoint": "kinds",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "short_name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "general_information": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_conditions": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "minimum_age": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "kind_category": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "Event::KindCategoryResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "EventResource",
+      "type": "events",
+      "graphql_entrypoint": "events",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "group_ids": {
+          "type": "array_of_integers",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "type": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "kind_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "description": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_conditions": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "motto": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "cost": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "location": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_opening_at": {
+          "type": "date",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_closing_at": {
+          "type": "date",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "application_contact_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "external_application_link": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "maximum_participants": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "kind_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "operators": [
+            "eq"
+          ]
+        },
+        "group_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq"
+          ]
+        },
+        "before_or_on": {
+          "type": "date",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "after_or_on": {
+          "type": "date",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        }
+      },
+      "relationships": {
+        "contact": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "dates": {
+          "type": "has_many",
+          "description": null,
+          "resource": "Event::DateResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      },
+      "polymorphic": true,
+      "children": [
+        "EventResource",
+        "Event::CourseResource"
+      ]
+    },
+    {
+      "name": "GroupResource",
+      "type": "groups",
+      "graphql_entrypoint": "groups",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "short_name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "display_name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "description": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "layer": {
+          "type": "boolean",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "parent_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "layer_group_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "type": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "email": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "address": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "zip_code": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "town": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "country": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "require_person_add_requests": {
+          "type": "boolean",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "self_registration_url": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "archived_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "deleted_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+        "logo": {
+          "type": "string",
+          "readable": true,
+          "description": null
+        }
+      },
+      "sorts": {
+        "id": {
+        },
+        "name": {
+        },
+        "short_name": {
+        },
+        "display_name": {
+        },
+        "description": {
+        },
+        "layer": {
+        },
+        "parent_id": {
+        },
+        "layer_group_id": {
+        },
+        "type": {
+        },
+        "email": {
+        },
+        "address": {
+        },
+        "zip_code": {
+        },
+        "town": {
+        },
+        "country": {
+        },
+        "require_person_add_requests": {
+        },
+        "self_registration_url": {
+        },
+        "archived_at": {
+        },
+        "created_at": {
+        },
+        "updated_at": {
+        },
+        "deleted_at": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "short_name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "layer": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "parent_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "layer_group_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "email": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "address": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "zip_code": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "town": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "country": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "require_person_add_requests": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "self_registration_url": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "archived_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "created_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "deleted_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "with_deleted": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "with_archived": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        }
+      },
+      "relationships": {
+        "contact": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "creator": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "updater": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "deleter": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "parent": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "GroupResource"
+        },
+        "layer_group": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "GroupResource"
+        },
+        "phone_numbers": {
+          "type": "has_many",
+          "description": null,
+          "resource": "PhoneNumberResource"
+        },
+        "social_accounts": {
+          "type": "has_many",
+          "description": null,
+          "resource": "SocialAccountResource"
+        },
+        "additional_emails": {
+          "type": "has_many",
+          "description": null,
+          "resource": "AdditionalEmailResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "InvoiceItemResource",
+      "type": "invoice_items",
+      "graphql_entrypoint": "invoiceItems",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "invoice_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "name": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "description": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "unit_cost": {
+          "type": "float",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "vat_rate": {
+          "type": "float",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "cost": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "count": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "cost_center": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "account": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "invoice_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "invoice": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "InvoiceResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "InvoiceResource",
+      "type": "invoices",
+      "graphql_entrypoint": "invoices",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "title": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "description": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "state": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "group_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "recipient_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "due_at": {
+          "type": "date",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "issued_at": {
+          "type": "date",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "recipient_email": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "payment_information": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "payment_purpose": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "hide_total": {
+          "type": "boolean",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "group_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "recipient_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "group": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "GroupResource"
+        },
+        "recipient": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "invoice_items": {
+          "type": "has_many",
+          "description": null,
+          "resource": "InvoiceItemResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "Person::NameResource",
+      "type": "person-name",
+      "graphql_entrypoint": "names",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "first_name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "last_name": {
+          "type": "string",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "leads_course_id": {
+          "type": "integer",
+          "operators": [
+            "eq"
+          ]
+        }
+      },
+      "relationships": {
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "PersonResource",
+      "type": "people",
+      "graphql_entrypoint": "people",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "first_name": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "last_name": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "nickname": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "company_name": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "company": {
+          "type": "boolean",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "email": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "address": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "zip_code": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "town": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "country": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "primary_group_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "gender": {
+          "type": "string",
+          "readable": "guarded",
+          "writable": "guarded",
+          "description": null
+        },
+        "birthday": {
+          "type": "date",
+          "readable": "guarded",
+          "writable": "guarded",
+          "description": null
+        },
+        "language": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "first_name": {
+        },
+        "last_name": {
+        },
+        "nickname": {
+        },
+        "company_name": {
+        },
+        "company": {
+        },
+        "email": {
+        },
+        "address": {
+        },
+        "zip_code": {
+        },
+        "town": {
+        },
+        "country": {
+        },
+        "primary_group_id": {
+        },
+        "gender": {
+        },
+        "birthday": {
+        },
+        "language": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "first_name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "last_name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "nickname": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "company_name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "company": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "email": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "address": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "zip_code": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "town": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "country": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "primary_group_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "gender": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "birthday": {
+          "type": "date",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "primary_group": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "GroupResource"
+        },
+        "layer_group": {
+          "type": "has_one",
+          "description": null,
+          "resource": "GroupResource"
+        },
+        "roles": {
+          "type": "has_many",
+          "description": null,
+          "resource": "RoleResource"
+        },
+        "phone_numbers": {
+          "type": "has_many",
+          "description": null,
+          "resource": "PhoneNumberResource"
+        },
+        "social_accounts": {
+          "type": "has_many",
+          "description": null,
+          "resource": "SocialAccountResource"
+        },
+        "additional_emails": {
+          "type": "has_many",
+          "description": null,
+          "resource": "AdditionalEmailResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "PhoneNumberResource",
+      "type": "phone_numbers",
+      "graphql_entrypoint": "phoneNumbers",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "public": {
+          "type": "boolean",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "contactable_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "contactable_type": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "number": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "label": {
+        },
+        "public": {
+        },
+        "contactable_id": {
+        },
+        "contactable_type": {
+        },
+        "number": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "public": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "contactable_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "contactable_type": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "number": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        }
+      },
+      "relationships": {
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "RoleResource",
+      "type": "roles",
+      "graphql_entrypoint": "roles",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "deleted_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "person_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "group_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "type": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "created_at": {
+        },
+        "updated_at": {
+        },
+        "deleted_at": {
+        },
+        "person_id": {
+        },
+        "group_id": {
+        },
+        "type": {
+        },
+        "label": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "created_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "deleted_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "person_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "group_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        }
+      },
+      "relationships": {
+        "person": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "PersonResource"
+        },
+        "group": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "GroupResource"
+        },
+        "layer_group": {
+          "type": "has_one",
+          "description": null,
+          "resource": "GroupResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "SocialAccountResource",
+      "type": "social_accounts",
+      "graphql_entrypoint": "socialAccounts",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "label": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "public": {
+          "type": "boolean",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "contactable_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "contactable_type": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "name": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "label": {
+        },
+        "public": {
+        },
+        "contactable_id": {
+        },
+        "contactable_type": {
+        },
+        "name": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "public": {
+          "type": "boolean",
+          "operators": [
+            "eq"
+          ],
+          "single": true
+        },
+        "contactable_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "contactable_type": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        }
+      },
+      "relationships": {
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    }
+  ],
+  "endpoints": {
+    "/api/event_kinds": {
+      "actions": {
+        "index": {
+          "resource": "Event::KindResource"
+        },
+        "show": {
+          "resource": "Event::KindResource"
+        }
+      }
+    },
+    "/api/events": {
+      "actions": {
+        "index": {
+          "resource": "EventResource"
+        },
+        "show": {
+          "resource": "EventResource"
+        }
+      }
+    },
+    "/api/groups": {
+      "actions": {
+        "index": {
+          "resource": "GroupResource"
+        },
+        "show": {
+          "resource": "GroupResource"
+        }
+      }
+    },
+    "/api/invoices": {
+      "actions": {
+        "index": {
+          "resource": "InvoiceResource"
+        },
+        "show": {
+          "resource": "InvoiceResource"
+        },
+        "update": {
+          "resource": "InvoiceResource"
+        }
+      }
+    },
+    "/api/people": {
+      "actions": {
+        "index": {
+          "resource": "PersonResource"
+        },
+        "show": {
+          "resource": "PersonResource"
+        },
+        "update": {
+          "resource": "PersonResource"
+        }
+      }
+    },
+    "/api/roles": {
+      "actions": {
+        "index": {
+          "resource": "RoleResource"
+        },
+        "create": {
+          "resource": "RoleResource"
+        },
+        "show": {
+          "resource": "RoleResource"
+        },
+        "update": {
+          "resource": "RoleResource"
+        },
+        "destroy": {
+          "resource": "RoleResource"
+        }
+      }
+    }
+  },
+  "types": {
+    "integer_id": {
+      "kind": "scalar",
+      "description": "Base Type. Query/persist as integer, render as string."
+    },
+    "uuid": {
+      "kind": "scalar",
+      "description": "Base Type. Like a normal string, but by default only eq/!eq and case-sensitive."
+    },
+    "string_enum": {
+      "kind": "scalar",
+      "description": "String enum type. Like a normal string, but only eq/!eq and case-sensitive. Limited to only the allowed values."
+    },
+    "integer_enum": {
+      "kind": "scalar",
+      "description": "Integer enum type. Like a normal integer, but only eq/!eq filters. Limited to only the allowed values."
+    },
+    "string": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "integer": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "big_decimal": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "float": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "boolean": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "date": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "datetime": {
+      "kind": "scalar",
+      "description": "Base Type."
+    },
+    "hash": {
+      "kind": "record",
+      "description": "Base Type."
+    },
+    "array": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_integer_ids": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_uuids": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_string_enums": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_integer_enums": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_strings": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_integers": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_big_decimals": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_floats": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_dates": {
+      "kind": "array",
+      "description": "Base Type."
+    },
+    "array_of_datetimes": {
+      "kind": "array",
+      "description": "Base Type."
+    }
+  }
+}
