@@ -72,7 +72,7 @@ module Export::Tabular::People
 
     def first_language
       language = entry.language.presence&.to_s&.upcase
-      NDS_LANGUAGES.include?(language) ? language : 'Andere'
+      NDS_LANGUAGES.include?(language) ? language : "Andere"
     end
 
     def second_language
