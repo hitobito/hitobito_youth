@@ -13,5 +13,9 @@
     %tr
       %td
         %strong= link_to(item.manager, item.manager, data: { turbo_frame: :_top })
+        %div.d-flex.gap-2
+          = mail_to(item.email)
+          = phone_to(item.phone_number.number, item.phone_number) if item.phone_number.present?
+
       - if can?(:destroy_manager, item)
         %td=render 'people_managers/delete_link', path: person_manager_path(person_id: person.id, id: item.id)
