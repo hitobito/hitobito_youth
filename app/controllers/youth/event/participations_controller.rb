@@ -17,7 +17,8 @@ module Youth::Event::ParticipationsController
 
     def current_user_interested_in_mail?
       # send email to kind and verwalter
-      current_user.and_manageds.map(&:id).include? entry.person_id
+      associated_people = current_user.and_manageds.concat(current_user.managers)
+      associated_people.map(&:id).include? entry.person_id
     end
   end
 
