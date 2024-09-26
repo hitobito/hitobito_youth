@@ -1,0 +1,8 @@
+- question = f.object
+- if question.derived? && !question.derived_from_question.customize_derived
+  = f.labeled(:question) do
+    = f.hidden_field(:question)
+    %p.py-2= question.question
+
+- else
+  = f.labeled_input_field(:question)
