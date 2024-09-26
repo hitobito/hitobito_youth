@@ -39,21 +39,52 @@ describe Event::ParticipationsController do
     let(:pending_dj_handlers) { Delayed::Job.all.pluck(:handler) }
     let(:user) { people(:bottom_member) }
 
-    it "sends confirmation mail when manager registers managed" do
-      PeopleManager.create!(manager_id: people(:top_leader).id, managed_id: user.id)
-      course.update!(waiting_list: false, maximum_participants: 2, participant_count: 1, automatic_assignment: true)
+    context "confirmation mails" do
+      context "as manager" do
+        before do 
+          PeopleManager.create!(manager_id: people(:top_leader).id, managed_id: user.id)
+          course.update!(waiting_list: false, maximum_participants: 2, participant_count: 1, automatic_assignment: true)
+        end
 
-      expect do
-        post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: user.id}}
-        expect(assigns(:participation)).to be_valid
-      end.to change { Delayed::Job.count }
+        it "sends confirmation mail when registering child" do
+          expect do
+            post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: user.id}}
+            expect(assigns(:participation)).to be_valid
+          end.to change { Delayed::Job.count }
+    
+          expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationNotificationJob/ }
+          expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationConfirmationJob/ }
+    
+          expect(flash[:notice])
+            .to include "Teilnahme von <i>#{user}</i> in <i>Eventus</i> wurde erfolgreich erstellt. Bitte überprüfe die Kontaktdaten und passe diese gegebenenfalls an."
+          expect(flash[:warning]).to be_nil
+        end
+      end
 
-      expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationNotificationJob/ }
-      expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationConfirmationJob/ }
+      context "as child" do
+        before do 
+          sign_in(user)
+          Fabricate(:role, type: Group::TopGroup::Leader.sti_name, person: user, group: groups(:top_group))
+          PeopleManager.create!(manager_id: people(:top_leader).id, managed_id: user.id)
+          course.update!(waiting_list: false, maximum_participants: 2, participant_count: 1, automatic_assignment: true)
+        end
 
-      expect(flash[:notice])
-        .to include "Teilnahme von <i>#{user}</i> in <i>Eventus</i> wurde erfolgreich erstellt. Bitte überprüfe die Kontaktdaten und passe diese gegebenenfalls an."
-      expect(flash[:warning]).to be_nil
+        it "sends confirmation mail to manager when child does not have email" do
+          user.update!(email: nil)
+        
+          expect do
+            post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: user.id}}
+            expect(assigns(:participation)).to be_valid
+          end.to change { Delayed::Job.count }
+    
+          expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationNotificationJob/ }
+          expect(pending_dj_handlers).to be_one { |h| h =~ /Event::ParticipationConfirmationJob/ }
+    
+          expect(flash[:notice])
+            .to include "Teilnahme von <i>#{user}</i> in <i>Eventus</i> wurde erfolgreich erstellt. Bitte überprüfe die Kontaktdaten und passe diese gegebenenfalls an."
+          expect(flash[:warning]).to be_nil
+        end
+      end
     end
 
     it 'sets participation state to applied' do
