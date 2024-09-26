@@ -1,5 +1,5 @@
 - question = f.object
-- if question.derived? && !question.derived_from_question.customize_derived
+- if question.derived? 
   = f.labeled(:question) do
     = f.hidden_field(:question)
     %p.py-2= question.question
