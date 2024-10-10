@@ -12,7 +12,7 @@
   - person.people_managers.each do |item|
     %tr
       %td
-        %strong= link_to(item.manager, item.manager, data: { turbo_frame: :_top })
+        %strong= link_to_if(can?(:show, item.manager), item.manager, item.manager, data: { turbo_frame: :_top })
         %div.d-flex.gap-2
           = mail_to(item.email)
           = phone_to(item.phone_number.number, item.phone_number) if item.phone_number.present?
