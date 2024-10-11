@@ -30,6 +30,7 @@ module HitobitoYouth
       Event::Participation.include Youth::Event::Participation
       Event::ParticipationContactData.include Youth::Event::ParticipationContactData
       Event::Role.include Youth::Event::Role
+      Event::Question::AhvNumber # load for STI to work
 
       TableDisplay.register_column(Person,
         TableDisplays::ShowFullColumn,
