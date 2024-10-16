@@ -11,7 +11,7 @@
     %span.float-end
       = Dropdown::AddPeopleManager.new(self, person).to_s
 
-= render layout: 'people_managers/section', locals: { readonly: readonly  } do
+= render layout: 'people_managers/section', locals: { readonly: readonly, list: person.people_managers } do
   - person.people_managers.each do |item|
     - if can?(:show, item)
       %tr
