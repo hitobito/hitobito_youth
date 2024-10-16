@@ -11,20 +11,35 @@ class PeopleManagerAbility < AbilityDsl::Base
     permission(:any).may(:new_managed, :new_manager).everybody
     permission(:any).may(:create_managed, :destroy_managed).if_can_change_managed
     permission(:any).may(:create_manager, :destroy_manager).if_can_change_manager
+    permission(:any).may(:show).for_leaded_events
+    permission(:any).may(:show).for_readable_manageds
   end
 
   def if_can_change_manager
-    can?(:change_managers, subject.managed) || creating_new_managed_person?
+    can?(:change_managers, managed) || creating_new_managed_person?
   end
 
   def if_can_change_managed
     can?(:update, subject.manager)
   end
 
+  def for_leaded_events
+    leaded_event_ids = user_context.events_with_permission(:event_full)
+    managed&.event_participations.exists?(event_id: leaded_event_ids)
+  end
+
+  def for_readable_manageds
+    can?(:show, managed)
+  end
+
   private
 
+  def managed
+    subject.managed
+  end
+
   def creating_new_managed_person?
-    subject.managed&.new_record? &&
+    managed&.new_record? &&
       FeatureGate.enabled?("people.people_managers.self_service_managed_creation")
   end
 
