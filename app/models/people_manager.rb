@@ -25,6 +25,14 @@ class PeopleManager < ActiveRecord::Base
 
   has_paper_trail on: []
 
+  def email
+    manager.email
+  end
+
+  def phone_number
+    manager.phone_numbers.first { _1.public } || manager.phone_numbers.first
+  end
+
   def create_paper_trail_versions_for_create_event
     [manager_id, managed_id].each do |main_id|
       PaperTrail::RecordTrail.new(self).send(:build_version_on_create,

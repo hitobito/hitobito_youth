@@ -3,15 +3,23 @@
 - #  or later. See the COPYING file at the top-level directory or at
 - #  https://github.com/hitobito/hitobito_youth.
 
+- readonly = defined?(readonly) && readonly
 - content_for(:section_header) do
   = t('people_managers.managers_heading')
-  %span.float-end
-    = Dropdown::AddPeopleManager.new(self, person).to_s
 
-= render layout: 'people_managers/section', locals: { list: person.people_managers } do
+  - if !readonly
+    %span.float-end
+      = Dropdown::AddPeopleManager.new(self, person).to_s
+
+= render layout: 'people_managers/section', locals: { readonly: readonly, list: person.people_managers } do
   - person.people_managers.each do |item|
-    %tr
-      %td
-        %strong= link_to(item.manager, item.manager, data: { turbo_frame: :_top })
-      - if can?(:destroy_manager, item)
-        %td=render 'people_managers/delete_link', path: person_manager_path(person_id: person.id, id: item.id)
+    - if can?(:show, item)
+      %tr
+        %td
+          %strong= link_to_if(can?(:show, item.manager), item.manager, item.manager, data: { turbo_frame: :_top })
+          %div.d-flex.gap-2
+            = mail_to(item.email)
+            = phone_to(item.phone_number.number, item.phone_number) if item.phone_number.present?
+
+    - if !readonly && can?(:destroy_manager, item)
+      %td=render 'people_managers/delete_link', path: person_manager_path(person_id: person.id, id: item.id)
