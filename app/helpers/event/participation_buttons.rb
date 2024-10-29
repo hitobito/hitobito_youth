@@ -58,7 +58,6 @@ class Event::ParticipationButtons
     action_button(t(".cancel_button"),
       nil,
       :"times-circle",
-      id: :cancel_button,
       title: t(".cancel_title"),
       data: {
         anchor: ".nav-left-list",
