@@ -104,7 +104,7 @@ module HitobitoYouth
     end
     # rubocop:enable Layout/LineLength
 
-    initializer "youth.add_settings" do |_app|
+    config.before_initialize do |_app|
       Settings.add_source!(File.join(paths["config"].existent, "settings.yml"))
       Settings.reload!
     end
