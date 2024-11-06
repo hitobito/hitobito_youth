@@ -3,6 +3,7 @@
 ## Version 2.3
 
 * AHV-Nummern wurde als globale Frage für alle Anlässe hinzugefügt. Es muss für jeden neuen Anlass ausgewählt werden, ob die Antwort auf diese Frage obligatorisch, optional oder versteckt sein soll. Diese Antworten dafür werden im NDS-Export des jeweiligen Anlasses berücksichtigt. (hitobito_youth#58)
+* Auf der Person unter «Meine nächsten Anlässe» wird ein zusätzlicher Link zur Anmeldung dieser Person auf dem Anlass angezeigt (hitobito_youth#85)
 
 ## Version 1.30
 
