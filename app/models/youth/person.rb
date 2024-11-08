@@ -12,7 +12,6 @@ module Youth::Person
 
   included do
     Person::SEARCHABLE_ATTRS << :ahv_number << :j_s_number
-    include PgSearchable
 
     has_many :people_managers, foreign_key: :managed_id,
       dependent: :destroy
