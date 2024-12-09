@@ -27,9 +27,6 @@ describe "event/participations/_attrs.html.haml" do
     allow(view).to receive_messages(parent: event)
     allow(view).to receive_messages(entry: participation.decorate)
     allow(view).to receive_messages(params: params)
-    # allow(view).to receive_messages(current_person: people(:top_leader))
-    # Fabricate(event.participant_types.first.name, participation: participation)
-    # participation.reload
   end
 
   context "with PeopleManager assigned" do
