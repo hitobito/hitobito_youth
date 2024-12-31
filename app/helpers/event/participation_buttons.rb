@@ -48,10 +48,12 @@ class Event::ParticipationButtons
   end
 
   def build_button(to_state)
-    return build_cancel_button if to_state == :cancel
-    return build_reject_button if to_state == :reject
-
-    build_action_button(to_state)
+    button_builder_method = :"build_#{to_state}_button"
+    if respond_to?(button_builder_method, true)
+      send(button_builder_method)
+    else
+      build_action_button(to_state)
+    end
   end
 
   def build_cancel_button
@@ -70,9 +72,9 @@ class Event::ParticipationButtons
     build_action_button(:reject, :"thumbs-down")
   end
 
-  def build_action_button(state, icon = :tag)
+  def build_action_button(state, icon = :tag, options = {})
     path = :"#{state}_group_event_participation"
-    action_button(label(state), path, icon, method: :put)
+    action_button(label(state), path, icon, options.merge(method: :put))
   end
 
   def show_button?(to_state)
