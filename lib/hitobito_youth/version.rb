@@ -4,5 +4,5 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module HitobitoYouth
-  VERSION = "2.4.2"
+  VERSION = "2.4.3"
 end
