@@ -60,8 +60,8 @@ bottom_layer_one:
   lft: 2
   rgt: 9
   email: bottom_layer@hitobito.example.ch
-  zip_code: 3000
-  town: Bern
+  zip_code: 28560
+  town: New Bern
   country: US
 
 bottom_group_one_one:
@@ -106,4 +106,3 @@ bottom_group_two_one:
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:bottom_layer_two) %>
   lft: 11
   rgt: 12
-
