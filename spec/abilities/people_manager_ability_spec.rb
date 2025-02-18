@@ -18,6 +18,35 @@ describe PeopleManagerAbility do
     PeopleManager.new(managed: managed, manager: manager)
   end
 
+  describe :show do
+    let(:person) { Fabricate(:person) }
+    let(:manager) { Fabricate(:person) }
+    let(:managed) { bottom_member }
+    let(:people_manager) { build(managed: managed, manager: manager) }
+
+    context 'with no relation' do
+      it { is_expected.not_to be_able_to(:show, people_manager) }
+    end
+
+    context 'with leader role on participation event' do
+      let(:event) { events(:top_event) }
+      before do
+        roles = { person => Event::Role::Leader, people_manager.managed => Event::Role::Participant }
+        x = roles.map do |person, role|
+          Fabricate(role.name, participation: Fabricate(:event_participation, event: event, person: person))
+        end
+        people_manager.save
+        people_manager.reload
+      end
+      it { is_expected.to be_able_to(:show, people_manager) }
+    end
+
+    context 'with layer permissions' do
+      let(:person) { top_leader }
+      it { is_expected.to be_able_to(:show, people_manager) }
+    end
+  end
+
   [:create_manager, :destroy_manager].each do |action|
 
     context 'top leader' do

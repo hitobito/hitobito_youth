@@ -64,7 +64,7 @@ module Youth::Event::ParticipationsController
   end
 
   def person_id_with_managed
-    if model_params&.key?(:person_id) && own_or_managed_params_person?
+    if model_params&.key?(:person_id) && current_user && own_or_managed_params_person?
       model_params[:person_id]
     else
       person_id_without_managed
