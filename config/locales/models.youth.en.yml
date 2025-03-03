@@ -31,7 +31,6 @@ en:
         state: Status
       person:
         canton: Canton of residence
-        ahv_number: AVS number
         j_s_number: J+S number
         nationality_j_s: Nationality according to J+S
         translated_nationality_j_s: Nationality according to J+S

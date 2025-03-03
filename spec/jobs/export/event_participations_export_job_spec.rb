@@ -19,7 +19,14 @@ describe Export::EventParticipationsExportJob do
   let(:person) { nds_person }
   let(:group) { course.groups.first }
   let(:event_role) { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
-  let(:participation) { Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true) }
+  let(:participation) do
+    p = Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true)
+    event = p.event
+    question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
+    answer = Event::Answer.find_by(question: question, participation: p)
+    answer.update!(answer: '756.1234.5678.97')
+    p
+  end
   let(:event_participation_filter) { Event::ParticipationFilter.new(course, user, params) }
   let(:filename) { AsyncDownloadFile.create_name('event_participation_export', user.id) }
   let(:file) { AsyncDownloadFile.from_filename(filename, format) }
@@ -87,7 +94,6 @@ describe Export::EventParticipationsExportJob do
                        birthday: '11.06.1980',
                        gender: 'm',
                        j_s_number: '123',
-                       ahv_number: '756.1234.5678.97',
                        street: 'Str',
                        housenumber: '',
                        zip_code: '4000',

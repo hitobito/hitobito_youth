@@ -23,16 +23,12 @@ describe Event::ParticipationContactDatasController, type: :controller do
   describe 'GET edit' do
 
     it 'does not show hidden contact fields' do
-
-      course.update!({ hidden_contact_attrs: ['ahv_number'] })
-
       get :edit, params: { group_id: course.groups.first.id, event_id: course.id, event_role: { type: 'Event::Course::Role::Participant' } }
 
       expect(dom).to have_selector('input#event_participation_contact_data_j_s_number')
       expect(dom).to have_selector('select#event_participation_contact_data_nationality_j_s')
 
       expect(dom).to have_no_selector('input#event_participation_contact_data_ahv_number')
-
     end
 
     it 'shows all contact fields by default' do
@@ -40,9 +36,9 @@ describe Event::ParticipationContactDatasController, type: :controller do
       get :edit, params: { group_id: course.groups.first.id, event_id: course.id, event_role: { type: 'Event::Course::Role::Participant' } }
 
       expect(dom).to have_selector('input#event_participation_contact_data_j_s_number')
-      expect(dom).to have_selector('input#event_participation_contact_data_ahv_number')
       expect(dom).to have_selector('select#event_participation_contact_data_nationality_j_s')
 
+      expect(dom).to have_no_selector('input#event_participation_contact_data_ahv_number')
     end
 
   end

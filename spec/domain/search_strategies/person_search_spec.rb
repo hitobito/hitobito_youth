@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe SearchStrategies::PersonSearch do
   before do
-    people(:bottom_leader).update!(j_s_number: 12345, ahv_number: "756.9217.0769.85")
+    people(:bottom_leader).update!(j_s_number: 12345)
   end
 
   describe "#search_fulltext" do
@@ -10,12 +10,6 @@ describe SearchStrategies::PersonSearch do
 
     it "finds accessible person by j_s number" do
       result = search_class(people(:bottom_leader).j_s_number.to_s).search_fulltext
-
-      expect(result).to include(people(:bottom_leader))
-    end
-
-    it "finds accessible person by ahv number" do
-      result = search_class(people(:bottom_leader).ahv_number.to_s).search_fulltext
 
       expect(result).to include(people(:bottom_leader))
     end
