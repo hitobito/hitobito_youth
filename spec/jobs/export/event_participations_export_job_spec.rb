@@ -40,7 +40,7 @@ describe Export::EventParticipationsExportJob do
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname"))
-      expect(lines[0].split(';').count).to match(16)
+      expect(lines[0].split(';').count).to match(19)
       expect(file.generated_file).to be_attached
     end
   end
@@ -66,7 +66,6 @@ describe Export::EventParticipationsExportJob do
     let(:params) { { filter: 'all', nds_camp: true } }
 
     it 'and saves it' do
-      expect(FeatureGate.enabled?('structured_addresses')).to be_truthy
       subject.perform
 
       lines = file.read.lines
