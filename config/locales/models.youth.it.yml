@@ -31,7 +31,6 @@ it:
         state: Stato
       person:
         canton: Cantone di domicilio
-        ahv_number: Numero AVS
         j_s_number: Numero G+S
         nationality_j_s: Nazionalità secondo G+S
         translated_nationality_j_s: Nazionalità secondo G+S

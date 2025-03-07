@@ -33,7 +33,7 @@ module HitobitoYouth
 
       TableDisplay.register_column(Person,
         TableDisplays::ShowFullColumn,
-        [:ahv_number, :j_s_number, :nationality_j_s])
+        [:j_s_number, :nationality_j_s])
 
       # domain
       Event::ParticipationFilter.include Youth::Event::ParticipationFilter
@@ -78,7 +78,7 @@ module HitobitoYouth
       Event::ParticipationsController.include Youth::Event::ParticipationsController
       Event::ParticipationContactDatasController.prepend Youth::Event::ParticipationContactDatasController
 
-      PeopleController.permitted_attrs += [:nationality_j_s, :ahv_number, :j_s_number]
+      PeopleController.permitted_attrs += [:nationality_j_s, :j_s_number]
       EventsController.permitted_attrs += [:tentative_applications]
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 

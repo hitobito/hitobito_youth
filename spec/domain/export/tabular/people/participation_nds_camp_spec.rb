@@ -10,8 +10,14 @@ require 'spec_helper'
 describe Export::Tabular::People::ParticipationsNdsCamp do
 
   let(:person) { sportdb_person }
+  let(:valid_ahv_number) { '756.1234.5678.97'}
   let(:participation) do
-    Fabricate(:event_participation, person: person, event: events(:top_course))
+    p = Fabricate(:event_participation, person: person, event: events(:top_course))
+    question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: events(:top_course))
+    answer = Event::Answer.find_by(question: question, participation: p)
+    answer.update!(answer: valid_ahv_number)
+
+    p
   end
 
   let(:list) { Export::Tabular::People::ParticipationsNdsCamp.new([participation]) }
@@ -55,7 +61,6 @@ describe Export::Tabular::People::ParticipationsNdsCamp do
               birthday: '11.06.1980',
               gender: 'm',
               j_s_number: '1695579',
-              ahv_number: '756.1234.5678.97',
               street: 'Hauptstrasse',
               housenumber: '33',
               zip_code: '4000',

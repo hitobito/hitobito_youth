@@ -4,7 +4,7 @@
 -#  https://github.com/hitobito/hitobito_youth.
 
 = field_set_tag do
-  = f.labeled_input_fields(:ahv_number, :j_s_number)
+  = f.labeled_input_field(:j_s_number)
   = f.labeled_collection_select(:nationality_j_s,
                                 Person::NATIONALITIES_J_S,
                                 :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
