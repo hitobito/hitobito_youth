@@ -31,6 +31,7 @@ fr:
         state: Statut
       person:
         canton: Canton de domicile
+        ahv_number: Numéro AVS
         j_s_number: Numéro J+S
         nationality_j_s: Nationalité selon J+S
         translated_nationality_j_s: Nationalité selon J+S
