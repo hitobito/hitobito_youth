@@ -1,6 +1,6 @@
 # Hitobito Changelog
 
-## unreleased
+## Version 2.4
 
 * AHV-Nummern wurden von der Person in die Antworten zu den aktuell laufenden Anlassteilnahmen verschoben. (hitobito_youth#59)
 
