@@ -6,14 +6,18 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::People::CleanupFinder
-  def run
-    Person.where(id: super.map(&:id))
-      .left_joins(:people_manageds)
-      .where(no_people_manageds_exist)
-      .distinct
+  private
+
+  def people_to_cleanup_scope
+    super
+      .then { |scope| without_managed_people(scope) }
   end
 
-  private
+  def without_managed_people(scope)
+    scope
+      .left_joins(:people_manageds)
+      .where(no_people_manageds_exist.to_sql)
+  end
 
   def no_people_manageds_exist
     people_manageds.arel.exists.not
