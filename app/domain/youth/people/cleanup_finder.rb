@@ -10,10 +10,10 @@ module Youth::People::CleanupFinder
 
   def people_to_cleanup_scope
     super
-      .then { |scope| without_managed_people(scope) }
+      .then { |scope| without_people_managers(scope) }
   end
 
-  def without_managed_people(scope)
+  def without_people_managers(scope)
     scope
       .left_joins(:people_manageds)
       .where(no_people_manageds_exist.to_sql)
