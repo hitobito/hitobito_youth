@@ -13,7 +13,7 @@ class AddEventParticipationStates < ActiveRecord::Migration[4.2]
     end
 
     # Recalculate the counts of all events
-    Event.find_each { |e| e.refresh_participant_counts! }
+    Event.find_each { |e| e.refresh_participant_counts! } if Event.exists?
   end
 
   def down
