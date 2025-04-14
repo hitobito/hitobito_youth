@@ -9,7 +9,7 @@ describe Export::EventParticipationsExportJob do
 
   subject { Export::EventParticipationsExportJob.new(format,
                                                      user.id,
-                                                     event_participation_filter,
+                                                     course.id,
                                                      group.id,
                                                      params.merge(filename: filename)) }
 
@@ -27,7 +27,6 @@ describe Export::EventParticipationsExportJob do
     answer.update!(answer: '756.1234.5678.97')
     p
   end
-  let(:event_participation_filter) { Event::ParticipationFilter.new(course, user, params) }
   let(:filename) { AsyncDownloadFile.create_name('event_participation_export', user.id) }
   let(:file) { AsyncDownloadFile.from_filename(filename, format) }
 
