@@ -8,6 +8,8 @@
 # This migration can be deleted as soon as changes were applied
 class RemoveAhvNumberFromRequiredContactAttrs < ActiveRecord::Migration[7.1]
   def up
+    return unless Event.exists?
+
     Event.where("required_contact_attrs LIKE '%ahv_number%'").find_each do |event|
       event.update_columns(required_contact_attrs: event.required_contact_attrs - ["ahv_number"])
     end
