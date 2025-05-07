@@ -37,10 +37,12 @@
 
 top_event:
   groups: top_layer
+  visible_contact_attributes: ["all"]
   type:
 
 top_course:
   groups: top_layer
+  visible_contact_attributes: ["all"]
   type: Event::Course
   kind: slk
   priorization: true
