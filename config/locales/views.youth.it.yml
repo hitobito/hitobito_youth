@@ -58,7 +58,7 @@ it:
         manager_first_name: Nome del tutore legale
         manager_last_name: Cognome del tutore legale
       email_check:
-        next_for_manager: Registra mio bambino
+        next_for_manager: Registra il mio bambino
   event/register:
     email_sent: 'Ti abbiamo inviato un''e-mail con un link dove tu o tuo figlio potete registrarvi direttamente all''evento.'
     form_data_missing: Si prega di compilare il seguente modulo per registrarsi.
