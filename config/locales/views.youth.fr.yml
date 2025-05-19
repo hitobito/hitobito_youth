@@ -1,9 +1,15 @@
+#  Copyright (c) 2012-2023, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
+
 fr:
   people:
     fields_youth:
       no_permission_to_change_managers: Tu n'as pas le droit de changer les administrateurs de cette personne.
       nationality:
         placeholder: p.ex. CH
+
   event:
     lists:
       bsv_export_button: Export OFAS
@@ -24,6 +30,10 @@ fr:
           explanation: "%{person} est inscrit.e à cet événement."
           pending: "%{person} est préinscrit.e à cette manifestation. L'inscription n'est pas encore définitive et doit être confirmée par le/la responsable de l'événement."
           waiting_list: "%{person} est sur la liste d'attente pour cet événement."
+
+
+      popover_cancel:
+          cancel_info: ''
       actions_show_youth:
         cancel_button: Désinscription
         cancel_title: désinscrire participant
@@ -31,6 +41,7 @@ fr:
         absent_button: Absent
         attended_button: Participé
         assigned_button: Placé
+
     tentatives:
       created: L'inscription provisoire pour %{participant} a été créée.
       index:
@@ -39,14 +50,17 @@ fr:
         layer: Niveau
       new:
         title: Inscription provisoire
+
     participation_contact_data:
       managed:
         update:
           flash:
             privacy_policy_not_accepted: 'Pour finaliser l''inscription, il est nécessaire d''accepter la déclaration de protection des données.'
+
         edit:
           title: Enregistrer un nouvel enfant et l'inscrire à l'événement
           save: Continuer
+
     register:
       register:
         title:
@@ -57,16 +71,21 @@ fr:
       manager_fields:
         manager_first_name: Prénom du parent ou représentant légal
         manager_last_name: Nom de famille du parent ou représentant légal
+
       email_check:
         next_for_manager: Inscrire mon enfant
+
   event/register:
     email_sent: 'Nous t''avons envoyé un e-mail avec un lien pour t''inscrire ou inscrire ton enfant à l''événement.'
     form_data_missing: Veuillez remplir le formulaire suivant pour vous inscrire.
     registered_manager: 'Tes données personnelles ont été enregistrées. Tu peux maintenant inscrire tes enfants en cliquant sur le bouton "Inscription".'
+
   event/participations:
     success_for_external_manager: '%{full_entry_label} a été créé avec succès.'
+
   event_decorator:
     canceled: Désinscrit
+
   events:
     actions_show_youth:
       create_tentative_application: Inscription provisoire
@@ -82,18 +101,22 @@ fr:
         explanation: "%{person} a été invité.e à cette événement et a été désinscrit.e."
     form:
       caption_external_applications: 'Les personnes externes peuvent s''inscrire à cet événement. L''événement est ainsi visible pour toute la base de données.'
+
   export/tabular/events/list:
     male_count: Nombre de participants hommes
     female_count: Nombre de participantes femmes
     absent_count: Nombre d'absent.e.s
     canceled_count: Nombre de participants désannoncés
     rejected_count: Nombre de participants refusés
+
   filter_navigation/event/participations:
     predefined_filters:
       revoked: Absents
+
   groups:
     tabs:
       education: Formation
+
   group:
     educations:
       index:
@@ -106,6 +129,7 @@ fr:
     nds_course: Cours BDNS
     nds_camp: Camp BDNS
     slrg: Cours SSS
+
   dropdown/event/participant_add:
     disabled_messages:
       already_exists: 'est déjà inscrit.e'
@@ -116,14 +140,17 @@ fr:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.
       bsv_export_date_invalid: Date de finalisation incorrecte (début/fin)
       bsv_export_date_from_newer_than_date_to: Date de finalisation au doit être ultérieur à la date de finalisation du.
+
   person:
     manageds:
       new_person_fields:
         birthday_hint: (jj.mm.aaaa)
+
   person_duplicates:
     merge:
       new:
         merge_hint: 'Lors de la fusion, les rôles, les numéros de téléphone, les e-mails supplémentaires, les administrateur.trice.s, les enfants ainsi que les inscriptions dans les réseaux sociaux sont conservés. Toutes les autres données de cette personne, comme par exemple les notes, les inscriptions aux cours, etc. seront supprimées.'
+
   people_managers:
     section:
       manageds_help: Tu ne peux ajouter comme enfants que des personnes dont tu as le droit en écriture.
@@ -133,9 +160,11 @@ fr:
     create_managed_person_button: Saisir un enfant
     assign_managed_person_button: Attribuer un enfant
     assign_manager_person_button: Attribuer un.e administrateur.trice
+
   unauthorized:
     new:
       event/participation: 'La personne sélectionnée ne répond pas aux exigences de l''événement.'
+
   version:
     association_change:
       people_manager:

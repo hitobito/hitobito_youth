@@ -1,8 +1,14 @@
+#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
+
 en:
   activerecord:
     attributes:
       event:
         training_days: Days of formation
+
       event/course:
         tentative_applications: Provisional registrations
         states:
@@ -22,13 +28,16 @@ en:
           canceled: Cancelled Registration
           attended: Participated
           absent: Didn't attend
+
       event/kind:
         kurs_id_fiver: Course-ID-FiVer
         vereinbarungs_id_fiver: Agreement-ID-FiVer
+
       event/participation:
         additional_information: Comments (general, health information, allergies, etc.)
         canceled_at: Deregistration date
         state: Status
+
       person:
         canton: Canton of residence
         j_s_number: J+S number
@@ -45,12 +54,15 @@ en:
         people_managers_attributes: Supervisors
         people_manageds_attributes: Children
         readable_manageds: Children
+
       people_manager:
         manager_id: Supervisor
         managed_id: Child
+
       people_managers:
         manager_id: Supervisor
         managed_id: Child
+
       people_manageds:
         manager_id: Child
         managed_id: Supervisor
@@ -62,9 +74,12 @@ en:
         person:
           attributes:
             base:
+              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
               manager_already_managed: Supervisor could not be added because he/she is already supervised.
               managed_already_manager: Child could not be added because he/she is already a supervisor.
         people_manager:
+          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
+
           attributes:
             manager_id:
               taken: is already set.

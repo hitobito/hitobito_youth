@@ -1,9 +1,15 @@
+#  Copyright (c) 2012-2023, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
+
 it:
   people:
     fields_youth:
       no_permission_to_change_managers: Non sei autorizzato a modificare gli gestori di questa persona.
       nationality:
         placeholder: per es. CH
+
   event:
     lists:
       bsv_export_button: Esportazione UFAS
@@ -24,6 +30,10 @@ it:
           explanation: "%{person} è registrato per questo evento."
           pending: "\"%{person} è pre-registrato per questo evento. La registrazione non è ancora definitiva e deve essere confermata dalla gestione dell'evento.\""
           waiting_list: "%{person} è in lista d'attesa per questo evento."
+
+
+      popover_cancel:
+          cancel_info: ''
       actions_show_youth:
         cancel_button: Disiscrivere
         cancel_title: Disiscrivere il partecipante
@@ -31,6 +41,7 @@ it:
         absent_button: Non apparso
         attended_button: Partecipato
         assigned_button: Assegnato
+
     tentatives:
       created: L'iscrizione provvisioria per %{participant} è stata creata.
       index:
@@ -39,14 +50,17 @@ it:
         layer: Livello
       new:
         title: Iscrivere provvisoriamente
+
     participation_contact_data:
       managed:
         update:
           flash:
             privacy_policy_not_accepted: 'Per completare la registrazione è necessario accettare la dichiarazione sulla protezione dei dati.'
+
         edit:
           title: Registra un nuovo bambino e iscriviti all'evento
           save: Continua
+
     register:
       register:
         title:
@@ -57,16 +71,21 @@ it:
       manager_fields:
         manager_first_name: Nome del tutore legale
         manager_last_name: Cognome del tutore legale
+
       email_check:
         next_for_manager: Registra il mio bambino
+
   event/register:
     email_sent: 'Ti abbiamo inviato un''e-mail con un link dove tu o tuo figlio potete registrarvi direttamente all''evento.'
     form_data_missing: Si prega di compilare il seguente modulo per registrarsi.
     registered_manager: 'Le tue informazioni personali sono state registrate. Ora puoi registrare i tuoi figli utilizzando il pulsante “Registrati”.'
+
   event/participations:
     success_for_external_manager: '%{full_entry_label} è stato creato correttamente.'
+
   event_decorator:
     canceled: Disiscritto
+
   events:
     actions_show_youth:
       create_tentative_application: Iscrivere provvisoriamente
@@ -74,18 +93,30 @@ it:
       tentatives: Iscrizioni provvisorie
     application_fields_youth:
       tentative_applications: I capi gruppo possono iscrivere delle persone provvisoriamente.
+    banner_open_invitation:
+      managed:
+        explanation: "%{person} wurde zu diesem Anlass eingeladen."
+    banner_declined_invitation:
+      managed:
+        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
+    form:
+      caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
+
   export/tabular/events/list:
     male_count: Numero di partecipanti maschi
     female_count: Numero di partecipanti femmine
     absent_count: Numero di non apparsi
     canceled_count: Numero di disiscritti
     rejected_count: Numero di riufiutati
+
   filter_navigation/event/participations:
     predefined_filters:
       revoked: Assenti
+
   groups:
     tabs:
       education: Formazione
+
   group:
     educations:
       index:
@@ -94,15 +125,32 @@ it:
         valid: Valido
         valid_until_end_of_year: Valido fino alla fine dell'anno
         can_be_reactivated: Omesso, può essere riattivato
+  dropdown/people_export:
+    nds_course: NDS-Kurs
+    nds_camp: NDS-Lager
+    slrg: SLRG-Kurs
+
   dropdown/event/participant_add:
     disabled_messages:
       already_exists: 'è già registrato'
+      cannot_see_event: 'darf den Anlass nicht sehen'
     register_new_managed: Registrati e registra un nuovo bambino
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
       bsv_export_date_invalid: Data di scadenza non valido (da/a)
       bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".
+
+  person:
+    manageds:
+      new_person_fields:
+        birthday_hint: (dd.mm.yyyy)
+
+  person_duplicates:
+    merge:
+      new:
+        merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
+
   people_managers:
     section:
       manageds_help: Puoi aggiungere persone solo come bambini a cui hai accesso in scrittura.
@@ -112,6 +160,11 @@ it:
     create_managed_person_button: Registrati bambino
     assign_managed_person_button: Assegna bambino
     assign_manager_person_button: Assegna Gestore/rice
+
+  unauthorized:
+    new:
+      event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
+
   version:
     association_change:
       people_manager:

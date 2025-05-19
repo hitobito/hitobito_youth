@@ -1,8 +1,14 @@
+#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
+
 fr:
   activerecord:
     attributes:
       event:
         training_days: Jours de formation
+
       event/course:
         tentative_applications: Inscription provisoire
         states:
@@ -22,13 +28,16 @@ fr:
           canceled: Désannoncé
           attended: Participé
           absent: Pas présent
+
       event/kind:
         kurs_id_fiver: L’ID de cours-FiVer
         vereinbarungs_id_fiver: L’ID d’accord-FiVer
+
       event/participation:
         additional_information: Commentaires (généralités, informations en lien avec la santé, allergies, etc.)
         canceled_at: Date de radiation
         state: Statut
+
       person:
         canton: Canton de domicile
         j_s_number: Numéro J+S
@@ -45,12 +54,15 @@ fr:
         people_managers_attributes: Gérants
         people_manageds_attributes: Enfants
         readable_manageds: Enfants
+
       people_manager:
         manager_id: Administrateur.trice
         managed_id: Enfant
+
       people_managers:
         manager_id: Administrateur.trice
         managed_id: Enfant
+
       people_manageds:
         manager_id: Enfant
         managed_id: Gérant
@@ -66,6 +78,8 @@ fr:
               manager_already_managed: L'administrateur.trice n'a pas pu être ajouté.e, car il/elle est déjà administré.e.
               managed_already_manager: L'enfant n'a pas pu être ajouté, car il est déjà administrateur
         people_manager:
+          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
+
           attributes:
             manager_id:
               taken: est déjà défini.
