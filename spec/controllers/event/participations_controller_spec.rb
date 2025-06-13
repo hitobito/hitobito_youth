@@ -145,6 +145,21 @@ describe Event::ParticipationsController do
           expect(course.participant_count).to eq 0
         end
 
+        it "refreshes participation count" do
+          Event::Course::Role::Participant.create!(participation: participation)
+          participation.update!(state: :assigned)
+          course.refresh_participant_counts!
+          expect do
+            put :cancel,
+              params: {
+                group_id: group.id,
+                event_id: course.id,
+                id: participation.id,
+                event_participation: {canceled_at: Date.today}
+              }
+          end.to change { course.reload.participant_count }.by(-1)
+        end
+
         it "requires canceled_at date" do
           put :cancel,
             params: {

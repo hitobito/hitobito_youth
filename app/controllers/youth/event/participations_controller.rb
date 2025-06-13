@@ -15,6 +15,8 @@ module Youth::Event::ParticipationsController
     alias_method_chain :after_destroy_path, :managed
     alias_method_chain :set_success_notice, :managed
 
+    after_cancel :refresh_participant_counts
+
     def current_user_interested_in_mail?
       # send email to kind and verwalter
       current_user.and_manageds.map(&:id).include? entry.person_id
@@ -107,5 +109,9 @@ module Youth::Event::ParticipationsController
   def own_or_managed_params_person?
     model_params[:person_id].to_i == current_user.id ||
       current_user.manageds.pluck(:id).include?(model_params[:person_id].to_i)
+  end
+
+  def refresh_participant_counts
+    event.refresh_participant_counts!
   end
 end
