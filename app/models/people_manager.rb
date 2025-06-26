@@ -12,6 +12,7 @@ class PeopleManager < ActiveRecord::Base
   belongs_to :managed, class_name: "Person", validate: true
 
   accepts_nested_attributes_for :managed
+  validates :managed_id, presence: true
   validates :manager_id, presence: true
   validates :manager_id, uniqueness: {scope: :managed_id}
   # Does not work when managed is new since the PeopleManager record
