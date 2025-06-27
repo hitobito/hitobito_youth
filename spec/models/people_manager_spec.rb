@@ -56,7 +56,7 @@ describe PeopleManager do
       }
     )
     expect { manager.save! }.to change(PeopleManager, :count).by(1)
-      .and change(Person, :count).by(1)
+                                                             .and change(Person, :count).by(1)
   end
 
   describe 'paper trail', versioning: true do
