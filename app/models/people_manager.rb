@@ -11,14 +11,9 @@ class PeopleManager < ActiveRecord::Base
   belongs_to :manager, class_name: "Person", validate: true
   belongs_to :managed, class_name: "Person", validate: true
 
-  accepts_nested_attributes_for :managed
-  validates :managed_id, presence: true
   validates :manager_id, presence: true
+  validates :managed_id, presence: true
   validates :manager_id, uniqueness: {scope: :managed_id}
-  # Does not work when managed is new since the PeopleManager record
-  # will not have a reference to the managed object
-  # when navigating like this: new_managed.people_managers.first.managed
-  # validates :managed_id, presence: true, unless: ->(p) { p.managed.present? }
   validate :assert_manager_is_not_managed
 
   after_create :create_paper_trail_versions_for_create_event
