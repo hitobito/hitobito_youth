@@ -48,6 +48,17 @@ describe PeopleManager do
     end
   end
 
+  it 'creates managed person through nested attributes' do
+    manager =  top_leader.people_manageds.build(
+      managed_attributes: {
+        first_name: 'test',
+        last_name: 'test',
+      }
+    )
+    expect { manager.save! }.to change(PeopleManager, :count).by(1)
+                                                             .and change(Person, :count).by(1)
+  end
+
   describe 'paper trail', versioning: true do
     it 'tracks create in papertrail' do
       manager = PeopleManager.new(manager: top_leader, managed: bottom_member)
