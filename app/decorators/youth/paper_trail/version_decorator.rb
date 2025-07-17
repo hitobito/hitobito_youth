@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2023, CEVI Schweiz, Pfadibewegung Schweiz,
+#  Copyright (c) 2025, CEVI Schweiz, Pfadibewegung Schweiz,
 #  Jungwacht Blauring Schweiz, Pro Natura, Stiftung für junge Auslandschweizer.
 #  This file is part of hitobito_youth
 #  and licensed under the Affero General Public License version 3
@@ -25,14 +25,15 @@ module Youth::PaperTrail::VersionDecorator
     managed_id = changes["managed_id"].compact.first
 
     key, label = if manager_id == main_id
-      ["managed", Person.find(managed_id).person_name]
+      ["managed", Person.find_by(id: managed_id)&.person_name]
     elsif managed_id == main_id
-      ["manager", Person.find(manager_id).person_name]
+      ["manager", Person.find_by(id: manager_id)&.person_name]
     end
+
     I18n.t("version.association_change.#{item_class.name.underscore}.#{model.event}.#{key}",
       default: :"version.association_change.#{model.event}",
       model: item_class.model_name.human,
-      label: label,
+      label: label || "(#{I18n.t("version.association_change.deleted_person")})",
       changeset: changeset)
   end
 
