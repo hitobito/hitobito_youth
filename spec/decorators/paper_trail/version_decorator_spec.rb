@@ -39,7 +39,7 @@ describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
         pm.destroy!
         bottom_member.destroy!
 
-        is_expected.to eq('<i>(Gelöschter Benutzer)</i> wurde als Kind entfernt.')
+        is_expected.to eq('<i>(Gelöschte Person)</i> wurde als Kind entfernt.')
       end
     end
 
@@ -62,7 +62,7 @@ describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
         pm.destroy!
         bottom_member.destroy!
 
-        is_expected.to eq('<i>(Gelöschter Benutzer)</i> wurde als Verwalter*in entfernt.')
+        is_expected.to eq('<i>(Gelöschte Person)</i> wurde als Verwalter*in entfernt.')
       end
     end
   end
