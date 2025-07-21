@@ -167,6 +167,7 @@ de:
 
   version:
     association_change:
+      deleted_person: "Gelöschte Person"
       people_manager:
         create:
           manager: "<i>%{label}</i> wurde als Verwalter*in hinzugefügt."
