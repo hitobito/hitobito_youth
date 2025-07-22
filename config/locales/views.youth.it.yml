@@ -167,6 +167,7 @@ it:
 
   version:
     association_change:
+      deleted_person: "Gelöschte Person"
       people_manager:
         create:
           manager: "%{label} è stato aggiunto come gestore/rice."

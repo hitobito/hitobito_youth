@@ -167,6 +167,7 @@ en:
 
   version:
     association_change:
+      deleted_person: "Gelöschte Person"
       people_manager:
         create:
           manager: "%{label} has been added as a supervisor."
