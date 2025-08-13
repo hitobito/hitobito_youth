@@ -88,8 +88,7 @@ module HitobitoYouth
       Event::RegisterController.include Youth::Event::RegisterController
 
       # job
-      Export::EventParticipationsExportJob
-        .include Youth::Export::EventParticipationsExportJob
+      Export::EventParticipationsExportJob.prepend Youth::Export::EventParticipationsExportJob
 
       # helper
       FilterNavigation::People.include Youth::FilterNavigation::People
