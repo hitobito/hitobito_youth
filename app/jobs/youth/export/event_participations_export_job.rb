@@ -4,23 +4,17 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 module Youth::Export::EventParticipationsExportJob
-  extend ActiveSupport::Concern
-
-  included do
-    alias_method_chain :exporter, :nds
-  end
-
   private
 
-  def exporter_with_nds
-    if @options[:nds_course] && ability.can?(:show_details, entries.first)
+  def exporter
+    if @options[:nds_course] && ability.can?(:show_details, entries.build)
       Export::Tabular::People::ParticipationsNdsCourse
-    elsif @options[:nds_camp] && ability.can?(:show_details, entries.first)
+    elsif @options[:nds_camp] && ability.can?(:show_details, entries.build)
       Export::Tabular::People::ParticipationsNdsCamp
-    elsif @options[:slrg] && ability.can?(:show_details, entries.first)
+    elsif @options[:slrg] && ability.can?(:show_details, entries.build)
       Export::Tabular::People::ParticipationsSlrgList
     else
-      exporter_without_nds
+      super
     end
   end
 end

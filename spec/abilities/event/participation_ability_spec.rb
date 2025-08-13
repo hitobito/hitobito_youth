@@ -231,5 +231,13 @@ describe Event::ParticipationAbility do
       end
     end
 
+    context 'fresh built participation' do
+      let(:user) { participant }
+
+      # In some cases participations.build is used to check if user is authorized
+      let(:participation) { course.participations.build }
+
+      it { is_expected.not_to be_able_to :show_details, participation }
+    end
   end
 end
