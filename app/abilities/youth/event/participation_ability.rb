@@ -72,7 +72,7 @@ module Youth::Event::ParticipationAbility
   private
 
   def manager
-    contains_any?([user.id], person.managers.pluck(:id))
+    contains_any?([user.id], person&.managers&.pluck(:id) || [])
   end
 
   def event
