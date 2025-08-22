@@ -29,6 +29,8 @@ module Youth::Event::ParticipationFilter
     if kind == "revoked" && predefined_filters.include?("revoked")
       event.participations
         .joins(:roles)
+        .with_person_participants
+        .with_guest_participants
         .where("event_roles.type" => event.participant_types.collect(&:sti_name))
         .where("event_participations.state" => event.revoked_participation_states)
         .includes(load_entries_includes)

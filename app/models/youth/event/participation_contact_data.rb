@@ -7,7 +7,7 @@ module Youth::Event::ParticipationContactData
   extend ActiveSupport::Concern
 
   included do
-    Event::ParticipationContactData.contact_attrs << :nationality_j_s << :j_s_number
-    delegate(*Event::ParticipationContactData.contact_attrs, to: :person)
+    Event.possible_contact_attrs << :nationality_j_s << :j_s_number
+    delegate(*Event.possible_contact_attrs, to: :person)
   end
 end

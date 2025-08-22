@@ -5,12 +5,14 @@
 
 top_leader:
   event: top_course
-  person: top_leader
+  participant: top_leader
+  participant_type: Person
   active: true
   state: assigned
 
 top_participant:
   event: top_course
-  person: bottom_member
+  participant: bottom_member
+  participant_type: Person
   active: true
   state: assigned
