@@ -45,28 +45,28 @@ describe Export::Tabular::Events::List do
       Fabricate(:event_participation, event: course1, active: true,
                 roles: [Fabricate(:event_role, type: Event::Role::Leader.sti_name)])
       Fabricate(:event_participation, event: course1, active: true, state: 'assigned',
-                person: Fabricate(:person, gender: 'm'),
+                participant: Fabricate(:person, gender: 'm'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course1, active: true, state: 'attended',
-                person: Fabricate(:person, gender: 'm'),
+                participant: Fabricate(:person, gender: 'm'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course1, active: true, state: 'assigned',
-                person: Fabricate(:person, gender: 'w'),
+                participant: Fabricate(:person, gender: 'w'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course1, active: false, state: 'applied',
-                person: Fabricate(:person, gender: 'w'),
+                participant: Fabricate(:person, gender: 'w'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course1, active: false, state: 'rejected',
-                person: Fabricate(:person, gender: 'w'),
+                participant: Fabricate(:person, gender: 'w'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course1, active: false, state: 'rejected',
-                person: Fabricate(:person, gender: 'w'),
+                participant: Fabricate(:person, gender: 'w'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course1, active: false, state: 'absent',
-                person: Fabricate(:person, gender: 'w'),
+                participant: Fabricate(:person, gender: 'w'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       Fabricate(:event_participation, event: course2, active: false, state: 'rejected',
-                person: Fabricate(:person, gender: 'w'),
+                participant: Fabricate(:person, gender: 'w'),
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Participant.sti_name)])
       course1.refresh_participant_counts!
       course2.refresh_participant_counts!

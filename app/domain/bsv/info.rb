@@ -52,7 +52,7 @@ module Bsv
 
     def participants_aged_under_30
       participants
-        .collect(&:person)
+        .collect(&:participant)
         .select(&:birthday?)
         .select { |person| aged_under_30?(person) }
     end
@@ -63,7 +63,9 @@ module Bsv
       @participations ||= course
         .participations
         .where(active: true)
-        .includes(:roles, person: :location)
+        .includes(:roles).tap do |participations|
+        ::Event::Participation::PreloadParticipations.preload(participations, participant: [:location, :birthday])
+      end
     end
 
     def participations_for(role_types)

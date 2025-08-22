@@ -15,14 +15,14 @@ describe Event::Participation do
     let(:person) { people(:bottom_leader) }
 
     it 'sets default state' do
-      p = Event::Participation.new(event: event, person: person, state: nil)
+      p = Event::Participation.new(event: event, participant: person, state: nil)
       expect(p).to be_valid
       expect(p.state).to eq 'assigned'
     end
 
     it 'sets default state with application' do
       p = Event::Participation.new(event: event,
-                                   person: person,
+                                   participant: person,
                                    state: nil,
                                    application: Event::Application.new(priority_1: event))
       expect(p).to be_valid
@@ -30,14 +30,14 @@ describe Event::Participation do
     end
 
     it 'does not allow "foo" state' do
-      p = Event::Participation.new(event: event, person: person, state: 'foo')
+      p = Event::Participation.new(event: event, participant: person, state: 'foo')
       expect(p).to_not be_valid
     end
 
     %w(tentative applied assigned rejected canceled attended absent).each do |state|
       it "allows \"#{state}\" state" do
         p = Event::Participation.new(event: event,
-                                     person: person,
+                                     participant: person,
                                      state: state,
                                      canceled_at: Time.zone.today)
         expect(p).to be_valid
@@ -52,7 +52,7 @@ describe Event::Participation do
 
     it 'applying for that course deletes tentative participation' do
       expect do
-        Fabricate(:youth_participation, event: course, person: participation.person)
+        Fabricate(:youth_participation, event: course, participant: participation.person)
       end.not_to change { Event::Participation.count }
       expect { participation.reload }.to raise_error ActiveRecord::RecordNotFound
     end
@@ -60,7 +60,7 @@ describe Event::Participation do
     it 'applying for that course kind deletes tentative participation' do
       other_course = Fabricate(:youth_course, groups: [groups(:bottom_layer_two)])
       expect do
-        Fabricate(:youth_participation, event: other_course, person: participation.person)
+        Fabricate(:youth_participation, event: other_course, participant: participation.person)
       end.not_to change { Event::Participation.count }
       expect { participation.reload }.to raise_error ActiveRecord::RecordNotFound
     end
@@ -70,7 +70,7 @@ describe Event::Participation do
                                kind: event_kinds(:glk),
                                groups: [groups(:bottom_layer_two)])
       expect do
-        Fabricate(:youth_participation, event: other_course, person: participation.person)
+        Fabricate(:youth_participation, event: other_course, participant: participation.person)
       end.to change { Event::Participation.count }.by(1)
       expect { participation.reload }.not_to raise_error
     end
@@ -78,7 +78,7 @@ describe Event::Participation do
     it 'applying with invalid state does not delete tentative participation' do
       expect do
         other = Event::Participation.create(event: course,
-                                            person: participation.person,
+                                            participant: participation.person,
                                             state: 'invalid')
         expect(other.errors.full_messages).to be_present
       end.not_to change { Event::Participation.count }
