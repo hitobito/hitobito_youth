@@ -27,7 +27,7 @@ describe Event::ParticipationsController do
         Fabricate(:event_participation,
           event: course,
           state: "applied",
-          person: people(:bottom_member),
+          participant: people(:bottom_member),
           active: true)
         get :index, params: {group_id: group.id, event_id: course.id}
         expect(assigns(:participations)).to be_empty
@@ -234,7 +234,7 @@ describe Event::ParticipationsController do
           Fabricate(:event_participation,
             event: course,
             state: "applied",
-            person: managed,
+            participant: managed,
             active: true)
         end
 

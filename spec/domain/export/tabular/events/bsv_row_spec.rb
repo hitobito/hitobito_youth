@@ -54,7 +54,7 @@ describe Export::Tabular::Events::BsvRow do
 
   def create_participation(course, birthday, zip_code = '3000', active = true)
     person = Fabricate(:person, birthday: birthday, zip_code: zip_code)
-    participation = Fabricate(:event_participation, event: course, person: person)
+    participation = Fabricate(:event_participation, event: course, participant: person)
     Fabricate(:'Event::Course::Role::Participant', participation: participation)
     state = active ? 'assigned' : 'absent'
     participation.update(state: state, active: active)
@@ -69,7 +69,7 @@ describe Export::Tabular::Events::BsvRow do
 
   def create_leader_participation(course, role)
     person = Fabricate(:person)
-    participation = Fabricate(:event_participation, event: course, person: person)
+    participation = Fabricate(:event_participation, event: course, participant: person)
     Fabricate(role.to_sym, participation: participation)
   end
 end
