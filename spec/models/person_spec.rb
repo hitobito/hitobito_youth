@@ -40,7 +40,7 @@ describe Person do
       end
       let(:ahv_number_answers) do
         ahv_numbers.map.with_index do |ahv_number, i|
-          participation = Fabricate(:event_participation, person: person)
+          participation = Fabricate(:event_participation, participant: person)
           event = participation.event
           question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
           answer = Event::Answer.find_by(question: question, participation: participation)

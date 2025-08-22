@@ -17,7 +17,7 @@ describe Event::TentativesController do
   context 'GET#index' do
     def create_participation(role, group, state)
       person = Fabricate(role.name, group: group).person
-      Fabricate(:youth_participation, event: course, person: person, state: state)
+      Fabricate(:youth_participation, event: course, participant: person, state: state)
     end
 
     def fetch_count(name)
@@ -76,7 +76,7 @@ describe Event::TentativesController do
              params: {
                group_id: group.id,
                event_id: course.id,
-               event_participation: { person_id: people(:bottom_leader).id }
+               event_participation: { participant_id: people(:bottom_leader).id }
              }
       end.to raise_error CanCan::AccessDenied
     end
@@ -88,7 +88,7 @@ describe Event::TentativesController do
              params: {
                group_id: group.id,
                event_id: course.id,
-               event_participation: { person_id: participant.id }
+               event_participation: { participant_id: participant.id }
              }
       end.to raise_error CanCan::AccessDenied
     end
@@ -99,7 +99,7 @@ describe Event::TentativesController do
              params: {
                group_id: group.id,
                event_id: course.id,
-               event_participation: { person_id: people(:bottom_leader).id }
+               event_participation: { participant_id: people(:bottom_leader).id }
              }
       end.not_to change { Delayed::Job.count }
 

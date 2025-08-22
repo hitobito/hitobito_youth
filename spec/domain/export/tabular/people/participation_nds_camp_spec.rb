@@ -12,7 +12,7 @@ describe Export::Tabular::People::ParticipationsNdsCamp do
   let(:person) { sportdb_person }
   let(:valid_ahv_number) { '756.1234.5678.97'}
   let(:participation) do
-    p = Fabricate(:event_participation, person: person, event: events(:top_course))
+    p = Fabricate(:event_participation, participant: person, event: events(:top_course))
     question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: events(:top_course))
     answer = Event::Answer.find_by(question: question, participation: p)
     answer.update!(answer: valid_ahv_number)

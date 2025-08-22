@@ -41,7 +41,7 @@ describe Event::RolesController do
     it 'sets event_participation state to applied if tentative participation exists' do
       Fabricate(:event_participation, 
                 event: course, 
-                person: people(:bottom_leader), 
+                participant: people(:bottom_leader),
                 active: false, 
                 state: 'tentative')
 

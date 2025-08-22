@@ -35,7 +35,7 @@ module Youth
 
           def user_participation(event, user)
             event.participations
-              .where(person_id: user.id)
+              .where(participant_id: user.id, participant_type: ::Person.sti_name)
               .where.not(state: "tentative")
           end
 
@@ -75,10 +75,10 @@ module Youth
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-        def disabled_message_for_person(person)
-          if ::Event::Participation.exists?(person: person, event: event)
+        def disabled_message_for_person(participant)
+          if ::Event::Participation.exists?(participant: participant, event: event)
             translate(:"disabled_messages.already_exists")
-          elsif ::Ability.new(person).cannot?(:show, event)
+          elsif ::Ability.new(participant).cannot?(:show, event)
             translate(:"disabled_messages.cannot_see_event")
           end
         end
