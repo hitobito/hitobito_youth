@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2023, CEVI Schweiz, Pfadibewegung Schweiz,
+#  Copyright (c) 2025, CEVI Schweiz, Pfadibewegung Schweiz,
 #  Jungwacht Blauring Schweiz, Pro Natura, Stiftung für junge Auslandschweizer.
 #  This file is part of hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -33,6 +33,14 @@ describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
 
         is_expected.to eq('<i>Bottom Member</i> wurde als Kind entfernt.')
       end
+
+      it "works with deleted user" do
+        pm = PeopleManager.create(manager: top_leader, managed: bottom_member)
+        pm.destroy!
+        bottom_member.destroy!
+
+        is_expected.to eq('<i>(Gelöschte Person)</i> wurde als Kind entfernt.')
+      end
     end
 
     context 'as managed' do
@@ -47,6 +55,14 @@ describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
         pm.destroy!
 
         is_expected.to eq('<i>Bottom Member</i> wurde als Verwalter*in entfernt.')
+      end
+
+      it "works with deleted user" do
+        pm = PeopleManager.create(managed: top_leader, manager: bottom_member)
+        pm.destroy!
+        bottom_member.destroy!
+
+        is_expected.to eq('<i>(Gelöschte Person)</i> wurde als Verwalter*in entfernt.')
       end
     end
   end

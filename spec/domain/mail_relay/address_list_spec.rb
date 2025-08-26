@@ -69,6 +69,14 @@ describe MailRelay::AddressList do
         new_manager.email
       ])
     end
+
+    it 'contains only manager emails when managed has no email' do
+      managed.update!(email: nil)
+      
+      expect(entries(managed)).to match_array([
+        manager.email
+      ])
+    end
   end
 
   def entries(people = Person.all, labels = [])

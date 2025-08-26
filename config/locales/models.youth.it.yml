@@ -1,8 +1,14 @@
+#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
+
 it:
   activerecord:
     attributes:
       event:
         training_days: Giorni di formazione
+
       event/course:
         tentative_applications: Iscrizione provvisoria
         states:
@@ -22,16 +28,18 @@ it:
           canceled: Disiscritto
           attended: Partecipato
           absent: Non apparso
+
       event/kind:
         kurs_id_fiver: Corso ID FiVer
         vereinbarungs_id_fiver: Accordo ID FiVer
+
       event/participation:
         additional_information: Osservazioni (generali, informazioni sullo stato di salute, allergie, ecc.)
         canceled_at: Data della disiscrizione
         state: Stato
+
       person:
         canton: Cantone di domicilio
-        ahv_number: Numero AVS
         j_s_number: Numero G+S
         nationality_j_s: Nazionalità secondo G+S
         translated_nationality_j_s: Nazionalità secondo G+S
@@ -46,12 +54,15 @@ it:
         people_managers_attributes: Gestore
         people_manageds_attributes: Bambini
         readable_manageds: Bambini
+
       people_manager:
         manager_id: Gestore/rice
         managed_id: Bambino
+
       people_managers:
         manager_id: Gestore
         managed_id: Bambino/a
+
       people_manageds:
         manager_id: Bambino/a
         managed_id: Gestore/rice
@@ -63,12 +74,21 @@ it:
         person:
           attributes:
             base:
+              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
               manager_already_managed: Impossibile aggiungere gestore/rice perché è già gestito.
               managed_already_manager: Impossibile aggiungere bambino/a perché è già un/a gestore/rice.
         people_manager:
+          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
+
           attributes:
             manager_id:
               taken: è già impostato.
+          manager_and_managed_the_same: kann sich nicht selber verwalten.
+    models:
+      people_manager:
+        one: Verwalter*in
+        many: Verwalter*innen
+        other: Verwalter*innen
   activemodel:
     errors:
       models:

@@ -80,19 +80,11 @@ module Export::Tabular::People
     end
 
     def street
-      if FeatureGate.enabled?("structured_addresses")
-        entry.street
-      else
-        split_address[1]
-      end
+      entry.street
     end
 
     def housenumber
-      if FeatureGate.enabled?("structured_addresses")
-        entry.housenumber
-      else
-        split_address[2]
-      end
+      entry.housenumber
     end
 
     def peid
@@ -111,13 +103,6 @@ module Export::Tabular::People
 
     def additional_email(label)
       entry.additional_emails.find_by(label: label).try(:email)
-    end
-
-    def split_address
-      FeatureGate.refute!("structured_addresses")
-
-      entry.address&.match(Address::FullTextSearch::ADDRESS_WITH_NUMBER_REGEX)&.to_a ||
-        [entry.address]
     end
   end
 end

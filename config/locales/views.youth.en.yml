@@ -1,9 +1,15 @@
+#  Copyright (c) 2012-2023, Pfadibewegung Schweiz. This file is part of
+#  hitobito_youth and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_youth.
+
 en:
   people:
     fields_youth:
       no_permission_to_change_managers: You are not authorized to change the supervisors of this person.
       nationality:
         placeholder: e.g. CH
+
   event:
     lists:
       bsv_export_button: Export BSV
@@ -24,6 +30,10 @@ en:
           explanation: "%{person} is registered for this event."
           pending: "\"%{person} is pre-registered for this event. The registration is not yet final and needs to be confirmed by the organizer.\""
           waiting_list: "%{person} is on the waiting list for this event."
+
+
+      popover_cancel:
+          cancel_info: ''
       actions_show_youth:
         cancel_button: Cancel Registration
         cancel_title: Deregister participant
@@ -31,6 +41,7 @@ en:
         absent_button: Absent
         attended_button: Attended
         assigned_button: Assigned
+
     tentatives:
       created: Provisional registration for %{participant} has been created.
       index:
@@ -39,14 +50,17 @@ en:
         layer: Level
       new:
         title: Register provisionally
+
     participation_contact_data:
       managed:
         update:
           flash:
             privacy_policy_not_accepted: 'To complete the registration, you must agree to the data protection declaration.'
+
         edit:
           title: Register a new child and register for the event
           save: Continue
+
     register:
       register:
         title:
@@ -57,50 +71,86 @@ en:
       manager_fields:
         manager_first_name: First name of legal guardian
         manager_last_name: Last name of legal guardian
+
       email_check:
         next_for_manager: Register my child
+
   event/register:
     email_sent: 'We have sent you an email with a link where you or your child can register directly for the event.'
     form_data_missing: Please fill out the following form to register.
     registered_manager: 'Your personal information has been recorded. You can now register your children using the “Register” button'
+
   event/participations:
     success_for_external_manager: '%{full_entry_label} was created successfully.'
+
   event_decorator:
     canceled: Registration cancelled
+
   events:
     actions_show_youth:
       create_tentative_application: Register provisionally
     tabs:
       tentatives: Provisional Registration
+    application_fields_youth:
+      tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
+    banner_open_invitation:
+      managed:
+        explanation: "%{person} wurde zu diesem Anlass eingeladen."
+    banner_declined_invitation:
+      managed:
+        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
     form:
       caption_external_applications: 'External participants can register for this event. This makes the event visible to the entire database.'
+
   export/tabular/events/list:
     male_count: Number of male participants
     female_count: Number of female participants
+    absent_count: Anzahl Nicht erschienene
     canceled_count: Number of cancellations
     rejected_count: Number of rejections
+
   filter_navigation/event/participations:
     predefined_filters:
       revoked: Absentees
+
   groups:
     tabs:
       education: Formation
+
   group:
     educations:
       index:
+        legende: Legende
         tentative_participation: Provisional Registration
         valid: valid
         valid_until_end_of_year: valid until the end of the year
+        can_be_reactivated: Weggefallen, kann reaktiviert werden
   dropdown/people_export:
+    nds_course: NDS-Kurs
+    nds_camp: NDS-Lager
     slrg: SSS-Course
+
   dropdown/event/participant_add:
     disabled_messages:
       already_exists: 'is already registered'
+      cannot_see_event: 'darf den Anlass nicht sehen'
     register_new_managed: Register new Child
+  event/lists:
+    courses:
+      bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
+      bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
+      bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
+
   person:
     manageds:
       new_person_fields:
         birthday_hint: (dd.mm.yyyy)
+
+  person_duplicates:
+    merge:
+      new:
+        merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
+
   people_managers:
     section:
       manageds_help: You can only add individuals as children to whom you have write access.
@@ -110,11 +160,14 @@ en:
     create_managed_person_button: Create child
     assign_managed_person_button: Assign child
     assign_manager_person_button: Assign supervisor
+
   unauthorized:
     new:
       event/participation: 'The selected person does not meet the event requirements.'
+
   version:
     association_change:
+      deleted_person: "Gelöschte Person"
       people_manager:
         create:
           manager: "%{label} has been added as a supervisor."

@@ -11,7 +11,7 @@ module Youth::PersonSerializer
       map_properties :canton
 
       if options[:show_full]
-        map_properties :j_s_number, :nationality_j_s, :ahv_number
+        map_properties :j_s_number, :nationality_j_s
       end
     end
   end

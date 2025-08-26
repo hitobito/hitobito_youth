@@ -1,4 +1,9 @@
-%p= t('event.lists.popover_bsv_export.export_info')
+-#  Copyright (c) 2025, Hitobito AG. This file is part of
+-#  hitobito and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito.
+
+%p= t("event.lists.popover_bsv_export.export_info")
 
 = standard_form(:bsv_export,
                 url: :list_courses_bsv_export,
@@ -7,22 +12,22 @@
                 data: { turbo: false },
                 builder: PlainObjectFormBuilder) do |f|
 
-  = hidden_field_tag('filter[states][]', 'closed')
+  = hidden_field_tag("filter[states][]", "closed")
   = hidden_field_tag(:advanced, true) if defined?(advanced) && advanced
 
-  = f.labeled(t('event.lists.popover_bsv_export.event_kinds'), help: 'f00') do
-    = select_tag('filter[kinds]', options_from_collection_for_select(Event::Kind.includes(:translations).without_deleted, :id, :label), multiple: true, class: 'form-select tom-select')
+  = f.labeled(t("event.lists.popover_bsv_export.event_kinds"), help: "f00") do
+    = select_tag("filter[kinds]", options_from_collection_for_select(Event::Kind.includes(:translations).without_deleted, :id, :label), multiple: true, class: "form-select", data: { chosen_no_results: t("global.chosen_no_results"), placeholder: " ", controller: "tom-select" } )
 
-  = f.labeled(t('event.lists.popover_bsv_export.date_from')) do
+  = f.labeled(t("event.lists.popover_bsv_export.date_from")) do
     .input-group.w-50
       .input-prepend
-        %span.input-group-text= icon(:'calendar-alt')
-      = text_field_tag('filter[bsv_since]', f(Date.today.beginning_of_year), class: 'date form-control form-control-sm')
+        %span.input-group-text= icon(:"calendar-alt")
+      = text_field_tag("filter[bsv_since]", f(Date.today.beginning_of_year), class: "date form-control form-control-sm")
 
-  = f.labeled(t('event.lists.popover_bsv_export.date_to')) do
+  = f.labeled(t("event.lists.popover_bsv_export.date_to")) do
     .input-group.w-50
       .input-prepend
-        %span.input-group-text= icon(:'calendar-alt')
-      = text_field_tag('filter[bsv_until]', f(Date.today.end_of_year), class: 'date form-control form-control-sm')
+        %span.input-group-text= icon(:"calendar-alt")
+      = text_field_tag("filter[bsv_until]", f(Date.today.end_of_year), class: "date form-control form-control-sm")
 
-  = form_buttons(f, submit_label: t('event.lists.bsv_export_button'), cancel_url: :list_courses)
+  = form_buttons(f, submit_label: t("event.lists.bsv_export_button"), cancel_url: :list_courses)

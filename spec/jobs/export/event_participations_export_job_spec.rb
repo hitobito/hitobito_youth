@@ -9,7 +9,8 @@ describe Export::EventParticipationsExportJob do
 
   subject { Export::EventParticipationsExportJob.new(format,
                                                      user.id,
-                                                     event_participation_filter,
+                                                     course.id,
+                                                     group.id,
                                                      params.merge(filename: filename)) }
 
   let(:user) { people(:top_leader) }
@@ -18,8 +19,14 @@ describe Export::EventParticipationsExportJob do
   let(:person) { nds_person }
   let(:group) { course.groups.first }
   let(:event_role) { Fabricate(:event_role, type: Event::Role::Leader.sti_name) }
-  let(:participation) { Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true) }
-  let(:event_participation_filter) { Event::ParticipationFilter.new(course, user, params) }
+  let(:participation) do
+    p = Fabricate(:event_participation, person: person, event: course, roles: [event_role], active: true)
+    event = p.event
+    question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
+    answer = Event::Answer.find_by(question: question, participation: p)
+    answer.update!(answer: '756.1234.5678.97')
+    p
+  end
   let(:filename) { AsyncDownloadFile.create_name('event_participation_export', user.id) }
   let(:file) { AsyncDownloadFile.from_filename(filename, format) }
 
@@ -39,7 +46,7 @@ describe Export::EventParticipationsExportJob do
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname"))
-      expect(lines[0].split(';').count).to match(16)
+      expect(lines[0].split(';').count).to match(19)
       expect(file.generated_file).to be_attached
     end
   end
@@ -65,7 +72,6 @@ describe Export::EventParticipationsExportJob do
     let(:params) { { filter: 'all', nds_camp: true } }
 
     it 'and saves it' do
-      expect(FeatureGate.enabled?('structured_addresses')).to be_truthy
       subject.perform
 
       lines = file.read.lines
@@ -87,7 +93,6 @@ describe Export::EventParticipationsExportJob do
                        birthday: '11.06.1980',
                        gender: 'm',
                        j_s_number: '123',
-                       ahv_number: '756.1234.5678.97',
                        street: 'Str',
                        housenumber: '',
                        zip_code: '4000',

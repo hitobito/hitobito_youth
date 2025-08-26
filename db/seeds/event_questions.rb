@@ -5,8 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_jubla.
 
-Event::Question.create_with_translations([
-  {
+Event::Question.seed_global({
     disclosure: nil, # Has to be chosen for every event
     event_type: nil, # Is derived for every event
     type: Event::Question::AhvNumber.sti_name,
@@ -16,5 +15,4 @@ Event::Question.create_with_translations([
       { locale: 'it', question: 'Numero AVS?' },
       { locale: 'en', question: 'AVS number?' }
     ]
-  },
-])
+  })

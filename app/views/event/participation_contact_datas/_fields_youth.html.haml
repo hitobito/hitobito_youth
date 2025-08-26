@@ -4,8 +4,8 @@
 -#  https://github.com/hitobito/hitobito_youth.
 
 = field_set_tag do
-  - [:ahv_number, :j_s_number].each do |a|
-    = f.labeled_input_field(a) if entry.show_attr?(a)
+  - if entry.show_attr?(:j_s_number)
+    = f.labeled_input_field(:j_s_number)
 
   - if entry.show_attr?(:nationality_j_s)
     = f.labeled_collection_select(:nationality_j_s,

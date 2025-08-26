@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2023, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2023-2024, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -33,7 +33,7 @@ class Event::ParticipationContactData::ManagedController <
   def any_duplicates?
     relevant_person_attrs = entry.person.attributes
       .transform_keys(&:to_sym)
-      .slice(*Import::PersonDuplicateFinder::DUPLICATE_ATTRIBUTES)
+      .slice(*People::DuplicateConditions::ATTRIBUTES)
 
     person_duplicate_finder.find(relevant_person_attrs).present?
   end

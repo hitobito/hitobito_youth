@@ -94,13 +94,6 @@ describe Export::Tabular::People::ParticipationNdsRow do
       expect(person).to receive(:last_known_ahv_number).and_call_original
     end
 
-    context "with ahv_number fallback on person" do
-      it "calls #last_known_ahv_number and returns #ahv_number" do
-        person.ahv_number = valid_ahv_number
-        is_expected.to eq(person.ahv_number)
-      end
-    end
-
     context "with ahv_number on participation" do
       it "calls #last_known_ahv_number and returns participation answer" do
         event = participation.event
