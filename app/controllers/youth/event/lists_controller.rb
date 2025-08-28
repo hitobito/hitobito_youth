@@ -53,7 +53,10 @@ module Youth::Event::ListsController
   def courses_for_bsv_export
     course_filters
       .to_scope
-      .includes(participations: [:roles, person: :location])
+      .includes(participations: [:roles])
+      .tap do |courses|
+      Event::Participation::PreloadParticipations.preload(courses.flat_map(&:participations), participant: :location)
+    end
   end
 
   def dates_from_to
