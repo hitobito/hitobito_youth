@@ -24,7 +24,7 @@ describe Group::EducationsController, type: :controller do
 
   it 'does list leader participations' do
     get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
-    expect(response.body).to have_content 'Top Leader'
+    expect(response.body).to have_content 'Leader Top'
     expect(response.body).to have_content 'Top Course'
   end
 

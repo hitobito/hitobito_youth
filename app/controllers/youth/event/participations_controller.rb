@@ -19,7 +19,8 @@ module Youth::Event::ParticipationsController
 
     def current_user_interested_in_mail?
       # send email to kind and verwalter
-      current_user.and_manageds.map(&:id).include? entry.person_id
+      entry.participant_type == Person.sti_name &&
+        current_user.and_manageds.map(&:id).include?(entry.participant_id)
     end
   end
 

@@ -65,19 +65,19 @@ describe Event::ParticipationsController, type: :controller  do
       before { sign_in(user) }
 
       context 'with for_someone_else' do
-        it 'renders only one hidden person_id field' do
+        it 'renders only one hidden participant_id field' do
           get :new, params: { group_id: group.id, event_id: course.id, for_someone_else: true, event_role: { type: Event::Course::Role::Participant.sti_name } }
 
-          input = dom.find_css('input[type="hidden"][name="event_participation[person_id]"]')
+          input = dom.find_css('input[type="hidden"][name="event_participation[participant_id]"]')
           expect(input.size).to eq(1)
         end
       end
 
       context 'without for_someone_else' do
-        it 'renders only one hidden person_id field' do
+        it 'renders only one hidden participant_id field' do
           get :new, params: { group_id: group.id, event_id: course.id, for_someone_else: false, event_role: { type: Event::Course::Role::Participant.sti_name } }
 
-          input = dom.find_css('input[type="hidden"][name="event_participation[person_id]"]')
+          input = dom.find_css('input[type="hidden"][name="event_participation[participant_id]"]')
           expect(input.size).to eq(1)
         end
       end

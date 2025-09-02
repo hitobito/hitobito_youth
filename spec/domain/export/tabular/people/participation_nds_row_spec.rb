@@ -11,7 +11,7 @@ describe Export::Tabular::People::ParticipationNdsRow do
 
   let(:person) { nds_person }
   let(:participation) do
-    Fabricate(:event_participation, person: person, event: events(:top_course))
+    Fabricate(:event_participation, participant: person, event: events(:top_course))
   end
 
   let(:row) { Export::Tabular::People::ParticipationNdsRow.new(participation) }

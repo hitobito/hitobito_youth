@@ -27,11 +27,10 @@ module Youth::Event::ParticipationFilter
 
   def apply_filter_scope_with_revoked(records, kind = params[:filter])
     if kind == "revoked" && predefined_filters.include?("revoked")
-      event.participations
-        .joins(:roles)
+      records
+        .unscope(where: :active)
         .where("event_roles.type" => event.participant_types.collect(&:sti_name))
         .where("event_participations.state" => event.revoked_participation_states)
-        .includes(load_entries_includes)
         .distinct
     else
       apply_filter_scope_without_revoked(records, kind)

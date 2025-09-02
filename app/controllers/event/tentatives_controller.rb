@@ -71,7 +71,8 @@ class Event::TentativesController < ApplicationController
 
   def build_for_person
     participation = @event.participations.new(state: "tentative",
-      person_id: params[:event_participation][:person_id])
+      participant_id: params[:event_participation][:participant_id],
+      participant_type: Person.sti_name)
 
     role = participation.roles.build(type: @event.participant_types.first.sti_name)
     role.participation = participation
@@ -97,9 +98,13 @@ class Event::TentativesController < ApplicationController
     event
       .participations
       .where(state: "tentative")
-      .joins(person: :primary_group)
+      .joins("LEFT OUTER JOIN #{Person.quoted_table_name} people " \
+        "ON #{Event::Participation.quoted_table_name}.participant_type = '#{Person.sti_name}' " \
+        "AND #{Event::Participation.quoted_table_name}.participant_id = #{Person.quoted_table_name}.id")
+      .joins("LEFT OUTER JOIN #{Group.quoted_table_name} " \
+        "ON #{Group.quoted_table_name}.id = #{Person.quoted_table_name}.primary_group_id")
       .joins("LEFT OUTER JOIN #{Group.quoted_table_name} layer_groups " \
-            "ON #{Group.quoted_table_name}.layer_group_id = layer_groups.id")
+        "ON #{Group.quoted_table_name}.layer_group_id = layer_groups.id")
       .group("layer_groups.id", "layer_groups.name")
       .order("layer_groups.lft")
       .count
