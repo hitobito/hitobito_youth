@@ -13,11 +13,11 @@ module Youth::Export::EventParticipationsExportJob
   private
 
   def exporter_with_nds
-    if @options[:nds_course] && ability.can?(:show_details, entries.first)
+    if @options[:nds_course] && ability.can?(:index_full_participations, event)
       Export::Tabular::People::ParticipationsNdsCourse
-    elsif @options[:nds_camp] && ability.can?(:show_details, entries.first)
+    elsif @options[:nds_camp] && ability.can?(:index_full_participations, event)
       Export::Tabular::People::ParticipationsNdsCamp
-    elsif @options[:slrg] && ability.can?(:show_details, entries.first)
+    elsif @options[:slrg] && ability.can?(:index_full_participations, event)
       Export::Tabular::People::ParticipationsSlrgList
     else
       exporter_without_nds
