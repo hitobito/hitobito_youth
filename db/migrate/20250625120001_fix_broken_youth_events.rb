@@ -7,6 +7,8 @@
 
 class FixBrokenYouthEvents < ActiveRecord::Migration[6.1]
   def up
+    return unless Event.exists?
+
     still_invalid = {}
     say_with_time "cleaning up invalid events" do
       Event.includes(:questions, :groups).find_each do |event|
