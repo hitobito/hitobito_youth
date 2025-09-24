@@ -11,7 +11,7 @@ module Youth::EventAbility
       for_self_or_manageds do
         # abilities which managers inherit from their managed children
         class_side(:list_available).if_any_role
-        permission(:any).may(:show).in_same_layer_or_globally_visible_or_participating_or_public
+        permission(:any).may(:show).in_upward_hierarchy_or_globally_visible_or_participating_or_public
       end
     end
 
@@ -19,7 +19,7 @@ module Youth::EventAbility
       for_self_or_manageds do
         # abilities which managers inherit from their managed children
         class_side(:list_available).if_any_role
-        permission(:any).may(:show).in_same_layer_or_globally_visible_or_participating_or_public
+        permission(:any).may(:show).in_upward_hierarchy_or_globally_visible_or_participating_or_public
       end
 
       permission(:any)
@@ -46,7 +46,7 @@ module Youth::EventAbility
     subject.tentative_applications?
   end
 
-  def in_same_layer_or_globally_visible_or_participating_or_public
-    in_same_layer_or_globally_visible_or_participating || event.external_applications
+  def in_upward_hierarchy_or_globally_visible_or_participating_or_public
+    in_upward_hierarchy_or_globally_visible_or_participating || event.external_applications
   end
 end
