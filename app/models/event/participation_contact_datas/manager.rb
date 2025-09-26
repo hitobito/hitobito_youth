@@ -9,6 +9,6 @@
 
 class Event::ParticipationContactDatas::Manager < Event::ParticipationContactData
   def required_attrs
-    @required_attrs ||= self.class.mandatory_contact_attrs
+    @required_attrs ||= [:first_name, :last_name]
   end
 end

@@ -1,18 +1,19 @@
--#  Copyright (c) 2012-2015, Pfadibewegung Schweiz. This file is part of
+-#  Copyright (c) 2012-2025, Pfadibewegung Schweiz. This file is part of
 -#  hitobito_youth and licensed under the Affero General Public License version 3
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_youth.
 
-= field_set_tag do
-  - if entry.show_attr?(:j_s_number)
-    = f.labeled_input_field(:j_s_number)
+- if entry.is_a?(Event::ParticipationContactData)
+  = field_set_tag do
+    - if event.show_contact_attr?(:j_s_number)
+      = f.labeled_input_field(:j_s_number)
 
-  - if entry.show_attr?(:nationality_j_s)
-    = f.labeled_collection_select(:nationality_j_s,
-                                  Person::NATIONALITIES_J_S,
-                                  :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
-                                  { include_blank: "" },
-                                  { class: 'form-select form-select-sm' })
+    - if event.show_contact_attr?(:nationality_j_s)
+      = f.labeled_collection_select(:nationality_j_s,
+                                    Person::NATIONALITIES_J_S,
+                                    :to_s, Proc.new { |n| t("activerecord.attributes.person.nationalities_j_s.#{n}") },
+                                    { include_blank: "" },
+                                    { class: 'form-select form-select-sm' })
 
-  - if entry.person != current_user
-    = hidden_field_tag(:person_id, entry.person.id)
+    - if entry.person != current_user
+      = hidden_field_tag(:person_id, entry.person.id)

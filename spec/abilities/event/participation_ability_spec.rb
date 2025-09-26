@@ -138,7 +138,7 @@ describe Event::ParticipationAbility do
     let!(:manager_relation) { PeopleManager.create(manager: manager, managed: participant) }
 
     let(:course)   { Fabricate(:course) }
-    let(:participation) { Fabricate(:event_participation, event: course, person: participant) }
+    let(:participation) { Fabricate(:event_participation, event: course, participant: participant) }
 
     subject { Ability.new(user) }
 

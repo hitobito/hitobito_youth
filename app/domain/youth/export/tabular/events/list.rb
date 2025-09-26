@@ -15,9 +15,10 @@ module Youth::Export::Tabular::Events::List
   def data_rows_with_counts(format = nil, &)
     if model_class.supports_applications?
       @gender_counts ||= participant_counts(
-        list.joins(participations: :person)
+        list.merge(Event::Participation.with_person_participants)
+             .merge(Event::Participation.with_guest_participants)
              .where(event_participations: {active: true})
-             .group("events.id", "people.gender")
+             .group("events.id", "CASE #{Event::Participation.quoted_table_name}.participant_type WHEN 'Event::Guest' THEN #{Event::Guest.quoted_table_name}.gender ELSE #{Person.quoted_table_name}.gender END")
       )
       @state_counts ||= participant_counts(
         list.where(event_participations: {state: model_class.revoked_participation_states})

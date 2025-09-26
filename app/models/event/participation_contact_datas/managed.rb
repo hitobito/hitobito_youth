@@ -8,5 +8,7 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class Event::ParticipationContactDatas::Managed < Event::ParticipationContactData
-  self.mandatory_contact_attrs = [:first_name, :last_name]
+  def required_attrs
+    super - [:email]
+  end
 end

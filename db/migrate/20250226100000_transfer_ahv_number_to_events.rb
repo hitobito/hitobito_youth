@@ -45,13 +45,13 @@ class TransferAhvNumberToEvents < ActiveRecord::Migration[7.1]
     # event_answers.answer,
     # event_answers.question_id,
     # event_questions.disclosure,
-    # event_participations.person_id,
+    # event_participations.participant_id,
     answers_lookup = <<~SQL.squish
       SELECT event_answers.id, people.ahv_number
       FROM event_answers
         INNER JOIN event_questions ON event_answers.question_id = event_questions.id
         INNER JOIN event_participations ON event_answers.participation_id = event_participations.id
-        INNER JOIN people ON event_participations.person_id = people.id
+        INNER JOIN people ON event_participations.participant_id = people.id AND event_participations.participant_type = 'Person'
         INNER JOIN events ON event_participations.event_id = events.id
         INNER JOIN event_dates ON events.id = event_dates.event_id
       WHERE

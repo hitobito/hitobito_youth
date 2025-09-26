@@ -33,7 +33,7 @@ describe PeopleManagerAbility do
       before do
         roles = { person => Event::Role::Leader, people_manager.managed => Event::Role::Participant }
         x = roles.map do |person, role|
-          Fabricate(role.name, participation: Fabricate(:event_participation, event: event, person: person))
+          Fabricate(role.name, participation: Fabricate(:event_participation, event: event, participant: person))
         end
         people_manager.save
         people_manager.reload
