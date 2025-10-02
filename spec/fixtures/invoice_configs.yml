@@ -1,0 +1,13 @@
+# Copyright (c) 2012-2025, Hitobito AG. This file is part of
+# hitobito_youth and licensed under the Affero General Public License version 3
+# or later. See the COPYING file at the top-level directory or at
+# https://github.com/hitobito/hitobito_youth.
+
+bottom_layer_one:
+  group: bottom_layer_one
+  sequence_number: 1
+  beneficiary: "Hitobito AG"
+  payee: "Hitobito AG\nFritz von Gunten\nSwitzerland"
+  address: "bottom layer one address"
+  iban: "CH66 0076 2011 6238 5295 8"
+  account_number: "01-162-5"
