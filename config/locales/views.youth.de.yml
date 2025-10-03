@@ -164,14 +164,3 @@ de:
   unauthorized:
     new:
       event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
-
-  version:
-    association_change:
-      deleted_person: "Gelöschte Person"
-      people_manager:
-        create:
-          manager: "<i>%{label}</i> wurde als Verwalter*in hinzugefügt."
-          managed: "<i>%{label}</i> wurde als Kind hinzugefügt."
-        destroy:
-          manager: "<i>%{label}</i> wurde als Verwalter*in entfernt."
-          managed: "<i>%{label}</i> wurde als Kind entfernt."

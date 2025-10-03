@@ -6,32 +6,31 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
-
   include Rails.application.routes.url_helpers
 
-  let(:top_leader)    { people(:top_leader) }
-  let(:bottom_member)    { people(:bottom_member) }
-  let(:version)   { PaperTrail::Version.where(main_id: top_leader.id).order(:created_at, :id).last }
+  let(:top_leader) { people(:top_leader) }
+  let(:bottom_member) { people(:bottom_member) }
+  let(:version) { PaperTrail::Version.where(main_id: top_leader.id).order(:created_at, :id).last }
   let(:decorator) { PaperTrail::VersionDecorator.new(version) }
 
-  context 'association_change for people_manager' do
+  context "association_change for people_manager" do
     subject { decorator.association_change }
 
-    context 'as manager' do
-      it 'builds create text' do
+    context "as manager" do
+      it "builds create text" do
         PeopleManager.create(manager: top_leader, managed: bottom_member)
 
-        is_expected.to eq('<i>Bottom Member</i> wurde als Kind hinzugefügt.')
+        is_expected.to eq("<i>Bottom Member</i> wurde als Kind hinzugefügt.")
       end
 
-      it 'builds destroy text' do
+      it "builds destroy text" do
         pm = PeopleManager.create(manager: top_leader, managed: bottom_member)
         pm.destroy!
 
-        is_expected.to eq('<i>Bottom Member</i> wurde als Kind entfernt.')
+        is_expected.to eq("<i>Bottom Member</i> wurde als Kind entfernt.")
       end
 
       it "works with deleted user" do
@@ -39,22 +38,22 @@ describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
         pm.destroy!
         bottom_member.destroy!
 
-        is_expected.to eq('<i>(Gelöschte Person)</i> wurde als Kind entfernt.')
+        is_expected.to eq("<i>(Gelöschte Person)</i> wurde als Kind entfernt.")
       end
     end
 
-    context 'as managed' do
-      it 'builds create text' do
+    context "as managed" do
+      it "builds create text" do
         PeopleManager.create(managed: top_leader, manager: bottom_member)
 
-        is_expected.to eq('<i>Bottom Member</i> wurde als Verwalter*in hinzugefügt.')
+        is_expected.to eq("<i>Bottom Member</i> wurde als Verwalter*in hinzugefügt.")
       end
 
-      it 'builds destroy text' do
+      it "builds destroy text" do
         pm = PeopleManager.create(managed: top_leader, manager: bottom_member)
         pm.destroy!
 
-        is_expected.to eq('<i>Bottom Member</i> wurde als Verwalter*in entfernt.')
+        is_expected.to eq("<i>Bottom Member</i> wurde als Verwalter*in entfernt.")
       end
 
       it "works with deleted user" do
@@ -62,7 +61,7 @@ describe PaperTrail::VersionDecorator, :draper_with_helpers, versioning: true do
         pm.destroy!
         bottom_member.destroy!
 
-        is_expected.to eq('<i>(Gelöschte Person)</i> wurde als Verwalter*in entfernt.')
+        is_expected.to eq("<i>(Gelöschte Person)</i> wurde als Verwalter*in entfernt.")
       end
     end
   end
