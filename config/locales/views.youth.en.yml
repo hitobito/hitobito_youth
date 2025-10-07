@@ -80,9 +80,6 @@ en:
     form_data_missing: Please fill out the following form to register.
     registered_manager: 'Your personal information has been recorded. You can now register your children using the “Register” button'
 
-  event/participations:
-    success_for_external_manager: '%{full_entry_label} was created successfully.'
-
   event_decorator:
     canceled: Registration cancelled
 
@@ -134,7 +131,6 @@ en:
     disabled_messages:
       already_exists: 'is already registered'
       cannot_see_event: 'darf den Anlass nicht sehen'
-    register_new_managed: Register new Child
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
@@ -151,27 +147,6 @@ en:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
 
-  people_managers:
-    section:
-      manageds_help: You can only add individuals as children to whom you have write access.
-    common_heading: Children / supervisors
-    managers_heading: Supervisors
-    manageds_heading: Children
-    create_managed_person_button: Create child
-    assign_managed_person_button: Assign child
-    assign_manager_person_button: Assign supervisor
-
   unauthorized:
     new:
       event/participation: 'The selected person does not meet the event requirements.'
-
-  version:
-    association_change:
-      deleted_person: "Gelöschte Person"
-      people_manager:
-        create:
-          manager: "%{label} has been added as a supervisor."
-          managed: " %{label} has been added as a child."
-        destroy:
-          manager: " %{label} has been removed as supervisor."
-          managed: " %{label} has been removed as a child."

@@ -47,51 +47,8 @@ en:
           CH: CH
           FL: FL
           ANDERE: OTHER
-        managers: Supervisors
-        manageds: Children
-        people_managers: Supervisors
-        people_manageds: Children
-        people_managers_attributes: Supervisors
-        people_manageds_attributes: Children
-        readable_manageds: Children
 
-      people_manager:
-        manager_id: Supervisor
-        managed_id: Child
-
-      people_managers:
-        manager_id: Supervisor
-        managed_id: Child
-
-      people_manageds:
-        manager_id: Child
-        managed_id: Supervisor
     errors:
       messages:
         must_be_social_security_number_with_correct_format: must be in valid format (756.1234.5678.97).
         must_be_social_security_number_with_correct_checksum: must have a valid checksum.
-      models:
-        person:
-          attributes:
-            base:
-              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
-              manager_already_managed: Supervisor could not be added because he/she is already supervised.
-              managed_already_manager: Child could not be added because he/she is already a supervisor.
-        people_manager:
-          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
-
-          attributes:
-            manager_id:
-              taken: is already set.
-          manager_and_managed_the_same: cannot manage themselves.
-    models:
-      people_manager:
-        one: Supervisors
-        other: Supervisors
-  activemodel:
-    errors:
-      models:
-        event/participation_contact_datas/managed:
-          attributes:
-            base:
-              duplicates_present: This person already exists. Please contact administrator to register them as your child.

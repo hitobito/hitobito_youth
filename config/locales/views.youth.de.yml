@@ -72,9 +72,6 @@ de:
         manager_first_name: Vorname erziehungsberechtigte Person
         manager_last_name: Nachname erziehungsberechtigte Person
 
-      email_check:
-        next_for_manager: Mein Kind anmelden
-
   event/register:
     email_sent: 'Wir haben dir ein E-Mail mit einem Link geschickt, wo du dich oder dein Kind direkt für den Anlass anmelden kannst.'
     form_data_missing: Bitte fülle das folgende Formular aus, um dich zu registrieren.
@@ -134,7 +131,6 @@ de:
     disabled_messages:
       already_exists: 'ist bereits angemeldet'
       cannot_see_event: 'darf den Anlass nicht sehen'
-    register_new_managed: Neues Kind erfassen und anmelden
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
@@ -150,16 +146,6 @@ de:
     merge:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
-
-  people_managers:
-    section:
-      manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
-    common_heading: Kinder / Verwalter*innen
-    managers_heading: Verwalter*innen
-    manageds_heading: Kinder
-    create_managed_person_button: Kind erfassen
-    assign_managed_person_button: Kind zuweisen
-    assign_manager_person_button: Verwalter*in zuweisen
 
   unauthorized:
     new:

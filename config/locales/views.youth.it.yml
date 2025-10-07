@@ -80,9 +80,6 @@ it:
     form_data_missing: Si prega di compilare il seguente modulo per registrarsi.
     registered_manager: 'Le tue informazioni personali sono state registrate. Ora puoi registrare i tuoi figli utilizzando il pulsante “Registrati”.'
 
-  event/participations:
-    success_for_external_manager: '%{full_entry_label} è stato creato correttamente.'
-
   event_decorator:
     canceled: Disiscritto
 
@@ -134,7 +131,6 @@ it:
     disabled_messages:
       already_exists: 'è già registrato'
       cannot_see_event: 'darf den Anlass nicht sehen'
-    register_new_managed: Registrati e registra un nuovo bambino
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
@@ -151,27 +147,6 @@ it:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
 
-  people_managers:
-    section:
-      manageds_help: Puoi aggiungere persone solo come bambini a cui hai accesso in scrittura.
-    common_heading: Bambini / Gestori
-    managers_heading: Gestori/rici
-    manageds_heading: Bambini
-    create_managed_person_button: Registrati bambino
-    assign_managed_person_button: Assegna bambino
-    assign_manager_person_button: Assegna Gestore/rice
-
   unauthorized:
     new:
       event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
-
-  version:
-    association_change:
-      deleted_person: "Gelöschte Person"
-      people_manager:
-        create:
-          manager: "%{label} è stato aggiunto come gestore/rice."
-          managed: "%{label} è stato aggiunto da bambino."
-        destroy:
-          manager: "%{label} è stato rimosso dal gestori/rice."
-          managed: "%{label} è stata rimossa da bambino."
