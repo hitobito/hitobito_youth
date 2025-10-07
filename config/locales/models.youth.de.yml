@@ -47,52 +47,8 @@ de:
           CH: CH
           FL: FL
           ANDERE: ANDERE
-        managers: Verwalter*innen
-        manageds: Kinder
-        people_managers: Verwalter*innen
-        people_manageds: Kinder
-        people_managers_attributes: Verwalter*innen
-        people_manageds_attributes: Kinder
-        readable_manageds: Kinder
 
-      people_manager:
-        manager_id: Verwalter*in
-        managed_id: Kind
-
-      people_managers:
-        manager_id: Verwalter*in
-        managed_id: Kind
-
-      people_manageds:
-        manager_id: Kind
-        managed_id: Verwalter*in
     errors:
       messages:
         must_be_social_security_number_with_correct_format: muss im gültigen Format sein (756.1234.5678.97).
         must_be_social_security_number_with_correct_checksum: muss eine gültige Prüfziffer haben.
-      models:
-        person:
-          attributes:
-            base:
-              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
-              manager_already_managed: Verwalter*in konnte nicht hinzugefügt werden, da er/sie bereits verwaltet wird.
-              managed_already_manager: Kind konnte nicht hinzugefügt werden, da es bereits Verwalter*in ist.
-        people_manager:
-          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
-
-          attributes:
-            manager_id:
-              taken: ist bereits gesetzt.
-          manager_and_managed_the_same: kann sich nicht selber verwalten.
-    models:
-      people_manager:
-        one: Verwalter*in
-        other: Verwalter*innen
-
-  activemodel:
-    errors:
-      models:
-        event/participation_contact_datas/managed:
-          attributes:
-            base:
-              duplicates_present: Diese Person existiert bereits. Bitte kontaktiere die Addressverwaltung um sie als dein Kind zu registrieren.

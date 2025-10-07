@@ -47,52 +47,8 @@ it:
           CH: CH
           FL: FL
           ANDERE: ALTRO
-        managers: Gestori
-        manageds: Bambini
-        people_managers: Gestori
-        people_manageds: Bambini
-        people_managers_attributes: Gestore
-        people_manageds_attributes: Bambini
-        readable_manageds: Bambini
 
-      people_manager:
-        manager_id: Gestore/rice
-        managed_id: Bambino
-
-      people_managers:
-        manager_id: Gestore
-        managed_id: Bambino/a
-
-      people_manageds:
-        manager_id: Bambino/a
-        managed_id: Gestore/rice
     errors:
       messages:
         must_be_social_security_number_with_correct_format: deve essere in formato valido (756.1234.5678.97).
         must_be_social_security_number_with_correct_checksum: deve avere una cifra di controllo valida.
-      models:
-        person:
-          attributes:
-            base:
-              cannot_have_managers_and_manageds: '%{name} kann nicht sowohl Verwalter*innen als auch Kinder haben.'
-              manager_already_managed: Impossibile aggiungere gestore/rice perché è già gestito.
-              managed_already_manager: Impossibile aggiungere bambino/a perché è già un/a gestore/rice.
-        people_manager:
-          manager_and_managed_the_same: Verwalter*in und Kind müssen unterschiedliche Personen sein.
-
-          attributes:
-            manager_id:
-              taken: è già impostato.
-          manager_and_managed_the_same: Non può gestirsi da solo
-    models:
-      people_manager:
-        one: Verwalter*in
-        many: Verwalter*innen
-        other: Verwalter*innen
-  activemodel:
-    errors:
-      models:
-        event/participation_contact_datas/managed:
-          attributes:
-            base:
-              duplicates_present: Questa persona esiste già. Contatta l'amministrazione degli indirizzi per registrarli.

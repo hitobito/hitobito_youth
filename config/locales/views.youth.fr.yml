@@ -80,9 +80,6 @@ fr:
     form_data_missing: Veuillez remplir le formulaire suivant pour vous inscrire.
     registered_manager: 'Tes données personnelles ont été enregistrées. Tu peux maintenant inscrire tes enfants en cliquant sur le bouton "Inscription".'
 
-  event/participations:
-    success_for_external_manager: '%{full_entry_label} a été créé avec succès.'
-
   event_decorator:
     canceled: Désinscrit
 
@@ -134,7 +131,6 @@ fr:
     disabled_messages:
       already_exists: 'est déjà inscrit.e'
       cannot_see_event: 'ne peut pas voir lévénement'
-    register_new_managed: Saisir et inscrire un nouvel enfant
   event/lists:
     courses:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.
@@ -151,27 +147,6 @@ fr:
       new:
         merge_hint: 'Lors de la fusion, les rôles, les numéros de téléphone, les e-mails supplémentaires, les administrateur.trice.s, les enfants ainsi que les inscriptions dans les réseaux sociaux sont conservés. Toutes les autres données de cette personne, comme par exemple les notes, les inscriptions aux cours, etc. seront supprimées.'
 
-  people_managers:
-    section:
-      manageds_help: Tu ne peux ajouter comme enfants que des personnes dont tu as le droit en écriture.
-    common_heading: Enfants / Administrateur.trice.s
-    managers_heading: Administrateur.trice
-    manageds_heading: Enfants
-    create_managed_person_button: Saisir un enfant
-    assign_managed_person_button: Attribuer un enfant
-    assign_manager_person_button: Attribuer un.e administrateur.trice
-
   unauthorized:
     new:
       event/participation: 'La personne sélectionnée ne répond pas aux exigences de l''événement.'
-
-  version:
-    association_change:
-      deleted_person: "Gelöschte Person"
-      people_manager:
-        create:
-          manager: "<i>%{label}</i> a été ajouté.e comme administrateur.trice."
-          managed: "<i>%{label}</i> a été ajouté.e en tant qu'enfant."
-        destroy:
-          manager: "<i>%{label}</i> a été supprimé.e en tant qu'administrateur.trice."
-          managed: "<i>%{label}</i> a été supprimé.e en tant qu'enfant."
