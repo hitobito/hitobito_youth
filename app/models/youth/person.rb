@@ -16,14 +16,6 @@ module Youth::Person
     validates :nationality_j_s, inclusion: {in: NATIONALITIES_J_S, allow_blank: true}
   end
 
-  def valid_email?(email = self.email)
-    if FeatureGate.enabled?("people.people_managers")
-      super || Person.mailing_emails_for(self).any? { |mail| super(mail) }
-    else
-      super
-    end
-  end
-
   def last_known_ahv_number(participation_ids = event_participation_ids)
     Event::Answer.joins(:question, :participation)
       .where(participation: participation_ids)
