@@ -8,17 +8,6 @@ module Youth::Event::ParticipationAbility
 
   included do
     on(Event::Participation) do
-      # abilities which managers inherit from their managed children
-      permission(:any).may(:show).her_own_or_manager_or_for_participations_read_events
-      permission(:any).may(:show_details, :print)
-        .her_own_or_manager_or_for_participations_full_events
-
-      for_self_or_manageds do
-        permission(:any).may(:create).her_own_if_application_possible
-        permission(:any).may(:destroy).her_own_if_application_cancelable
-        general(:create).at_least_one_group_not_deleted
-      end
-
       permission(:any).may(:cancel, :absent, :assign, :attend).for_participations_full_events
       permission(:group_full).may(:cancel, :reject, :absent, :assign, :attend).in_same_group
       permission(:group_and_below_full)
@@ -33,16 +22,6 @@ module Youth::Event::ParticipationAbility
       general(:create_tentative).event_tentative_and_person_in_tentative_group
       general(:cancel, :reject, :absent, :assign, :attend).if_application
     end
-
-    alias_method_chain :participant_can_show_event?, :no_managed_regards
-  end
-
-  def her_own_or_manager_or_for_participations_read_events
-    her_own_or_for_participations_read_events || manager
-  end
-
-  def her_own_or_manager_or_for_participations_full_events
-    her_own_or_for_participations_full_events || manager
   end
 
   def person_in_same_layer
@@ -64,23 +43,10 @@ module Youth::Event::ParticipationAbility
     event.supports_applications && participation.application_id?
   end
 
-  def participant_can_show_event_with_no_managed_regards?
-    participation.person &&
-      (AbilityWithoutManagerAbilities.new(participation.person).can? :show, participation.event)
-  end
-
   private
-
-  def manager
-    contains_any?([user.id], person.managers.pluck(:id))
-  end
 
   def event
     participation.event
-  end
-
-  def person
-    participation.person
   end
 
   def visible_below
