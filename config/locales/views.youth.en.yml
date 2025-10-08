@@ -6,7 +6,6 @@
 en:
   people:
     fields_youth:
-      no_permission_to_change_managers: You are not authorized to change the supervisors of this person.
       nationality:
         placeholder: e.g. CH
 
@@ -43,25 +42,6 @@ en:
         layer: Level
       new:
         title: Register provisionally
-
-    register:
-      register:
-        title:
-          participant: Enter contact details of the participating individual to complete registration.
-          manager: Contact details of the legal guardian
-        email_check:
-          enter_email: Please enter the email address you would like to use to register.
-      manager_fields:
-        manager_first_name: First name of legal guardian
-        manager_last_name: Last name of legal guardian
-
-      email_check:
-        next_for_manager: Register my child
-
-  event/register:
-    email_sent: 'We have sent you an email with a link where you or your child can register directly for the event.'
-    form_data_missing: Please fill out the following form to register.
-    registered_manager: 'Your personal information has been recorded. You can now register your children using the “Register” button'
 
   event_decorator:
     canceled: Registration cancelled
@@ -109,11 +89,6 @@ en:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
       bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
       bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
-
-  person:
-    manageds:
-      new_person_fields:
-        birthday_hint: (dd.mm.yyyy)
 
   person_duplicates:
     merge:

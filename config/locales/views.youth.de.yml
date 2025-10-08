@@ -6,7 +6,6 @@
 de:
   people:
     fields_youth:
-      no_permission_to_change_managers: Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.
       nationality:
         placeholder: z.B. CH
 
@@ -43,19 +42,6 @@ de:
         layer: Ebene
       new:
         title: Provisorisch Anmelden
-
-    register:
-      register:
-        title:
-          participant: Kontaktdaten der teilnehmenden Person erfassen
-          manager: Kontaktdaten der erziehungsberechtigten Person
-        email_check:
-          enter_email: Bitte gib deine E-Mailadresse ein, mit der du dich registrieren möchtest.
-
-  event/register:
-    email_sent: 'Wir haben dir ein E-Mail mit einem Link geschickt, wo du dich oder dein Kind direkt für den Anlass anmelden kannst.'
-    form_data_missing: Bitte fülle das folgende Formular aus, um dich zu registrieren.
-    registered_manager: 'Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden'
 
   event_decorator:
     canceled: Abgemeldet
@@ -103,11 +89,6 @@ de:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
       bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
       bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
-
-  person:
-    manageds:
-      new_person_fields:
-        birthday_hint: (dd.mm.yyyy)
 
   person_duplicates:
     merge:
