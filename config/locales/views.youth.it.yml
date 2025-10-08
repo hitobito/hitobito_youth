@@ -6,7 +6,6 @@
 it:
   people:
     fields_youth:
-      no_permission_to_change_managers: Non sei autorizzato a modificare gli gestori di questa persona.
       nationality:
         placeholder: per es. CH
 
@@ -43,35 +42,6 @@ it:
         layer: Livello
       new:
         title: Iscrivere provvisoriamente
-
-    participation_contact_data:
-      managed:
-        update:
-          flash:
-            privacy_policy_not_accepted: 'Per completare la registrazione è necessario accettare la dichiarazione sulla protezione dei dati.'
-
-        edit:
-          title: Registra un nuovo bambino e iscriviti all'evento
-          save: Continua
-
-    register:
-      register:
-        title:
-          participant: Raccogliere i dettagli di contatto della persona partecipante
-          manager: Dati di contatto del tutore legale
-        email_check:
-          enter_email: Inserisci l'indirizzo email che desideri utilizzare per registrarti.
-      manager_fields:
-        manager_first_name: Nome del tutore legale
-        manager_last_name: Cognome del tutore legale
-
-      email_check:
-        next_for_manager: Registra il mio bambino
-
-  event/register:
-    email_sent: 'Ti abbiamo inviato un''e-mail con un link dove tu o tuo figlio potete registrarvi direttamente all''evento.'
-    form_data_missing: Si prega di compilare il seguente modulo per registrarsi.
-    registered_manager: 'Le tue informazioni personali sono state registrate. Ora puoi registrare i tuoi figli utilizzando il pulsante “Registrati”.'
 
   event_decorator:
     canceled: Disiscritto
@@ -119,11 +89,6 @@ it:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
       bsv_export_date_invalid: Data di scadenza non valido (da/a)
       bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".
-
-  person:
-    manageds:
-      new_person_fields:
-        birthday_hint: (dd.mm.yyyy)
 
   person_duplicates:
     merge:
