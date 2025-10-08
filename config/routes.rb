@@ -10,13 +10,6 @@ Rails.application.routes.draw do
   extend LanguageRouteScope
 
   language_scope do
-    resources :people, only: [] do
-      scope module: 'person' do
-        resources :managers, except: [:edit, :update]
-        resources :manageds, except: [:edit, :update]
-      end
-    end
-
     resources :groups do
       member do
         scope module: 'group' do
@@ -31,13 +24,6 @@ Rails.application.routes.draw do
           end
 
           resources :participations, only: [] do
-            collection do
-              scope module: :participation_contact_data do
-                get 'contact_data/managed' => 'managed#edit'
-                post 'contact_data/managed' => 'managed#update'
-              end
-            end
-
             member do
               put :cancel
               put :reject

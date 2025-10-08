@@ -6,7 +6,6 @@
 de:
   people:
     fields_youth:
-      no_permission_to_change_managers: Du bist nicht berechtigt, die Verwalter*innen dieser Person zu ändern.
       nationality:
         placeholder: z.B. CH
 
@@ -25,13 +24,6 @@ de:
       assigned_notice: "%{participant} wurde zugeteilt."
       attended_notice: "%{participant} wurde als teilgenommen markiert."
       absent_notice: "%{participant} wurde als nicht erschienen markiert."
-      cancel_application:
-        managed:
-          explanation: "%{person} ist für diesen Anlass angemeldet."
-          pending: "%{person} ist für diesen Anlass vorangemeldet. Die Anmeldung ist noch nicht definitiv und muss von der Anlassverwaltung bestätigt werden."
-          waiting_list: "%{person} ist auf der Warteliste für diesen Anlass."
-
-
       popover_cancel:
           cancel_info: ''
       actions_show_youth:
@@ -51,38 +43,6 @@ de:
       new:
         title: Provisorisch Anmelden
 
-    participation_contact_data:
-      managed:
-        update:
-          flash:
-            privacy_policy_not_accepted: 'Um die Anmeldung abzuschliessen, muss der Datenschutzerklärung zugestimmt werden.'
-
-        edit:
-          title: Neues Kind registrieren und am Anlass anmelden
-          save: Weiter
-
-    register:
-      register:
-        title:
-          participant: Kontaktdaten der teilnehmenden Person erfassen
-          manager: Kontaktdaten der erziehungsberechtigten Person
-        email_check:
-          enter_email: Bitte gib deine E-Mailadresse ein, mit der du dich registrieren möchtest.
-      manager_fields:
-        manager_first_name: Vorname erziehungsberechtigte Person
-        manager_last_name: Nachname erziehungsberechtigte Person
-
-      email_check:
-        next_for_manager: Mein Kind anmelden
-
-  event/register:
-    email_sent: 'Wir haben dir ein E-Mail mit einem Link geschickt, wo du dich oder dein Kind direkt für den Anlass anmelden kannst.'
-    form_data_missing: Bitte fülle das folgende Formular aus, um dich zu registrieren.
-    registered_manager: 'Deine persönlichen Daten wurden aufgenommen. Du kannst nun deine Kinder via "Anmelden" Knopf anmelden'
-
-  event/participations:
-    success_for_external_manager: '%{full_entry_label} wurde erfolgreich erstellt.'
-
   event_decorator:
     canceled: Abgemeldet
 
@@ -93,12 +53,6 @@ de:
       tentatives: Provisorische Anmeldungen
     application_fields_youth:
       tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
-    banner_open_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen."
-    banner_declined_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
     form:
       caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
 
@@ -130,48 +84,17 @@ de:
     nds_camp: NDS-Lager
     slrg: SLRG-Kurs
 
-  dropdown/event/participant_add:
-    disabled_messages:
-      already_exists: 'ist bereits angemeldet'
-      cannot_see_event: 'darf den Anlass nicht sehen'
-    register_new_managed: Neues Kind erfassen und anmelden
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
       bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
       bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
 
-  person:
-    manageds:
-      new_person_fields:
-        birthday_hint: (dd.mm.yyyy)
-
   person_duplicates:
     merge:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
 
-  people_managers:
-    section:
-      manageds_help: Du kannst nur Personen als Kinder hinzufügen, auf welche du Schreibzugriff hast.
-    common_heading: Kinder / Verwalter*innen
-    managers_heading: Verwalter*innen
-    manageds_heading: Kinder
-    create_managed_person_button: Kind erfassen
-    assign_managed_person_button: Kind zuweisen
-    assign_manager_person_button: Verwalter*in zuweisen
-
   unauthorized:
     new:
       event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
-
-  version:
-    association_change:
-      deleted_person: "Gelöschte Person"
-      people_manager:
-        create:
-          manager: "<i>%{label}</i> wurde als Verwalter*in hinzugefügt."
-          managed: "<i>%{label}</i> wurde als Kind hinzugefügt."
-        destroy:
-          manager: "<i>%{label}</i> wurde als Verwalter*in entfernt."
-          managed: "<i>%{label}</i> wurde als Kind entfernt."

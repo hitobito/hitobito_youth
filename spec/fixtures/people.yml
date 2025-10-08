@@ -80,13 +80,3 @@ root:
   company_name: 'Puzzle ITC'
   company: true
   email: <%= Settings.root_email %>
-
-people_manager:
-  first_name: People Manager
-  email: people_manager@example.com
-  primary_group: bottom_group_two
-
-people_managed:
-  first_name: People Managed
-  email: people_managed@example.com
-  primary_group: bottom_group_two
