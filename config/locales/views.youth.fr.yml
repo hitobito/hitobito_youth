@@ -25,13 +25,6 @@ fr:
       assigned_notice: "%{participant} était placé."
       attended_notice: "%{participant} était marqueé en tant que participant."
       absent_notice: "%{participant} était marqueé en tant que absent."
-      cancel_application:
-        managed:
-          explanation: "%{person} est inscrit.e à cet événement."
-          pending: "%{person} est préinscrit.e à cette manifestation. L'inscription n'est pas encore définitive et doit être confirmée par le/la responsable de l'événement."
-          waiting_list: "%{person} est sur la liste d'attente pour cet événement."
-
-
       popover_cancel:
           cancel_info: ''
       actions_show_youth:
@@ -90,12 +83,6 @@ fr:
       tentatives: Inscriptions provisoires
     application_fields_youth:
       tentative_applications: Le responsable de groupe peut inscrire provisoirement des personnes.
-    banner_open_invitation:
-      managed:
-        explanation: "%{person} a été invité.e à cet événement."
-    banner_declined_invitation:
-      managed:
-        explanation: "%{person} a été invité.e à cette événement et a été désinscrit.e."
     form:
       caption_external_applications: 'Les personnes externes peuvent s''inscrire à cet événement. L''événement est ainsi visible pour toute la base de données.'
 
@@ -127,10 +114,6 @@ fr:
     nds_camp: Camp BDNS
     slrg: Cours SSS
 
-  dropdown/event/participant_add:
-    disabled_messages:
-      already_exists: 'est déjà inscrit.e'
-      cannot_see_event: 'ne peut pas voir lévénement'
   event/lists:
     courses:
       bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.

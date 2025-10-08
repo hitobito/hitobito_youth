@@ -46,23 +46,8 @@ module HitobitoYouth
       Synchronize::Mailchimp::Subscriber.prepend Youth::Synchronize::Mailchimp::Subscriber
 
       # ability
-      Ability.prepend Youth::Ability
-      AbilityDsl::Recorder::Base.include Youth::AbilityDsl::Recorder::Base
-      AbilityDsl::Recorder.include Youth::AbilityDsl::Recorder
-      AbilityDsl::Config.prepend Youth::AbilityDsl::Config
-      AbilityDsl::Store.prepend Youth::AbilityDsl::Store
-      GroupAbility.include Youth::GroupAbility
       EventAbility.include Youth::EventAbility
-      PersonAbility.include Youth::PersonAbility
-      Event::ApplicationAbility.include Youth::Event::ApplicationAbility
-      Event::InvitationAbility.include Youth::Event::InvitationAbility
       Event::ParticipationAbility.include Youth::Event::ParticipationAbility
-      Event::ParticipationContactDataAbility.include Youth::Event::ParticipationContactDataAbility
-      Person::AddRequestAbility.include Youth::Person::AddRequestAbility
-      PersonReadables.prepend(Youth::PersonReadables)
-      PersonLayerWritables.prepend(Youth::PersonLayerWritables)
-
-      Ability.store.register PeopleManagerAbility
 
       # decorator
       PersonDecorator.include Youth::PersonDecorator
@@ -71,9 +56,7 @@ module HitobitoYouth
 
       # controller
       PeopleFiltersController.include Youth::PeopleFiltersController
-      EventsController.include Youth::EventsController
       Event::ParticipationsController.include Youth::Event::ParticipationsController
-      Event::ParticipationContactDatasController.prepend Youth::Event::ParticipationContactDatasController
 
       PeopleController.permitted_attrs += [:nationality_j_s, :j_s_number]
       EventsController.permitted_attrs += [:tentative_applications]
@@ -82,7 +65,6 @@ module HitobitoYouth
       Event::ParticipationsController.include Youth::Event::ParticipationsController
       Event::ListsController.include Youth::Event::ListsController
       Event::RolesController.include Youth::Event::RolesController
-      Event::RegisterController.include Youth::Event::RegisterController
 
       # mailer
       InvoiceMailer.prepend Youth::InvoiceMailer
