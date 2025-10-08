@@ -25,13 +25,6 @@ en:
       assigned_notice: "%{participant} has been assigned."
       attended_notice: "%{participant} has been marked as participated."
       absent_notice: "%{participant} has been marked as absent."
-      cancel_application:
-        managed:
-          explanation: "%{person} is registered for this event."
-          pending: "\"%{person} is pre-registered for this event. The registration is not yet final and needs to be confirmed by the organizer.\""
-          waiting_list: "%{person} is on the waiting list for this event."
-
-
       popover_cancel:
           cancel_info: ''
       actions_show_youth:
@@ -50,16 +43,6 @@ en:
         layer: Level
       new:
         title: Register provisionally
-
-    participation_contact_data:
-      managed:
-        update:
-          flash:
-            privacy_policy_not_accepted: 'To complete the registration, you must agree to the data protection declaration.'
-
-        edit:
-          title: Register a new child and register for the event
-          save: Continue
 
     register:
       register:
@@ -90,12 +73,6 @@ en:
       tentatives: Provisional Registration
     application_fields_youth:
       tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
-    banner_open_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen."
-    banner_declined_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
     form:
       caption_external_applications: 'External participants can register for this event. This makes the event visible to the entire database.'
 
@@ -127,10 +104,6 @@ en:
     nds_camp: NDS-Lager
     slrg: SSS-Course
 
-  dropdown/event/participant_add:
-    disabled_messages:
-      already_exists: 'is already registered'
-      cannot_see_event: 'darf den Anlass nicht sehen'
   event/lists:
     courses:
       bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.

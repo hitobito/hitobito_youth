@@ -25,13 +25,6 @@ it:
       assigned_notice: "%{participant} è stato assegnato."
       attended_notice: "%{participant} è stato registrato come \"ha partecipato\"."
       absent_notice: "%{participant} è stato registrato come \"non apparso\"."
-      cancel_application:
-        managed:
-          explanation: "%{person} è registrato per questo evento."
-          pending: "\"%{person} è pre-registrato per questo evento. La registrazione non è ancora definitiva e deve essere confermata dalla gestione dell'evento.\""
-          waiting_list: "%{person} è in lista d'attesa per questo evento."
-
-
       popover_cancel:
           cancel_info: ''
       actions_show_youth:
@@ -90,12 +83,6 @@ it:
       tentatives: Iscrizioni provvisorie
     application_fields_youth:
       tentative_applications: I capi gruppo possono iscrivere delle persone provvisoriamente.
-    banner_open_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen."
-    banner_declined_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
     form:
       caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
 
@@ -127,10 +114,6 @@ it:
     nds_camp: NDS-Lager
     slrg: SLRG-Kurs
 
-  dropdown/event/participant_add:
-    disabled_messages:
-      already_exists: 'è già registrato'
-      cannot_see_event: 'darf den Anlass nicht sehen'
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
