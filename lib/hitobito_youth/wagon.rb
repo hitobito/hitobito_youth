@@ -43,7 +43,6 @@ module HitobitoYouth
       Export::Tabular::Events::Row.include Youth::Export::Tabular::Events::Row
       Person::AddRequest::Approver::Event.include Youth::Person::AddRequest::Approver::Event
       Messages::BulkMail::AddressList.include Youth::Messages::BulkMail::AddressList
-      Synchronize::Mailchimp::Subscriber.prepend Youth::Synchronize::Mailchimp::Subscriber
 
       # ability
       EventAbility.include Youth::EventAbility
