@@ -50,7 +50,6 @@ module HitobitoYouth
       # decorator
       PersonDecorator.include Youth::PersonDecorator
       Event::ParticipationDecorator.include Youth::Event::ParticipationDecorator
-      PaperTrail::VersionDecorator.include Youth::PaperTrail::VersionDecorator
 
       # controller
       PeopleFiltersController.include Youth::PeopleFiltersController
@@ -74,7 +73,6 @@ module HitobitoYouth
       Sheet::Event.include Youth::Sheet::Event
       Dropdown::PeopleExport.prepend Youth::Dropdown::PeopleExport
       Dropdown::Event::ParticipantAdd.include Youth::Dropdown::Event::ParticipantAdd
-      Event::ParticipationBanner.prepend Youth::Event::ParticipationBanner
 
       # serializer
       PersonSerializer.include Youth::PersonSerializer
