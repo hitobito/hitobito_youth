@@ -30,13 +30,3 @@ bottom_member:
   person: bottom_member
   group: bottom_layer_one
   type: Group::BottomLayer::Member
-
-people_manager:
-  person: people_manager
-  group: bottom_layer_two
-  type: Group::BottomLayer::Member
-
-people_managed:
-  person: people_managed
-  group: bottom_layer_two
-  type: Group::BottomLayer::Member
