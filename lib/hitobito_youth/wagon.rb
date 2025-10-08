@@ -66,9 +66,6 @@ module HitobitoYouth
       Event::ListsController.include Youth::Event::ListsController
       Event::RolesController.include Youth::Event::RolesController
 
-      # mailer
-      InvoiceMailer.prepend Youth::InvoiceMailer
-
       # job
       Export::EventParticipationsExportJob
         .include Youth::Export::EventParticipationsExportJob
