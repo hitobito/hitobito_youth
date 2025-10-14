@@ -64,7 +64,8 @@ module Bsv
         .participations
         .where(active: true)
         .includes(:roles).tap do |participations|
-        ::Event::Participation::PreloadParticipations.preload(participations, participant: [:location, :birthday])
+        ::Event::Participation::PreloadParticipations.preload(participations,
+          participant: [:location, :birthday])
       end
     end
 

@@ -14,7 +14,9 @@ module Youth::PaperTrail::VersionDecorator
     alias_method_chain :association_change_text, :people_manager
   end
 
-  def association_change_text_with_people_manager(changeset, item)
+  # rubocop:todo Metrics/MethodLength
+  # rubocop:todo Metrics/CyclomaticComplexity
+  def association_change_text_with_people_manager(changeset, item) # rubocop:todo Metrics/AbcSize
     unless people_manager_version?
       return association_change_text_without_people_manager(changeset, item)
     end
@@ -36,6 +38,8 @@ module Youth::PaperTrail::VersionDecorator
       label: label || "(#{I18n.t("version.association_change.deleted_person")})",
       changeset: changeset)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
 
   private
 

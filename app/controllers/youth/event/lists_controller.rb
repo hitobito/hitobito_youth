@@ -55,7 +55,8 @@ module Youth::Event::ListsController
       .to_scope
       .includes(participations: [:roles])
       .tap do |courses|
-      Event::Participation::PreloadParticipations.preload(courses.flat_map(&:participations), participant: :location)
+      Event::Participation::PreloadParticipations.preload(courses.flat_map(&:participations),
+        participant: :location)
     end
   end
 

@@ -45,7 +45,7 @@ module Youth
         end
 
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        def init_items_with_manageds(url_options)
+        def init_items_with_manageds(url_options) # rubocop:todo Metrics/CyclomaticComplexity
           return init_items_without_manageds(url_options) if url_options[:for_someone_else]
           return init_items_without_manageds(url_options) unless FeatureGate.enabled?("people.people_managers") # rubocop:disable Layout/LineLength
 

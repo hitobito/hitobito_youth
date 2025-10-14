@@ -23,7 +23,8 @@ module Youth::EventsController
     load_user_participation_without_manageds
   end
 
-  def load_my_invitation_with_manageds
+  # rubocop:todo Metrics/AbcSize
+  def load_my_invitation_with_manageds # rubocop:todo Metrics/CyclomaticComplexity # rubocop:todo Metrics/AbcSize
     @invitations = current_user&.and_manageds&.map do |person|
       person.event_invitations.find_by(event_id: entry.id)
     end&.compact
@@ -39,6 +40,7 @@ module Youth::EventsController
 
     load_my_invitation_without_manageds
   end
+  # rubocop:enable Metrics/AbcSize
 
   def event_user_application_possible?(person = current_user)
     participation = entry.participations.new
