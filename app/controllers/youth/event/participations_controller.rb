@@ -47,7 +47,7 @@ module Youth::Event::ParticipationsController
 
   private
 
-  def change_state(state, callback_name)
+  def change_state(state, callback_name) # rubocop:todo Metrics/AbcSize
     entry.state = state
     if with_callbacks(callback_name) { entry.save }
       flash[:notice] ||= t("event.participations.#{state}_notice", participant: entry.person)

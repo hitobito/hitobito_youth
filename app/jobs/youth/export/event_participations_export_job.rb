@@ -12,7 +12,7 @@ module Youth::Export::EventParticipationsExportJob
 
   private
 
-  def exporter_with_nds
+  def exporter_with_nds # rubocop:todo Metrics/CyclomaticComplexity
     if @options[:nds_course] && ability.can?(:index_full_participations, event)
       Export::Tabular::People::ParticipationsNdsCourse
     elsif @options[:nds_camp] && ability.can?(:index_full_participations, event)

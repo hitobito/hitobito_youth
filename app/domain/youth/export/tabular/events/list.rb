@@ -12,13 +12,15 @@ module Youth::Export::Tabular::Events::List
     alias_method_chain :add_count_labels, :state
   end
 
-  def data_rows_with_counts(format = nil, &)
+  def data_rows_with_counts(format = nil, &) # rubocop:todo Metrics/AbcSize
     if model_class.supports_applications?
       @gender_counts ||= participant_counts(
         list.merge(Event::Participation.with_person_participants)
              .merge(Event::Participation.with_guest_participants)
              .where(event_participations: {active: true})
+             # rubocop:todo Layout/LineLength
              .group("events.id", "CASE #{Event::Participation.quoted_table_name}.participant_type WHEN 'Event::Guest' THEN #{Event::Guest.quoted_table_name}.gender ELSE #{Person.quoted_table_name}.gender END")
+        # rubocop:enable Layout/LineLength
       )
       @state_counts ||= participant_counts(
         list.where(event_participations: {state: model_class.revoked_participation_states})

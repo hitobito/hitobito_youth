@@ -81,7 +81,8 @@ class Event::TentativesController < ApplicationController
   end
 
   # Compose the search condition with a basic SQL OR query, copied from lists_controller
-  def search_condition(*columns)
+  # rubocop:todo Metrics/AbcSize
+  def search_condition(*columns) # rubocop:todo Metrics/CyclomaticComplexity # rubocop:todo Metrics/AbcSize
     if columns.present? && params[:q].present?
       terms = params[:q].split(/\s+/).collect { |t| "%#{t}%" }
       clause = columns.collect do |f|
@@ -93,14 +94,17 @@ class Event::TentativesController < ApplicationController
       ["(#{clause})"] + terms.collect { |t| [t] * columns.size }.flatten
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def count_tentative_participations(event)
     event
       .participations
       .where(state: "tentative")
+      # rubocop:todo Layout/LineLength
       .joins("LEFT OUTER JOIN #{Person.quoted_table_name} people " \
         "ON #{Event::Participation.quoted_table_name}.participant_type = '#{Person.sti_name}' " \
         "AND #{Event::Participation.quoted_table_name}.participant_id = #{Person.quoted_table_name}.id")
+      # rubocop:enable Layout/LineLength
       .joins("LEFT OUTER JOIN #{Group.quoted_table_name} " \
         "ON #{Group.quoted_table_name}.id = #{Person.quoted_table_name}.primary_group_id")
       .joins("LEFT OUTER JOIN #{Group.quoted_table_name} layer_groups " \
