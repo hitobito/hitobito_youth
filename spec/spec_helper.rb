@@ -19,5 +19,5 @@ require File.join(ENV['APP_ROOT'], 'spec', 'spec_helper.rb')
 Dir[HitobitoYouth::Wagon.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 RSpec.configure do |config|
-  config.fixture_path = File.expand_path('../fixtures', __FILE__)
+  config.fixture_paths = [File.expand_path('../fixtures', __FILE__)]
 end
