@@ -83,7 +83,7 @@ it:
           attributes:
             manager_id:
               taken: è già impostato.
-          manager_and_managed_the_same: kann sich nicht selber verwalten.
+          manager_and_managed_the_same: Non può gestirsi da solo
     models:
       people_manager:
         one: Verwalter*in
