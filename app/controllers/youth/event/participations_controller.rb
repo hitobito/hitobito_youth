@@ -19,8 +19,11 @@ module Youth::Event::ParticipationsController
 
     def current_user_interested_in_mail?
       # send email to kind and verwalter
-      entry.participant_type == Person.sti_name &&
-        current_user.and_manageds.map(&:id).include?(entry.participant_id)
+      for_current_user_or_managed?
+    end
+
+    def enforce_required_answers?
+      for_current_user_or_managed?
     end
   end
 
@@ -105,6 +108,11 @@ module Youth::Event::ParticipationsController
 
   def participation_of_managed?
     current_user.manageds.include?(entry.person)
+  end
+
+  def for_current_user_or_managed?
+    entry.participant_type == Person.sti_name &&
+      current_user.and_manageds.map(&:id).include?(entry.participant_id)
   end
 
   def own_or_managed_params_person?
