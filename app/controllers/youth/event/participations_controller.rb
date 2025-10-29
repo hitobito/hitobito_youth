@@ -16,6 +16,7 @@ module Youth::Event::ParticipationsController
     alias_method_chain :set_success_notice, :managed
 
     after_cancel :refresh_participant_counts
+    self.additional_participant_includes += [:application]
 
     def current_user_interested_in_mail?
       # send email to kind and verwalter

@@ -7,8 +7,6 @@ module Youth::Event::ParticipationFilter
   extend ActiveSupport::Concern
 
   included do
-    self.load_entries_includes += [:application]
-
     alias_method_chain :predefined_filters, :revoked
     alias_method_chain :apply_filter_scope, :revoked
   end
