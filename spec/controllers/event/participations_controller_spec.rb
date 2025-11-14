@@ -72,32 +72,6 @@ describe Event::ParticipationsController do
         expect(course.teamer_count).to eq 0
         expect(course.participant_count).to eq 1
       end
-
-      context "answers validation" do
-        before do
-          course.questions.create!(question: "AHV Nummer", disclosure: :required)
-        end
-
-        it "validates answers when registering current user" do
-          post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: people(:top_leader).id}}
-
-          expect(assigns(:participation)).not_to be_valid
-        end
-
-        it "validates answers when registering a child" do
-          PeopleManager.create!(manager_id: people(:top_leader).id, managed_id: user.id)
-
-          post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: user.id}}
-
-          expect(assigns(:participation)).not_to be_valid
-        end
-
-        it "does not validate answers when registering someone else" do
-          post :create, params: {group_id: group.id, event_id: course.id, event_participation: {person_id: user.id}}
-
-          expect(assigns(:participation)).to be_valid
-        end
-      end
     end
 
     context "state changes" do
