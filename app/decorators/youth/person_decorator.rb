@@ -11,8 +11,4 @@ module Youth::PersonDecorator
 
     I18n.t("activerecord.attributes.person.nationalities_j_s.#{nationality_j_s}")
   end
-
-  def readable_manageds
-    manageds.select { |m| can?(:show, m) }
-  end
 end

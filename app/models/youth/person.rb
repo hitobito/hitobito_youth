@@ -13,45 +13,7 @@ module Youth::Person
   included do
     Person::SEARCHABLE_ATTRS << :j_s_number
 
-    has_many :people_managers, foreign_key: :managed_id,
-      dependent: :destroy
-    has_many :people_manageds, class_name: "PeopleManager",
-      foreign_key: :manager_id,
-      dependent: :destroy
-
-    has_many :managers, through: :people_managers
-    has_many :manageds, through: :people_manageds
-
     validates :nationality_j_s, inclusion: {in: NATIONALITIES_J_S, allow_blank: true}
-
-    validate :assert_either_only_managers_or_manageds
-  end
-
-  def assert_either_only_managers_or_manageds # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
-    existent_managers = people_managers.reject { |pm| pm.marked_for_destruction? }
-    existent_manageds = people_manageds.reject { |pm| pm.marked_for_destruction? }
-
-    if existent_managers.any? && existent_manageds.any?
-      errors.add(:base, :cannot_have_managers_and_manageds, name: full_name)
-    elsif PeopleManager.exists?(managed: existent_managers.map(&:manager_id))
-      errors.add(:base, :manager_already_managed)
-    elsif PeopleManager.exists?(manager: existent_manageds.map(&:managed_id))
-      errors.add(:base, :managed_already_manager)
-    end
-  end
-
-  def and_manageds
-    return [self] unless FeatureGate.enabled?("people.people_managers")
-
-    [self, manageds].flatten
-  end
-
-  def valid_email?(email = self.email)
-    if FeatureGate.enabled?("people.people_managers")
-      super || Person.mailing_emails_for(self).any? { |mail| super(mail) }
-    else
-      super
-    end
   end
 
   def last_known_ahv_number(participation_ids = event_participation_ids)

@@ -12,10 +12,3 @@
 Rails/EnvironmentVariableAccess:
   Exclude:
     - 'lib/hitobito_youth/wagon.rb'
-
-# Offense count: 2
-# Configuration parameters: IgnoreScopes, Include.
-# Include: app/models/**/*.rb
-Rails/InverseOf:
-  Exclude:
-    - 'app/models/youth/person.rb'

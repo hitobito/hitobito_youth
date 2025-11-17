@@ -10,22 +10,8 @@ module Youth::Event::ParticipationsController
     define_model_callbacks :cancel, :reject, :attend, :absent, :assign
 
     alias_method_chain :set_active, :state
-    alias_method_chain :person_id, :managed
-    alias_method_chain :return_path, :managed
-    alias_method_chain :after_destroy_path, :managed
-    alias_method_chain :set_success_notice, :managed
 
     after_cancel :refresh_participant_counts
-    self.additional_participant_includes += [:application]
-
-    def current_user_interested_in_mail?
-      # send email to kind and verwalter
-      for_current_user_or_managed?
-    end
-
-    def enforce_required_answers?
-      for_current_user_or_managed?
-    end
   end
 
   def cancel
@@ -68,57 +54,6 @@ module Youth::Event::ParticipationsController
 
   def new_record_for_someone_else?
     entry.new_record? && entry.person != current_user && params[:for_someone_else]
-  end
-
-  def person_id_with_managed
-    if model_params&.key?(:person_id) && current_user && own_or_managed_params_person?
-      model_params[:person_id]
-    else
-      person_id_without_managed
-    end
-  end
-
-  def return_path_with_managed
-    if manager_via_public_event? || (participation_of_managed? && !entry.persisted?)
-      group_event_path(group, event)
-    else
-      return_path_without_managed
-    end
-  end
-
-  def after_destroy_path_with_managed
-    if participation_of_managed?
-      group_event_path(group, event)
-    else
-      after_destroy_path_without_managed
-    end
-  end
-
-  def set_success_notice_with_managed
-    if !entry.pending? && manager_via_public_event?
-      flash[:notice] ||= translate(:success_for_external_manager,
-        full_entry_label: full_entry_label)
-    else
-      set_success_notice_without_managed
-    end
-  end
-
-  def manager_via_public_event?
-    participation_of_managed? && current_user.roles.none?
-  end
-
-  def participation_of_managed?
-    current_user.manageds.include?(entry.person)
-  end
-
-  def for_current_user_or_managed?
-    entry.participant_type == Person.sti_name &&
-      current_user.and_manageds.map(&:id).include?(entry.participant_id)
-  end
-
-  def own_or_managed_params_person?
-    model_params[:person_id].to_i == current_user.id ||
-      current_user.manageds.pluck(:id).include?(model_params[:person_id].to_i)
   end
 
   def refresh_participant_counts

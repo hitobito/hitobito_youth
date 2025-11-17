@@ -6,7 +6,6 @@
 it:
   people:
     fields_youth:
-      no_permission_to_change_managers: Non sei autorizzato a modificare gli gestori di questa persona.
       nationality:
         placeholder: per es. CH
 
@@ -25,13 +24,6 @@ it:
       assigned_notice: "%{participant} è stato assegnato."
       attended_notice: "%{participant} è stato registrato come \"ha partecipato\"."
       absent_notice: "%{participant} è stato registrato come \"non apparso\"."
-      cancel_application:
-        managed:
-          explanation: "%{person} è registrato per questo evento."
-          pending: "\"%{person} è pre-registrato per questo evento. La registrazione non è ancora definitiva e deve essere confermata dalla gestione dell'evento.\""
-          waiting_list: "%{person} è in lista d'attesa per questo evento."
-
-
       popover_cancel:
           cancel_info: ''
       actions_show_youth:
@@ -51,38 +43,6 @@ it:
       new:
         title: Iscrivere provvisoriamente
 
-    participation_contact_data:
-      managed:
-        update:
-          flash:
-            privacy_policy_not_accepted: 'Per completare la registrazione è necessario accettare la dichiarazione sulla protezione dei dati.'
-
-        edit:
-          title: Registra un nuovo bambino e iscriviti all'evento
-          save: Continua
-
-    register:
-      register:
-        title:
-          participant: Raccogliere i dettagli di contatto della persona partecipante
-          manager: Dati di contatto del tutore legale
-        email_check:
-          enter_email: Inserisci l'indirizzo email che desideri utilizzare per registrarti.
-      manager_fields:
-        manager_first_name: Nome del tutore legale
-        manager_last_name: Cognome del tutore legale
-
-      email_check:
-        next_for_manager: Registra il mio bambino
-
-  event/register:
-    email_sent: 'Ti abbiamo inviato un''e-mail con un link dove tu o tuo figlio potete registrarvi direttamente all''evento.'
-    form_data_missing: Si prega di compilare il seguente modulo per registrarsi.
-    registered_manager: 'Le tue informazioni personali sono state registrate. Ora puoi registrare i tuoi figli utilizzando il pulsante “Registrati”.'
-
-  event/participations:
-    success_for_external_manager: '%{full_entry_label} è stato creato correttamente.'
-
   event_decorator:
     canceled: Disiscritto
 
@@ -93,12 +53,6 @@ it:
       tentatives: Iscrizioni provvisorie
     application_fields_youth:
       tentative_applications: I capi gruppo possono iscrivere delle persone provvisoriamente.
-    banner_open_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen."
-    banner_declined_invitation:
-      managed:
-        explanation: "%{person} wurde zu diesem Anlass eingeladen und wurde abgemeldet."
     form:
       caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
 
@@ -130,48 +84,17 @@ it:
     nds_camp: NDS-Lager
     slrg: SLRG-Kurs
 
-  dropdown/event/participant_add:
-    disabled_messages:
-      already_exists: 'è già registrato'
-      cannot_see_event: 'darf den Anlass nicht sehen'
-    register_new_managed: Registrati e registra un nuovo bambino
   event/lists:
     courses:
       bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
       bsv_export_date_invalid: Data di scadenza non valido (da/a)
       bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".
 
-  person:
-    manageds:
-      new_person_fields:
-        birthday_hint: (dd.mm.yyyy)
-
   person_duplicates:
     merge:
       new:
         merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
 
-  people_managers:
-    section:
-      manageds_help: Puoi aggiungere persone solo come bambini a cui hai accesso in scrittura.
-    common_heading: Bambini / Gestori
-    managers_heading: Gestori/rici
-    manageds_heading: Bambini
-    create_managed_person_button: Registrati bambino
-    assign_managed_person_button: Assegna bambino
-    assign_manager_person_button: Assegna Gestore/rice
-
   unauthorized:
     new:
       event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
-
-  version:
-    association_change:
-      deleted_person: "Gelöschte Person"
-      people_manager:
-        create:
-          manager: "%{label} è stato aggiunto come gestore/rice."
-          managed: "%{label} è stato aggiunto da bambino."
-        destroy:
-          manager: "%{label} è stato rimosso dal gestori/rice."
-          managed: "%{label} è stata rimossa da bambino."
