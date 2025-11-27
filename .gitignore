@@ -27,3 +27,6 @@ config/environment.rb
 .tool-versions
 .nvimrc
 tags
+
+db/schema.rb
+db/schema.rb.diff
