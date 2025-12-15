@@ -91,5 +91,15 @@ describe 'event registration', js: true do
 
       expect(page).to_not have_css('a.btn', text: /Anmelden/i)
     end
+
+    it 'in state confirmed can create tentative application' do
+      course = Fabricate(:course, state: 'confirmed', tentative_applications: true)
+      visit group_event_path(course.groups.first, course)
+      click_on "Provisorisch Anmelden"
+      fill_in "Person", with: "Bottom Leader"
+      page.find('ul[role="listbox"] li[role="option"]').click
+      click_on "Teilnahme erstellen"
+      expect(page).to have_content "Provisorische Anmeldung für Bottom Leader wurde erstellt"
+    end
   end
 end
