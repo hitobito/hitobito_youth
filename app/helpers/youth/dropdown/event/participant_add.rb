@@ -18,12 +18,8 @@ module Youth
 
         module ClassMethods
           def for_user_with_cancel(template, group, event, user)
-            if user.manageds.any?
-              return new(template, group, event, I18n.t("event_decorator.apply"), :check).to_s
-            end
-
             participation = user_participation(event, user).first
-            if participation && participation.state == "canceled"
+            if participation&.state == "canceled" && !adding_managed_possible?(user, event)
               new(template, group, event, I18n.t("event_decorator.canceled"), "times-circle")
                 .disabled_button
             else
@@ -34,7 +30,7 @@ module Youth
           def user_participation(event, user)
             event.participations
               .where(participant_id: user.id, participant_type: ::Person.sti_name)
-              .where.not(state: "tentative")
+              .where("state IS NULL OR state != 'tentative'")
           end
 
           def user_participates_in_with_tentative?(user, event)
