@@ -7,12 +7,12 @@
 
 require 'spec_helper'
 
-describe Event::ParticipationFilter do
+describe Event::ParticipationFilter::List do
 
   let(:event) { events(:top_course) }
   let(:user) { people(:top_leader) }
-  let(:filter) { Event::ParticipationFilter.new(event, user, filter: tab)}
-  let(:tab) { nil }
+  let(:filter) { Event::ParticipationFilter::List.new(event, user, filters: {participant_type: participant_type})}
+  let(:participant_type) { nil }
 
   before do
     @canceled = create_participant(state: 'canceled', canceled_at: Date.today)
@@ -48,7 +48,7 @@ describe Event::ParticipationFilter do
   end
 
   context 'revoked' do
-    let(:tab) { 'revoked' }
+    let(:participant_type) { 'revoked' }
 
     it 'lists all revoked entries' do
       expect(filter.list_entries).to match_array([@canceled, @absent])
@@ -57,7 +57,7 @@ describe Event::ParticipationFilter do
   end
 
   context 'all' do
-    let(:tab) { 'all' }
+    let(:participant_type) { 'all' }
 
     it 'lists only active entries' do
       expect(filter.list_entries).to match_array([@assigned, @leader])
@@ -66,7 +66,7 @@ describe Event::ParticipationFilter do
   end
 
   context 'participants' do
-    let(:tab) { 'participants' }
+    let(:participant_type) { 'participants' }
 
     it 'lists only active entries' do
       expect(filter.list_entries).to match_array([@assigned])
