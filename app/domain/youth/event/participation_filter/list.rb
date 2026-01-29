@@ -3,7 +3,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Event::ParticipationFilter
+module Youth::Event::ParticipationFilter::List
   extend ActiveSupport::Concern
 
   included do
@@ -23,8 +23,8 @@ module Youth::Event::ParticipationFilter
 
   private
 
-  def apply_filter_scope_with_revoked(records, kind = params[:filter])
-    if kind == "revoked" && predefined_filters.include?("revoked")
+  def apply_filter_scope_with_revoked(records, kind = params[:filters] || {})
+    if kind[:participant_type] == "revoked" && predefined_filters.include?("revoked")
       records
         .unscope(where: :active)
         .where("event_roles.type" => event.participant_types.collect(&:sti_name))

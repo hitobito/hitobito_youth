@@ -36,7 +36,7 @@ module HitobitoYouth
         [:j_s_number, :nationality_j_s])
 
       # domain
-      Event::ParticipationFilter.include Youth::Event::ParticipationFilter
+      Event::ParticipationFilter::List.include Youth::Event::ParticipationFilter::List
       Event::ParticipantAssigner.include Youth::Event::ParticipantAssigner
       Events::FilteredList.prepend Youth::Events::FilteredList
       Export::Tabular::Events::List.include Youth::Export::Tabular::Events::List
