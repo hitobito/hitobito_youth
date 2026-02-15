@@ -5,6 +5,8 @@
 
 module Export::Tabular::People
   class ParticipationNdsRow < Export::Tabular::People::PersonRow
+    NDS_LANGUAGES = %w[DE FR IT].freeze
+
     attr_reader :participation
 
     def initialize(participation, format = nil)
@@ -69,7 +71,8 @@ module Export::Tabular::People
     end
 
     def first_language
-      "DE"
+      language = entry.language.presence&.to_s&.upcase
+      NDS_LANGUAGES.include?(language) ? language : "Andere"
     end
 
     def second_language
