@@ -23,7 +23,7 @@ describe Group::EducationsController, type: :controller do
   end
 
   it 'does list leader participations' do
-    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.type_id } } }
     expect(response.body).to have_content 'Leader Top'
     expect(response.body).to have_content 'Top Course'
   end
@@ -36,19 +36,19 @@ describe Group::EducationsController, type: :controller do
 
   it 'does not list completed events' do
     events(:top_course).dates.last.update!(start_at: Date.today - 1.month)
-    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.type_id } } }
     expect(response.body).not_to have_content 'Top Course'
   end
 
   it 'lists qualifications' do
     create_qualification(start_at: Date.yesterday)
-    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.type_id } } }
     expect(response.body).to have_content 'Super Lead'
   end
 
   it 'lists qualifications event when expired' do
     create_qualification(start_at: Date.today - 3.days, finish_at: Date.yesterday)
-    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+    get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.type_id } } }
     expect(response.body).to have_content 'Super Lead'
   end
 
@@ -77,7 +77,7 @@ describe Group::EducationsController, type: :controller do
   it 'raises AccessDenied if not permitted' do
     sign_in(people(:bottom_leader))
     expect do
-      get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.id } } }
+      get :index, params: { id: groups(:top_layer).id, range: :layer, filters: { role: { role_type_ids: Group::TopGroup::Leader.type_id } } }
     end.to raise_error CanCan::AccessDenied
   end
 
