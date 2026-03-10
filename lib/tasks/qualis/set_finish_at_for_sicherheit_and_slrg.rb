@@ -5,28 +5,45 @@
 
 module Qualis
   class SetFinishAtForSicherheitAndSlrg
-    QualiKinds = Struct.new(:jubla, :pbs, :cevi, keyword_init: true) do
+    JS_LEITER_LST_JUNGENDLICHE = {
+      pbs: 23,
+      jubla: 4,
+      cevi: 2
+    }
+
+    QualiKinds = Struct.new(:jubla, :pbs, :cevi, :with_max_leiter, keyword_init: true) do
       def scope(with_finished: false)
         Qualification
           .where(qualification_kind: qualification_kind_id)
           .then { |s| with_finished ? s : s.where(finish_at: nil) }
+          .then { |s| with_max_leiter ? add_max_leiter(s) : s }
+      end
+
+      def add_max_leiter(scope)
+        scope
+          .with(max_leiter: max_leiter)
+          .joins("LEFT OUTER JOIN max_leiter ON max_leiter.person_id = qualifications.person_id")
+      end
+
+      def max_leiter
+        Qualification
+          .where(qualification_kind_id: JS_LEITER_LST_JUNGENDLICHE.fetch(wagon_name))
+          .group(:person_id).select("person_id, max(finish_at) as finish_at")
       end
 
       def label
         QualificationKind.find(qualification_kind_id).label
       end
 
-      def qualification_kind_id
-        members
-          .find { |key| Wagons.all.map(&:wagon_name).include?(key.to_s) }
-          .then { |key| send(key) }
-      end
+      def qualification_kind_id = send(wagon_name)
+
+      def wagon_name = members.find { |key| Wagons.all.map(&:wagon_name).include?(key.to_s) }
     end
 
     GLOBAL_QUALI_CHANGES = [
-      QualiKinds.new(pbs: 25, jubla: 8, cevi: 3), # SiBerg
-      QualiKinds.new(pbs: 27, jubla: 7, cevi: 5), # SiWinter
-      QualiKinds.new(pbs: 26, jubla: 9, cevi: 4)  # SiWasser
+      QualiKinds.new(pbs: 25, jubla: 8, cevi: 3, with_max_leiter: true), # SiBerg
+      QualiKinds.new(pbs: 27, jubla: 7, cevi: 5, with_max_leiter: true), # SiWinter
+      QualiKinds.new(pbs: 26, jubla: 9, cevi: 4, with_max_leiter: true)  # SiWasser
     ]
 
     RELATIVE_QUALI_CHANGES = [
@@ -39,8 +56,11 @@ module Qualis
     def run
       Qualification.transaction do
         GLOBAL_QUALI_CHANGES.each do |kind|
-          apply_global_change(kind)
+          delete_obsolete(kind)
+          update_finish_at(kind, ..Date.new(2024, 12, 31), Date.new(2025, 1, 1))
+          update_finish_at(kind, Date.new(2025, 1, 1).., Date.new(2030, 12, 31))
         end
+
         RELATIVE_QUALI_CHANGES.each do |kind, years|
           next unless kind.qualification_kind_id
           apply_relative_change(kind, years)
@@ -49,10 +69,17 @@ module Qualis
     end
 
     # rubocop:disable Rails/Output, Layout/LineLength
-    def apply_global_change(kind)
-      finish_at = Date.new(2029, 12, 31)
-      people = kind.scope.select("DISTINCT person_id").count
-      count = kind.scope.update_all(finish_at:)
+    def delete_obsolete(kind)
+      scope = kind.scope.where(max_leiter: {finish_at: nil})
+      people = scope.select("DISTINCT qualifications.person_id").count
+      count = Qualification.where(id: scope.select(:id)).delete_all
+      puts "Deleted #{count} #{kind.label} for #{people} people" if count.positive?
+    end
+
+    def update_finish_at(kind, range, finish_at)
+      scope = kind.scope.where(max_leiter: {finish_at: range})
+      people = scope.select("DISTINCT qualifications.person_id").count
+      count = Qualification.where(id: scope.select(:id)).update_all(finish_at:)
       puts "Updated #{count} #{kind.label} to #{finish_at} for #{people} people" if count.positive?
     end
 
