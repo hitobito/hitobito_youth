@@ -48,8 +48,8 @@ module Export::Tabular::People
       entry.nationality_j_s.presence || "CH"
     end
 
-		# issue hitobito/hitobito_youth#138
-		# phone numbers are deliberatly empty
+    # issue hitobito/hitobito_youth#138
+    # phone numbers are deliberatly empty
     def phone_private
       nil
     end
