@@ -31,8 +31,8 @@ describe Export::Tabular::People::ParticipationNdsRow do
   it { expect(row.fetch(:zip_code)).to eq '4000' }
   it { expect(row.fetch(:town)).to eq 'Basel' }
   it { expect(row.fetch(:country)).to eq 'CH' }
-  it { expect(row.fetch(:phone_private)).to eq '+41 31 111 12 13' }
-  it { expect(row.fetch(:phone_work)).to eq '+41 24 422 42 42' }
+  it { expect(row.fetch(:phone_private)).to be_nil }
+  it { expect(row.fetch(:phone_work)).to be_nil }
   it { expect(row.fetch(:phone_official)).to be_nil }
   it { expect(row.fetch(:email)).to eq 'foo@example.com' }
   it { expect(row.fetch(:email_official)).to be_nil }
