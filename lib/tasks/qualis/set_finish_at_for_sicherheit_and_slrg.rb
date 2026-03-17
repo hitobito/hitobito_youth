@@ -57,7 +57,7 @@ module Qualis
       Qualification.transaction do
         GLOBAL_QUALI_CHANGES.each do |kind|
           delete_obsolete(kind)
-          update_finish_at(kind, ..Date.new(2024, 12, 31), Date.new(2025, 1, 1))
+          update_finish_at(kind, ..Date.new(2024, 12, 31), Date.new(2025, 12, 31))
           update_finish_at(kind, Date.new(2025, 1, 1).., Date.new(2030, 12, 31))
         end
 
