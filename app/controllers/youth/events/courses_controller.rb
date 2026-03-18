@@ -5,9 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
 
-module Youth::Event::ListsController
+module Youth::Events::CoursesController
   extend ActiveSupport::Concern
-  include Events::CourseListing
 
   included do
     class_attribute :bsv_course_states
@@ -29,6 +28,16 @@ module Youth::Event::ListsController
       type: :csv, filename: "bsv_export.csv")
   end
 
+  def courses_for_bsv_export
+    course_filters
+      .entries
+      .includes(participations: [:roles])
+      .tap do |courses|
+      Event::Participation::PreloadParticipations.preload(courses.flat_map(&:participations),
+        participant: :location)
+    end
+  end
+
   def flash_on_errors_and_redirect
     if !dates_from_to
       flash_and_redirect(:bsv_export_date_invalid)
@@ -42,27 +51,13 @@ module Youth::Event::ListsController
   end
 
   def flash_and_redirect(key)
-    flash[:alert] = translate("courses.#{key}")
+    flash[:alert] = translate(key)
     redirect_to list_courses_path
   end
 
-  def date_to_newer_than_date_from?
-    (@date_from && @date_to) && (@date_from > @date_to)
-  end
-
-  def courses_for_bsv_export
-    course_filters
-      .to_scope
-      .includes(participations: [:roles])
-      .tap do |courses|
-      Event::Participation::PreloadParticipations.preload(courses.flat_map(&:participations),
-        participant: :location)
-    end
-  end
-
   def dates_from_to
-    date_from = params.dig(:filter, :bsv_since)
-    date_to = params.dig(:filter, :bsv_until)
+    date_from = params.dig(:filters, :bsv_date_range, :since)
+    date_to = params.dig(:filters, :bsv_date_range, :until)
     begin
       @date_from = Date.parse(date_from) if date_from.present?
       @date_to = Date.parse(date_to) if date_to.present?
@@ -72,7 +67,7 @@ module Youth::Event::ListsController
     true
   end
 
-  def model_params
-    @model_params ||= params.fetch(:bsv_export, {})
+  def date_to_newer_than_date_from?
+    (@date_from && @date_to) && (@date_from > @date_to)
   end
 end
