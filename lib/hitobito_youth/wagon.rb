@@ -38,7 +38,7 @@ module HitobitoYouth
       # domain
       Event::ParticipationFilter::List.include Youth::Event::ParticipationFilter::List
       Event::ParticipantAssigner.include Youth::Event::ParticipantAssigner
-      Events::FilteredList.prepend Youth::Events::FilteredList
+      Events::Filter::Chain.include Youth::Events::Filter::Chain
       Export::Tabular::Events::List.include Youth::Export::Tabular::Events::List
       Export::Tabular::Events::Row.include Youth::Export::Tabular::Events::Row
       Person::AddRequest::Approver::Event.include Youth::Person::AddRequest::Approver::Event
@@ -61,8 +61,8 @@ module HitobitoYouth
       Event::KindsController.permitted_attrs += [:kurs_id_fiver, :vereinbarungs_id_fiver]
 
       Event::ParticipationsController.include Youth::Event::ParticipationsController
-      Event::ListsController.include Youth::Event::ListsController
       Event::RolesController.include Youth::Event::RolesController
+      Events::CoursesController.include Youth::Events::CoursesController
 
       # job
       Export::EventParticipationsExportJob

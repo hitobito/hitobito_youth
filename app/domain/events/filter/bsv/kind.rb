@@ -6,22 +6,23 @@
 #  https://github.com/hitobito/hitobito.
 
 module Events::Filter::Bsv
-  class CourseKind
-    def initialize(_user, params, _options, scope)
-      @params = params
-      @scope = scope
+  class Kind < Events::Filter::Base
+    class << self
+      def key
+        "bsv_kind"
+      end
     end
 
-    def to_scope
-      return @scope if kind_ids.blank?
+    self.permitted_args = [:ids]
 
-      @scope.left_joins(:kind).where(event_kinds: {id: kind_ids})
+    def apply(scope)
+      scope.where(kind_id: kind_ids)
     end
 
     private
 
     def kind_ids
-      @kind_ids ||= (@params.dig(:filter, :kinds) || "").split(",")
+      Array(args[:ids]).compact_blank
     end
   end
 end
