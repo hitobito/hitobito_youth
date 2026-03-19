@@ -48,12 +48,14 @@ module Export::Tabular::People
       entry.nationality_j_s.presence || "CH"
     end
 
+    # issue hitobito/hitobito_youth#138
+    # phone numbers are deliberatly empty
     def phone_private
-      phone_number("Privat")
+      nil
     end
 
     def phone_work
-      phone_number("Arbeit")
+      nil
     end
 
     def phone_official
@@ -93,10 +95,6 @@ module Export::Tabular::People
     end
 
     private
-
-    def phone_number(label)
-      entry.phone_numbers.find_by(label: label).try(:number)
-    end
 
     def additional_email(label)
       entry.additional_emails.find_by(label: label).try(:email)
