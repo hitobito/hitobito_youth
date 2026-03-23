@@ -26,6 +26,10 @@ on:
         description: An optional identifier which is simply output again, in order to identify the workflow run when triggered from another repo
         type: string
         default: ''
+      core_branch_ref:
+        description: Not used in this wagon, but accepted for consistency across all wagons.
+        type: string
+        default: ''
 jobs:
   wagon_tests:
     uses: hitobito/hitobito/.github/workflows/wagon-tests.yml@master
