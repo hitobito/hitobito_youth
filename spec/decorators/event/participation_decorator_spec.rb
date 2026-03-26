@@ -14,25 +14,6 @@ describe Event::ParticipationDecorator, :draper_with_helpers do
   let(:participation) { Event::Participation.new(state: state, person: person, event: Fabricate(:course)) }
   let(:decorator) { Event::ParticipationDecorator.new(participation) }
 
-  describe '#state_translated' do
-
-    { tentative: 'Provisorisch',
-      applied: 'Angemeldet',
-      assigned: 'Zugeteilt',
-      rejected: 'Abgelehnt',
-      canceled: 'Abgemeldet',
-      attended: 'Teilgenommen',
-      absent: 'Nicht erschienen' }.each do |state, translation|
-      context "state #{state}" do
-        let(:state) { state.to_s }
-
-        it 'returns the translation string' do
-          expect(decorator.state_translated).to eq(translation)
-        end
-      end
-    end
-  end
-
   describe '#to_s' do
     %w(tentative applied assiged attended).each do |state|
       context "state #{state}" do
