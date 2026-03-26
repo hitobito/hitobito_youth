@@ -31,6 +31,7 @@ module Youth::Event::Participation
     before_validation :set_active_based_on_state, if: :states?
     before_validation :clear_canceled_at, unless: ->(p) { p.state == "canceled" }
     after_update :update_participant_count, if: :state_changed?
+    after_save :create_event_paper_trail_version, if: :saved_change_to_state?
 
     alias_method_chain :applying_participant?, :tentative
 
@@ -50,6 +51,17 @@ module Youth::Event::Participation
   end
 
   private
+
+  def create_event_paper_trail_version
+    PaperTrail::Version.create!(
+      item: self,
+      main: event,
+      event: "update",
+      object: attributes.to_yaml,
+      object_changes: {"state" => saved_changes[:state]}.to_yaml,
+      whodunnit: PaperTrail.request.whodunnit
+    )
+  end
 
   def set_default_state
     self.state ||= event.default_participation_state(self)

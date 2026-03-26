@@ -123,4 +123,26 @@ describe Event::Participation do
     end
   end
 
+  context "paper trails", versioning: true do
+    let(:event) { events(:top_course) }
+
+    subject(:participation) { Fabricate.build(:event_participation, event: event) }
+
+    before do
+      participation.save!
+      PaperTrail::Version.destroy_all # make sure to start from a clean state
+    end
+
+    it "creates paper trail version on event on state change" do
+      expect do
+        participation.update!(state: "canceled", canceled_at: Time.zone.today)
+      end.to change { PaperTrail::Version.where(main: participation.event).count }.by(1)
+    end
+
+    it "does not create paper trails version on event when state did not change" do
+      expect do
+        participation.update!(additional_information: "something")
+      end.not_to change { PaperTrail::Version.where(main: participation.event).count }
+    end
+  end
 end
