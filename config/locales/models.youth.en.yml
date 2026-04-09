@@ -19,15 +19,7 @@ en:
           assignment_closed: Assignment completed
           canceled: Cancelled
           completed: Qualifications registered
-          closed: Completed
-        participation_states:
-          tentative: Provisionally
-          applied: Registered
-          assigned: Assigned
-          rejected: Rejected
-          canceled: Cancelled Registration
-          attended: Participated
-          absent: Didn't attend
+          closed: Completed          
 
       event/kind:
         kurs_id_fiver: Course-ID-FiVer
@@ -37,6 +29,14 @@ en:
         additional_information: Comments (general, health information, allergies, etc.)
         canceled_at: Deregistration date
         state: Status
+        states:
+          tentative: Provisorisch
+          applied: Angemeldet
+          assigned: Zugeteilt
+          rejected: Abgelehnt
+          canceled: Abgemeldet
+          attended: Teilgenommen
+          absent: Nicht erschienen
 
       person:
         canton: Canton of residence

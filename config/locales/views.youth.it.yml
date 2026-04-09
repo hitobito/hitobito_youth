@@ -10,14 +10,6 @@ it:
         placeholder: per es. CH
 
   event:
-    lists:
-      bsv_export_button: Esportazione UFAS
-      popover_bsv_export:
-        export_info: 'Esportate una lista dei corsi per  l’UFAS. Dovranno essere esportati solamente corsi con lo stato "concluso".  '
-        event_kinds: Tipi di corsi
-        event_kinds_hint: Tenendo premuto <Ctrl> e cliccando possono essere selezionati più tipi di corsi.
-        date_from: Data di scadenza da
-        date_to: 'Data di scadenza fino '
     participations:
       canceled_notice: "%{participant} è stato disiscritto."
       rejected_notice: "%{participant} è stato rifiutato."
@@ -25,7 +17,7 @@ it:
       attended_notice: "%{participant} è stato registrato come \"ha partecipato\"."
       absent_notice: "%{participant} è stato registrato come \"non apparso\"."
       popover_cancel:
-          cancel_info: ''
+        cancel_info: ""
       actions_show_youth:
         cancel_button: Disiscrivere
         cancel_title: Disiscrivere il partecipante
@@ -54,8 +46,19 @@ it:
     application_fields_youth:
       tentative_applications: I capi gruppo possono iscrivere delle persone provvisoriamente.
     form:
-      caption_external_applications: 'Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar.'
+      caption_external_applications: "Externe können sich für diesen Anlass anmelden. Der Anlass ist damit auch für die ganze Datenbank sichtbar."
 
+  events/courses:
+    bsv_export_button: BSV Export
+    bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
+    bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
+    bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
+    popover_bsv_export:
+      export_info: Exportiert eine Kursliste für das BSV. Es werden nur Kurse mit Kursstatus 'Abgeschlossen' exportiert.
+      event_kinds: Kursarten
+      event_kinds_hint: Mit <Ctrl> + Klick können mehrere Kursarten ausgewählt werden.
+      date_from: Abschlussdatum von
+      date_to: Abschlussdatum bis
   export/tabular/events/list:
     male_count: Numero di partecipanti maschi
     female_count: Numero di partecipanti femmine
@@ -84,17 +87,11 @@ it:
     nds_camp: NDS-Lager
     slrg: SLRG-Kurs
 
-  event/lists:
-    courses:
-      bsv_export_params_missing: Per l'esportazione UFAS bisogna indicare almeno una data di scadenza (da/a)
-      bsv_export_date_invalid: Data di scadenza non valido (da/a)
-      bsv_export_date_from_newer_than_date_to: La "data di scadenza da" non può essere posteriore alla "data di scadenza fino".
-
   person_duplicates:
     merge:
       new:
-        merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
+        merge_hint: "Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht."
 
   unauthorized:
     new:
-      event/participation: 'Die ausgewählte Person erfüllt die Anlassanforderungen nicht.'
+      event/participation: "Die ausgewählte Person erfüllt die Anlassanforderungen nicht."

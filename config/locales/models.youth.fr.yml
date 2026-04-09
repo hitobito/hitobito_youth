@@ -19,15 +19,7 @@ fr:
           assignment_closed: Attribution des participants terminée
           canceled: Annulé
           completed: Qualification saisie
-          closed: Clôturé
-        participation_states:
-          tentative: Provisoire
-          applied: Inscrit
-          assigned: Placé
-          rejected: Refusé
-          canceled: Désannoncé
-          attended: Participé
-          absent: Pas présent
+          closed: Clôturé          
 
       event/kind:
         kurs_id_fiver: L’ID de cours-FiVer
@@ -37,6 +29,14 @@ fr:
         additional_information: Commentaires (généralités, informations en lien avec la santé, allergies, etc.)
         canceled_at: Date de radiation
         state: Statut
+        states:
+          tentative: Provisorisch
+          applied: Angemeldet
+          assigned: Zugeteilt
+          rejected: Abgelehnt
+          canceled: Abgemeldet
+          attended: Teilgenommen
+          absent: Nicht erschienen
 
       person:
         canton: Canton de domicile

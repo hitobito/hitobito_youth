@@ -19,15 +19,7 @@ it:
           assignment_closed: Assegnazione conclusa
           canceled: Disdetto
           completed: Qualifiche registrate
-          closed: Concluso
-        participation_states:
-          tentative: Provvisorio
-          applied: Iscritto
-          assigned: Assegnato
-          rejected: Rifiutato
-          canceled: Disiscritto
-          attended: Partecipato
-          absent: Non apparso
+          closed: Concluso          
 
       event/kind:
         kurs_id_fiver: Corso ID FiVer
@@ -37,6 +29,14 @@ it:
         additional_information: Osservazioni (generali, informazioni sullo stato di salute, allergie, ecc.)
         canceled_at: Data della disiscrizione
         state: Stato
+        states:
+          tentative: Provisorisch
+          applied: Angemeldet
+          assigned: Zugeteilt
+          rejected: Abgelehnt
+          canceled: Abgemeldet
+          attended: Teilgenommen
+          absent: Nicht erschienen
 
       person:
         canton: Cantone di domicilio
