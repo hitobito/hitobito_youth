@@ -10,14 +10,6 @@ fr:
         placeholder: p.ex. CH
 
   event:
-    lists:
-      bsv_export_button: Export OFAS
-      popover_bsv_export:
-        export_info: Exportez une liste brève pour l’OFAS. Seuls les cours dont le statut est 'Terminé' doivent être exportés.
-        event_kinds: Types de cours
-        event_kinds_hint: On peut sélectionner plusieurs catégorie de cours en cliquant dessus tout en maintenant la touche <Ctrl> enfoncée
-        date_from: Date de finalisation du
-        date_to: Date de finalisation au
     participations:
       canceled_notice: "%{participant} était désannoncé."
       rejected_notice: "%{participant} était refusé."
@@ -25,7 +17,7 @@ fr:
       attended_notice: "%{participant} était marqueé en tant que participant."
       absent_notice: "%{participant} était marqueé en tant que absent."
       popover_cancel:
-          cancel_info: ''
+        cancel_info: ""
       actions_show_youth:
         cancel_button: Désinscription
         cancel_title: désinscrire participant
@@ -54,8 +46,19 @@ fr:
     application_fields_youth:
       tentative_applications: Le responsable de groupe peut inscrire provisoirement des personnes.
     form:
-      caption_external_applications: 'Les personnes externes peuvent s''inscrire à cet événement. L''événement est ainsi visible pour toute la base de données.'
+      caption_external_applications: "Les personnes externes peuvent s'inscrire à cet événement. L'événement est ainsi visible pour toute la base de données."
 
+  events/courses:
+    bsv_export_button: BSV Export
+    bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
+    bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
+    bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
+    popover_bsv_export:
+      export_info: Exportiert eine Kursliste für das BSV. Es werden nur Kurse mit Kursstatus 'Abgeschlossen' exportiert.
+      event_kinds: Kursarten
+      event_kinds_hint: Mit <Ctrl> + Klick können mehrere Kursarten ausgewählt werden.
+      date_from: Abschlussdatum von
+      date_to: Abschlussdatum bis
   export/tabular/events/list:
     male_count: Nombre de participants hommes
     female_count: Nombre de participantes femmes
@@ -84,17 +87,11 @@ fr:
     nds_camp: Camp BDNS
     slrg: Cours SSS
 
-  event/lists:
-    courses:
-      bsv_export_params_missing: Au minimum, une date de finalisation (au / du) est nécesaire pour l'export OFAS.
-      bsv_export_date_invalid: Date de finalisation incorrecte (début/fin)
-      bsv_export_date_from_newer_than_date_to: Date de finalisation au doit être ultérieur à la date de finalisation du.
-
   person_duplicates:
     merge:
       new:
-        merge_hint: 'Lors de la fusion, les rôles, les numéros de téléphone, les e-mails supplémentaires, les administrateur.trice.s, les enfants ainsi que les inscriptions dans les réseaux sociaux sont conservés. Toutes les autres données de cette personne, comme par exemple les notes, les inscriptions aux cours, etc. seront supprimées.'
+        merge_hint: "Lors de la fusion, les rôles, les numéros de téléphone, les e-mails supplémentaires, les administrateur.trice.s, les enfants ainsi que les inscriptions dans les réseaux sociaux sont conservés. Toutes les autres données de cette personne, comme par exemple les notes, les inscriptions aux cours, etc. seront supprimées."
 
   unauthorized:
     new:
-      event/participation: 'La personne sélectionnée ne répond pas aux exigences de l''événement.'
+      event/participation: "La personne sélectionnée ne répond pas aux exigences de l'événement."

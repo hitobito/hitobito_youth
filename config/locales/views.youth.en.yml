@@ -10,14 +10,6 @@ en:
         placeholder: e.g. CH
 
   event:
-    lists:
-      bsv_export_button: Export BSV
-      popover_bsv_export:
-        export_info: Exports a course list for the BSV. Only courses with course status 'Completed' will be exported.
-        event_kinds: Course types
-        event_kinds_hint: Use <Ctrl> + Click to select multiple course types.
-        date_from: Completion date from
-        date_to: Completion date to
     participations:
       canceled_notice: "%{participant} has been deregistered."
       rejected_notice: "%{participant} was rejected."
@@ -25,7 +17,7 @@ en:
       attended_notice: "%{participant} has been marked as participated."
       absent_notice: "%{participant} has been marked as absent."
       popover_cancel:
-          cancel_info: ''
+        cancel_info: ""
       actions_show_youth:
         cancel_button: Cancel Registration
         cancel_title: Deregister participant
@@ -54,8 +46,19 @@ en:
     application_fields_youth:
       tentative_applications: Gruppenleiter/-innen können Personen provisorisch anmelden
     form:
-      caption_external_applications: 'External participants can register for this event. This makes the event visible to the entire database.'
+      caption_external_applications: "External participants can register for this event. This makes the event visible to the entire database."
 
+  events/courses:
+    bsv_export_button: BSV Export
+    bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
+    bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
+    bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
+    popover_bsv_export:
+      export_info: Exportiert eine Kursliste für das BSV. Es werden nur Kurse mit Kursstatus 'Abgeschlossen' exportiert.
+      event_kinds: Kursarten
+      event_kinds_hint: Mit <Ctrl> + Klick können mehrere Kursarten ausgewählt werden.
+      date_from: Abschlussdatum von
+      date_to: Abschlussdatum bis
   export/tabular/events/list:
     male_count: Number of male participants
     female_count: Number of female participants
@@ -84,17 +87,11 @@ en:
     nds_camp: NDS-Lager
     slrg: SSS-Course
 
-  event/lists:
-    courses:
-      bsv_export_params_missing: Für den BSV Export muss mindestens ein Abschlussdatum (von/bis) angegeben werden.
-      bsv_export_date_invalid: Ungültiges Abschlussdatum (von/bis).
-      bsv_export_date_from_newer_than_date_to: Abschlussdatum von kann nicht neuer als Abschlussdatum bis sein.
-
   person_duplicates:
     merge:
       new:
-        merge_hint: 'Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht.'
+        merge_hint: "Beim Zusammenführen werden die Rollen, Telefonnr., zusätzlichen E-Mails, Verwalter*innen, Kinder sowie die Social Media Einträge übernommen. Alle anderen Daten dieser Person wie z.B. Notizen, Kursanmeldungen usw. werden gelöscht."
 
   unauthorized:
     new:
-      event/participation: 'The selected person does not meet the event requirements.'
+      event/participation: "The selected person does not meet the event requirements."
