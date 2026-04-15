@@ -14,11 +14,11 @@ module Events::Filter::Bsv
     end
 
     def apply(scope)
-      return scope unless start_date.present? && end_date.present?
+      return scope unless since_date && until_date
 
       courses = scope.joins(:dates).where(first_event_date_start)
-      courses = date_range_condition(courses, start_date, ">=")
-      date_range_condition(courses, end_date, "<=")
+      courses = date_range_condition(courses, since_date, ">=")
+      date_range_condition(courses, until_date, "<=")
     end
 
     private
