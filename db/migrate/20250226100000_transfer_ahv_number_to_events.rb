@@ -6,24 +6,26 @@
 #  https://github.com/hitobito/hitobito_youth.
 
 class TransferAhvNumberToEvents < ActiveRecord::Migration[7.1]
+  # Since the event_questions table changed in core, wa can't run this migration anymore
+  # We keep it for historic reason, if any issues would come up.
   def up
-    answers_lookup, ahv_number_transfer = prepare_queries
+    # answers_lookup, ahv_number_transfer = prepare_queries
 
-    say_with_time("Checking need for transfer") do
-      if select_values(answers_lookup).blank?
-        say "No target questions found that need the AHV-Number, skipping transfer", true
-        return
-      end
-    end
+    # say_with_time("Checking need for transfer") do
+    #   if select_values(answers_lookup).blank?
+    #     say "No target questions found that need the AHV-Number, skipping transfer", true
+    #     return
+    #   end
+    # end
 
-    say_with_time "Transferring AHV-Number to Answers" do
-      execute(ahv_number_transfer)
-    end
+    # say_with_time "Transferring AHV-Number to Answers" do
+    #   execute(ahv_number_transfer)
+    # end
 
-    # remove_column does not known about CASCADE
-    execute(<<~SQL.squish)
-      ALTER TABLE "people" DROP COLUMN "ahv_number" CASCADE
-    SQL
+    # # remove_column does not known about CASCADE
+    # execute(<<~SQL.squish)
+    #   ALTER TABLE "people" DROP COLUMN "ahv_number" CASCADE
+    # SQL
   end
 
   def down

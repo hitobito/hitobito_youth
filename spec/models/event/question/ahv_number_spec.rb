@@ -22,7 +22,7 @@ require "spec_helper"
 describe Event::Question::AhvNumber do
   let(:event) { events(:top_course) }
   let(:participation) { event.participations.build }
-  subject(:question) { described_class.new(question: "AHV-Number", disclosure: :optional, event: event) }
+  subject(:question) { described_class.new(question: "AHV-Number", required: false, event: event) }
 
   describe "Event::Answer" do
     subject(:answer) { question.answers.build(participation: participation) }
