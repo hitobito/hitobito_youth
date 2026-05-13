@@ -40,7 +40,7 @@ describe Person do
         ahv_numbers.map.with_index do |ahv_number, i|
           participation = Fabricate(:event_participation, participant: person)
           event = participation.event
-          question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
+          question = Event::Question::AhvNumber.create(required: true, question: "AHV?", event: event)
           answer = Event::Answer.find_by(question: question, participation: participation)
           answer.update!(answer: ahv_number)
           participation.touch(time: (i + 1).months.ago)

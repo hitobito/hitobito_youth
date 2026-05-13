@@ -79,7 +79,7 @@ describe Export::Tabular::People::ParticipationNdsRow do
     context "with ahv_number on participation" do
       it "calls #last_known_ahv_number and returns participation answer" do
         event = participation.event
-        question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?", event: event)
+        question = Event::Question::AhvNumber.create(required: true, question: "AHV?", event: event)
         answer = Event::Answer.find_by(question: question, participation: participation)
         answer.update!(answer: valid_ahv_number)
         is_expected.to eq(valid_ahv_number)

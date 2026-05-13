@@ -24,7 +24,7 @@ describe Export::EventParticipationsExportJob do
     p = Fabricate(:event_participation, participant: person, event: course, roles: [event_role],
       active: true)
     event = p.event
-    question = Event::Question::AhvNumber.create(disclosure: :required, question: "AHV?",
+    question = Event::Question::AhvNumber.create(required: true, question: "AHV?",
       event: event)
     answer = Event::Answer.find_by(question: question, participation: p)
     answer.update!(answer: "756.1234.5678.97")
