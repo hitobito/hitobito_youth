@@ -11,7 +11,7 @@ describe Export::EventParticipationsExportJob do
       user.id,
       course.id,
       group.id,
-      params.merge(filename: filename))
+      params.merge(filename: "event_participation_export"))
   }
 
   let(:user) { people(:top_leader) }
@@ -30,13 +30,15 @@ describe Export::EventParticipationsExportJob do
     answer.update!(answer: "756.1234.5678.97")
     p
   end
-  let(:filename) { AsyncDownloadFile.create_name("event_participation_export", user.id) }
-  let(:file) { AsyncDownloadFile.from_filename(filename, format) }
+  let(:file) { subject.user_job_result }
 
   before do
     SeedFu.quiet = true
     SeedFu.seed [Rails.root.join("db", "seeds")]
     participation
+
+    subject.enqueue!
+    subject.perform
   end
 
   context "exports csv files" do
@@ -44,8 +46,6 @@ describe Export::EventParticipationsExportJob do
     let(:params) { {filter: "all"} }
 
     it "and saves it" do
-      subject.perform
-
       lines = file.read.lines
       expect(lines.size).to eq(4)
 
@@ -60,8 +60,6 @@ describe Export::EventParticipationsExportJob do
     let(:params) { {filter: "all", nds_course: true} }
 
     it "and saves it" do
-      subject.perform
-
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_course_csv_header}\n")
@@ -76,8 +74,6 @@ describe Export::EventParticipationsExportJob do
     let(:params) { {filter: "all", nds_camp: true} }
 
     it "and saves it" do
-      subject.perform
-
       lines = file.read.lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_camp_csv_header}\n")
