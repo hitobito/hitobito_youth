@@ -23,6 +23,8 @@
 #
 
 class Event::Question::AhvNumber < Event::Question
+  self.template_editable = false
+
   def validate_answer(answer)
     validator = AhvNumberValidator.new(attributes: :answer)
     validator.validate(answer)
