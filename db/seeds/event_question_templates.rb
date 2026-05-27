@@ -13,7 +13,7 @@ Event::QuestionTemplate.seed_once(group_id: 1,
                                   event_type: nil,
                                   default: true,
                                   inherit: true,
-                                  question: Event::Question.seed_once(
+                                  question: Event::Question::AhvNumber.seed_once(
                                     available_locales({
                                       question_de: "AHV-Nummer?",
                                       question_fr: "Numéro AVS ?",
