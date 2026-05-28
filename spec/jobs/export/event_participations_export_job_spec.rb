@@ -30,7 +30,7 @@ describe Export::EventParticipationsExportJob do
     answer.update!(answer: "756.1234.5678.97")
     p
   end
-  let(:file) { subject.user_job_result }
+  let(:file) { subject.job_observation }
 
   before do
     SeedFu.quiet = true
