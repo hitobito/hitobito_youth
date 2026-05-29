@@ -6,6 +6,8 @@
 require "spec_helper"
 
 describe Export::EventParticipationsExportJob do
+  include JobObservationSpecHelper
+
   subject {
     Export::EventParticipationsExportJob.new(format,
       user.id,
@@ -46,7 +48,7 @@ describe Export::EventParticipationsExportJob do
     let(:params) { {filter: "all"} }
 
     it "and saves it" do
-      lines = file.read.lines
+      lines = read_data_from_generated_file(file).lines
       expect(lines.size).to eq(4)
 
       expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;zusätzliche Adresszeile;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Vater;Weitere E-Mail Mutter;Weitere E-Mail Andere;Weitere E-Mails Freitext;Telefonnummer Privat;Telefonnummer Mobil;Telefonnummer Arbeit;Telefonnummer Vater;Telefonnummer Mutter;Telefonnummer Fax;Telefonnummer Andere"))
@@ -60,7 +62,7 @@ describe Export::EventParticipationsExportJob do
     let(:params) { {filter: "all", nds_course: true} }
 
     it "and saves it" do
-      lines = file.read.lines
+      lines = read_data_from_generated_file(file).lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_course_csv_header}\n")
       expect(lines[3]).to eq("#{person_nds_csv_row}\n")
@@ -74,7 +76,7 @@ describe Export::EventParticipationsExportJob do
     let(:params) { {filter: "all", nds_camp: true} }
 
     it "and saves it" do
-      lines = file.read.lines
+      lines = read_data_from_generated_file(file).lines
       expect(lines.size).to eq(4)
       expect(lines[0]).to eq("#{Export::Csv::UTF8_BOM}#{nds_camp_csv_header}\n")
       expect(lines[0].split(";").count).to match(14)
