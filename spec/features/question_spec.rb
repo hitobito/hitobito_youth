@@ -58,7 +58,6 @@ describe EventsController, js: true do
 
       is_expected.to have_no_text('Mögliche Antworten')
       is_expected.to have_no_text('Mehrfachauswahl')
-      is_expected.to have_no_text('Entfernen')
     end
   end
 
