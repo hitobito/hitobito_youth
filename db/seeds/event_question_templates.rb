@@ -9,14 +9,24 @@ def available_locales(attrs)
   end
 end
 
-Event::QuestionTemplate.seed_once(group_id: 1,
-                                  event_type: nil,
-                                  default: true,
-                                  inherit: true,
-                                  question: Event::Question::AhvNumber.seed_once(
-                                    available_locales({
-                                      question_de: "AHV-Nummer?",
-                                      question_fr: "Numéro AVS ?",
-                                      question_it: "Numero AVS?"
-                                    })
-                                  ).first)
+# seed_once defaults to [:id], it runs WHERE id IS NULL and always creates a new record
+# We use :type and event_id as the constraint because we want to seed only one global question of that type
+question = Event::Question::AhvNumber.seed_once(
+  :type, :event_id,
+  event_id: nil,
+  type: Event::Question::AhvNumber.sti_name,
+  **available_locales({
+    question_de: "AHV-Nummer?",
+    question_fr: "Numéro AVS?",
+    question_it: "Numero AVS?"
+  })
+).first
+
+# We don't want to seed a question template with a question_id that already exists
+Event::QuestionTemplate.seed_once(:question_id,
+  group_id: Group.root_id,
+  question_id: question.id,
+  event_type: nil,
+  default: true,
+  inherit: true
+)
