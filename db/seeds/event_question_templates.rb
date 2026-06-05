@@ -29,4 +29,4 @@ Event::QuestionTemplate.seed_once(:question_id,
   event_type: nil,
   default: true,
   inherit: true
-)
+) if question
