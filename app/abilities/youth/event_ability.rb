@@ -7,7 +7,7 @@ module Youth::EventAbility
   extend ActiveSupport::Concern
 
   included do
-    on(Event::Course) do
+    on(Event) do
       permission(:any)
         .may(:index_revoked_participations, :list_tentatives)
         .for_participations_full_events
