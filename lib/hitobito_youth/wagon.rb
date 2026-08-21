@@ -77,6 +77,37 @@ module HitobitoYouth
 
       # serializer
       PersonSerializer.include Youth::PersonSerializer
+
+      # contact account categories (#4359): jubla/cevi/pbs data has heavy use
+      # of "Mutter"/"Vater"/"Eltern" (parent/guardian) phone numbers and
+      # emails that don't map to any core category.
+      require Rails.root.join("db", "seeds", "support", "contact_account_category_seeder.rb")
+
+      categories = ContactAccountCategorySeeder::CATEGORIES
+      categories["PhoneNumber"]["Person"].prepend(
+        {key: "mother", unique_per_contactable: true,
+         name: {de: "Mutter", fr: "Mère", it: "Madre", en: "Mother"}},
+        {key: "father", unique_per_contactable: true,
+         name: {de: "Vater", fr: "Père", it: "Padre", en: "Father"}}
+      )
+      categories["AdditionalEmail"]["Person"].prepend(
+        {key: "mother", unique_per_contactable: true,
+         name: {de: "Mutter", fr: "Mère", it: "Madre", en: "Mother"}},
+        {key: "father", unique_per_contactable: true,
+         name: {de: "Vater", fr: "Père", it: "Padre", en: "Father"}},
+        {key: "parents", unique_per_contactable: true,
+         name: {de: "Eltern", fr: "Parents", it: "Genitori", en: "Parents"}}
+      )
+
+      mother = ["mutter", "mama", "mamma", "mami", "maman", "madre"]
+      father = ["vater", "papa", "papi", "padre"]
+      label_key_mapping = ContactAccountCategoryMigrationJob::LABEL_KEY_MAPPING
+      label_key_mapping["PhoneNumber"]["Person"].merge!(mother:, father:)
+      label_key_mapping["AdditionalEmail"]["Person"].merge!(
+        mother:,
+        father:,
+        parents: ["eltern", "familie", "elern", "parent", "famille"]
+      )
     end
     # rubocop:enable Layout/LineLength
 
