@@ -108,10 +108,14 @@ describe Export::Tabular::People::ParticipationNdsRow do
   end
 
   def create_contactables(person)
-    Fabricate(:phone_number, contactable: person, label: 'Privat', number: '+41 31 111 12 13')
-    Fabricate(:phone_number, contactable: person, label: 'Arbeit', number: '+41 24 422 42 42')
-    Fabricate(:phone_number, contactable: person, label: 'Mobil', number: '+41 77 999 99 99')
-    Fabricate(:phone_number, contactable: person, label: 'Fax', number: '+41 33 333 33 33')
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_landline), number: '+41 31 111 12 13')
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_work), number: '+41 24 422 42 42')
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_mobile), number: '+41 77 999 99 99')
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_other), number: '+41 33 333 33 33')
   end
 
 end
