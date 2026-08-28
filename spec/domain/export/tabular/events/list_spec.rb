@@ -40,7 +40,7 @@ describe Export::Tabular::Events::List do
                  'Kontaktperson Ort', 'Kontaktperson Haupt-E-Mail', 'Kontaktperson Telefonnummern',
                  'Hauptleitung Name', 'Hauptleitung Adresse', 'Hauptleitung PLZ', 'Hauptleitung Ort',
                  'Hauptleitung Haupt-E-Mail', 'Hauptleitung Telefonnummern',
-                 'Motto', 'Kosten', 'Anmeldebeginn', 'Anmeldeschluss', 'Maximale Teilnehmerzahl',
+                 'Motto', 'Kosten', 'Anmeldebeginn', 'Anmeldeschluss', 'Maximale Teilnehmendenzahl',
                  'Externe Anmeldungen', 'Priorisierung', 'Ausbildungstage', 'Anzahl Leitungsteam',
                  'Anzahl Teilnehmende', 'Anzahl Anmeldungen', 'Anzahl Teilnehmende Männer',
                  'Anzahl Teilnehmende Frauen', 'Anzahl Abgemeldete', 'Anzahl Nicht erschienene',
