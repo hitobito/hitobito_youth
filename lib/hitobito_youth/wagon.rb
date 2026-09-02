@@ -83,14 +83,14 @@ module HitobitoYouth
       # emails that don't map to any core category.
       require Rails.root.join("db", "seeds", "support", "contact_account_category_seeder.rb")
 
-      categories = ContactAccountCategorySeeder::CATEGORIES
-      categories["PhoneNumber"]["Person"].prepend(
+      ContactAccountCategorySeeder.insert_before("PhoneNumber", "Person", "other",
         {key: "mother", unique_per_contactable: true,
          name: {de: "Mutter", fr: "Mère", it: "Madre", en: "Mother"}},
         {key: "father", unique_per_contactable: true,
          name: {de: "Vater", fr: "Père", it: "Padre", en: "Father"}}
       )
-      categories["AdditionalEmail"]["Person"].prepend(
+
+      ContactAccountCategorySeeder.insert_before("AdditionalEmail", "Person", "other",
         {key: "mother", unique_per_contactable: true,
          name: {de: "Mutter", fr: "Mère", it: "Madre", en: "Mother"}},
         {key: "father", unique_per_contactable: true,
