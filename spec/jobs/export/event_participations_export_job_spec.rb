@@ -49,9 +49,10 @@ describe Export::EventParticipationsExportJob do
 
     it "and saves it" do
       lines = read_data_from_generated_file(file).lines
+      puts lines[0]
       expect(lines.size).to eq(4)
 
-      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;zusätzliche Adresszeile;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Vater;Weitere E-Mail Mutter;Weitere E-Mail Andere;Weitere E-Mails Freitext;Telefonnummer Privat;Telefonnummer Mobil;Telefonnummer Arbeit;Telefonnummer Vater;Telefonnummer Mutter;Telefonnummer Fax;Telefonnummer Andere"))
+      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;zusätzliche Adresszeile;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Mutter;Weitere E-Mail Vater;Weitere E-Mail Eltern;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Rechnungsadresse;Weitere E-Mail Andere;Telefonnummer Mutter;Telefonnummer Vater;Telefonnummer Mobil;Telefonnummer Festnetz;Telefonnummer Arbeit;Telefonnummer Andere"))
       expect(lines[0].split(";").count).to match(28)
       expect(file.generated_file).to be_attached
     end
@@ -106,10 +107,14 @@ describe Export::EventParticipationsExportJob do
   end
 
   def create_contactables(person)
-    Fabricate(:phone_number, contactable: person, label: "Privat", number: "+41 31 123 45 11")
-    Fabricate(:phone_number, contactable: person, label: "Arbeit", number: "+41 32 123 45 42")
-    Fabricate(:phone_number, contactable: person, label: "Mobil", number: "+41 77 123 45 99")
-    Fabricate(:phone_number, contactable: person, label: "Fax", number: "+41 31 123 45 33")
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_landline), number: "+41 31 123 45 11")
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_work), number: "+41 32 123 45 42")
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_mobile), number: "+41 77 123 45 99")
+    Fabricate(:phone_number, contactable: person,
+      category: contact_account_categories(:phone_number_person_other), number: "+41 31 123 45 33")
   end
 
   def nds_course_csv_header
