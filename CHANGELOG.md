@@ -1,5 +1,9 @@
 # Hitobito Changelog
 
+## unreleased
+
+* Die Ausbildungs-Liste kann neu nach Name, Qualifikation und Geburtstag sortiert werden. (hitobito_sac_cas#2613)
+
 ## Version 2.4
 
 * AHV-Nummern wurden von der Person in die Antworten zu den aktuell laufenden Anlassteilnahmen verschoben. (hitobito_youth#59)
