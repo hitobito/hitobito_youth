@@ -52,7 +52,7 @@ describe Export::EventParticipationsExportJob do
       puts lines[0]
       expect(lines.size).to eq(4)
 
-      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;zusätzliche Adresszeile;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Mutter;Weitere E-Mail Vater;Weitere E-Mail Eltern;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Rechnungsadresse;Weitere E-Mail Andere;Telefonnummer Mutter;Telefonnummer Vater;Telefonnummer Mobil;Telefonnummer Festnetz;Telefonnummer Arbeit;Telefonnummer Andere"))
+      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;c/o-Adresse;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Mutter;Weitere E-Mail Vater;Weitere E-Mail Eltern;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Rechnungsadresse;Weitere E-Mail Andere;Telefonnummer Mutter;Telefonnummer Vater;Telefonnummer Mobil;Telefonnummer Festnetz;Telefonnummer Arbeit;Telefonnummer Andere"))
       expect(lines[0].split(";").count).to match(28)
       expect(file.generated_file).to be_attached
     end
