@@ -14,6 +14,7 @@ zeus.json
 
 # ignore Gemfile.lock for wagons
 Gemfile.lock
+Gemfile.local*
 
 # reports
 /coverage
