@@ -45,15 +45,15 @@ describe Export::Tabular::Events::BsvRow do
 
   def create_participations(course)
     year = course.dates.order(:start_at).first.start_at.year
-    create_participation(course, Date.new(y=year-16, m=12, d=31), 3000)
-    create_participation(course, Date.new(y=year-17, m=1, d=1), 4000)
-    create_participation(course, Date.new(y=year-30, m=12, d=31), 3000)
-    create_participation(course, Date.new(y=year-31, m=1, d=1), 3000)
-    create_participation(course, Date.new(y=year-25, m=6, d=6), '4000', false)
+    create_participation(course, Date.new(y=year-16, m=12, d=31), :be)
+    create_participation(course, Date.new(y=year-17, m=1, d=1), :zh)
+    create_participation(course, Date.new(y=year-30, m=12, d=31), :be)
+    create_participation(course, Date.new(y=year-31, m=1, d=1), :be)
+    create_participation(course, Date.new(y=year-25, m=6, d=6), :zh, false)
   end
 
-  def create_participation(course, birthday, zip_code = '3000', active = true)
-    person = Fabricate(:person, birthday: birthday, zip_code: zip_code)
+  def create_participation(course, birthday, canton = :be, active = true)
+    person = Fabricate(:person, birthday:, canton:)
     participation = Fabricate(:event_participation, event: course, participant: person)
     Fabricate(:'Event::Course::Role::Participant', participation: participation)
     state = active ? 'assigned' : 'absent'
