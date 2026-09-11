@@ -1,6 +1,6 @@
 # Hitobito Changelog
 
-## unreleased
+## Version 2.10
 
 * Die Ausbildungs-Liste kann neu nach Name, Qualifikation und Geburtstag sortiert werden. (hitobito_sac_cas#2613)
 
