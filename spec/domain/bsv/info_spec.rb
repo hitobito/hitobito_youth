@@ -45,7 +45,7 @@ describe Bsv::Info do
   end
 
   it '#participant_count includes participant of valid age and ch residence' do
-    create_participant(zip_code: 3000, birthday: Date.new(course_year - 18, 1, 1))
+    create_participant(canton: :be, birthday: Date.new(course_year - 18, 1, 1))
     expect(info.participant_count).to eq 1
   end
 
@@ -55,30 +55,30 @@ describe Bsv::Info do
   end
 
   it '#participant_count ignores participant born more than 30 years before course' do
-    create_participant(zip_code: 3000, birthday: Date.new(course_year - 31, 12, 31))
+    create_participant(canton: :be, birthday: Date.new(course_year - 31, 12, 31))
     expect(info.participant_count).to eq 0
   end
 
   it '#participant_count includes participant born less than 17 years before course' do
-    create_participant(zip_code: 3000, birthday: Date.new(course_year - 16, 1, 1))
+    create_participant(canton: :be, birthday: Date.new(course_year - 16, 1, 1))
     expect(info.participant_count).to eq 1
   end
 
   it '#participant_count ignores participant without birthday set' do
-    create_participant(zip_code: 3000)
+    create_participant(canton: :be)
     expect(info.participant_count).to eq 0
   end
 
   it '#participant_count ignores non active participant of valid age and ch residence' do
-    participant = create_participant(zip_code: 3000, birthday: Date.new(course_year - 18, 1, 1))
+    participant = create_participant(canton: :be, birthday: Date.new(course_year - 18, 1, 1))
     participant.participation.update_column(:active, false)
     expect(info.participant_count).to eq 0
   end
 
   it '#canton_count counts distinct cantons of participants aged under 30' do
-    create_participant(zip_code: 3000, birthday: Date.new(course_year - 18, 1, 1))
-    create_participant(zip_code: 3000, birthday: Date.new(course_year - 18, 1, 1))
-    create_participant(zip_code: 4000, birthday: Date.new(course_year - 18, 1, 1))
+    create_participant(canton: :be, birthday: Date.new(course_year - 18, 1, 1))
+    create_participant(canton: :be, birthday: Date.new(course_year - 18, 1, 1))
+    create_participant(canton: :zh, birthday: Date.new(course_year - 18, 1, 1))
     create_participant(birthday: Date.new(course_year - 18, 1, 1))
     expect(info.canton_count).to eq 2
   end
