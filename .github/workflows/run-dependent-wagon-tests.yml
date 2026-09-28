@@ -29,13 +29,40 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }} # never cancel runs triggered by the main branch, to allow finding the exact merge that broke a wagon
 
 jobs:
-  dependent_wagon_tests:
-    uses: hitobito/hitobito/.github/workflows/run-dependent-wagon-tests.yml@master
+  find-dependent-wagons:
+    if: ${{ !(github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name != 'run-wagon-tests!') }}
+    uses: hitobito/hitobito/.github/workflows/find-dependent-wagons.yml@master
+
+  run-wagon-tests:
+    name: 'Run ${{ matrix.wagon.name }} wagon tests'
+    needs:
+      - find-dependent-wagons
+    strategy:
+      fail-fast: false
+      matrix:
+        wagon: ${{ fromJSON(needs.find-dependent-wagons.outputs.wagons) }}
+      max-parallel: 5 # needed so the wagon matrix does not occupy all the runners at once
+
+    uses: hitobito/hitobito/.github/workflows/wagon-tests.yml@master
     with:
-      dependency_wagon_repository: ${{ github.event.repository.name }}
-      dependency_wagon_ref: ${{ inputs.dependency_wagon_ref || github.ref }}
+      wagon_repository: ${{ matrix.wagon.repo }}
       core_ref: ${{ inputs.core_ref || '' }}
       wagon_ref: ${{ inputs.wagon_ref || '' }}
+      wagon_dependency_ref: ${{ inputs.dependency_wagon_ref || github.ref }}
     secrets:
       HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
       HEARTBEAT_TOKEN: ${{ secrets.HEARTBEAT_TOKEN }}
+
+  summary:
+    needs:
+      - find-dependent-wagons
+      - run-wagon-tests
+    # This job must run in every run of this workflow, including the ones where
+    # the matrix was never built, because a job skipped by a condition reports
+    # as successful to the branch protection. Skipping it would turn a pull
+    # request that never ran the wagon tests into a mergeable one.
+    if: ${{ !cancelled() }}
+    uses: hitobito/hitobito/.github/workflows/dependent-wagon-tests-green.yml@master
+    with:
+      find_wagons_result: ${{ needs.find-dependent-wagons.result }}
+      wagon_tests_result: ${{ needs.run-wagon-tests.result }}
