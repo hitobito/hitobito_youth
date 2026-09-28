@@ -1,0 +1,41 @@
+name: 'Run the tests of all wagons depending on this wagon'
+
+on:
+  workflow_dispatch:
+    inputs:
+      core_ref:
+        description: Use a specific version of the core for the workflow run. Defaults to the branch of the triggering ref, or master.
+        type: string
+        default: ''
+      dependency_wagon_ref:
+        description: Use a specific version of this wagon for the workflow run. Defaults to the branch this workflow is started from.
+        type: string
+        default: ''
+      wagon_ref:
+        description: Use a specific version of the dependent wagons for the workflow run. Defaults to the branch of the triggering ref, or master.
+        type: string
+        default: ''
+  push:
+    branches: [ master, stable ]
+    paths-ignore:
+      - 'doc/**'
+      - '**.md'
+      - 'VERSION'
+  pull_request:
+    types: [ labeled ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} # auto-cancel previous runs of this same workflow on the same PR, if any are still running
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }} # never cancel runs triggered by the main branch, to allow finding the exact merge that broke a wagon
+
+jobs:
+  dependent_wagon_tests:
+    uses: hitobito/hitobito/.github/workflows/run-dependent-wagon-tests.yml@master
+    with:
+      dependency_wagon_repository: ${{ github.event.repository.name }}
+      dependency_wagon_ref: ${{ inputs.dependency_wagon_ref || github.ref }}
+      core_ref: ${{ inputs.core_ref || '' }}
+      wagon_ref: ${{ inputs.wagon_ref || '' }}
+    secrets:
+      HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
+      HEARTBEAT_TOKEN: ${{ secrets.HEARTBEAT_TOKEN }}
