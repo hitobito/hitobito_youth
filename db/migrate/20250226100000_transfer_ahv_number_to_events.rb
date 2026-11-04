@@ -23,9 +23,9 @@ class TransferAhvNumberToEvents < ActiveRecord::Migration[7.1]
     # end
 
     # # remove_column does not known about CASCADE
-    # execute(<<~SQL.squish)
-    #   ALTER TABLE "people" DROP COLUMN "ahv_number" CASCADE
-    # SQL
+    execute(<<~SQL.squish)
+      ALTER TABLE "people" DROP COLUMN "ahv_number" CASCADE
+    SQL
   end
 
   def down
