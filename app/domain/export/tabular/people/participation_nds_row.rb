@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2024, Pfadibewegung Schweiz. This file is part of
+#  Copyright (c) 2012-2026, Pfadibewegung Schweiz. This file is part of
 #  hitobito_youth and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_youth.
@@ -67,7 +67,7 @@ module Export::Tabular::People
     end
 
     def email_work
-      additional_email("Arbeit")
+      additional_email(:work)
     end
 
     def first_language
@@ -96,8 +96,9 @@ module Export::Tabular::People
 
     private
 
-    def additional_email(label)
-      entry.additional_emails.find_by(label: label).try(:email)
+    def additional_email(category_key)
+      entry.additional_emails.joins(:category)
+        .find_by(contact_account_categories: {key: category_key})&.email
     end
   end
 end

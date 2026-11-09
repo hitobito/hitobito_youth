@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2024, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2012-2026, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -37,6 +37,17 @@ describe Export::Tabular::People::ParticipationNdsRow do
   it { expect(row.fetch(:email)).to eq 'foo@example.com' }
   it { expect(row.fetch(:email_official)).to be_nil }
   it { expect(row.fetch(:email_work)).to be_nil }
+
+  context 'with additional emails' do
+    before do
+      Fabricate(:additional_email, contactable: person, email: 'private@example.com',
+        category: contact_account_categories(:additional_email_person_private))
+      Fabricate(:additional_email, contactable: person, email: 'work@example.com',
+        category: contact_account_categories(:additional_email_person_work))
+    end
+
+    it { expect(row.fetch(:email_work)).to eq 'work@example.com' }
+  end
 
   context 'with nationality_j_s ANDERE' do
     let(:person) do
