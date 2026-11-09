@@ -97,8 +97,7 @@ module Export::Tabular::People
     private
 
     def additional_email(category_key)
-      entry.additional_emails.joins(:category)
-        .find_by(contact_account_categories: {key: category_key})&.email
+      entry.additional_emails.with_category_key(category_key).first&.email
     end
   end
 end
