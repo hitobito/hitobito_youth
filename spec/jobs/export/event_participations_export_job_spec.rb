@@ -1,4 +1,4 @@
-#  Copyright (c) 2017-2024, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2017-2026, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -52,8 +52,8 @@ describe Export::EventParticipationsExportJob do
       puts lines[0]
       expect(lines.size).to eq(4)
 
-      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;c/o-Adresse;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Mutter;Weitere E-Mail Vater;Weitere E-Mail Eltern;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Rechnungsadresse;Weitere E-Mail Andere;Telefonnummer Mutter;Telefonnummer Vater;Telefonnummer Mobil;Telefonnummer Festnetz;Telefonnummer Arbeit;Telefonnummer Andere"))
-      expect(lines[0].split(";").count).to match(28)
+      expect(lines[0]).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Vorname;Nachname;Übername;Firmenname;Firma;Haupt-E-Mail;c/o-Adresse;Adresszusatz;Strasse;Hausnummer;Postfach;PLZ;Ort;Land;Hauptebene;Rollen;Weitere E-Mail Mutter;Weitere E-Mail Vater;Weitere E-Mail Eltern;Weitere E-Mail Privat;Weitere E-Mail Arbeit;Weitere E-Mail Rechnungsadresse;Weitere E-Mail Andere;Telefonnummer Mutter;Telefonnummer Vater;Telefonnummer Mobil;Telefonnummer Festnetz;Telefonnummer Arbeit;Telefonnummer Andere"))
+      expect(lines[0].split(";").count).to match(29)
       expect(file.generated_file).to be_attached
     end
   end
